@@ -46,6 +46,19 @@ function geot_pro_default() {
 }
 
 
+function geot_wp_parse_args( &$a, $b ) {
+	$a = (array) $a;
+	$b = (array) $b;
+	$result = $b;
+	foreach ( $a as $k => &$v ) {
+		if ( is_array( $v ) && isset( $result[ $k ] ) ) {
+			$result[ $k ] = geot_wp_parse_args( $v, $result[ $k ] );
+		} else {
+			$result[ $k ] = $v;
+		}
+	}
+	return $result;
+}
 
 function geot_version_compare($version1, $version2, $operator = null) {
 	$p = '#(\.0+)+($|-)#';

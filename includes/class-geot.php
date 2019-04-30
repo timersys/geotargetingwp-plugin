@@ -169,7 +169,9 @@ class Geot {
 		$this->register_shortcodes();
 		$this->set_objects_admin();
 		$this->register_ajax_calls();
-		$this->apply_rules();
+		$this->set_rules();
+
+		$this->set_addons();
 	}
 
 	/**
@@ -177,15 +179,13 @@ class Geot {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - GeoTarget_Loader. Orchestrates the hooks of the plugin.
-	 * - GeoTarget_i18n. Defines internationalization functionality.
-	 * - GeoTarget_Admin. Defines all hooks for the dashboard.
-	 * - GeoTarget_Public. Defines all hooks for the public side of the site.
-	 * - GeoTarget_Function. Defines all main functions for targeting
-	 * - GeoTarget_Filters. Defines all main filters helpers
-	 * - GeoTarget_shortcodes. Defines all plugin shortcodes
-	 * - GeoTarget_Widget. Defines plugin widget
-	 * - GeoTarget_Widgets. Target all widgets with geot
+	 * - Geot_i18n. Defines internationalization functionality.
+	 * - Geot_Admin. Defines all hooks for the dashboard.
+	 * - Geot_Public. Defines all hooks for the public side of the site.
+	 * - Geot_Function. Defines all main functions for targeting
+	 * - Geot_shortcodes. Defines all plugin shortcodes
+	 * - Geot_Widget. Defines plugin widget
+	 * - Geot_Widgets. Target all widgets with geot
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -251,6 +251,7 @@ class Geot {
 		$this->admin 	= new Geot_Admin();
 		$this->updater 	= new Geot_Updater();
 		$this->widget 	= new Geot_Widgets();
+		$this->menus = new Geot_Menus();
 
 	}
 
@@ -269,8 +270,6 @@ class Geot {
 
 		$this->elementor = new Geot_Elementor();
 		$this->divi = new Geot_Divi();
-
-		$this->menus = new Geot_Menus();
 		$this->taxs = new Geot_Taxonomies();
 	}
 
@@ -288,7 +287,7 @@ class Geot {
 	}
 
 
-	private function apply_rules() {
+	private function set_rules() {
 		// Popups rules // PENDIENTE
 		add_action( 'spu/rules/print_geot_country_field', [ 'Spu_Helper', 'print_select' ], 10, 2 );
 		add_action( 'spu/rules/print_geot_country_region_field', [ 'Spu_Helper', 'print_select' ], 10, 2 );
@@ -296,4 +295,35 @@ class Geot {
 		add_action( 'spu/rules/print_geot_state_field', [ 'Spu_Helper', 'print_textfield' ], 10, 1 );
 	}
 
+
+	public function set_addons() {
+		$defaults = [ 'addons' =>
+						[
+							'geo-flags'		=> '0',
+							'geo-links'		=> '0',
+							'geo-redirects'	=> '0',
+							'geo-blocker'	=> '0',
+						]
+					];
+
+		$defaults = apply_filters('geot/addons/defaults', $defaults);
+
+		$opts = geot_pro_settings();
+		$opts = geot_wp_parse_args( $opts,  $defaults );
+
+		update_option('kalex561', print_r($opts,true));
+
+		foreach($opts['addons'] as $key => $value) {
+			if( $value != 1 ) continue;
+
+			$addon_index = GEOT_ADDONS_DIR . $key . '/' . $key . '.php';
+
+			update_option('kalex562', print_r($addon_index,true));
+
+			if( file_exists( $addon_index ) )
+				require $addon_index;
+			else
+				update_option('kalex566', 'no hay');
+		}
+	}
 }

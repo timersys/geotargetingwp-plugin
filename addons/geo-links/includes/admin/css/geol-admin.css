@@ -1,0 +1,20 @@
+div.geol_border {
+	border: 1px solid #CCCCCC;
+	padding: 0 20px;
+}
+
+table.geol_repeater tr#dest_0 td a.geol_less {
+	visibility: hidden;
+}
+
+.box_plus, .box_less {
+	padding: 2px 0;
+}
+
+table.wp-list-table .column-count_click {
+	width: 8%;
+}
+
+table.wp-list-table .column-shortcode input {
+	width: 100%;
+}

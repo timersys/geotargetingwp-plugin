@@ -21,6 +21,7 @@
     "prefer-stable": true,
     "type": "wordpress-plugin",
     "require": {
-        "timersys/geot-functions": "dev-master"
+        "timersys/geot-functions": "dev-master",
+        "mobiledetect/mobiledetectlib": "^2.8"
     }
 }
