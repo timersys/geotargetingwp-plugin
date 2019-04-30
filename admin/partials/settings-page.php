@@ -1,6 +1,9 @@
 <div class="wrap geot-settings">
 	<form name="geot-settings" method="post" enctype="multipart/form-data">
 		<table class="form-table">
+
+			<?php do_action('geot/settings/before', $opts); ?>
+			
 			<tr valign="top" class="geot-settings-title">
 				<th colspan="3"><h3><?php _e( 'Geotargeting Pro settings:', 'geot' ); ?></h3></th>
 			</tr>
@@ -25,6 +28,8 @@
 						<p class="help"><?php _e( 'Check this to remove geotargeting options from widgets', 'geot'); ?></p>
 				</td>
 			</tr>
+
+			<?php do_action('geot/settings/after', $opts); ?>
 
 			<tr><td><input type="submit" class="button-primary" value="<?php _e( 'Save settings', 'geot' );?>"/></td>
 				<?php wp_nonce_field('geot_pro_save_settings','geot_nonce'); ?>

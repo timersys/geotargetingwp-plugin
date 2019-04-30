@@ -78,7 +78,6 @@ class Geot_Public {
 	public function enqueue_styles() {
 
 		wp_enqueue_style( 'geot-css', plugin_dir_url( __FILE__ ) . 'css/geotarget-public.css', array(), false, 'all' );
-
 	}
 
 	/**
@@ -106,7 +105,6 @@ class Geot_Public {
 			'dropdown_search'	=> apply_filters('geot/dropdown_widget/disable_search', false ),
 			'dropdown_redirect'	=> apply_filters('geot/dropdown_widget/redirect_url', '' ),
 		) );
-
 	}
 
 
@@ -193,9 +191,7 @@ class Geot_Public {
 		} else {
 
 			return !geot_target( $rule['value'] );
-
 		}
-
 	}
 
 	/**
@@ -212,9 +208,7 @@ class Geot_Public {
 		} else {
 
 			return !geot_target('',$rule['value']);
-
 		}
-
 	}
 
 	/**
@@ -230,7 +224,6 @@ class Geot_Public {
 		} else {
 
 			return !geot_target_city('',$rule['value'],'','');
-
 		}
 
 	}
@@ -248,9 +241,7 @@ class Geot_Public {
 		} else {
 
 			return !geot_target_state($rule['value'],'');
-
 		}
-
 	}
 
 	/**
@@ -426,5 +417,4 @@ class Geot_Public {
 		<!-- Geotargeting plugin Debug Info END-->
 		<?php
 	}
-
 }

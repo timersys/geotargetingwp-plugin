@@ -113,12 +113,7 @@ class GeoLinks {
 	 */
 	public function __construct() {
 
-		$this->plugin_name = 'geol';
-		$this->version     = GEOL_VERSION;
-
 		$this->load_dependencies();
-		GeotSettings::init();
-
 		$this->set_locale();
 		$this->set_objects();
 	}
@@ -130,16 +125,16 @@ class GeoLinks {
 	 */
 	private function load_dependencies() {
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/functions.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-geolinks-i18n.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/class-geolinks-cache.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/global/class-geolinks-cpt.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/class-geolinks-permalinks.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/class-geolinks-settings.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/class-geolinks-notices.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/class-geolinks-admin.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/class-geolinks-ajax.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/public/class-geolinks-redirect.php';
+		require_once GEOL_PLUGIN_DIR . 'includes/functions.php';
+		require_once GEOL_PLUGIN_DIR . 'includes/class-geolinks-i18n.php';
+		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-cache.php';
+		require_once GEOL_PLUGIN_DIR . 'includes/global/class-geolinks-cpt.php';
+		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-permalinks.php';
+		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-settings.php';
+		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-notices.php';
+		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-admin.php';
+		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-ajax.php';
+		require_once GEOL_PLUGIN_DIR . 'includes/public/class-geolinks-redirect.php';
 	}
 
 	/**
@@ -168,6 +163,4 @@ class GeoLinks {
 		$this->settings = new GeoLinks_Settings();
 		$this->redirect = new Geol_Redirects();
 	}
-
-
 }

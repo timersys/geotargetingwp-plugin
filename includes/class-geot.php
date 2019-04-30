@@ -311,19 +311,13 @@ class Geot {
 		$opts = geot_pro_settings();
 		$opts = geot_wp_parse_args( $opts,  $defaults );
 
-		update_option('kalex561', print_r($opts,true));
-
 		foreach($opts['addons'] as $key => $value) {
 			if( $value != 1 ) continue;
 
 			$addon_index = GEOT_ADDONS_DIR . $key . '/' . $key . '.php';
 
-			update_option('kalex562', print_r($addon_index,true));
-
 			if( file_exists( $addon_index ) )
 				require $addon_index;
-			else
-				update_option('kalex566', 'no hay');
 		}
 	}
 }
