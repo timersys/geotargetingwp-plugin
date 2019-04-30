@@ -258,7 +258,10 @@ class Geot_Admin {
 
 			update_option( 'geot_pro_settings' ,  $settings);
 
-			header("Refresh:0");
+			if( isset( $_GET['view'] ) && 'geotargeting-addons' == $_GET['view'] ) {
+				wp_redirect(admin_url('admin.php?page=geot-settings&view=geotargeting-addons'));
+				exit;
+			}
 		}
 	}
 
