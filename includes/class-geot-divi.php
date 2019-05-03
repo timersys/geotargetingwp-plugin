@@ -187,8 +187,11 @@ class Geot_Divi {
 	 */
 	public function render( $output, $render_slug, $module ) {
 
-		/*if( 'et_pb_section' !== $render_slug )
-			return $output;*/
+		global $et_fb_processing_shortcode_object;
+
+		// if is builder / edit mode
+		if( $et_fb_processing_shortcode_object == 1 )
+			return $output;
 
 		$geot_opts     = geot_pro_settings();
 		$reg_countries = array_values( self::get_regions( 'country' ) );
