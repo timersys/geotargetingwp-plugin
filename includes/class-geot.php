@@ -47,6 +47,11 @@ class Geot {
 	public $admin;
 
 	/**
+	 * @var Geot_Settings $settings
+	 */
+	public $settings;
+
+	/**
 	 * @var Geot_Updater $updater
 	 */
 	public $updater;
@@ -66,19 +71,11 @@ class Geot {
 	 */
 	public $taxs;
 
-
-	/**
-	 * @var mixed|void Geotarget settings
-	 */
-	public $opts;
-	public $geot_opts;
-
 	/**
 	 * Instance of GetFunctions
 	 * @var object
 	 */
 	public $functions;
-
 
 	/**
 	 * Plugin Instance
@@ -161,8 +158,6 @@ class Geot {
 
 		$this->load_dependencies();
 		GeotSettings::init();
-		$this->opts = geot_settings();
-		$this->geot_opts = geot_pro_settings();
 
 		$this->set_locale();
 		$this->set_objects_public();
@@ -170,7 +165,6 @@ class Geot {
 		$this->set_objects_admin();
 		$this->register_ajax_calls();
 		$this->set_rules();
-
 		$this->set_addons();
 	}
 
@@ -214,6 +208,7 @@ class Geot {
 
 		if( is_admin() ) {
 			require_once GEOT_PLUGIN_DIR . 'admin/class-geot-admin.php';
+			require_once GEOT_PLUGIN_DIR . 'admin/class-geot-settings.php';
 			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-dropdown-widget.php';
 			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-widgets.php';
 			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-menus.php';	
@@ -249,6 +244,7 @@ class Geot {
 		if( !is_admin() ) return;
 
 		$this->admin 	= new Geot_Admin();
+		$this->settings = new Geot_Settings();
 		$this->updater 	= new Geot_Updater();
 		$this->widget 	= new Geot_Widgets();
 		$this->menus = new Geot_Menus();
@@ -264,13 +260,13 @@ class Geot {
 	 */
 	private function set_objects_public() {
 
-		$this->public   = new Geot_Public();
-		$this->vc       = new Geot_VC();
-		$this->gutenberg = new Geot_Gutenberg();
+		$this->public 		= new Geot_Public();
+		$this->vc 			= new Geot_VC();
+		$this->gutenberg 	= new Geot_Gutenberg();
 
-		$this->elementor = new Geot_Elementor();
-		$this->divi = new Geot_Divi();
-		$this->taxs = new Geot_Taxonomies();
+		$this->elementor 	= new Geot_Elementor();
+		$this->divi 		= new Geot_Divi();
+		$this->taxs 		= new Geot_Taxonomies();
 	}
 
 	/**
@@ -278,10 +274,14 @@ class Geot {
 	 * @access   private
 	 */
 	private function register_shortcodes() {
-		$shortcodes = new Geot_Shortcodes();
-		$ajax_shortcodes = new Geot_Ajax_Shortcodes();
+		$shortcodes 		= new Geot_Shortcodes();
+		$ajax_shortcodes 	= new Geot_Ajax_Shortcodes();
 	}
 
+	/**
+	 * Register Ajax Calls
+	 * @access   private
+	 */
 	private function register_ajax_calls() {
 		$this->ajax = new Geot_Ajax();
 	}
@@ -297,24 +297,22 @@ class Geot {
 
 
 	public function set_addons() {
-		$defaults = [ 'addons' =>
-						[
-							'geo-flags'		=> '0',
-							'geo-links'		=> '0',
-							'geo-redirects'	=> '0',
-							'geo-blocker'	=> '0',
-						]
+		$defaults = [ 
+						'geo-flags'		=> '0',
+						'geo-links'		=> '0',
+						'geo-redirects'	=> '0',
+						'geo-blocker'	=> '0',
 					];
 
 		$defaults = apply_filters('geot/addons/defaults', $defaults);
 
-		$opts = geot_pro_settings();
+		$opts = geot_pro_addons();
 		$opts = geot_wp_parse_args( $opts,  $defaults );
 
-		foreach($opts['addons'] as $key => $value) {
+		foreach($opts as $key => $value) {
 			if( $value != 1 ) continue;
 
-			$addon_index = GEOT_ADDONS_DIR . $key . '/' . $key . '.php';
+			$addon_index = apply_filters('geot/addons/file', GEOT_ADDONS_DIR . $key . '/' . $key . '.php');
 
 			if( file_exists( $addon_index ) )
 				require $addon_index;

@@ -38,9 +38,6 @@ class Geot_Admin {
 		// register dropdown widget
 		add_action( 'widgets_init', [ $this, 'register_widgets' ] );
 
-		// settings page
-		add_action( 'admin_init', [ $this, 'save_settings' ] );
-
 		// Add geot to Advanced custom fields plugin
 		add_action( 'acf/include_field_types', [ $this, 'add_geot_to_acfv5' ] );
 		add_action( 'acf/register_fields', [ $this, 'add_geot_to_acfv4' ] );
@@ -49,9 +46,6 @@ class Geot_Admin {
 		add_action( 'save_post', [ $this, 'save_meta_options' ] , 20 );
 
 		add_filter('geot/plugin_version', function (){ return GEOT_VERSION;});
-		add_filter('geot/settings_tabs', [$this, 'add_tab']);
-		add_action('geot/settings_geotargeting-pro_panel', [ $this, 'settings_page'] );
-		add_action('geot/settings_geotargeting-addons_panel', [ $this, 'addons_page'] );
 	}
 
 
@@ -203,66 +197,4 @@ class Geot_Admin {
 
 		include GEOT_PLUGIN_DIR . 'admin/includes/acf-geot-v4.php';
 	}
-
-
-	/**
-	 * Register tab for settings page
-	 * @param $tabs
-	 *
-	 * @return mixed
-	 */
-	function add_tab( $tabs ){
-		$tabs['geotargeting-pro'] = ['name' => 'Geotargeting Pro'];
-		$tabs['geotargeting-addons'] = ['name' => 'AddOns'];
-		return $tabs;
-	}
-
-	/**
-	 * Render settings page
-	 */
-	function settings_page(){
-		$defaults = [
-			'ajax_mode'                 => '0',
-			'disable_menu_integration'  => '0',
-			'disable_widget_integration'=> '0',
-		];
-		$opts = geot_pro_settings();
-		$opts = wp_parse_args( $opts,  $defaults );
-		include GEOT_PLUGIN_DIR .'admin/partials/settings-page.php';
-	}
-
-
-	/**
-	 * Render Addons page
-	 */
-	function addons_page() {
-		$defaults = [ 'addons' =>
-						[
-							'geo-flags'		=> '0',
-							'geo-links'		=> '0',
-							'geo-redirects'	=> '0',
-							'geo-blocker'	=> '0',
-						]
-					];
-
-		$defaults = apply_filters('geot/addons/defaults', $defaults);
-
-		$opts = geot_pro_settings();
-		$opts = geot_wp_parse_args( $opts,  $defaults );
-		include GEOT_PLUGIN_DIR .'admin/partials/addons-page.php';
-	}
-
-	function save_settings(){
-		if (  isset( $_POST['geot_nonce'] ) && wp_verify_nonce( $_POST['geot_nonce'], 'geot_pro_save_settings' ) ) {
-			$settings = isset($_POST['geot_settings']) ? esc_sql( $_POST['geot_settings'] ) : '';
-
-			update_option( 'geot_pro_settings' ,  $settings);
-
-			if( isset( $_GET['view'] ) && 'geotargeting-addons' == $_GET['view'] ) {
-				wp_redirect(admin_url('admin.php?page=geot-settings&view=geotargeting-addons'));
-				exit;
-			}
-		}
-	}
-
 }
