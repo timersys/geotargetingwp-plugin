@@ -125,7 +125,7 @@ class Geobl_Metaboxes{
 
 	    $groups = apply_filters('geobl/metaboxes/get_rules', Geobl_Helper::get_rules( $post->ID ), $post->ID);
 
-        include GEOBL_DIR . '/admin/partials/metaboxes/rules.php';
+        include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
     }
 
     /**
@@ -138,7 +138,7 @@ class Geobl_Metaboxes{
 
         $opts = apply_filters('geobl/metaboxes/get_options', Geobl_Helper::get_options( $post->ID ), $post->ID);
 
-        include GEOBL_DIR . '/admin/partials/metaboxes/opts.php';
+        include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
     }
 
 }

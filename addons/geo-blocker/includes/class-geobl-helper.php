@@ -489,7 +489,7 @@ class Geobl_Helper {
 		$located = Geobl_Helper::get_template_from_theme($id);
 		// use default one
 		if ( ! $located )
-			$located = GEOBL_DIR. '/public/partials/geobl-template.php';
+			$located = GEOBL_PLUGIN_DIR. '/public/partials/geobl-template.php';
 		
 		// Allow 3rd party plugin filter template file from their plugin.
 		$located = apply_filters( 'geobl/include_template', $located, $args);
