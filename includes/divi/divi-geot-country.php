@@ -35,7 +35,7 @@ class Divi_GeoCountry {
 			'type'            => 'multiple_checkboxes',
 			'option_category' => 'configuration',
 			'description'     => esc_html__( 'Choose region name to show content to.', 'geot' ),
-			'options'         => GeoTarget_Divi::get_regions( 'country' ),
+			'options'         => Geot_Divi::get_regions( 'country' ),
 			'option_category' => 'configuration',
 			'tab_slug'        => 'geot',
 		];
@@ -53,7 +53,7 @@ class Divi_GeoCountry {
 			'type'            => 'multiple_checkboxes',
 			'option_category' => 'configuration',
 			'description'     => esc_html__( 'Choose region name to show content to.', 'geot' ),
-			'options'         => GeoTarget_Divi::get_regions( 'country' ),
+			'options'         => Geot_Divi::get_regions( 'country' ),
 			'tab_slug'        => 'geot',
 		];
 
@@ -70,8 +70,8 @@ class Divi_GeoCountry {
 
 		extract( $settings );
 
-		$in_regions = GeoTarget_Divi::format_regions( $in_region_countries, '|', $regions );
-		$ex_regions = GeoTarget_Divi::format_regions( $ex_region_countries, '|', $regions );
+		$in_regions = Geot_Divi::format_regions( $in_region_countries, '|', $regions );
+		$ex_regions = Geot_Divi::format_regions( $ex_region_countries, '|', $regions );
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
 		     count( $in_regions ) == 0 && count( $ex_regions ) == 0
@@ -98,8 +98,8 @@ class Divi_GeoCountry {
 
 		extract( $settings );
 
-		$in_regions = GeoTarget_Divi::format_regions( $in_region_countries, '|', $regions );
-		$ex_regions = GeoTarget_Divi::format_regions( $ex_region_countries, '|', $regions );
+		$in_regions = Geot_Divi::format_regions( $in_region_countries, '|', $regions );
+		$ex_regions = Geot_Divi::format_regions( $ex_region_countries, '|', $regions );
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
 		     count( $in_regions ) == 0 && count( $ex_regions ) == 0

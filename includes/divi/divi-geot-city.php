@@ -35,7 +35,7 @@ class Divi_GeoCity {
 			'type'            => 'multiple_checkboxes',
 			'option_category' => 'configuration',
 			'description'     => esc_html__( 'Choose region name to show content to.', 'geot' ),
-			'options'         => GeoTarget_Divi::get_regions( 'city' ),
+			'options'         => Geot_Divi::get_regions( 'city' ),
 			'tab_slug'        => 'geot',
 		];
 
@@ -52,7 +52,7 @@ class Divi_GeoCity {
 			'type'            => 'multiple_checkboxes',
 			'option_category' => 'configuration',
 			'description'     => esc_html__( 'Choose region name to show content to.', 'geot' ),
-			'options'         => GeoTarget_Divi::get_regions( 'city' ),
+			'options'         => Geot_Divi::get_regions( 'city' ),
 			'tab_slug'        => 'geot',
 		];
 
@@ -69,8 +69,8 @@ class Divi_GeoCity {
 
 		extract( $settings );
 
-		$in_regions = GeoTarget_Divi::format_regions( $in_region_cities, '|', $regions );
-		$ex_regions = GeoTarget_Divi::format_regions( $ex_region_cities, '|', $regions );
+		$in_regions = Geot_Divi::format_regions( $in_region_cities, '|', $regions );
+		$ex_regions = Geot_Divi::format_regions( $ex_region_cities, '|', $regions );
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
 		     count( $in_regions ) == 0 && count( $ex_regions ) == 0
@@ -98,8 +98,8 @@ class Divi_GeoCity {
 
 		extract( $settings );
 
-		$in_regions = GeoTarget_Divi::format_regions( $in_region_cities, '|', $regions );
-		$ex_regions = GeoTarget_Divi::format_regions( $ex_region_cities, '|', $regions );
+		$in_regions = Geot_Divi::format_regions( $in_region_cities, '|', $regions );
+		$ex_regions = Geot_Divi::format_regions( $ex_region_cities, '|', $regions );
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
 		     count( $in_regions ) == 0 && count( $ex_regions ) == 0
