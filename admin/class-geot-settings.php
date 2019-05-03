@@ -57,9 +57,7 @@ class Geot_Settings {
 			'disable_widget_integration'=> '0',
 		];
 		$opts = geot_pro_settings();
-		update_option('kalex583', print_r($opts,true));
 		$opts = wp_parse_args( $opts,  $defaults );
-		update_option('kalex584', print_r($opts,true));
 
 		$return = 'admin.php?'.http_build_query( $_GET );
 
@@ -93,8 +91,6 @@ class Geot_Settings {
 			//Settings
 			if( isset($_POST['geot_settings']) ) {
 				$settings = isset($_POST['geot_settings']) ? esc_sql( $_POST['geot_settings'] ) : '';
-				update_option('kalex581', print_r($_POST,true));
-				update_option('kalex582', print_r($settings,true));
 				update_option( 'geot_pro_settings' ,  $settings);
 			}
 
