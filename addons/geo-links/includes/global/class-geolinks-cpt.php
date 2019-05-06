@@ -272,7 +272,7 @@ class Geolinks_Cpt {
 
 		$input['status_code'] = is_numeric( $opts['status_code'] ) ? sanitize_title( $opts['status_code'] ) : '302';
 
-		$input['dest_default'] = !empty( $opts['dest_default'] ) ? esc_url( $opts['dest_default'] ) : '';
+		$input['dest_default'] = !empty( $opts['dest_default'] ) ? esc_url_raw( $opts['dest_default'] ) : '';
 
 		// Counters
 		if( isset($settings['opt_stats']) && $settings['opt_stats'] == 1 ) {
@@ -285,14 +285,14 @@ class Geolinks_Cpt {
 			$i = 0;
 			foreach ( $opts['dest'] as $data ) {
 				$key                              = 'dest_' . $i;
-				$input['dest'][ $key ]['url']		= esc_url( $data['url'] );
+				$input['dest'][ $key ]['url']		= esc_url_raw( $data['url'] );
 				$input['dest'][ $key ]['countries']	= isset($data['countries']) ? array_map('esc_attr', $data['countries'] ) : [];
 				$input['dest'][ $key ]['regions']	= isset($data['regions']) ? array_map('esc_attr', $data['regions'] ) : [];
 				$input['dest'][ $key ]['zipcodes']	= esc_attr( $data['zipcodes'] );
 				$input['dest'][ $key ]['states']	= esc_attr( $data['states'] );
 				$input['dest'][ $key ]['cities']	= esc_attr( $data['cities'] );
 				$input['dest'][ $key ]['device']	= esc_attr( $data['device'] );
-				$input['dest'][ $key ]['ref']		= esc_url( $data['ref'] );
+				$input['dest'][ $key ]['ref']		= esc_url_raw( $data['ref'] );
 
 				if( isset($settings['opt_stats']) && $settings['opt_stats'] == 1 )
 					$input['dest'][ $key ]['count_dest'] = isset( $outs['dest'][ $key ]['count_dest'] ) ? $outs['dest'][ $key ]['count_dest'] : 0;

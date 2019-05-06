@@ -50,6 +50,7 @@ class Geobl_Rules {
 		add_filter( 'geobl/rules/rule_match/city', array( self::class, 'rule_match_city' ) );
 		add_filter( 'geobl/rules/rule_match/city_region', array( self::class, 'rule_match_city_region' ) );
 		add_filter( 'geobl/rules/rule_match/state', array( self::class, 'rule_match_state' ) );
+		add_filter( 'geobl/rules/rule_match/zipcode', array( self::class, 'rule_match_zipcode' ) );
 
 		// User
 		add_filter( 'geobl/rules/rule_match/user_type', array( self::class, 'rule_match_user_type') );
@@ -127,6 +128,7 @@ class Geobl_Rules {
 		add_action( 'geobl/rules/print_city_region_field', array( 'Geobl_Helper', 'print_select' ), 10, 2 );
 		add_action( 'geobl/rules/print_city_field', array( 'Geobl_Helper', 'print_textfield' ), 10, 2 );
 		add_action( 'geobl/rules/print_state_field', array( 'Geobl_Helper', 'print_textfield' ), 10, 1 );
+		add_action( 'geobl/rules/print_zipcode_field', array( 'Geobl_Helper', 'print_textfield' ), 10, 1 );
 
 		// User
 		add_action( 'geobl/rules/print_user_type_field', array( 'Geobl_Helper', 'print_select' ), 10, 2 );
@@ -172,6 +174,7 @@ class Geobl_Rules {
 				'city'           => __( 'City', 'geobl' ),
 				'city_region'    => __( 'City Region', 'geobl' ),
 				'state'          => __( 'State', 'geobl' ),
+				'zipcode'        => __( 'Zipcode', 'geobl' ),
 			),
 			__( "User", 'geobl' )         => array(
 				'user_type'     => __( "User role", 'geobl' ),
@@ -224,7 +227,6 @@ class Geobl_Rules {
 		}
 
 		return ( $country_code != $rule['value'] );
-
 	}
 
 	/*
@@ -238,7 +240,6 @@ class Geobl_Rules {
 		}
 
 		return ( ! geot_target('', $rule['value'] ) );
-
 	}
 
 	/*
@@ -254,7 +255,6 @@ class Geobl_Rules {
 		}
 
 		return ! ( strtolower($city) == strtolower($rule['value']) );
-
 	}
 
 	/*
@@ -271,8 +271,24 @@ class Geobl_Rules {
 		}
 
 		return ! ( strtolower($state) == strtolower($rule['value']) || strtolower($state_code) == strtolower($rule['value']) );
-
 	}
+
+
+	/*
+	* rule_match_zipcode
+	* @since 1.0.0
+	*/
+	public static function rule_match_zipcode( $rule ) {
+
+		$zipcode = geot_zip();
+
+		if ( $rule['operator'] == "==" ) {
+			return ( strtolower($zipcode) == strtolower($rule['value']) );
+		}
+
+		return ! ( strtolower($zipcode) == strtolower($rule['value']) );
+	}
+
 
 	/*
 	* rule_match_city_region
@@ -285,7 +301,6 @@ class Geobl_Rules {
 		}
 
 		return ( ! geot_target_city('', $rule['value'] ) );
-
 	}
 
 	/*
@@ -310,7 +325,6 @@ class Geobl_Rules {
         }
 
         return $match;
-
 	}
 
 	/**
