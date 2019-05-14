@@ -13,6 +13,7 @@
  * @subpackage GeoTarget/includes
  */
 use GeotFunctions\Setting\GeotSettings;
+use GeotFunctions\Setting\GeotWizard;
 
 
 /**
@@ -158,6 +159,7 @@ class Geot {
 
 		$this->load_dependencies();
 		GeotSettings::init();
+		GeotWizard::init();
 
 		$this->set_locale();
 		$this->set_objects_public();

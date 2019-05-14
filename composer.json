@@ -20,8 +20,14 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "type": "wordpress-plugin",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/timersys/geot-functions"
+        }
+    ],
     "require": {
-        "timersys/geot-functions": "dev-master",
+        "timersys/geot-functions": "dev-feature/welcome",
         "mobiledetect/mobiledetectlib": "^2.8"
     }
 }

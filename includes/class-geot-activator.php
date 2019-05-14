@@ -41,7 +41,7 @@ class Geot_Activator {
 		}
 
 		GeotFunctions\add_countries_to_db();
-
+		GeotFunctions\geot_activate();
 
 		do_action('geotWP/activated');
 	}
