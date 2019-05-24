@@ -13,7 +13,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 do_action( 'geobl/metaboxes/before_rules', $post );
 ?>
 
-<table class="geobl_table widefat" id="geobl_rules">
+<table class="geot_table widefat" id="geot_rules">
 	<tbody>
 	<tr>
 		<td class="label">
@@ -34,7 +34,7 @@ do_action( 'geobl/metaboxes/before_rules', $post );
                 				<h4 class="rules-or"><span><?php _e("OR", 'geobl' ); ?></span></h4>
                 			<?php endif; ?>
                 			<?php if( is_array($group) ): ?>
-                			<table class="geobl_table widefat">
+                			<table class="geot_table widefat">
                 				<tbody>
                 					<?php foreach( $group as $rule_id => $rule ):
                 						$rule_id = 'rule_' . $rule_id;
@@ -42,7 +42,7 @@ do_action( 'geobl/metaboxes/before_rules', $post );
                 					<tr data-id="<?php echo $rule_id; ?>">
                 					<td class="param"><?php
 
-                						$choices = Geobl_Rules::get_rules_choices();
+                						$choices = Geot_Rules::get_rules_choices();
 
                 						// create field
                 						$args = array(
@@ -52,7 +52,7 @@ do_action( 'geobl/metaboxes/before_rules', $post );
                 							'value' 	    => $rule['param']
                 						);
 
-                						Geobl_Helper::print_select( $args, $choices );
+                						Geot_Helper::print_select( $args, $choices );
 
 
                 					?></td>
@@ -66,7 +66,7 @@ do_action( 'geobl/metaboxes/before_rules', $post );
                 							'param'		=> $rule['param'],
 
                 						);
-                						Geobl_Helper::ajax_render_operator( $args );
+                						Geot_Helper::ajax_render_operator( $args );
 
                 					?></td>
                 					<td class="value"><?php
@@ -77,7 +77,7 @@ do_action( 'geobl/metaboxes/before_rules', $post );
                 							'name'			=> 'geobl_rules[' . $group_id . '][' . $rule_id . '][value]',
                 							'param'			=> $rule['param'],
                 						);
-                						Geobl_Helper::ajax_render_rules( $args );
+                						Geot_Helper::ajax_render_rules( $args );
 
                 					?></td>
                 					<td class="add">

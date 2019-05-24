@@ -27,6 +27,8 @@ class Geotr_Metaboxes{
 
 		add_action( 'add_meta_boxes_geotr_cpt', [ $this, 'add_meta_boxes' ] );
 		add_action( 'save_post_geotr_cpt', [ $this, 'save_meta_options'] );
+
+		add_filter( 'geot/rules/post_types', [$this, 'rules_js_script'], 10, 1 );
 	}
 
 
@@ -104,37 +106,20 @@ class Geotr_Metaboxes{
 		$keys_geot = apply_filters('geotr/metaboxes/keys_geot', ['country', 'country_region', 'city', 'city_region', 'state', 'zip']);
 
 		// Start with rules
-		if( isset($_POST['geotr_rules']) && is_array($_POST['geotr_rules']) ) {
-
-			// clean array keys
-			$groups = array_values( $_POST['geotr_rules'] );
-			unset( $_POST['geotr_rules'] );
-
-			$output_groups = [];
-
-			foreach($groups as $group_id => $group ) {
-				if( is_array($group) ) {
-
-					$output_geot = [];
-					$group_wkey = array_values( $group );
-
-					foreach( $group_wkey as $item_key => $items ) {
-						if( in_array($items['param'], $keys_geot) )
-							$output_geot[] = $items;
-						else
-							$output_groups[$group_id][] = $items;
-					}
-
-					if( count($output_geot) > 0 ) {
-						foreach($output_geot as $item_geot)
-							$output_groups[$group_id][] = $item_geot;
-					}
-				}
-			}
-
-			update_post_meta( $post_id, 'geotr_rules', apply_filters( 'geotr/metaboxes/sanitized_rules', $output_groups ) );
-		}
+		Geot_Helper::save_rules($post_id, $_POST, 'geotr_rules');
 	}
+
+	/**
+	 * Register the JavaScript for the admin area.
+	 * @since    1.0.0
+	 */
+	public function rules_js_script($post_types) {
+
+		$post_types[] = 'geotr_cpt';
+
+		return $post_types;
+	}
+
 
     /**
      * Include the metabox view for rules
@@ -144,9 +129,17 @@ class Geotr_Metaboxes{
      */
     public function geotr_rules( $post, $metabox ) {
 
-	    $groups = apply_filters('geotr/metaboxes/get_rules', Geotr_Helper::get_rules( $post->ID ), $post->ID);
+    	$args = array(
+    				'title'	=> __("Perform redirect if", 'geotr' ),
+    				'desc'	=> __("Create a set of rules to determine where the redirect will be performed", 'geotr' ),
+    			);
 
-        include GEOTR_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
+    	Geot_Helper::html_rules($post, 'geotr_rules', $args);
+
+	    //$groups = apply_filters('geotr/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, 'geotr_rules' ), $post->ID);
+
+
+        //include GEOTR_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
     }
 
     /**

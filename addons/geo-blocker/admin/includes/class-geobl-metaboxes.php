@@ -21,6 +21,8 @@ class Geobl_Metaboxes{
 	public function __construct() {
 		add_action( 'add_meta_boxes_geobl_cpt', [ $this, 'add_meta_boxes' ] );
 		add_action( 'save_post_geobl_cpt', [ $this, 'save_meta_options' ] );
+
+		add_filter( 'geot/rules/post_types', [$this, 'rules_js_script'], 10, 1 );
 	}
 
 
@@ -94,25 +96,18 @@ class Geobl_Metaboxes{
 		update_post_meta( $post_id, 'geobl_options', apply_filters( 'geobl/metaboxes/sanitized_options', $opts ) );
 
 		// Start with rules
-		if( isset($_POST['geobl_rules']) && is_array($_POST['geobl_rules']) )
-		{
-			// clean array keys
-			$groups = array_values( $_POST['geobl_rules'] );
-			unset( $_POST['geobl_rules'] );
+		Geot_Helper::save_rules($post_id, $_POST, 'geobl_rules');
+	}
 
-			foreach($groups as $group_id => $group )
-			{
-				if( is_array($group) )
-				{
-					// clean array keys
-					$groups_a[] = array_values( $group );
+	/**
+	 * Register the JavaScript for the admin area.
+	 * @since    1.0.0
+	 */
+	function rules_js_script($post_types) {
 
-				}
-			}
+		$post_types[] = 'geobl_cpt';
 
-			update_post_meta( $post_id, 'geobl_rules', apply_filters( 'geobl/metaboxes/sanitized_rules', $groups_a ) );
-
-		}
+		return $post_types;
 	}
 
     /**
@@ -123,9 +118,16 @@ class Geobl_Metaboxes{
      */
     public function geobl_rules( $post, $metabox ) {
 
-	    $groups = apply_filters('geobl/metaboxes/get_rules', Geobl_Helper::get_rules( $post->ID ), $post->ID);
+    	$args = array(
+    				'title'	=> __("Block user if", 'geobl' ),
+    				'desc'	=> __("Create a set of rules to determine if the user will be blocked", 'geobl' ),
+    			);
 
-        include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
+    	Geot_Helper::html_rules($post, 'geobl_rules', $args);
+
+	    //$groups = apply_filters('geobl/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, 'geobl_rules' ), $post->ID);
+
+        //include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
     }
 
     /**

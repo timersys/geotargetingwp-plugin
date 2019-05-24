@@ -310,7 +310,7 @@ class Geot_Public {
 
 		$posts_to_exclude = array();
 		// get all posts with geo options set ( ideally would be to retrieve just for the post type queried but I can't get post_type
-		$geot_posts = Geot_Helpers::get_geotarget_posts();
+		$geot_posts = Geot_Helper::get_geotarget_posts();
 
 		if( $geot_posts ) {
 			foreach( $geot_posts as $p ) {
@@ -348,7 +348,7 @@ class Geot_Public {
 
 		$opts  = get_post_meta( $post->ID, 'geot_options', true );
 
-		if ( Geot_Helpers::user_is_targeted( $opts, $post->ID ) )
+		if ( Geot_Helper::user_is_targeted( $opts, $post->ID ) )
 			return apply_filters( 'geot/forbidden_text', '<p>' . $opts['forbidden_text'] . '</p>' );
 
 		return $content;

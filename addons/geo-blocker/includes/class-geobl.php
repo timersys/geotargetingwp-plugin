@@ -113,7 +113,6 @@ class Geobl {
 		$this->set_locale();
 		$this->set_objects_admin();
 		$this->set_objects_public();
-		$this->set_ajax_rules();
 	}
 
 	/**
@@ -125,7 +124,6 @@ class Geobl {
 		require_once GEOBL_PLUGIN_DIR . 'includes/functions.php';
 		require_once GEOBL_PLUGIN_DIR . 'includes/class-geobl-i18n.php';
 		require_once GEOBL_PLUGIN_DIR . 'includes/class-geobl-cpt.php';
-		require_once GEOBL_PLUGIN_DIR . 'includes/class-geobl-rules.php';
 		require_once GEOBL_PLUGIN_DIR . 'includes/class-geobl-helper.php';
 		require_once GEOBL_PLUGIN_DIR . 'public/class-geobl-public.php';
 
@@ -170,7 +168,7 @@ class Geobl {
 		$this->settings = new Geobl_Settings();
 		$this->metaboxes = new Geobl_Metaboxes();
 
-		Geobl_Rules::set_rules_fields();
+		Geot_Rules::set_rules_fields();
 	}
 
 	/**
@@ -182,12 +180,5 @@ class Geobl {
 	 */
 	private function set_objects_public() {
 		$this->public = new Geobl_Public();
-	}
-
-
-	public function set_ajax_rules() {
-		//AJAX Actions
-		add_action('wp_ajax_geobl/field_group/render_rules', [ 'Geobl_Helper', 'ajax_render_rules' ] );
-		add_action('wp_ajax_geobl/field_group/render_operator', [ 'Geobl_Helper', 'ajax_render_operator' ]);
 	}
 }

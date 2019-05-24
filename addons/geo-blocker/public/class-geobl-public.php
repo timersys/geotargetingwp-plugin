@@ -74,7 +74,7 @@ class Geobl_Public {
 
 	public function handle_blockers(){
 
-		Geobl_Rules::init();
+		Geot_Rules::init();
 		$this->blocks = $this->get_blocks();
 		$opts_geot = geot_pro_settings();
 		if( ! empty( $opts_geot['ajax_mode'] ) )
@@ -94,7 +94,7 @@ class Geobl_Public {
 				if( ! $this->pass_basic_rules($r) )
 					continue;
 				$rules = !empty($r->geobl_rules) ? unserialize($r->geobl_rules) : array();
-				$do_block = Geobl_Rules::do_block( $rules );
+				$do_block = Geot_Rules::is_ok( $rules );
 				if ( $do_block ) {
 					$this->perform_block( $r );
 					break;

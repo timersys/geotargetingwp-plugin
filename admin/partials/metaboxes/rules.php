@@ -10,15 +10,15 @@ if ( !defined( 'ABSPATH' ) ) exit;
 *  @type	template
 *  @since	2.0
 */
-do_action( 'geotr/metaboxes/before_rules', $post );
+do_action( 'geot/metaboxes/before_rules', $post );
 ?>
 
 <table class="geot_table widefat" id="geot-rules">
 	<tbody>
 	<tr>
 		<td class="label">
-			<label for="post_type"><?php _e("Rules", 'geotr' ); ?></label>
-			<p class="description"><?php _e("Create a set of rules to determine where the redirect will be performed", 'geotr' ); ?></p>
+			<label for="post_type"><?php _e("Rules", 'geot' ); ?></label>
+			<p class="description"><?php echo $params['desc']; ?></p>
 		</td>
 		<td>
 			<div class="rules-groups">
@@ -29,9 +29,9 @@ do_action( 'geotr/metaboxes/before_rules', $post );
                 		?>
                 		<div class="rules-group" data-id="<?php echo $group_id; ?>">
                 			<?php if( $group_id == 'group_0' ): ?>
-                				<h4><?php _e("Perform redirect if", 'geotr' ); ?></h4>
+                				<h4><?php echo $params['title']; ?></h4>
                 			<?php else: ?>
-                				<h4 class="rules-or"><span><?php _e("OR", 'geotr' ); ?></span></h4>
+                				<h4 class="rules-or"><span><?php _e("OR", 'geot' ); ?></span></h4>
                 			<?php endif; ?>
                 			<?php if( is_array($group) ): ?>
                 			<table class="geot_table widefat">
@@ -48,7 +48,7 @@ do_action( 'geotr/metaboxes/before_rules', $post );
                 						$args = array(
                 							'group_id' 	    => $group_id,
                 							'rule_id'	    => $rule_id,
-                							'name'		    => 'geotr_rules[' . $group_id . '][' . $rule_id . '][param]',
+                							'name'		    => 'geot_rules[' . $group_id . '][' . $rule_id . '][param]',
                 							'value' 	    => $rule['param']
                 						);
 
@@ -61,7 +61,7 @@ do_action( 'geotr/metaboxes/before_rules', $post );
                 						$args = array(
                 							'group_id' 	=> $group_id,
                 							'rule_id'	=> $rule_id,
-                							'name'		=> 'geotr_rules[' . $group_id . '][' . $rule_id . '][operator]',
+                							'name'		=> 'geot_rules[' . $group_id . '][' . $rule_id . '][operator]',
                 							'value' 	=> $rule['operator'],
                 							'param'		=> $rule['param'],
 
@@ -74,14 +74,14 @@ do_action( 'geotr/metaboxes/before_rules', $post );
                 							'group_id' 		=> $group_id,
                 							'rule_id' 		=> $rule_id,
                 							'value' 		=> !empty($rule['value']) ? $rule['value'] : '',
-                							'name'			=> 'geotr_rules[' . $group_id . '][' . $rule_id . '][value]',
+                							'name'			=> 'geot_rules[' . $group_id . '][' . $rule_id . '][value]',
                 							'param'			=> $rule['param'],
                 						);
                 						Geot_Helper::ajax_render_rules( $args );
 
                 					?></td>
                 					<td class="add">
-                						<a href="#" class="rules-add-rule button"><?php _e("+ AND", 'geotr' ); ?></a>
+                						<a href="#" class="rules-add-rule button"><?php _e("+ AND", 'geot' ); ?></a>
                 					</td>
                 					<td class="remove">
                 						<a href="#" class="rules-remove-rule rules-remove-rule">-</a>
@@ -94,14 +94,12 @@ do_action( 'geotr/metaboxes/before_rules', $post );
                 		</div>
                 	<?php endforeach; ?>
 
-                	<h4 class="rules-or"><span><?php _e("OR", 'geotr' ); ?></span></h4>
+                	<h4 class="rules-or"><span><?php _e("OR", 'geot' ); ?></span></h4>
 
-                	<a class="button rules-add-group" href="#"><?php _e("Add rule group (+ OR)", 'geotr' ); ?></a>
+                	<a class="button rules-add-group" href="#"><?php _e("Add rule group (+ OR)", 'geot' ); ?></a>
 
                 <?php endif; ?>
-				<p style="margin-top: 30px"><strong>Important:</strong> <?= __('Remember to add your Geotargeting rules at the end. Rules are fired in order and you will burn credits if you place them first.','geotr');?></p>
-				<p><?= __('Redirection rules marked with an asterisk * won\'t work if you are using page cache plugin.','geotr');?></p>
-				<p> <?= sprintf(__('Learn more about redirections and compatible cache plugins <a href="%s" target="_blank">here</a>','geotr'), 'https://geotargetingwp.com/docs/geotargetingwp/cache');?> </p>
+				<p> <?= sprintf(__('Learn more about Geo Blocker and compatible cache plugins <a href="%s" target="_blank">here</a>','geot'), 'https://geotargetingwp.com/docs/geo-blocker/cache');?> </p>
 			</div>
 		</td>
 	</tr>

@@ -59,7 +59,7 @@ class Geotr_Public {
 
 	public function handle_redirects(){
 
-		Geotr_Rules::init();
+		Geot_Rules::init();
 		$this->redirections = geotr_redirections();
 		$opts_geot = geot_pro_settings();
 		if( !empty( $opts_geot['ajax_mode'] ) )
@@ -79,7 +79,7 @@ class Geotr_Public {
 				if( ! $this->pass_basic_rules($r) )
 					continue;
 				$rules = !empty($r->geotr_rules) ? unserialize($r->geotr_rules) : array();
-				$do_redirect = Geotr_Rules::do_redirection( $rules );
+				$do_redirect = Geot_Rules::is_ok( $rules );
 				if ( $do_redirect ) {
 					$this->perform_redirect( $r );
 					break; // ajax mode won't redirect instantly so we need to break
@@ -93,7 +93,7 @@ class Geotr_Public {
 	 * we call normal redirect logic but cancel it and print results
 	*/
 	public function handle_ajax_redirects(){
-		Geotr_Rules::init();
+		Geot_Rules::init();
 		$this->redirections = geotr_redirections();
 		add_filter('geotr/cancel_redirect', function( $redirect, $opts){
 			echo apply_filters( 'geotr/ajax_cancel_redirect',json_encode($opts), $opts);

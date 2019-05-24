@@ -35,6 +35,9 @@ class Geot_Ajax {
 	public function __construct() {
 		add_action( 'wp_ajax_geot_ajax' , [ $this, 'geot_ajax' ] );
 		add_action( 'wp_ajax_nopriv_geot_ajax' , [ $this, 'geot_ajax' ] );
+
+		add_action( 'wp_ajax_geot/field_group/render_rules', [ 'Geot_Helper', 'ajax_render_rules' ] );
+		add_action( 'wp_ajax_geot/field_group/render_operator', [ 'Geot_Helper', 'ajax_render_operator' ]);
 	}
 
 	/**

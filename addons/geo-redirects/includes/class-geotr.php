@@ -131,7 +131,6 @@ class Geotr {
 		$this->set_locale();
 		$this->set_objects_admin();
 		$this->set_objects_public();
-		$this->set_ajax_rules();
 	}
 
 	/**
@@ -143,7 +142,6 @@ class Geotr {
 		require_once GEOTR_PLUGIN_DIR . 'includes/functions.php';
 		require_once GEOTR_PLUGIN_DIR . 'includes/class-geotr-i18n.php';
 		require_once GEOTR_PLUGIN_DIR . 'includes/class-geotr-cpt.php';
-		require_once GEOTR_PLUGIN_DIR . 'includes/class-geotr-rules.php';
 		require_once GEOTR_PLUGIN_DIR . 'includes/class-geotr-helper.php';
 		require_once GEOTR_PLUGIN_DIR . 'public/class-geotr-public.php';
 
@@ -188,7 +186,7 @@ class Geotr {
 		$this->settings = new Geotr_Settings();
 		$this->metaboxes = new Geotr_Metaboxes();
 
-		Geotr_Rules::set_rules_fields();
+		Geot_Rules::set_rules_fields();
 	}
 
 	/**
@@ -202,10 +200,4 @@ class Geotr {
 		$this->public = new Geotr_Public();
 	}
 
-
-	private function set_ajax_rules() {
-		//AJAX Actions
-		add_action('wp_ajax_geotr/field_group/render_rules', [ 'Geotr_Helper', 'ajax_render_rules' ] );
-		add_action('wp_ajax_geotr/field_group/render_operator', [ 'Geotr_Helper', 'ajax_render_operator' ]);
-	}
 }

@@ -166,7 +166,6 @@ class Geot {
 		$this->register_shortcodes();
 		$this->set_objects_admin();
 		$this->register_ajax_calls();
-		$this->set_rules();
 		$this->set_addons();
 	}
 
@@ -202,6 +201,7 @@ class Geot {
 		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-divi.php';
 		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-gutenberg.php';
 		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-elementor.php';
+		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-rules.php';
 		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-helpers.php';
 		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-updater.php';
 		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-taxonomies.php';
@@ -286,15 +286,6 @@ class Geot {
 	 */
 	private function register_ajax_calls() {
 		$this->ajax = new Geot_Ajax();
-	}
-
-
-	private function set_rules() {
-		// Popups rules // PENDIENTE
-		add_action( 'spu/rules/print_geot_country_field', [ 'Spu_Helper', 'print_select' ], 10, 2 );
-		add_action( 'spu/rules/print_geot_country_region_field', [ 'Spu_Helper', 'print_select' ], 10, 2 );
-		add_action( 'spu/rules/print_geot_city_region_field', [ 'Spu_Helper', 'print_select' ], 10, 2 );
-		add_action( 'spu/rules/print_geot_state_field', [ 'Spu_Helper', 'print_textfield' ], 10, 1 );
 	}
 
 

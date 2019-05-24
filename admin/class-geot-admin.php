@@ -46,6 +46,43 @@ class Geot_Admin {
 		add_action( 'save_post', [ $this, 'save_meta_options' ] , 20 );
 
 		add_filter('geot/plugin_version', function (){ return GEOT_VERSION;});
+
+		//Rules
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+	}
+
+
+	/**
+	 * Register the JavaScript for the admin area.
+	 *
+	 * @since    1.0.0
+	 */
+	public function enqueue_scripts() {
+		global $pagenow, $post;
+
+		$post_types = apply_filters( 'geot/rules/post_types', array() );
+
+		if ( !in_array( get_post_type(), $post_types ) || !in_array( $pagenow, array( 'post-new.php', 'edit.php', 'post.php' ) ) )
+			return;
+
+		$post_id = isset( $post->ID ) ? $post->ID : '';
+
+		wp_enqueue_script( 'geot-admin-js', plugin_dir_url( __FILE__ ) . 'js/geot-admin.js', array( 'jquery' ), GEOT_VERSION, false );
+
+		wp_enqueue_style( 'geot-admin-css', plugin_dir_url( __FILE__ ) . 'css/geot-admin.css', array(), GEOT_VERSION, 'all' );
+
+		wp_localize_script( 'geot-admin-js', 'geot_js',
+				apply_filters('geot/rules/vars_localize',
+					array(
+						'admin_url' => admin_url( ),
+						'nonce' 	=> wp_create_nonce( 'geot_nonce' ),
+						'l10n'		=> array (
+								'or'	=> '<span>'.__('OR', 'geobl' ).'</span>'
+							),
+						//'opts'      => Geobl_Helper::get_options($post_id)
+					)
+				)
+		);
 	}
 
 
@@ -54,7 +91,7 @@ class Geot_Admin {
 	 */
 	public function add_meta_boxes() {
 
-		$post_types = apply_filters( 'geot/get_post_types', Geot_Helpers::get_post_types() );
+		$post_types = apply_filters( 'geot/get_post_types', Geot_Helper::get_post_types() );
 
 		foreach ($post_types as $cpt) {
 			if( in_array( $cpt, apply_filters('geot/excluded_post_types', ['geotr_cpt','geobl_cpt'] ) ) )
@@ -76,7 +113,7 @@ class Geot_Admin {
 	 * @return mixed
 	 */
 	public function geot_options_view( $post, $metabox ) {
-		$opts 		= apply_filters('geot/metaboxes/get_cpt_options', Geot_Helpers::get_cpt_options( $post->ID ), $post->ID );
+		$opts 		= apply_filters('geot/metaboxes/get_cpt_options', Geot_Helper::get_cpt_options( $post->ID ), $post->ID );
 		$countries 	= geot_countries();
 		$regions 	= geot_country_regions();
 		$city_regions 	= geot_city_regions();
