@@ -322,7 +322,7 @@ class Geot_Public {
 					continue;
 
 
-				$target  = Geot_Helpers::user_is_targeted( $options, $p->ID );
+				$target  = Geot_Helper::user_is_targeted( $options, $p->ID );
 				if( $target )
 					$posts_to_exclude[] = $p->ID;
 
@@ -372,7 +372,7 @@ class Geot_Public {
 		if ( !isset($opts['geot_include_mode']) || empty($opts['geot_include_mode']) )
 			return;
 
-		if ( Geot_Helpers::user_is_targeted( $opts, $post->ID ) )
+		if ( Geot_Helper::user_is_targeted( $opts, $post->ID ) )
 			add_filter('woocommerce_is_purchasable', '__return_false');
 	}
 
@@ -397,7 +397,7 @@ class Geot_Public {
 			if ( !isset($opts['geot_include_mode']) || empty($opts['geot_include_mode']) )
 				continue;
 
-			if ( Geot_Helpers::user_is_targeted( $opts, $post_id ) )
+			if ( Geot_Helper::user_is_targeted( $opts, $post_id ) )
 				WC()->cart->remove_cart_item( $cart_item_key );
 		}
 	}

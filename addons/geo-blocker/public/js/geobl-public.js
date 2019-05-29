@@ -13,6 +13,7 @@
                 action : 'geo_blocks',
                 pid : geobl.pid,
                 referrer : document.referrer,
+                url : window.location.href,
                 query_string : document.location.search,
                 is_category : geobl.is_category,
                 is_archive : geobl.is_archive,

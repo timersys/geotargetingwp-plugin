@@ -95,7 +95,7 @@ class Geot_Menus {
 				$menu_item->classes[] = 'geot-ajax geot_menu_item';
 				add_filter( 'nav_menu_link_attributes', array( $this, 'add_geot_info'), 10, 2 );
 			} else {
-				if( Geot_Helpers::user_is_targeted($g, $menu_item->ID ) )
+				if( Geot_Helper::user_is_targeted($g, $menu_item->ID ) )
 					unset( $sorted_menu_items[ $k ] );
 			}
 

@@ -108,7 +108,7 @@ class Geobl_Public {
 	 * we call normal block logic but cancel it and print results
 	*/
 	public function handle_ajax_blockers(){
-		Geobl_Rules::init();
+		Geot_Rules::init();
 		$this->blocks = $this->get_blocks();
 		$this->check_for_rules();
 		die();

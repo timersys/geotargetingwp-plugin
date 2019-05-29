@@ -301,7 +301,7 @@ class Geot_Ajax {
 
 		$target = unserialize( base64_decode( $geot['filter'] ) );
 
-		if ( Geot_Helpers::user_is_targeted( $target, $geot['ex_filter'] ) )
+		if ( Geot_Helper::user_is_targeted( $target, $geot['ex_filter'] ) )
 			return true;
 
 		return false;
@@ -328,12 +328,12 @@ class Geot_Ajax {
 			);;
 
 		// get all posts with geo options set ( ideally would be to retrieve just for the post type queried but I can't get post_type
-		$geot_posts = Geot_Helpers::get_geotarget_posts();
+		$geot_posts = Geot_Helper::get_geotarget_posts();
 
 		if( $geot_posts ) {
 			foreach( $geot_posts as $p ) {
 				$options = unserialize( $p->geot_options );
-				$target  = Geot_Helpers::user_is_targeted( $options, $p->ID );
+				$target  = Geot_Helper::user_is_targeted( $options, $p->ID );
 				if( $target ){
 					if( ! isset( $options['geot_remove_post']) || '1' != $options['geot_remove_post'] )
 						$content_to_hide[] = array(

@@ -88,10 +88,10 @@ class Geot_Taxonomies {
 
 				if( !$geot ) continue;
 
-				if ( ! Geot_Helpers::is_targeted_country( $geot ) ||
-			     ! Geot_Helpers::is_targeted_city( $geot ) ||
-			     ! Geot_Helpers::is_targeted_state( $geot ) ||
-			     ! Geot_Helpers::is_targeted_zipcode( $geot )
+				if ( ! Geot_Helper::is_targeted_country( $geot ) ||
+			     ! Geot_Helper::is_targeted_city( $geot ) ||
+			     ! Geot_Helper::is_targeted_state( $geot ) ||
+			     ! Geot_Helper::is_targeted_zipcode( $geot )
 				) $cat_exclude[] = $term_id*(-1);
 			}
 			
@@ -117,10 +117,10 @@ class Geot_Taxonomies {
 
 				if( !$geot ) continue;
 
-				if ( ! Geot_Helpers::is_targeted_country( $geot ) ||
-			     ! Geot_Helpers::is_targeted_city( $geot ) ||
-			     ! Geot_Helpers::is_targeted_state( $geot ) ||
-			     ! Geot_Helpers::is_targeted_zipcode( $geot )
+				if ( ! Geot_Helper::is_targeted_country( $geot ) ||
+			     ! Geot_Helper::is_targeted_city( $geot ) ||
+			     ! Geot_Helper::is_targeted_state( $geot ) ||
+			     ! Geot_Helper::is_targeted_zipcode( $geot )
 				) unset($terms[$id]);
 			}
 		}
@@ -180,10 +180,10 @@ class Geot_Taxonomies {
 
 			if( !$geot ) continue;
 
-			if ( ! Geot_Helpers::is_targeted_country( $geot ) ||
-		     ! Geot_Helpers::is_targeted_city( $geot ) ||
-		     ! Geot_Helpers::is_targeted_state( $geot ) ||
-		     ! Geot_Helpers::is_targeted_zipcode( $geot )
+			if ( ! Geot_Helper::is_targeted_country( $geot ) ||
+		     ! Geot_Helper::is_targeted_city( $geot ) ||
+		     ! Geot_Helper::is_targeted_state( $geot ) ||
+		     ! Geot_Helper::is_targeted_zipcode( $geot )
 			) $cat_exclude[] = $term_id;
 		}
 

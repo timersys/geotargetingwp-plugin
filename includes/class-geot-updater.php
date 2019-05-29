@@ -108,7 +108,7 @@ class Geot_Updater {
 		$array_insert = array();
 		$city_regions = wp_list_pluck( geot_city_regions(), 'name' );
 
-		$geot_posts = Geot_Helpers::get_geotarget_posts();
+		$geot_posts = Geot_Helper::get_geotarget_posts();
 
 		if( $geot_posts ) {
 			foreach( $geot_posts as $p ) {

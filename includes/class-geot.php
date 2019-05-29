@@ -202,7 +202,7 @@ class Geot {
 		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-gutenberg.php';
 		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-elementor.php';
 		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-rules.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-helpers.php';
+		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-helper.php';
 		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-updater.php';
 		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-taxonomies.php';
 
