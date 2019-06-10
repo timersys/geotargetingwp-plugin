@@ -119,11 +119,12 @@ class Geotr_Public {
 		$current_url = \GeotFunctions\get_current_url();
 
 		// check for destination url
-		if( empty( $opts['url'] ) || $current_url == $this->replaceShortcodes($opts) )
+		if( empty( $opts['url'] ) || $current_url == $this->replaceShortcodes($opts, true) )
 			return false;
 		
 		// check for crawlers
-		if( isset($opts['exclude_se']) && '1' === $opts['exclude_se'] ) {
+		//if( isset($opts['exclude_se']) && '1' === $opts['exclude_se'] ) {
+		if( isset($opts['exclude_se']) && '1' === absint( $opts['exclude_se'] ) ) {
 			$detect = new CrawlerDetect();
 			if( $detect->isCrawler() )
 				return false;
@@ -274,9 +275,11 @@ class Geotr_Public {
          *
          * @param $opts
          *
+         * @param bool $basic_rules When calling this func from basic rules we don't need to execute geolocation or will consume extra credits
+		 *
          * @return mixed
          */
-	private function replaceShortcodes( $opts ) {
+	private function replaceShortcodes( $opts, $basic_rules = false ) {
 		$url = defined('DOING_AJAX') && isset($_REQUEST['url']) ? $_REQUEST['url'] : ( (is_ssl() ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}" );
 
 		// remove query string from URL
@@ -284,12 +287,16 @@ class Geotr_Public {
         $url = str_replace('?'.$query_string,'',$url);
 
 		$replaces = [
-			'{{country_code}}'  => geot_country_code(),
-			'{{state_code}}'    => geot_state_code(),
-			'{{zip}}'           => geot_zip(),
 			'{{requested_uri}}' => trim($url,'/') ?: '',
 			'{{requested_path}}' => trim(parse_url($url, PHP_URL_PATH),'/') ?: '',
 		];
+
+		if( ! $basic_rules ) {
+			$replaces['{{country_code}}']  = geot_country_code();
+			$replaces['{{state_code}}']    = geot_state_code();
+			$replaces['{{zip}}']           = geot_zip();
+		}
+
 		// do the replaces
 		$replaces = apply_filters('geotr/placeholders', array_map('strtolower', $replaces) );
 		$final_url = str_replace(array_keys($replaces), array_values($replaces), $opts['url']);
