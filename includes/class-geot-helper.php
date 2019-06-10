@@ -439,7 +439,7 @@ class Geot_Helper {
 
 				unset( $post_types['page'], $post_types['attachment'], $post_types['revision'] , $post_types['nav_menu_item'] );
 
-				foreach( apply_filters('geot/rules/post_types', array() ) as $ptype) {
+				foreach( apply_filters('geot/exclude/post_types', array() ) as $ptype) {
 					if( isset($post_types[$ptype]) )
 						unset($post_types[$ptype]);
 				}

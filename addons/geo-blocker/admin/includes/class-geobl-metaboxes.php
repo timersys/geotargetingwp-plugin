@@ -22,7 +22,7 @@ class Geobl_Metaboxes{
 		add_action( 'add_meta_boxes_geobl_cpt', [ $this, 'add_meta_boxes' ] );
 		add_action( 'save_post_geobl_cpt', [ $this, 'save_meta_options' ] );
 
-		add_filter( 'geot/rules/post_types', [$this, 'rules_js_script'], 10, 1 );
+		add_filter( 'geot/exclude/post_types', [$this, 'rules_js_script'], 10, 1 );
 	}
 
 

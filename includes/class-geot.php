@@ -211,6 +211,7 @@ class Geot {
 		if( is_admin() ) {
 			require_once GEOT_PLUGIN_DIR . 'admin/class-geot-admin.php';
 			require_once GEOT_PLUGIN_DIR . 'admin/class-geot-settings.php';
+			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-metaboxes.php';
 			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-dropdown-widget.php';
 			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-widgets.php';
 			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-menus.php';	
@@ -245,12 +246,12 @@ class Geot {
 
 		if( !is_admin() ) return;
 
-		$this->admin 	= new Geot_Admin();
-		$this->settings = new Geot_Settings();
-		$this->updater 	= new Geot_Updater();
-		$this->widget 	= new Geot_Widgets();
-		$this->menus = new Geot_Menus();
-
+		$this->admin 		= new Geot_Admin();
+		$this->settings 	= new Geot_Settings();
+		$this->metaboxes 	= new Geot_Metaboxes();
+		$this->updater 		= new Geot_Updater();
+		$this->widget 		= new Geot_Widgets();
+		$this->menus 		= new Geot_Menus();
 	}
 
 	/**
@@ -265,7 +266,6 @@ class Geot {
 		$this->public 		= new Geot_Public();
 		$this->vc 			= new Geot_VC();
 		$this->gutenberg 	= new Geot_Gutenberg();
-
 		$this->elementor 	= new Geot_Elementor();
 		$this->divi 		= new Geot_Divi();
 		$this->taxs 		= new Geot_Taxonomies();

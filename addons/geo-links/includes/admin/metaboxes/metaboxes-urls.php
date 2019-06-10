@@ -46,8 +46,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<th><label>&emsp;&emsp;&emsp;&emsp;<?php _e( 'Regions', 'geol' ); ?></label></th>
 						<td>
 							<select name="geol[dest][<?php echo $key; ?>][regions][]" class="geot-chosen-select-multiple geol_regions" placeholder="<?php _e( 'Choose one or more regions', 'geol' ); ?>" multiple="multiple">
-								<?php if( !empty( $geowp['region'] ) ) : ?>
-									<?php foreach ( $geowp['region'] as $region ) : ?>
+								<?php if( isset($regions) && !empty( $regions ) ) : ?>
+									<?php foreach ( $regions as $region ) : ?>
 
 									<option value="<?php echo $region['name']; ?>" <?php isset( $data['regions'] ) && is_array( $data['regions'] ) ? selected(true, in_array( $region['name'], $data['regions']) ) :''; ?>> <?php echo $region['name']; ?></option>
 									<?php endforeach; ?>

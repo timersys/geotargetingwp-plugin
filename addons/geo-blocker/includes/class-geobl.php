@@ -131,7 +131,6 @@ class Geobl {
 		if( is_admin() ) {
 			require_once GEOBL_PLUGIN_DIR . 'admin/class-geobl-admin.php';
 			require_once GEOBL_PLUGIN_DIR . 'admin/class-geobl-settings.php';
-			require_once GEOBL_PLUGIN_DIR . 'admin/includes/class-geobl-metaboxes.php';
 		}
 	}
 
@@ -166,7 +165,6 @@ class Geobl {
 
 		$this->admin = new Geobl_Admin();
 		$this->settings = new Geobl_Settings();
-		$this->metaboxes = new Geobl_Metaboxes();
 
 		Geot_Rules::set_rules_fields();
 	}

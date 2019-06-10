@@ -148,7 +148,6 @@ class Geotr {
 		if( is_admin() ) {
 			require_once GEOTR_PLUGIN_DIR . 'admin/class-geotr-admin.php';
 			require_once GEOTR_PLUGIN_DIR . 'admin/class-geotr-settings.php';
-			require_once GEOTR_PLUGIN_DIR . 'admin/includes/class-geotr-metaboxes.php';
 		}
 	}
 
@@ -184,7 +183,6 @@ class Geotr {
 
 		$this->admin = new Geotr_Admin();
 		$this->settings = new Geotr_Settings();
-		$this->metaboxes = new Geotr_Metaboxes();
 
 		Geot_Rules::set_rules_fields();
 	}
