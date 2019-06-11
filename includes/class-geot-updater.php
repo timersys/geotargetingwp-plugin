@@ -1,6 +1,8 @@
 <?php
+
 use GeotWP\GeotargetingWP;
 use GeotFunctions\GeotUpdates;
+
 /**
  * Fired during plugin updating
  *
@@ -26,20 +28,20 @@ class Geot_Updater {
 	public function __construct() {
 
 		// License and Updates
-		add_action( 'admin_init' , [ $this, 'handle_updates' ], 0 );
+		add_action( 'admin_init', [ $this, 'handle_updates' ], 0 );
 	}
 
 	/**
 	 * Handle Licences and updates
 	 * @since 1.0.0
 	 */
-	public function handle_updates(){
-		$opts 		= geot_settings();
-		
+	public function handle_updates() {
+		$opts = geot_settings();
+
 		// Setup the updater
 		$GeoUpdate = new GeotUpdates( GEOT_PLUGIN_FILE, [
-				'version'   => GEOT_VERSION,
-				'license'   => isset($opts['license']) ? $opts['license'] : '',
+				'version' => GEOT_VERSION,
+				'license' => isset( $opts['license'] ) ? $opts['license'] : '',
 			]
 		);
 
@@ -54,15 +56,17 @@ class Geot_Updater {
 		$db_version = get_option( 'geot_version' );
 
 		//Verify if plugin has be upgraded
-		if($db_version != null && geot_version_compare( GEOT_VERSION, $db_version, '!=' ) ) {
+		if ( $db_version != null && geot_version_compare( GEOT_VERSION, $db_version, '!=' ) ) {
 
-			if( geot_version_compare( GEOT_VERSION, '1.8.0', '>=' ) && !get_option('geot_upgrade_1_8_0') )
+			if ( geot_version_compare( GEOT_VERSION, '1.8.0', '>=' ) && ! get_option( 'geot_upgrade_1_8_0' ) ) {
 				self::geot_upgrade_1_8_0();
+			}
 
-			if( geot_version_compare( GEOT_VERSION, '2.6.0', '>=' ) && !get_option('geot_upgrade_2_6_0') )
+			if ( geot_version_compare( GEOT_VERSION, '2.6.0', '>=' ) && ! get_option( 'geot_upgrade_2_6_0' ) ) {
 				self::geot_upgrade_2_6_0();
+			}
 
-			do_action('geotWP/upgraded');
+			do_action( 'geotWP/upgraded' );
 
 			update_option( 'geot_version', GEOT_VERSION );
 		}
@@ -77,25 +81,26 @@ class Geot_Updater {
 		global $wpdb;
 
 		// grab all publish posts without _geot_post postmeta
-		$posts = $wpdb->get_results("SELECT p.ID, pm.meta_value as geot_options FROM $wpdb->posts p LEFT JOIN $wpdb->postmeta pm ON pm.post_id = p.ID  WHERE p.post_status = 'publish' AND pm.meta_key = 'geot_options'  AND p.ID NOT IN (  SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_geot_post' GROUP BY post_id ) ");
+		$posts = $wpdb->get_results( "SELECT p.ID, pm.meta_value as geot_options FROM $wpdb->posts p LEFT JOIN $wpdb->postmeta pm ON pm.post_id = p.ID  WHERE p.post_status = 'publish' AND pm.meta_key = 'geot_options'  AND p.ID NOT IN (  SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_geot_post' GROUP BY post_id ) " );
 		// Loop all posts and check if( !empty( $opts['country_code'] ) || !empty( $opts['region'] ) || !empty( $opts['cities'] ) || !empty( $opts['state'] ) )
-		$to_migrate = array();
-		if( $posts ) {
-			foreach( $posts as $p ){
+		$to_migrate = [];
+		if ( $posts ) {
+			foreach ( $posts as $p ) {
 				$opts = unserialize( $p->geot_options );
-				if( !empty( $opts['country_code'] ) || !empty( $opts['region'] ) || !empty( $opts['cities'] ) || !empty( $opts['state'] ) )
+				if ( ! empty( $opts['country_code'] ) || ! empty( $opts['region'] ) || ! empty( $opts['cities'] ) || ! empty( $opts['state'] ) ) {
 					$to_migrate[] = $p->ID;
+				}
 			}
 		}
 		// Save post meta to those posts
-		if( !empty( $to_migrate ) ) {
-			$sql_string = array();
-			foreach ($to_migrate as $id) {
+		if ( ! empty( $to_migrate ) ) {
+			$sql_string = [];
+			foreach ( $to_migrate as $id ) {
 				$sql_string[] = "('$id', '_geot_post', '1' )";
 			}
-			$sql = "INSERT INTO $wpdb->postmeta (post_id,meta_key,meta_value) VALUES ".implode(',',$sql_string).";";
+			$sql = "INSERT INTO $wpdb->postmeta (post_id,meta_key,meta_value) VALUES " . implode( ',', $sql_string ) . ";";
 
-			$wpdb->query($sql);
+			$wpdb->query( $sql );
 		}
 		update_option( 'geot_upgrade_1_8_0', 1 );
 
@@ -105,45 +110,50 @@ class Geot_Updater {
 	protected function geot_upgrade_2_6_0() {
 		global $wpdb;
 
-		$array_insert = array();
+		$array_insert = [];
 		$city_regions = wp_list_pluck( geot_city_regions(), 'name' );
 
 		$geot_posts = Geot_Helper::get_geotarget_posts();
 
-		if( $geot_posts ) {
-			foreach( $geot_posts as $p ) {
+		if ( $geot_posts ) {
+			foreach ( $geot_posts as $p ) {
 
-				$to_city = $to_region_city = array();
-				$opts = maybe_unserialize( $p->geot_options );
+				$to_city = $to_region_city = [];
+				$opts    = maybe_unserialize( $p->geot_options );
 
-				if( empty($opts['cities']) || isset($opts['city_region']) ) continue;
-
-				$list_cites = GeotFunctions\toArray($opts['cities']);
-
-				foreach($list_cites as $city) {
-					if( in_array( $city, $city_regions) )
-						$to_region_city[] = $city;
-					else
-						$to_city[] = $city;
+				if ( empty( $opts['cities'] ) || isset( $opts['city_region'] ) ) {
+					continue;
 				}
 
-				if( count($to_region_city) == 0 ) continue;
+				$list_cites = GeotFunctions\toArray( $opts['cities'] );
 
-				$opts['cities'] = implode(',',$to_city);
+				foreach ( $list_cites as $city ) {
+					if ( in_array( $city, $city_regions ) ) {
+						$to_region_city[] = $city;
+					} else {
+						$to_city[] = $city;
+					}
+				}
+
+				if ( count( $to_region_city ) == 0 ) {
+					continue;
+				}
+
+				$opts['cities']      = implode( ',', $to_city );
 				$opts['city_region'] = $to_region_city;
 
-				$options = maybe_serialize($opts);
+				$options = maybe_serialize( $opts );
 
-				$array_insert[] = '('.$p->geot_meta_id.', '.$p->ID.', \'geot_options\', \''.$options.'\')';
+				$array_insert[] = '(' . $p->geot_meta_id . ', ' . $p->ID . ', \'geot_options\', \'' . $options . '\')';
 			}
 
 
-			if( count($array_insert) > 0 ) {
-				$sql = 'INSERT INTO '.$wpdb->postmeta.' (meta_id, post_id, meta_key, meta_value) VALUES '.implode(',',$array_insert).' ON DUPLICATE KEY UPDATE meta_value=VALUES(meta_value)';
-				$wpdb->query($sql);
+			if ( count( $array_insert ) > 0 ) {
+				$sql = 'INSERT INTO ' . $wpdb->postmeta . ' (meta_id, post_id, meta_key, meta_value) VALUES ' . implode( ',', $array_insert ) . ' ON DUPLICATE KEY UPDATE meta_value=VALUES(meta_value)';
+				$wpdb->query( $sql );
 			}
 
-		}		
+		}
 
 		update_option( 'geot_upgrade_2_6_0', 1 );
 	}

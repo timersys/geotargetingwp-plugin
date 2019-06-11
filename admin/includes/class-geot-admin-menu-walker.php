@@ -5,22 +5,22 @@
  * Class Geot_Admin_Menu_Walker
  * @since 1.8
  */
-if( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
+if ( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
 	class Geot_Admin_Menu_Walker extends Walker_Nav_Menu_Edit {
-		public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+		public function start_el( &$output, $item, $depth = 0, $args = [], $id = 0 ) {
 			global $_wp_nav_menu_max_depth;
 			$_wp_nav_menu_max_depth = $depth > $_wp_nav_menu_max_depth ? $depth : $_wp_nav_menu_max_depth;
 
 			ob_start();
 			$item_id      = esc_attr( $item->ID );
-			$removed_args = array(
+			$removed_args = [
 				'action',
 				'customlink-tab',
 				'edit-menu-item',
 				'menu-item',
 				'page-tab',
 				'_wpnonce',
-			);
+			];
 
 			$original_title = '';
 			if ( 'taxonomy' == $item->type ) {
@@ -38,11 +38,11 @@ if( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
 				}
 			}
 
-			$classes = array(
+			$classes = [
 				'menu-item menu-item-depth-' . $depth,
 				'menu-item-' . esc_attr( $item->object ),
 				'menu-item-edit-' . ( ( isset( $_GET['edit-menu-item'] ) && $item_id == $_GET['edit-menu-item'] ) ? 'active' : 'inactive' ),
-			);
+			];
 
 			$title = $item->title;
 
@@ -68,18 +68,18 @@ if( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
 			<div class="menu-item-bar">
 				<div class="menu-item-handle">
 					<span class="item-title"><span
-							class="menu-item-title"><?php echo esc_html( $title ); ?></span> <span
-							class="is-submenu" <?php echo $submenu_text; ?>><?php _e( 'sub item' ); ?></span></span>
+								class="menu-item-title"><?php echo esc_html( $title ); ?></span> <span
+								class="is-submenu" <?php echo $submenu_text; ?>><?php _e( 'sub item' ); ?></span></span>
 					<span class="item-controls">
 						<span class="item-type"><?php echo esc_html( $item->type_label ); ?></span>
 						<span class="item-order hide-if-js">
 							<a href="<?php
 							echo wp_nonce_url(
 								add_query_arg(
-									array(
+									[
 										'action'    => 'move-up-menu-item',
 										'menu-item' => $item_id,
-									),
+									],
 									remove_query_arg( $removed_args, admin_url( 'nav-menus.php' ) )
 								),
 								'move-menu_item'
@@ -89,10 +89,10 @@ if( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
 							<a href="<?php
 							echo wp_nonce_url(
 								add_query_arg(
-									array(
+									[
 										'action'    => 'move-down-menu-item',
 										'menu-item' => $item_id,
-									),
+									],
 									remove_query_arg( $removed_args, admin_url( 'nav-menus.php' ) )
 								),
 								'move-menu_item'
@@ -165,7 +165,7 @@ if( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
 						          class="widefat edit-menu-item-description" rows="3" cols="20"
 						          name="menu-item-description[<?php echo $item_id; ?>]"><?php echo esc_html( $item->description ); // textarea_escaped ?></textarea>
 						<span
-							class="description"><?php _e( 'The description will be displayed in the menu if the current theme supports it.' ); ?></span>
+								class="description"><?php _e( 'The description will be displayed in the menu if the current theme supports it.' ); ?></span>
 					</label>
 				</p>
 
@@ -192,36 +192,36 @@ if( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
 						<br>
 
 						<label
-							for="geot_position"><?php _e( 'Type regions (comma separated):', 'geot' ); ?></label><br/>
+								for="geot_position"><?php _e( 'Type regions (comma separated):', 'geot' ); ?></label><br/>
 						<input type="text" class="geot_text widefat"
 						       name="menu-item-geot[<?php echo $item_id; ?>][region]"
 						       value="<?php echo esc_attr( $item->geot['region'] ); ?>"/>
 						<br>
 
 						<label
-							for="geot_position"><?php _e( 'Or type countries or country codes (comma separated):', 'geot' ); ?></label><br/>
+								for="geot_position"><?php _e( 'Or type countries or country codes (comma separated):', 'geot' ); ?></label><br/>
 						<input type="text" class="geot_text widefat"
 						       name="menu-item-geot[<?php echo $item_id; ?>][country_code]"
 						       value="<?php echo esc_attr( $item->geot['country_code'] ); ?>"/>
 						<br>
 
 						<label
-							for="geot_position"><?php _e( 'Or type cities or city regions (comma separated):', 'geot' ); ?></label><br/>
+								for="geot_position"><?php _e( 'Or type cities or city regions (comma separated):', 'geot' ); ?></label><br/>
 						<input type="text" class="geot_text widefat"
 						       name="menu-item-geot[<?php echo $item_id; ?>][cities]"
 						       value="<?php echo esc_attr( $item->geot['cities'] ); ?>"/>
 						<br>
 
 						<label
-							for="geot_position"><?php _e( 'Or type states (comma separated):', 'geot' ); ?></label><br/>
+								for="geot_position"><?php _e( 'Or type states (comma separated):', 'geot' ); ?></label><br/>
 						<input type="text" class="geot_text widefat"
 						       name="menu-item-geot[<?php echo $item_id; ?>][states]"
 						       value="<?php echo esc_attr( $item->geot['states'] ); ?>"/>
-						
+
 						<br>
 
 						<label
-							for="geot_position"><?php _e( 'Or type zipcodes (comma separated):', 'geot' ); ?></label><br/>
+								for="geot_position"><?php _e( 'Or type zipcodes (comma separated):', 'geot' ); ?></label><br/>
 						<input type="text" class="geot_text widefat"
 						       name="menu-item-geot[<?php echo $item_id; ?>][zipcodes]"
 						       value="<?php echo esc_attr( $item->geot['zipcodes'] ); ?>"/>
@@ -249,20 +249,20 @@ if( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
 					<a class="item-delete submitdelete deletion" id="delete-<?php echo $item_id; ?>" href="<?php
 					echo wp_nonce_url(
 						add_query_arg(
-							array(
+							[
 								'action'    => 'delete-menu-item',
 								'menu-item' => $item_id,
-							),
+							],
 							admin_url( 'nav-menus.php' )
 						),
 						'delete-menu_item_' . $item_id
 					); ?>"><?php _e( 'Remove' ); ?></a> <span class="meta-sep hide-if-no-js"> | </span> <a
-						class="item-cancel submitcancel hide-if-no-js" id="cancel-<?php echo $item_id; ?>"
-						href="<?php echo esc_url( add_query_arg( array(
-							'edit-menu-item' => $item_id,
-							'cancel'         => time()
-						), admin_url( 'nav-menus.php' ) ) );
-						?>#menu-item-settings-<?php echo $item_id; ?>"><?php _e( 'Cancel' ); ?></a>
+							class="item-cancel submitcancel hide-if-no-js" id="cancel-<?php echo $item_id; ?>"
+							href="<?php echo esc_url( add_query_arg( [
+								'edit-menu-item' => $item_id,
+								'cancel'         => time(),
+							], admin_url( 'nav-menus.php' ) ) );
+							?>#menu-item-settings-<?php echo $item_id; ?>"><?php _e( 'Cancel' ); ?></a>
 				</div>
 
 				<input class="menu-item-data-db-id" type="hidden" name="menu-item-db-id[<?php echo $item_id; ?>]"

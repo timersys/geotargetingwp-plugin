@@ -1,33 +1,36 @@
 {
-    "name": "timersys/geotargeting-pro",
-    "description": "WordPress plugin for geotargeting that works with GeotargetingWP API",
-    "homepage": "https://geotargetingwp.com",
-    "keywords": [
-        "wordpress","geotargeting","geolocation","plugin"
-    ],
-    "license": "GPL-2.0+",
-    "authors": [
-        {
-            "name":"Damian Logghe",
-            "email":"damian@timersys.com",
-            "homepage":"https://timersys.com/"
-        }
-    ],
-    "support"    : {
-        "issues": "https://github.com/timersys/geotargeting-pro/issues",
-        "source": "https://github.com/timersys/geotargeting-pro"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "type": "wordpress-plugin",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/timersys/geot-functions"
-        }
-    ],
-    "require": {
-        "timersys/geot-functions": "dev-feature/welcome",
-        "mobiledetect/mobiledetectlib": "^2.8"
+  "name": "timersys/geotargeting-pro",
+  "description": "WordPress plugin for geotargeting that works with GeotargetingWP API",
+  "homepage": "https://geotargetingwp.com",
+  "keywords": [
+    "wordpress",
+    "geotargeting",
+    "geolocation",
+    "plugin"
+  ],
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Damian Logghe",
+      "email": "damian@timersys.com",
+      "homepage": "https://timersys.com/"
     }
+  ],
+  "support": {
+    "issues": "https://github.com/timersys/geotargeting-pro/issues",
+    "source": "https://github.com/timersys/geotargeting-pro"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "type": "wordpress-plugin",
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/timersys/geot-functions"
+    }
+  ],
+  "require": {
+    "timersys/geot-functions": "dev-feature/welcome",
+    "mobiledetect/mobiledetectlib": "^2.8"
+  }
 }

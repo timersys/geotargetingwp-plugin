@@ -29,7 +29,7 @@ class acf_field_geot_field extends acf_field {
 		*  label (string) Multiple words, can include spaces, visible when selecting a field type
 		*/
 
-		$this->label = __('GeoTargetting', 'acf-geot_field');
+		$this->label = __( 'GeoTargetting', 'acf-geot_field' );
 
 
 		/*
@@ -43,12 +43,12 @@ class acf_field_geot_field extends acf_field {
 		*  defaults (array) Array of default settings which are merged into the field object. These are used later in settings
 		*/
 
-		$this->defaults = array(
-			'geot_show' 		=> 'regions',
-			'geot_condition'	=> 'include',
-			'geot_regions'		=> '',
-			'geot_countries'	=> ''
-		);
+		$this->defaults = [
+			'geot_show'      => 'regions',
+			'geot_condition' => 'include',
+			'geot_regions'   => '',
+			'geot_countries' => '',
+		];
 
 
 		/*
@@ -56,13 +56,13 @@ class acf_field_geot_field extends acf_field {
 		*  var message = acf._e('geot_field', 'error');
 		*/
 
-		$this->l10n = array(
-			'error'	=> __('Error! Please enter a value', 'acf-geot_field'),
-		);
+		$this->l10n = [
+			'error' => __( 'Error! Please enter a value', 'acf-geot_field' ),
+		];
 
 
 		// do not delete!
-    	parent::__construct();
+		parent::__construct();
 
 	}
 
@@ -92,20 +92,19 @@ class acf_field_geot_field extends acf_field {
 		*  Please note that you must also have a matching $defaults value for the field name (font_size)
 		*/
 
-		acf_render_field_setting( $field, array(
-			'label'			=> __('Show Regions or Countries','acf-geot_field'),
-			'instructions'	=> __('Check what to show on front end','acf-geot_field'),
-			'type'			=> 'radio',
-			'name'			=> 'geot_show',
-			'choices'	=>	array(
-				'regions'       => __('Regions' ,'geot'),
-				'city-regions'  => __('City Regions' ,'geot'),
-				'countries'     => __('Countries', 'geot'),
-			)
-		));
+		acf_render_field_setting( $field, [
+			'label'        => __( 'Show Regions or Countries', 'acf-geot_field' ),
+			'instructions' => __( 'Check what to show on front end', 'acf-geot_field' ),
+			'type'         => 'radio',
+			'name'         => 'geot_show',
+			'choices'      => [
+				'regions'      => __( 'Regions', 'geot' ),
+				'city-regions' => __( 'City Regions', 'geot' ),
+				'countries'    => __( 'Countries', 'geot' ),
+			],
+		] );
 
 	}
-
 
 
 	/*
@@ -129,104 +128,104 @@ class acf_field_geot_field extends acf_field {
 		<div class="geot-settings">
 			<?php
 
-			create_field( array(
-				'type'		=>	'radio',
-				'name'		=>	$field['name'].'[geot_condition]',
-				'value'		=>	isset($field['value']['geot_condition']) ? $field['value']['geot_condition'] : '',
-				'layout'	=>	'horizontal',
-				'choices'	=>	array(
-					'exclude' => __('Exclude to' ,'geot'),
-					'include' => __('Show to', 'geot'),
-				)
-			));
+			create_field( [
+				'type'    => 'radio',
+				'name'    => $field['name'] . '[geot_condition]',
+				'value'   => isset( $field['value']['geot_condition'] ) ? $field['value']['geot_condition'] : '',
+				'layout'  => 'horizontal',
+				'choices' => [
+					'exclude' => __( 'Exclude to', 'geot' ),
+					'include' => __( 'Show to', 'geot' ),
+				],
+			] );
 
-			if( 'regions' == $field['geot_show']) {
+			if ( 'regions' == $field['geot_show'] ) {
 
-				$regions 	= geot_country_regions();
+				$regions = geot_country_regions();
 
-				if( is_array( $regions ) ) {
+				if ( is_array( $regions ) ) {
 
-					foreach ($regions as $r) {
-						if (!empty( $r['name'] ) ) {
-							$choices[$r['name']] = $r['name'];
+					foreach ( $regions as $r ) {
+						if ( ! empty( $r['name'] ) ) {
+							$choices[ $r['name'] ] = $r['name'];
 						}
 					}
 					echo '<div class="geot-select2">';
-					create_field( array(
-						'type'		=>	'select',
-						'multiple'	=>	true,
-						'class'		=>  "geot-chosen-select-multiple",
-						'name'		=>	$field['name'].'[geot_regions]',
-						'value'		=>	$field['value']['geot_regions'],
-						'choices'	=>	$choices
-					));
+					create_field( [
+						'type'     => 'select',
+						'multiple' => true,
+						'class'    => "geot-chosen-select-multiple",
+						'name'     => $field['name'] . '[geot_regions]',
+						'value'    => $field['value']['geot_regions'],
+						'choices'  => $choices,
+					] );
 					echo '</div>';
 				} else { ?>
 
 					<p> Add some regions first.</p>
 
-				<?php
+					<?php
 				}
-			} elseif( 'city-regions' == $field['geot_show']) {
+			} elseif ( 'city-regions' == $field['geot_show'] ) {
 
-				$regions 	= geot_city_regions();
+				$regions = geot_city_regions();
 
-				if( is_array( $regions ) ) {
+				if ( is_array( $regions ) ) {
 
-					foreach ($regions as $r) {
-						if (!empty( $r['name'] ) ) {
-							$choices[$r['name']] = $r['name'];
+					foreach ( $regions as $r ) {
+						if ( ! empty( $r['name'] ) ) {
+							$choices[ $r['name'] ] = $r['name'];
 						}
 					}
 					echo '<div class="geot-select2">';
-					create_field( array(
-						'type'		=>	'select',
-						'multiple'	=>	true,
-						'class'		=>  "geot-chosen-select-multiple",
-						'name'		=>	$field['name'].'[geot_city_regions]',
-						'value'		=>	isset($field['value']['geot_city_regions']) ? $field['value']['geot_city_regions'] :'',
-						'choices'	=>	$choices
-					));
+					create_field( [
+						'type'     => 'select',
+						'multiple' => true,
+						'class'    => "geot-chosen-select-multiple",
+						'name'     => $field['name'] . '[geot_city_regions]',
+						'value'    => isset( $field['value']['geot_city_regions'] ) ? $field['value']['geot_city_regions'] : '',
+						'choices'  => $choices,
+					] );
 					echo '</div>';
 				} else { ?>
 
 					<p> Add some regions first.</p>
 
-				<?php
+					<?php
 				}
 			} else {
 
-				$countries 	= geot_countries();
+				$countries = geot_countries();
 
-				if( is_array( $countries ) ) {
+				if ( is_array( $countries ) ) {
 
-					foreach ($countries as $r) {
-						if( !empty( $r->country ) ) {
+					foreach ( $countries as $r ) {
+						if ( ! empty( $r->country ) ) {
 
-							$choices[$r->iso_code] = $r->country;
+							$choices[ $r->iso_code ] = $r->country;
 
 						}
 					}
 					echo '<div class="geot-select2">';
-					create_field( array(
-						'type'		=>	'select',
-						'class'		=>  "geot-chosen-select-multiple",
-						'multiple'	=>	true,
-						'name'		=>	$field['name'].'[geot_countries]',
-						'value'		=>	isset($field['value']['geot_countries'])? $field['value']['geot_countries'] : '',
-						'choices'	=>	$choices
-					));
+					create_field( [
+						'type'     => 'select',
+						'class'    => "geot-chosen-select-multiple",
+						'multiple' => true,
+						'name'     => $field['name'] . '[geot_countries]',
+						'value'    => isset( $field['value']['geot_countries'] ) ? $field['value']['geot_countries'] : '',
+						'choices'  => $choices,
+					] );
 					echo '</div>';
 				} else { ?>
 
 					<p> Add some countries first.</p>
 
-				<?php
+					<?php
 				}
 			}
 			?>
 		</div>
-	<?php
+		<?php
 	}
 
 
@@ -308,15 +307,15 @@ class acf_field_geot_field extends acf_field {
    	*  @return	n/a
    	*/
 
-   	/*
+	/*
 
-   	function input_form_data( $args ) {
+	function input_form_data( $args ) {
 
 
 
-   	}
+	}
 
-   	*/
+	*/
 
 
 	/*

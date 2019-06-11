@@ -12,10 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<th><label for="source_slug"><?php _e( 'Link Slug', 'geol' ); ?></label></th>
 		<td id="source">
 			<input type="text" id="source_slug" class="widefat" name="geol[source_slug]"
-			       value="<?php echo isset($opts['source_slug']) ? esc_attr($opts['source_slug']) : ''; ?>"/>
+			       value="<?php echo isset( $opts['source_slug'] ) ? esc_attr( $opts['source_slug'] ) : ''; ?>"/>
 			<span id="source_msg"></span>
-			<small>* <?php _e('Minimum length accepted: 3','geol'); ?></small>
-			<p class="help"><strong>URL:</strong> <?php echo site_url( $settings['goto_page'] ); ?>/<span><?php echo $opts['source_slug']; ?></span><br><strong>SHORTCODE:</strong> [geo-link slug="<span><?php echo $opts['source_slug']; ?></span>" nofollow="yes" noreferrer="no"]...[/geo-link]</p>
+			<small>* <?php _e( 'Minimum length accepted: 3', 'geol' ); ?></small>
+			<p class="help"><strong>URL:</strong> <?php echo site_url( $settings['goto_page'] ); ?>
+				/<span><?php echo $opts['source_slug']; ?></span><br><strong>SHORTCODE:</strong> [geo-link
+				slug="<span><?php echo $opts['source_slug']; ?></span>" nofollow="yes" noreferrer="no"]...[/geo-link]
+			</p>
 		</td>
 	</tr>
 
@@ -23,15 +26,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<th><label for="status_code"><?php _e( 'Redirection code', 'geol' ); ?></label></th>
 		<td id="code">
 			<input type="number" id="status_code" class="widefat" name="geol[status_code]"
-			       value="<?php echo isset($opts['status_code']) ? esc_attr($opts['status_code']) : ''; ?>"/>
-			<p class="help"><?php _e('Add redirection code. Default to 302','geol'); ?></p>
+			       value="<?php echo isset( $opts['status_code'] ) ? esc_attr( $opts['status_code'] ) : ''; ?>"/>
+			<p class="help"><?php _e( 'Add redirection code. Default to 302', 'geol' ); ?></p>
 		</td>
 	</tr>
 
 	<tr valign="top">
-		<th><label for="dest_default"><?php _e('Default URL','geol'); ?></label></th>
+		<th><label for="dest_default"><?php _e( 'Default URL', 'geol' ); ?></label></th>
 		<td>
-			<input type="text" class="widefat" name="geol[dest_default]" value="<?php echo isset($opts['dest_default']) ? esc_attr( $opts['dest_default'] ) : ''; ?>" placeholder="<?php _e( 'https://:', 'geol' ); ?>"/>
+			<input type="text" class="widefat" name="geol[dest_default]"
+			       value="<?php echo isset( $opts['dest_default'] ) ? esc_attr( $opts['dest_default'] ) : ''; ?>"
+			       placeholder="<?php _e( 'https://:', 'geol' ); ?>"/>
 			<p class="help-text"><?php _e( 'Default url will be used when none of the rules below match the user', 'geol' ); ?></p>
 		</td>
 	</tr>

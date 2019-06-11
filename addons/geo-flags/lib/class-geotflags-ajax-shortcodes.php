@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Shortcodes  functions for AJAX mode
  *
@@ -24,11 +25,11 @@ class GeoFlags_Ajax_Shortcodes {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct(  ) {
+	public function __construct() {
 
 		$this->geot_opts = geof_settings();
 
-		add_action( 'init', [$this, 'register_shortcodes'] );
+		add_action( 'init', [ $this, 'register_shortcodes' ] );
 	}
 
 	/**
@@ -37,10 +38,11 @@ class GeoFlags_Ajax_Shortcodes {
 	 */
 	public function register_shortcodes() {
 
-		if( ! isset( $this->geot_opts['ajax_mode'] ) || $this->geot_opts['ajax_mode'] != '1' )
+		if ( ! isset( $this->geot_opts['ajax_mode'] ) || $this->geot_opts['ajax_mode'] != '1' ) {
 			return;
+		}
 
-		add_shortcode('geo-flag', array( $this, 'geo_flag') );
+		add_shortcode( 'geo-flag', [ $this, 'geo_flag' ] );
 	}
 
 	/**
@@ -54,15 +56,15 @@ class GeoFlags_Ajax_Shortcodes {
 	 *
 	 * @return string
 	 */
-	function geo_flag($atts, $content)
-	{
-		extract( shortcode_atts( array(
-			'country_code' 		=> '',
-			'squared'			=> false,
-			'size'			    => "30px",
-			'html_tag'			    => "span",
-		), $atts ) );
+	function geo_flag( $atts, $content ) {
+		extract( shortcode_atts( [
+			'country_code' => '',
+			'squared'      => false,
+			'size'         => "30px",
+			'html_tag'     => "span",
+		], $atts ) );
 		$squared = $squared && $squared !== 'false' ? 'flag-icon-squared' : '';
-		return '<span class="geot-ajax" data-exclude_region="'.$html_tag.'" data-region="'.esc_attr($size).'" data-action="geo_flag" data-filter="'.$country_code.'" data-default="'.$squared.'"></span>';
+
+		return '<span class="geot-ajax" data-exclude_region="' . $html_tag . '" data-region="' . esc_attr( $size ) . '" data-action="geo_flag" data-filter="' . $country_code . '" data-default="' . $squared . '"></span>';
 	}
 }	

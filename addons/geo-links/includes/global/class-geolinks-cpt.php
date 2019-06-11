@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class GeoLinksCpt will handle all stuff related to custom post type
  * @since 1.0.0
@@ -14,8 +15,8 @@ class Geolinks_Cpt {
 
 	/**
 	 * Register custom post types
-	 * @since     1.0.0
 	 * @return void
+	 * @since     1.0.0
 	 */
 	public function register_cpt() {
 

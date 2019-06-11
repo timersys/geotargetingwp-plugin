@@ -36,12 +36,12 @@ class Geot_Deactivator {
 		$current_version = get_option( 'geot_version' );
 
 		// Only remove table if version 1.1 is being installed
-		if( empty($current_version) || version_compare( '1.1', $current_version ) > 0 ) {
+		if ( empty( $current_version ) || version_compare( '1.1', $current_version ) > 0 ) {
 			$drop_table = "DROP TABLE IF EXISTS {$wpdb->base_prefix}geot_countries; DROP TABLE IF EXISTS {$wpdb->base_prefix}geot_cities;";
 
 			$wpdb->query( $drop_table );
 		}
-		do_action('geotWP/deactivated');
+		do_action( 'geotWP/deactivated' );
 	}
 
 }

@@ -10,20 +10,22 @@ class Geotr_Helper {
 
 	/**
 	 * Return the redirection options
-	 * @param  int $id geotrcpt id
-	 * @since  2.0
+	 *
+	 * @param int $id geotrcpt id
+	 *
 	 * @return array metadata values
+	 * @since  2.0
 	 */
 	public static function get_options( $id ) {
-		$defaults = array(
+		$defaults = [
 
-			'url'			    => '',
-			'one_time_redirect'	=> '',
-			'exclude_se'		=> '',
-			'pass_query_string'	=> '',
-			'whitelist'			=> '',
-			'status'			=> 302,
-		);
+			'url'               => '',
+			'one_time_redirect' => '',
+			'exclude_se'        => '',
+			'pass_query_string' => '',
+			'whitelist'         => '',
+			'status'            => 302,
+		];
 
 		$opts = apply_filters( 'geotr/metaboxes/box_options', get_post_meta( $id, 'geotr_options', true ), $id );
 

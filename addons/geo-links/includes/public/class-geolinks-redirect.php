@@ -35,7 +35,7 @@ class Geol_Redirects {
 		self::$detect = new Mobile_Detect;
 
 		add_action( 'template_redirect', [ $this, 'redirect_link' ] );
-		add_shortcode( 'geo-link' , [$this, 'add_shortcode'], 10, 2 );
+		add_shortcode( 'geo-link', [ $this, 'add_shortcode' ], 10, 2 );
 	}
 
 	/**
@@ -49,12 +49,12 @@ class Geol_Redirects {
 
 		if ( is_singular( 'geol_cpt' ) ) {
 
-			$post_id	= get_the_id();
-			$opts 		= geol_options( $post_id );
-			$settings 	= geol_settings();
+			$post_id  = get_the_id();
+			$opts     = geol_options( $post_id );
+			$settings = geol_settings();
 
-			$this->count_click('click', $post_id);
-			
+			$this->count_click( 'click', $post_id );
+
 			// check redirections to see if we have any match
 			foreach ( $opts['dest'] as $key => $redirect ) {
 
@@ -62,31 +62,70 @@ class Geol_Redirects {
 
 				// validate redirect
 				if ( $this->validate_redirection( $redirect ) ) {
-					
+
 					// last change to abort
 					if ( apply_filters( 'geol/redirect_cancel', false, $redirect, $post_id ) ) {
 						return;
 					}
 
-					$this->count_click('dest', $post_id, $key);
+					$this->count_click( 'dest', $post_id, $key );
 
 					wp_redirect( esc_url_raw( $redirect['url'] ), $opts['status_code'] );
 					exit();
 				}
 			}
 
-			if( isset($opts['dest_default']) && !empty( $opts['dest_default'] ) )
-				$url_default = apply_filters('geol/redirect_default', esc_url_raw( $opts['dest_default']), $post_id );
-			else
+			if ( isset( $opts['dest_default'] ) && ! empty( $opts['dest_default'] ) ) {
+				$url_default = apply_filters( 'geol/redirect_default', esc_url_raw( $opts['dest_default'] ), $post_id );
+			} else {
 				$url_default = site_url();
+			}
 
-			$this->count_click('default', $post_id);
+			$this->count_click( 'default', $post_id );
 
 			wp_redirect( $url_default, $opts['status_code'] );
 			exit();
 		}
 	}
 
+	function count_click( $field, $post_id, $dest_key = '' ) {
+
+		$opts = geol_options( $post_id );
+
+		switch ( $field ) {
+			case 'click' :
+				if ( isset( $opts['count_click'] ) && is_numeric( $opts['count_click'] ) ) {
+					$opts['count_click'] ++;
+				} else {
+					$opts['count_click'] = 1;
+				}
+
+				break;
+			case 'default' :
+				if ( isset( $opts['click_default'] ) && is_numeric( $opts['click_default'] ) ) {
+					$opts['click_default'] ++;
+				} else {
+					$opts['click_default'] = 1;
+				}
+
+				break;
+
+			case 'dest' :
+				if ( isset( $opts['dest'][ $dest_key ]['count_dest'] ) &&
+				     is_numeric( $opts['dest'][ $dest_key ]['count_dest'] )
+				) {
+					$opts['dest'][ $dest_key ]['count_dest'] ++;
+				} else {
+					$opts['dest'][ $dest_key ]['count_dest'] = 1;
+				}
+
+				break;
+		}
+
+		// save box settings
+		update_post_meta( $post_id, 'geol_options', apply_filters( 'geol/redirect/count_click', $opts ) );
+
+	}
 
 	/**
 	 * conditional geo validation
@@ -94,8 +133,8 @@ class Geol_Redirects {
 	 * @param $redirect is cpt values
 	 * @param $geo is geot targeting
 	 *
-	 * @since 1.0.0
 	 * @return bool
+	 * @since 1.0.0
 	 */
 	private function validate_redirection( $redirect ) {
 
@@ -132,7 +171,7 @@ class Geol_Redirects {
 		}
 
 		// Cities
-		if ( ! empty( $redirect['cities'] ) && ! geot_target_city( $redirect['cities'] ) && ! geot_target_city('', $redirect['cities'] ) ) {
+		if ( ! empty( $redirect['cities'] ) && ! geot_target_city( $redirect['cities'] ) && ! geot_target_city( '', $redirect['cities'] ) ) {
 			return false;
 		}
 
@@ -149,44 +188,6 @@ class Geol_Redirects {
 		return true;
 	}
 
-
-	function count_click($field, $post_id, $dest_key = '') {
-
-		$opts = geol_options( $post_id );
-
-		switch($field) {
-			case 'click' :
-					if( isset( $opts['count_click'] ) && is_numeric( $opts['count_click'] ) )
-						$opts['count_click']++;
-					else
-						$opts['count_click'] = 1;
-
-					break;
-			case 'default' :
-					if( isset( $opts['click_default'] ) && is_numeric( $opts['click_default'] ) )
-						$opts['click_default']++;
-					else
-						$opts['click_default'] = 1;
-
-					break;
-
-			case 'dest' :
-					if( isset( $opts['dest'][$dest_key]['count_dest'] ) &&
-						is_numeric( $opts['dest'][$dest_key]['count_dest'] )
-					)
-						$opts['dest'][$dest_key]['count_dest']++;
-					else
-						$opts['dest'][$dest_key]['count_dest'] = 1;
-
-					break;
-		}
-
-		// save box settings
-		update_post_meta( $post_id, 'geol_options', apply_filters( 'geol/redirect/count_click', $opts ) );
-
-	}
-
-
 	/**
 	 * Add Shortcode
 	 *
@@ -197,38 +198,40 @@ class Geol_Redirects {
 	 * @return string
 	 * @since 1.0.0
 	 */
-	public function add_shortcode($atts, $content = '') {
-		$atts = shortcode_atts( array(
-			'slug'			=> 'geo-slug',
-			'nofollow'		=> 'no',
-			'noreferrer'	=> 'no',
-		), $atts, 'geo-link' );
+	public function add_shortcode( $atts, $content = '' ) {
+		$atts = shortcode_atts( [
+			'slug'       => 'geo-slug',
+			'nofollow'   => 'no',
+			'noreferrer' => 'no',
+		], $atts, 'geo-link' );
 
 		$return = '{Slug is not matching any Geo link}';
-		$post = get_page_by_path($atts['slug'], OBJECT, 'geol_cpt');
+		$post   = get_page_by_path( $atts['slug'], OBJECT, 'geol_cpt' );
 
-		if( isset($post->ID) ) {
+		if ( isset( $post->ID ) ) {
 
-			$rel = apply_filters( 'geolinks/link_rel_attr', ['noopener'] );
-			$content = !empty($content) ? $content : 'Geo Link';
+			$rel      = apply_filters( 'geolinks/link_rel_attr', [ 'noopener' ] );
+			$content  = ! empty( $content ) ? $content : 'Geo Link';
 			$settings = geol_settings();
-			$opts = geol_options($post->ID);
+			$opts     = geol_options( $post->ID );
 
 
 			// REL
-			if( $atts['nofollow'] == 'yes' )
+			if ( $atts['nofollow'] == 'yes' ) {
 				$rel[] = 'nofollow';
+			}
 
-			if( $atts['noreferrer'] == 'yes' )
+			if ( $atts['noreferrer'] == 'yes' ) {
 				$rel[] = 'noreferrer';
+			}
 
-			$attr_rel = count($rel) > 0 ? 'rel="'.implode(' ', $rel).'"' : '';
+			$attr_rel = count( $rel ) > 0 ? 'rel="' . implode( ' ', $rel ) . '"' : '';
 
 
 			// Output
-			$link =  add_query_arg( 'nocache', 'true', trailingslashit( site_url( $settings['goto_page'] ) ) . $opts['source_slug'] );
+			$link = add_query_arg( 'nocache', 'true', trailingslashit( site_url( $settings['goto_page'] ) ) . $opts['source_slug'] );
 
-			$return = '<a href="' . esc_url( $link ) . '" '. esc_attr( $attr_rel ) .' >' . do_shortcode($content) . '</a>';
+			$return = '<a href="' . esc_url( $link ) . '" ' . esc_attr( $attr_rel ) . ' >' . do_shortcode( $content ) . '</a>';
 		}
 
 		return $return;

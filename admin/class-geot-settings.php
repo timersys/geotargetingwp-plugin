@@ -28,41 +28,43 @@ class Geot_Settings {
 		// settings page
 		add_action( 'admin_init', [ $this, 'save_settings' ] );
 
-		add_filter('geot/settings_tabs', [$this, 'add_tab']);
-		add_action('geot/settings_geotargeting-settings_panel', [ $this, 'settings_page'] );
-		add_action('geot/settings_geotargeting-addons_panel', [ $this, 'addons_page'] );
+		add_filter( 'geot/settings_tabs', [ $this, 'add_tab' ] );
+		add_action( 'geot/settings_geotargeting-settings_panel', [ $this, 'settings_page' ] );
+		add_action( 'geot/settings_geotargeting-addons_panel', [ $this, 'addons_page' ] );
 
-		add_action('geot/wizard/steps', [$this, 'add_steps'], 10, 1 );
+		add_action( 'geot/wizard/steps', [ $this, 'add_steps' ], 10, 1 );
 	}
 
 
 	/**
 	 * Register tab for settings page
+	 *
 	 * @param $tabs
 	 *
 	 * @return mixed
 	 */
-	function add_tab( $tabs ){
-		$tabs['geotargeting-settings'] = [ 'name' => __('Settings', 'geot') ];
-		$tabs['geotargeting-addons'] = [ 'name' => __('AddOns', 'geot') ];
+	function add_tab( $tabs ) {
+		$tabs['geotargeting-settings'] = [ 'name' => __( 'Settings', 'geot' ) ];
+		$tabs['geotargeting-addons']   = [ 'name' => __( 'AddOns', 'geot' ) ];
+
 		return $tabs;
 	}
 
 	/**
 	 * Render settings page
 	 */
-	function settings_page(){
+	function settings_page() {
 		$defaults = [
-			'ajax_mode'                 => '0',
-			'disable_menu_integration'  => '0',
-			'disable_widget_integration'=> '0',
+			'ajax_mode'                  => '0',
+			'disable_menu_integration'   => '0',
+			'disable_widget_integration' => '0',
 		];
-		$opts = geot_pro_settings();
-		$opts = wp_parse_args( $opts,  $defaults );
+		$opts     = geot_pro_settings();
+		$opts     = wp_parse_args( $opts, $defaults );
 
-		$return = 'admin.php?'.http_build_query( $_GET );
+		$return = 'admin.php?' . http_build_query( $_GET );
 
-		include GEOT_PLUGIN_DIR .'admin/partials/settings-page.php';
+		include GEOT_PLUGIN_DIR . 'admin/partials/settings-page.php';
 	}
 
 	/**
@@ -70,55 +72,56 @@ class Geot_Settings {
 	 */
 	function addons_page() {
 		$defaults = [
-						'geo-flags'		=> '0',
-						'geo-links'		=> '0',
-						'geo-redirects'	=> '0',
-						'geo-blocker'	=> '0',
-					];
+			'geo-flags'     => '0',
+			'geo-links'     => '0',
+			'geo-redirects' => '0',
+			'geo-blocker'   => '0',
+		];
 
-		$defaults = apply_filters('geot/addons/defaults', $defaults);
+		$defaults = apply_filters( 'geot/addons/defaults', $defaults );
 
 		$opts = geot_pro_addons();
-		$opts = geot_wp_parse_args( $opts,  $defaults );
+		$opts = geot_wp_parse_args( $opts, $defaults );
 
-		$return = 'admin.php?'.http_build_query( $_GET );
+		$return = 'admin.php?' . http_build_query( $_GET );
 
-		include GEOT_PLUGIN_DIR .'admin/partials/addons-page.php';
+		include GEOT_PLUGIN_DIR . 'admin/partials/addons-page.php';
 	}
 
-	function save_settings(){
-		if (  isset( $_POST['geot_nonce'] ) && wp_verify_nonce( $_POST['geot_nonce'], 'geot_pro_save_settings' ) ) {
+	function save_settings() {
+		if ( isset( $_POST['geot_nonce'] ) && wp_verify_nonce( $_POST['geot_nonce'], 'geot_pro_save_settings' ) ) {
 
 			//Settings
-			if( isset($_POST['geot_settings']) ) {
-				$settings = isset($_POST['geot_settings']) ? esc_sql( $_POST['geot_settings'] ) : '';
-				update_option( 'geot_pro_settings' ,  $settings);
+			if ( isset( $_POST['geot_settings'] ) ) {
+				$settings = isset( $_POST['geot_settings'] ) ? esc_sql( $_POST['geot_settings'] ) : '';
+				update_option( 'geot_pro_settings', $settings );
 			}
 
 			//addons
-			if( isset($_POST['geot_addons']) ) {
-				$settings = isset($_POST['geot_addons']) ? esc_sql( $_POST['geot_addons'] ) : '';
-				update_option( 'geot_pro_addons' ,  $settings);
+			if ( isset( $_POST['geot_addons'] ) ) {
+				$settings = isset( $_POST['geot_addons'] ) ? esc_sql( $_POST['geot_addons'] ) : '';
+				update_option( 'geot_pro_addons', $settings );
 			}
 
 
-			do_action('geot/settings/save', $_POST);
+			do_action( 'geot/settings/save', $_POST );
 
-			if( isset($_POST['geot_return']) ) {
-				wp_redirect(esc_url_raw(admin_url($_POST['geot_return'])));
+			if ( isset( $_POST['geot_return'] ) ) {
+				wp_redirect( esc_url_raw( admin_url( $_POST['geot_return'] ) ) );
 				exit();
 			}
 		}
 	}
 
 
-	function add_steps($steps) {
+	function add_steps( $steps ) {
 
-		$steps['addons'] = array(
-								'name'    => __( 'Addons', 'geot' ),
-								'view'    => array( $this, 'setup_wizard_addons' ),
-								'handler' => array( $this, 'setup_wizard_addons_save' ),
-							);
+		$steps['addons'] = [
+			'name'    => __( 'Addons', 'geot' ),
+			'view'    => [ $this, 'setup_wizard_addons' ],
+			'handler' => [ $this, 'setup_wizard_addons_save' ],
+		];
+
 		return $steps;
 	}
 
@@ -126,21 +129,21 @@ class Geot_Settings {
 	function setup_wizard_addons() {
 		$opts     = geot_pro_addons();
 		$defaults = [
-						'geo-flags'		=> '0',
-						'geo-links'		=> '0',
-						'geo-redirects'	=> '0',
-						'geo-blocker'	=> '0',
-					];
-		$opts = wp_parse_args( $opts, apply_filters( 'geot/default_addons', $defaults ) );
+			'geo-flags'     => '0',
+			'geo-links'     => '0',
+			'geo-redirects' => '0',
+			'geo-blocker'   => '0',
+		];
+		$opts     = wp_parse_args( $opts, apply_filters( 'geot/default_addons', $defaults ) );
 
 		require_once GEOT_PLUGIN_DIR . 'admin/partials/setup-wizard-addons.php';
 	}
 
 	function setup_wizard_addons_save() {
-		
-		if( isset($_POST['geot_addons']) ) {
-			$settings = isset($_POST['geot_addons']) ? esc_sql( $_POST['geot_addons'] ) : '';
-			update_option( 'geot_pro_addons' ,  $settings);
+
+		if ( isset( $_POST['geot_addons'] ) ) {
+			$settings = isset( $_POST['geot_addons'] ) ? esc_sql( $_POST['geot_addons'] ) : '';
+			update_option( 'geot_pro_addons', $settings );
 		}
 	}
 }

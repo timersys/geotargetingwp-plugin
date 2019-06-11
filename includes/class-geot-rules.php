@@ -1,5 +1,7 @@
 <?php
+
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
+
 /**
  * Main Rules class
  *
@@ -25,28 +27,28 @@ class Geot_Rules {
 		self::$query_string = isset( $_SERVER['QUERY_STRING'] ) ? $_SERVER['QUERY_STRING'] : '';
 		self::$current_url  = \GeotFunctions\get_current_url();
 
-		if( defined('DOING_AJAX') ) {
+		if ( defined( 'DOING_AJAX' ) ) {
 
 			if ( isset( $_REQUEST['pid'] ) ) {
 				self::$post_id = $_REQUEST['pid'];
 			}
-			if( !empty( $_REQUEST['referrer'] ) ) {
+			if ( ! empty( $_REQUEST['referrer'] ) ) {
 				self::$referrer = $_REQUEST['referrer'];
 			}
-			if( !empty( $_REQUEST['query_string'] ) ) {
+			if ( ! empty( $_REQUEST['query_string'] ) ) {
 				self::$query_string = $_REQUEST['query_string'];
 			}
-			if( !empty( $_REQUEST['is_category'] ) ) {
+			if ( ! empty( $_REQUEST['is_category'] ) ) {
 				self::$is_category = true;
 			}
-			if( !empty( $_REQUEST['is_archive'] ) ) {
+			if ( ! empty( $_REQUEST['is_archive'] ) ) {
 				self::$is_archive = true;
 			}
-			if( !empty( $_REQUEST['is_search'] ) ) {
+			if ( ! empty( $_REQUEST['is_search'] ) ) {
 				self::$is_search = true;
 			}
-			if( !empty( $_REQUEST['url'] ) ) {
-				self::$current_url  = $_REQUEST['url'];
+			if ( ! empty( $_REQUEST['url'] ) ) {
+				self::$current_url = $_REQUEST['url'];
 			}
 		}
 		// Geotargeting
@@ -174,38 +176,38 @@ class Geot_Rules {
 	 * @return mixed
 	 */
 	public static function get_rules_choices() {
-		$choices = array(
-			__( "Geotargeting", 'geot' ) => array(
+		$choices = [
+			__( "Geotargeting", 'geot' ) => [
 				'country'        => __( 'Country', 'geot' ),
 				'country_region' => __( 'Country Region', 'geot' ),
 				'city'           => __( 'City', 'geot' ),
 				'city_region'    => __( 'City Region', 'geot' ),
 				'state'          => __( 'State', 'geot' ),
 				'zip'            => __( 'Zip Code', 'geot' ),
-			),
-			__( "User", 'geot' )         => array(
+			],
+			__( "User", 'geot' )         => [
 				'user_type'     => __( "User role", 'geot' ),
 				'logged_user'   => __( "User is logged", 'geot' ),
 				'left_comment'  => __( "User never left a comment", 'geot' ) . ' *',
 				'search_engine' => __( "User came via a search engine", 'geot' ),
 				'same_site'     => __( "User did not arrive via another page on your site", 'geot' ),
-			),
-			__( "Post", 'geot' )         => array(
+			],
+			__( "Post", 'geot' )         => [
 				'post'          => __( "Post", 'geot' ),
 				'post_id'       => __( "Post ID", 'geot' ),
-				'post_type'     => __( "Post Type", 'geot' ) ,
+				'post_type'     => __( "Post Type", 'geot' ),
 				'post_category' => __( "Post Category", 'geot' ),
-				'post_format'   => __( "Post Format", 'geot' ) ,
-				'post_status'   => __( "Post Status", 'geot' ) ,
+				'post_format'   => __( "Post Format", 'geot' ),
+				'post_status'   => __( "Post Status", 'geot' ),
 				'taxonomy'      => __( "Post Taxonomy", 'geot' ),
-			),
-			__( "Page", 'geot' )         => array(
+			],
+			__( "Page", 'geot' )         => [
 				'page'          => __( "Page", 'geot' ),
 				'page_type'     => __( "Page Type", 'geot' ),
 				'page_parent'   => __( "Page Parent", 'geot' ),
 				'page_template' => __( "Page Template", 'geot' ),
-			),
-			__( "Other", 'geot' )        => array(
+			],
+			__( "Other", 'geot' )        => [
 				'custom_url'   => __( "Custom Url", 'geot' ),
 				'cookie'       => __( "Cookie exists", 'geot' ),
 				'referrer'     => __( "Referrer", 'geot' ),
@@ -214,8 +216,8 @@ class Geot_Rules {
 				'tablets'      => __( "Tablet", 'geot' ),
 				'desktop'      => __( "Dekstop", 'geot' ),
 				'crawlers'     => __( "Bots/Crawlers", 'geot' ),
-			)
-		);
+			],
+		];
 
 		// allow custom rules rules
 		return apply_filters( 'geot/metaboxes/rule_types', $choices );
@@ -245,10 +247,10 @@ class Geot_Rules {
 	public static function rule_match_country_region( $rule ) {
 
 		if ( $rule['operator'] == "==" ) {
-			return ( geot_target('', $rule['value'] ) );
+			return ( geot_target( '', $rule['value'] ) );
 		}
 
-		return ( ! geot_target('', $rule['value'] ) );
+		return ( ! geot_target( '', $rule['value'] ) );
 
 	}
 
@@ -261,10 +263,10 @@ class Geot_Rules {
 		$city = geot_city_name();
 
 		if ( $rule['operator'] == "==" ) {
-			return ( strtolower($city) == strtolower($rule['value']) );
+			return ( strtolower( $city ) == strtolower( $rule['value'] ) );
 		}
 
-		return ! ( strtolower($city) == strtolower($rule['value']) );
+		return ! ( strtolower( $city ) == strtolower( $rule['value'] ) );
 
 	}
 
@@ -274,14 +276,14 @@ class Geot_Rules {
 	*/
 	public static function rule_match_state( $rule ) {
 
-		$state = geot_state_name();
+		$state      = geot_state_name();
 		$state_code = geot_state_code();
 
 		if ( $rule['operator'] == "==" ) {
-			return ( strtolower($state) == strtolower($rule['value']) || strtolower($state_code) == strtolower($rule['value']) );
+			return ( strtolower( $state ) == strtolower( $rule['value'] ) || strtolower( $state_code ) == strtolower( $rule['value'] ) );
 		}
 
-		return ! ( strtolower($state) == strtolower($rule['value']) || strtolower($state_code) == strtolower($rule['value']) );
+		return ! ( strtolower( $state ) == strtolower( $rule['value'] ) || strtolower( $state_code ) == strtolower( $rule['value'] ) );
 
 	}
 
@@ -292,10 +294,10 @@ class Geot_Rules {
 	public static function rule_match_city_region( $rule ) {
 
 		if ( $rule['operator'] == "==" ) {
-			return ( geot_target_city('', $rule['value'] ) );
+			return ( geot_target_city( '', $rule['value'] ) );
 		}
 
-		return ( ! geot_target_city('', $rule['value'] ) );
+		return ( ! geot_target_city( '', $rule['value'] ) );
 
 	}
 
@@ -322,26 +324,23 @@ class Geot_Rules {
 
 		$post_id = self::$post_id;
 
-        // in case multiple ids are passed
-        $ids = array_map('trim',explode(',',$rule['value']));
+		// in case multiple ids are passed
+		$ids = array_map( 'trim', explode( ',', $rule['value'] ) );
 
-        if($rule['operator'] == "==")
-        {
-            $match = in_array($post_id, $ids );
-        }
-        elseif($rule['operator'] == "!=")
-        {
-            $match = ! in_array($post_id, $ids );
-        }
+		if ( $rule['operator'] == "==" ) {
+			$match = in_array( $post_id, $ids );
+		} elseif ( $rule['operator'] == "!=" ) {
+			$match = ! in_array( $post_id, $ids );
+		}
 
-        return $match;
+		return $match;
 
 	}
 
 	/**
 	 * [rule_match_logged_user description]
 	 *
-	 * @param  array $rule rule to compare
+	 * @param array $rule rule to compare
 	 *
 	 * @return boolean true if match
 	 */
@@ -357,7 +356,7 @@ class Geot_Rules {
 	/**
 	 * [rule_match_mobiles description]
 	 *
-	 * @param  array $rule rule to compare
+	 * @param array $rule rule to compare
 	 *
 	 * @return boolean true if match
 	 */
@@ -373,7 +372,7 @@ class Geot_Rules {
 	/**
 	 * [rule_match_tablets description]
 	 *
-	 * @param  array $rule rule to compare
+	 * @param array $rule rule to compare
 	 *
 	 * @return boolean true if match
 	 */
@@ -389,7 +388,7 @@ class Geot_Rules {
 	/**
 	 * [rule_match_desktop description]
 	 *
-	 * @param  array $rule rule to compare
+	 * @param array $rule rule to compare
 	 *
 	 * @return boolean true if match
 	 */
@@ -406,7 +405,7 @@ class Geot_Rules {
 	/**
 	 * [rule_match_left_comment description]
 	 *
-	 * @param  array $rule rule to compare
+	 * @param array $rule rule to compare
 	 *
 	 * @return boolean true if match
 	 */
@@ -422,7 +421,7 @@ class Geot_Rules {
 	/**
 	 * [rule_match_search_engine description]
 	 *
-	 * @param  array $rule rule to compare
+	 * @param array $rule rule to compare
 	 *
 	 * @return boolean true if match
 	 */
@@ -430,7 +429,7 @@ class Geot_Rules {
 
 		$ref = self::$referrer;
 
-		$SE = apply_filters( 'geot/rules/search_engines', array(
+		$SE = apply_filters( 'geot/rules/search_engines', [
 			'/search?',
 			'.google.',
 			'web.info.com',
@@ -439,8 +438,8 @@ class Geot_Rules {
 			'soso.com',
 			'/search/',
 			'.yahoo.',
-			'.bing.'
-		) );
+			'.bing.',
+		] );
 		foreach ( $SE as $url ) {
 			if ( strpos( $ref, $url ) !== false ) {
 				return $rule['operator'] == "==" ? true : false;
@@ -454,7 +453,7 @@ class Geot_Rules {
 	/**
 	 * Check for user referrer
 	 *
-	 * @param  array $rule rule to compare
+	 * @param array $rule rule to compare
 	 *
 	 * @return boolean true if match
 	 */
@@ -473,33 +472,36 @@ class Geot_Rules {
 	/**
 	 * Check for custom url
 	 *
-	 * @param  array $rule rule to compare
+	 * @param array $rule rule to compare
 	 *
 	 * @return boolean true if match
 	 */
 	public static function rule_match_custom_url( $rule ) {
 
-		$wide_search = strpos($rule['value'],'*') !== false ? true : false;
+		$wide_search = strpos( $rule['value'], '*' ) !== false ? true : false;
 
-		$custom_url = untrailingslashit(preg_replace('#^https?://#', '', $rule['value']));
-		$current_url = untrailingslashit(preg_replace('#^https?://#', '', self::$current_url));
+		$custom_url  = untrailingslashit( preg_replace( '#^https?://#', '', $rule['value'] ) );
+		$current_url = untrailingslashit( preg_replace( '#^https?://#', '', self::$current_url ) );
 
-		if( $wide_search ) {
-			if( strpos( $current_url, trim($custom_url,'*/') ) === 0 ) {
+		if ( $wide_search ) {
+			if ( strpos( $current_url, trim( $custom_url, '*/' ) ) === 0 ) {
 				return ( $rule['operator'] == "==" );
 			}
+
 			return ! ( $rule['operator'] == "==" );
 		}
 
-		if( $rule['operator'] == "==" )
-			return ($current_url == $custom_url);
+		if ( $rule['operator'] == "==" ) {
+			return ( $current_url == $custom_url );
+		}
 
-		return ! ($current_url == $custom_url);
+		return ! ( $current_url == $custom_url );
 	}
+
 	/**
 	 * Check for crawlers / bots
 	 *
-	 * @param  array $rule rule to compare
+	 * @param array $rule rule to compare
 	 *
 	 * @return boolean true if match
 	 */
@@ -518,17 +520,18 @@ class Geot_Rules {
 	/**
 	 * Check for query string to see if matchs all given ones
 	 *
-	 * @param  array $rule rule to compare
+	 * @param array $rule rule to compare
 	 *
 	 * @return boolean true if match
 	 */
 	public static function rule_match_query_string( $rule ) {
 
 
-		$found = strpos(self::$query_string, str_replace('?','', $rule['value'] ) ) > -1 ? true: false;
+		$found = strpos( self::$query_string, str_replace( '?', '', $rule['value'] ) ) > - 1 ? true : false;
 
-		if ( $rule['operator'] == "==" )
+		if ( $rule['operator'] == "==" ) {
 			return $found;
+		}
 
 		return ! $found;
 
@@ -537,7 +540,7 @@ class Geot_Rules {
 	/**
 	 * [rule_match_same_site description]
 	 *
-	 * @param  array $rule rule to compare
+	 * @param array $rule rule to compare
 	 *
 	 * @return boolean true if match
 	 */
@@ -545,7 +548,7 @@ class Geot_Rules {
 
 		$ref = self::$referrer;
 
-		$internal = str_replace( array( 'http://', 'https://' ), '', home_url() );
+		$internal = str_replace( [ 'http://', 'https://' ], '', home_url() );
 
 		if ( $rule['operator'] == "==" ) {
 			return ! preg_match( '~' . $internal . '~i', $ref );
@@ -564,7 +567,7 @@ class Geot_Rules {
 
 	public static function rule_match_post_type( $rule ) {
 
-		$post_type = get_post_type(self::$post_id);
+		$post_type = get_post_type( self::$post_id );
 
 		if ( $rule['operator'] == "==" ) {
 			return ( $post_type === $rule['value'] );
@@ -584,7 +587,7 @@ class Geot_Rules {
 
 		$post        = get_post( self::$post_id );
 		$post_parent = isset( $post->post_parent ) ? $post->post_parent : '';
-		$post_type   = get_post_type(self::$post_id);
+		$post_type   = get_post_type( self::$post_id );
 
 		if ( $rule['value'] == 'front_page' ) {
 
@@ -598,10 +601,10 @@ class Geot_Rules {
 			}
 
 			if ( $rule['operator'] == "==" ) {
-				return (home_url() == self::$current_url);
+				return ( home_url() == self::$current_url );
 			}
 
-			return ! (home_url() == self::$current_url);
+			return ! ( home_url() == self::$current_url );
 
 
 		} elseif ( $rule['value'] == 'category_page' ) {
@@ -649,10 +652,10 @@ class Geot_Rules {
 			return ( $post_parent != 0 );
 		} elseif ( $rule['value'] == 'parent' ) {
 
-			$children = get_pages( array(
+			$children = get_pages( [
 				'post_type' => $post_type,
 				'child_of'  => self::$post_id,
-			) );
+			] );
 
 			if ( $rule['operator'] == "==" ) {
 				return ( count( $children ) > 0 );
@@ -737,7 +740,7 @@ class Geot_Rules {
 		}
 
 		// post type
-		$post_type = get_post_type(self::$post_id );
+		$post_type = get_post_type( self::$post_id );
 		// vars
 		$taxonomies = get_object_taxonomies( $post_type );
 
@@ -775,14 +778,17 @@ class Geot_Rules {
 		$user = wp_get_current_user();
 
 		if ( $rule['value'] == 'super_admin' ) {
-			if ( $rule['operator'] == "==" )
+			if ( $rule['operator'] == "==" ) {
 				return is_super_admin( $user->ID );
+			}
+
 			return ! is_super_admin( $user->ID );
 		}
-		if ( $rule['operator'] == "==" )
+		if ( $rule['operator'] == "==" ) {
 			return in_array( $rule['value'], $user->roles );
+		}
 
-		return ! in_array( $rule['value'], $user->roles ) ;
+		return ! in_array( $rule['value'], $user->roles );
 
 	}
 
@@ -797,7 +803,7 @@ class Geot_Rules {
 			return false;
 		}
 
-		$post_type = get_post_type(self::$post_id);
+		$post_type = get_post_type( self::$post_id );
 
 		// does post_type support 'post-format'
 		if ( post_type_supports( $post_type, 'post-formats' ) ) {
@@ -859,7 +865,7 @@ class Geot_Rules {
 		}
 
 		// post type
-		$post_type = get_post_type(self::$post_id);
+		$post_type = get_post_type( self::$post_id );
 
 		// vars
 		$taxonomies = get_object_taxonomies( $post_type );
@@ -893,16 +899,18 @@ class Geot_Rules {
 	}
 
 	/**
-	 * Match cookies 
+	 * Match cookies
+	 *
 	 * @param $rule
+	 *
 	 * @return bool
 	 */
 	public static function rule_match_cookie( $rule ) {
 
 		if ( $rule['operator'] == "==" ) {
-			return isset(  $_COOKIE[$rule['value']] );
+			return isset( $_COOKIE[ $rule['value'] ] );
 		}
 
-		return ! isset(  $_COOKIE[$rule['value']] );
+		return ! isset( $_COOKIE[ $rule['value'] ] );
 	}
 }

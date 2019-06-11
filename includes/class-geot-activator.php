@@ -31,7 +31,7 @@ class Geot_Activator {
 	 */
 	public static function activate() {
 
-		if( version_compare(PHP_VERSION, '5.6' ) < 0 ) {
+		if ( version_compare( PHP_VERSION, '5.6' ) < 0 ) {
 
 			deactivate_plugins( GEOT_PLUGIN_FILE );
 			wp_die(
@@ -43,6 +43,6 @@ class Geot_Activator {
 		GeotFunctions\add_countries_to_db();
 		GeotFunctions\geot_activate();
 
-		do_action('geotWP/activated');
+		do_action( 'geotWP/activated' );
 	}
 }

@@ -20,28 +20,28 @@ function geol_settings() {
 /**
  * Return the redirection options
  *
- * @param  int $id geol_cpt id
+ * @param int $id geol_cpt id
  *
  * @return array metadata values
  */
 function geol_options( $id ) {
 	$defaults = apply_filters( 'geol/metaboxes/defaults', [
-			'source_slug'	=> '',
-			'status_code'	=> '302',
-			'dest_default'	=> '',
-			'click_default'	=> 0,
-			'count_click'	=> 0,
-			'dest'        => [
+			'source_slug'   => '',
+			'status_code'   => '302',
+			'dest_default'  => '',
+			'click_default' => 0,
+			'count_click'   => 0,
+			'dest'          => [
 				'dest_0' =>
 					[
-						'url'		=> '',
-						'ref'		=> '',
-						'countries'	=> array(),
-						'regions'	=> array(),
-						'states'	=> '',
-						'zipcodes'	=> '',
-						'cities'	=> '',
-						'device'	=> '',
+						'url'        => '',
+						'ref'        => '',
+						'countries'  => [],
+						'regions'    => [],
+						'states'     => '',
+						'zipcodes'   => '',
+						'cities'     => '',
+						'device'     => '',
 						'count_dest' => 0,
 					],
 			],
@@ -69,22 +69,22 @@ function geol_devices() {
  * Return the format to selectize
  * @return array values
  */
-function format_selectize($data, $format = 'countries') {
+function format_selectize( $data, $format = 'countries' ) {
 
-	$output = array();
+	$output = [];
 
-	switch($format) {
+	switch ( $format ) {
 		case 'countries' :
-				foreach($data as $list) {
-					$output[] = array( 'text' => $list->country, 'value' => $list->iso_code );
-				}
-				break;
+			foreach ( $data as $list ) {
+				$output[] = [ 'text' => $list->country, 'value' => $list->iso_code ];
+			}
+			break;
 
 		case 'regions' :
-				foreach($data as $list) {
-					$output[] = array( 'text' => $list['name'], 'value' => $list['name'] );
-				}
-				break;
+			foreach ( $data as $list ) {
+				$output[] = [ 'text' => $list['name'], 'value' => $list['name'] ];
+			}
+			break;
 	}
 
 	return $output;

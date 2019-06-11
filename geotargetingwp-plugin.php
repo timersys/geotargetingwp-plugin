@@ -23,23 +23,24 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       geotarget
  * Domain Path:       /languages
-*/
+ */
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'GEOT_PLUGIN_FILE' , __FILE__);
-define( 'GEOT_VERSION' , '1.0' );
-define( 'GEOT_DB_VERSION' , '1.0' );
-define( 'GEOT_PLUGIN_DIR' , plugin_dir_path(__FILE__) );
-define( 'GEOT_PLUGIN_URL' , plugin_dir_url(__FILE__) );
-define( 'GEOT_ADDONS_DIR' , plugin_dir_path(__FILE__) . 'addons/' );
-define( 'GEOT_ADDONS_URL' , plugin_dir_url(__FILE__) . 'addons/' );
-define( 'GEOT_PLUGIN_HOOK' , basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
-if( !defined('GEOTROOT_PLUGIN_FILE'))
+define( 'GEOT_PLUGIN_FILE', __FILE__ );
+define( 'GEOT_VERSION', '1.0' );
+define( 'GEOT_DB_VERSION', '1.0' );
+define( 'GEOT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'GEOT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'GEOT_ADDONS_DIR', plugin_dir_path( __FILE__ ) . 'addons/' );
+define( 'GEOT_ADDONS_URL', plugin_dir_url( __FILE__ ) . 'addons/' );
+define( 'GEOT_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
+if ( ! defined( 'GEOTROOT_PLUGIN_FILE' ) ) {
 	define( 'GEOTROOT_PLUGIN_FILE', GEOT_PLUGIN_FILE );
+}
 
 /**
  * The code that runs during plugin activation.
@@ -52,10 +53,10 @@ require_once GEOT_PLUGIN_DIR . 'includes/class-geot-activator.php';
 require_once GEOT_PLUGIN_DIR . 'includes/class-geot-deactivator.php';
 
 /** This action is documented in includes/class-geot-activator.php */
-register_activation_hook( __FILE__, array( 'Geot_Activator', 'activate' ) );
+register_activation_hook( __FILE__, [ 'Geot_Activator', 'activate' ] );
 
 /** This action is documented in includes/class-geot-deactivator.php */
-register_deactivation_hook( __FILE__, array( 'Geot_Deactivator', 'deactivate' ) );
+register_deactivation_hook( __FILE__, [ 'Geot_Deactivator', 'deactivate' ] );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -81,4 +82,5 @@ global $geot;
 function iniGeot() {
 	return Geot::instance();
 }
+
 $GLOBALS['geot'] = iniGeot();

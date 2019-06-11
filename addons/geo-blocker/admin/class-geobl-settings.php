@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class GeoLinks_Settings
  */
@@ -7,7 +8,7 @@ class Geobl_Settings {
 	 * GeoLinks_Settings constructor.
 	 */
 	public function __construct() {
-		add_action( 'geot/settings_partial/after', [$this, 'settings_page']);
+		add_action( 'geot/settings_partial/after', [ $this, 'settings_page' ] );
 	}
 
 

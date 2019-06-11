@@ -32,23 +32,23 @@ class Geolinks_Ajax {
 			'icon' => 'dashicons-yes',
 		];
 
-		$source_slug	= sanitize_title( $_POST['slug'] );
-		$exclude_id		= sanitize_title( $_POST['exclude'] );
-		$meta_key		= 'geol_options';
+		$source_slug = sanitize_title( $_POST['slug'] );
+		$exclude_id  = sanitize_title( $_POST['exclude'] );
+		$meta_key    = 'geol_options';
 
-		if( isset($exclude_id) && is_numeric($exclude_id) ) {
+		if ( isset( $exclude_id ) && is_numeric( $exclude_id ) ) {
 
-			$query 		= 'SELECT
+			$query = 'SELECT
 								meta_value
 							FROM
 								' . $wpdb->postmeta . '
 							WHERE
 								post_id <> %d && meta_key = %s';
 
-			$results 	= $wpdb->get_results( $wpdb->prepare( $query, $exclude_id, $meta_key ) );
+			$results = $wpdb->get_results( $wpdb->prepare( $query, $exclude_id, $meta_key ) );
 		} else {
-			$query 		= 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = %s';
-			$results 	= $wpdb->get_results( $wpdb->prepare( $query, $meta_key ) );
+			$query   = 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = %s';
+			$results = $wpdb->get_results( $wpdb->prepare( $query, $meta_key ) );
 		}
 
 		foreach ( $results as $result ) {
@@ -82,21 +82,23 @@ class Geolinks_Ajax {
 			wp_send_json( [ 'status' => 'failed' ] );
 		}
 
-		$post_id = esc_html($_POST['post_id']);
+		$post_id = esc_html( $_POST['post_id'] );
 
 		$opts = geol_options( $post_id );
 
 		if ( $opts['dest'] ) {
-			foreach($opts['dest'] as $key => $data )
-				$opts['dest'][$key]['count_dest'] = 0;
+			foreach ( $opts['dest'] as $key => $data ) {
+				$opts['dest'][ $key ]['count_dest'] = 0;
+			}
 		}
 
 		$opts['click_default'] = 0;
-		$opts['count_click'] = 0;
+		$opts['count_click']   = 0;
 
 		update_post_meta( $post_id, 'geol_options', apply_filters( 'geol/metaboxes/reset_stats', $opts ) );
 
 		wp_send_json( [ 'status' => 'ok' ] );
 	}
 }
+
 new Geolinks_Ajax();

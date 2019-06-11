@@ -12,6 +12,7 @@
  * @package    GeoTarget
  * @subpackage GeoTarget/includes
  */
+
 use GeotFunctions\Setting\GeotSettings;
 
 /**
@@ -31,53 +32,16 @@ use GeotFunctions\Setting\GeotSettings;
 class GeoFlags {
 
 	/**
-	 * @var GeoTarget_Public $public
-	 */
-	public $public;
-
-
-	/**
 	 * Plugin Instance
 	 * @since 1.0.0
 	 * @var The Geot plugin instance
 	 */
 	protected static $_instance = null;
-
+	/**
+	 * @var GeoTarget_Public $public
+	 */
+	public $public;
 	private $admin;
-
-	/**
-	 * Main Geot Instance
-	 *
-	 * Ensures only one instance of WSI is loaded or can be loaded.
-	 *
-	 * @since 1.0.0
-	 * @static
-	 * @see GEOT()
-	 * @return Geot - Main instance
-	 */
-	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
-		}
-		return self::$_instance;
-	}
-
-	/**
-	 * Cloning is forbidden.
-	 * @since 1.0.0
-	 */
-	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
-	}
-
-	/**
-	 * Unserializing instances of this class is forbidden.
-	 * @since 1.0.0
-	 */
-	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
-	}
-
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -110,6 +74,26 @@ class GeoFlags {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'lib/class-geotflags-shortcodes.php';
 	}
 
+	/**
+	 * Register all of the hooks related to the public-facing functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_public_hooks() {
+
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
+	}
+
+	/**
+	 * Register shortcodes
+	 * @access   private
+	 */
+	private function register_shortcodes() {
+		$shortcodes      = new GeoFlags_Shortcodes();
+		$ajax_shortcodes = new GeoFlags_Ajax_Shortcodes();
+	}
 
 	/**
 	 * Register all of the hooks related to the dashboard functionality
@@ -121,19 +105,40 @@ class GeoFlags {
 	private function define_admin_hooks() {
 
 
-
 	}
 
 	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
+	 * Main Geot Instance
 	 *
-	 * @since    1.0.0
-	 * @access   private
+	 * Ensures only one instance of WSI is loaded or can be loaded.
+	 *
+	 * @return Geot - Main instance
+	 * @see GEOT()
+	 * @since 1.0.0
+	 * @static
 	 */
-	private function define_public_hooks() {
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
 
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles'] );
+		return self::$_instance;
+	}
+
+	/**
+	 * Cloning is forbidden.
+	 * @since 1.0.0
+	 */
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
+	}
+
+	/**
+	 * Unserializing instances of this class is forbidden.
+	 * @since 1.0.0
+	 */
+	public function __wakeup() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
 	}
 
 	/**
@@ -142,16 +147,7 @@ class GeoFlags {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( 'geotf',  plugins_url( 'assets/css/flag-icon.min.css', dirname(__FILE__) ), null, GEOF_VERSION , 'all');
-	}
-
-	/**
-	 * Register shortcodes
-	 * @access   private
-	 */
-	private function register_shortcodes() {
-		$shortcodes = new GeoFlags_Shortcodes();
-		$ajax_shortcodes = new GeoFlags_Ajax_Shortcodes();
+		wp_enqueue_style( 'geotf', plugins_url( 'assets/css/flag-icon.min.css', dirname( __FILE__ ) ), null, GEOF_VERSION, 'all' );
 	}
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The cpt metaboxes functionality of the plugin.
  *
@@ -9,32 +10,33 @@
  * @subpackage Geobl/admin/includes
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geobl_Metaboxes{
+class Geobl_Metaboxes {
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version The version of this plugin.
+	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct() {
 		add_action( 'add_meta_boxes_geobl_cpt', [ $this, 'add_meta_boxes' ] );
 		add_action( 'save_post_geobl_cpt', [ $this, 'save_meta_options' ] );
 
-		add_filter( 'geot/exclude/post_types', [$this, 'rules_js_script'], 10, 1 );
+		add_filter( 'geot/exclude/post_types', [ $this, 'rules_js_script' ], 10, 1 );
 	}
 
 
 	/**
 	 * Register the metaboxes for our cpt
-	 * @since    1.0.0
 	 * @return   void
+	 * @since    1.0.0
 	 */
 	public function add_meta_boxes() {
 		add_meta_box(
 			'geobl-rules',
-			 __( 'Block Rules', 'geobl' ),
+			__( 'Block Rules', 'geobl' ),
 			[ $this, 'geobl_rules' ],
 			'geobl_cpt',
 			'normal',
@@ -42,7 +44,7 @@ class Geobl_Metaboxes{
 		);
 		add_meta_box(
 			'geobl-opts',
-			 __( 'Block Options', 'geobl' ),
+			__( 'Block Options', 'geobl' ),
 			[ $this, 'geobl_opts' ],
 			'geobl_cpt',
 			'normal',
@@ -54,10 +56,10 @@ class Geobl_Metaboxes{
 	 * Saves the post meta of redirections
 	 * @since 1.0.0
 	 */
-	function  save_meta_options( $post_id ){
+	function save_meta_options( $post_id ) {
 
 		// Verify that the nonce is set and valid.
-		if ( !isset( $_POST['geobl_options_nonce'] ) || ! wp_verify_nonce( $_POST['geobl_options_nonce'], 'geobl_options' ) ) {
+		if ( ! isset( $_POST['geobl_options_nonce'] ) || ! wp_verify_nonce( $_POST['geobl_options_nonce'], 'geobl_options' ) ) {
 			return $post_id;
 		}
 		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
@@ -85,62 +87,66 @@ class Geobl_Metaboxes{
 		$opts = $_POST['geobl'];
 		unset( $_POST['geobl'] );
 
-		$post = get_post($post_id);
+		$post = get_post( $post_id );
 
 		// sanitize settings
-		$opts['whitelist']	 	    = $opts['whitelist']; // if we sanitize break lines are broken, we sanitize later
-		$opts['exclude_se']         = absint( sanitize_text_field( $opts['exclude_se'] ) );
-		$opts['block_message'] 	    =  $opts['block_message'] ;
+		$opts['whitelist']     = $opts['whitelist']; // if we sanitize break lines are broken, we sanitize later
+		$opts['exclude_se']    = absint( sanitize_text_field( $opts['exclude_se'] ) );
+		$opts['block_message'] = $opts['block_message'];
 
 		// save box settings
 		update_post_meta( $post_id, 'geobl_options', apply_filters( 'geobl/metaboxes/sanitized_options', $opts ) );
 
 		// Start with rules
-		Geot_Helper::save_rules($post_id, $_POST, 'geobl_rules');
+		Geot_Helper::save_rules( $post_id, $_POST, 'geobl_rules' );
 	}
 
 	/**
 	 * Register the JavaScript for the admin area.
 	 * @since    1.0.0
 	 */
-	function rules_js_script($post_types) {
+	function rules_js_script( $post_types ) {
 
 		$post_types[] = 'geobl_cpt';
 
 		return $post_types;
 	}
 
-    /**
-     * Include the metabox view for rules
-     * @param  object $post    spucpt post object
-     * @param  array $metabox full metabox items array
-     * @since 1.0.0
-     */
-    public function geobl_rules( $post, $metabox ) {
+	/**
+	 * Include the metabox view for rules
+	 *
+	 * @param object $post spucpt post object
+	 * @param array $metabox full metabox items array
+	 *
+	 * @since 1.0.0
+	 */
+	public function geobl_rules( $post, $metabox ) {
 
-    	$args = array(
-    				'title'	=> __("Block user if", 'geobl' ),
-    				'desc'	=> __("Create a set of rules to determine if the user will be blocked", 'geobl' ),
-    			);
+		$args = [
+			'title' => __( "Block user if", 'geobl' ),
+			'desc'  => __( "Create a set of rules to determine if the user will be blocked", 'geobl' ),
+		];
 
-    	Geot_Helper::html_rules($post, 'geobl_rules', $args);
+		Geot_Helper::html_rules( $post, 'geobl_rules', $args );
 
-	    //$groups = apply_filters('geobl/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, 'geobl_rules' ), $post->ID);
+		//$groups = apply_filters('geobl/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, 'geobl_rules' ), $post->ID);
 
-        //include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
-    }
+		//include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
+	}
 
-    /**
-     * Include the metabox view for opts
-     * @param  object $post    geoblcpt post object
-     * @param  array $metabox full metabox items array
-     * @since 1.0.0
-     */
-    public function geobl_opts( $post, $metabox ) {
+	/**
+	 * Include the metabox view for opts
+	 *
+	 * @param object $post geoblcpt post object
+	 * @param array $metabox full metabox items array
+	 *
+	 * @since 1.0.0
+	 */
+	public function geobl_opts( $post, $metabox ) {
 
-        $opts = apply_filters('geobl/metaboxes/get_options', Geobl_Helper::get_options( $post->ID ), $post->ID);
+		$opts = apply_filters( 'geobl/metaboxes/get_options', Geobl_Helper::get_options( $post->ID ), $post->ID );
 
-        include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
-    }
+		include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
+	}
 
 }

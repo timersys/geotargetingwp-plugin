@@ -23,11 +23,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'GEOTR_VERSION', '1.3.7');
-define( 'GEOTR_PLUGIN_FILE' , __FILE__);
-define( 'GEOTR_PLUGIN_DIR', plugin_dir_path(__FILE__));
-define( 'GEOTR_PLUGIN_URL', plugin_dir_url(__FILE__));
-define( 'GEOTR_PLUGIN_HOOK' , basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
+define( 'GEOTR_VERSION', '1.3.7' );
+define( 'GEOTR_PLUGIN_FILE', __FILE__ );
+define( 'GEOTR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'GEOTR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'GEOTR_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
 
 
 /**
@@ -45,4 +45,5 @@ function run_geotr() {
 
 	return Geotr::instance();
 }
+
 $GLOBALS['geotr'] = run_geotr();

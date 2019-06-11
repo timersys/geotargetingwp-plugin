@@ -12,6 +12,7 @@
  * @package    GeoTarget
  * @subpackage GeoTarget/includes
  */
+
 use GeotFunctions\Setting\GeotSettings;
 use GeotFunctions\Setting\GeotWizard;
 
@@ -33,58 +34,48 @@ use GeotFunctions\Setting\GeotWizard;
 class Geot {
 
 	/**
-	 * @var Geot_Public $public
-	 */
-	public $public;
-
-	/**
-	 * @var Geot_VC $vc
-	 */
-	public $vc;
-
-	/**
-	 * @var Geot_Admin $admin
-	 */
-	public $admin;
-
-	/**
-	 * @var Geot_Settings $settings
-	 */
-	public $settings;
-
-	/**
-	 * @var Geot_Updater $updater
-	 */
-	public $updater;
-
-	/**
-	 * @var Geot_Widgets $widget
-	 */
-	public $widget;
-
-	/**
-	 * @var Geot_Menus $menus
-	 */
-	public $menus;
-
-	/**
-	 * @var Geot_Categories $cats
-	 */
-	public $taxs;
-
-	/**
-	 * Instance of GetFunctions
-	 * @var object
-	 */
-	public $functions;
-
-	/**
 	 * Plugin Instance
 	 * @since 1.0.0
 	 * @var The Geot plugin instance
 	 */
 	protected static $_instance = null;
-	
+	/**
+	 * @var Geot_Public $public
+	 */
+	public $public;
+	/**
+	 * @var Geot_VC $vc
+	 */
+	public $vc;
+	/**
+	 * @var Geot_Admin $admin
+	 */
+	public $admin;
+	/**
+	 * @var Geot_Settings $settings
+	 */
+	public $settings;
+	/**
+	 * @var Geot_Updater $updater
+	 */
+	public $updater;
+	/**
+	 * @var Geot_Widgets $widget
+	 */
+	public $widget;
+	/**
+	 * @var Geot_Menus $menus
+	 */
+	public $menus;
+	/**
+	 * @var Geot_Categories $cats
+	 */
+	public $taxs;
+	/**
+	 * Instance of GetFunctions
+	 * @var object
+	 */
+	public $functions;
 	/**
 	 * @var GeoTarget_Gutenberg
 	 */
@@ -99,52 +90,6 @@ class Geot {
 	 * @var GeoTarget_Gutenberg
 	 */
 	public $divi;
-
-
-	/**
-	 * Main Geot Instance
-	 *
-	 * Ensures only one instance of WSI is loaded or can be loaded.
-	 *
-	 * @since 1.0.0
-	 * @static
-	 * @see GEOT()
-	 * @return Geot - Main instance
-	 */
-	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
-		}
-		return self::$_instance;
-	}
-
-	/**
-	 * Cloning is forbidden.
-	 * @since 1.0.0
-	 */
-	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
-	}
-
-	/**
-	 * Unserializing instances of this class is forbidden.
-	 * @since 1.0.0
-	 */
-	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
-	}
-
-	/**
-	 * Auto-load in-accessible properties on demand.
-	 * @param mixed $key
-	 * @since 1.0.0
-	 * @return mixed
-	 */
-	public function __get( $key ) {
-		if ( in_array( $key, array( 'payment_gateways', 'shipping', 'mailer', 'checkout' ) ) ) {
-			return $this->$key();
-		}
-	}
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -208,13 +153,13 @@ class Geot {
 
 		require_once GEOT_PLUGIN_DIR . 'public/class-geot-public.php';
 
-		if( is_admin() ) {
+		if ( is_admin() ) {
 			require_once GEOT_PLUGIN_DIR . 'admin/class-geot-admin.php';
 			require_once GEOT_PLUGIN_DIR . 'admin/class-geot-settings.php';
 			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-metaboxes.php';
 			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-dropdown-widget.php';
 			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-widgets.php';
-			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-menus.php';	
+			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-menus.php';
 		}
 	}
 
@@ -232,26 +177,7 @@ class Geot {
 		$plugin_i18n = new Geot_i18n();
 		$plugin_i18n->set_domain( 'geot' );
 
-		add_action( 'plugins_loaded', [ $plugin_i18n, 'load_plugin_textdomain'] );
-	}
-
-	/**
-	 * Register all of the hooks related to the dashboard functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_objects_admin() {
-
-		if( !is_admin() ) return;
-
-		$this->admin 		= new Geot_Admin();
-		$this->settings 	= new Geot_Settings();
-		$this->metaboxes 	= new Geot_Metaboxes();
-		$this->updater 		= new Geot_Updater();
-		$this->widget 		= new Geot_Widgets();
-		$this->menus 		= new Geot_Menus();
+		add_action( 'plugins_loaded', [ $plugin_i18n, 'load_plugin_textdomain' ] );
 	}
 
 	/**
@@ -263,12 +189,12 @@ class Geot {
 	 */
 	private function set_objects_public() {
 
-		$this->public 		= new Geot_Public();
-		$this->vc 			= new Geot_VC();
-		$this->gutenberg 	= new Geot_Gutenberg();
-		$this->elementor 	= new Geot_Elementor();
-		$this->divi 		= new Geot_Divi();
-		$this->taxs 		= new Geot_Taxonomies();
+		$this->public    = new Geot_Public();
+		$this->vc        = new Geot_VC();
+		$this->gutenberg = new Geot_Gutenberg();
+		$this->elementor = new Geot_Elementor();
+		$this->divi      = new Geot_Divi();
+		$this->taxs      = new Geot_Taxonomies();
 	}
 
 	/**
@@ -276,8 +202,29 @@ class Geot {
 	 * @access   private
 	 */
 	private function register_shortcodes() {
-		$shortcodes 		= new Geot_Shortcodes();
-		$ajax_shortcodes 	= new Geot_Ajax_Shortcodes();
+		$shortcodes      = new Geot_Shortcodes();
+		$ajax_shortcodes = new Geot_Ajax_Shortcodes();
+	}
+
+	/**
+	 * Register all of the hooks related to the dashboard functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function set_objects_admin() {
+
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$this->admin     = new Geot_Admin();
+		$this->settings  = new Geot_Settings();
+		$this->metaboxes = new Geot_Metaboxes();
+		$this->updater   = new Geot_Updater();
+		$this->widget    = new Geot_Widgets();
+		$this->menus     = new Geot_Menus();
 	}
 
 	/**
@@ -288,27 +235,77 @@ class Geot {
 		$this->ajax = new Geot_Ajax();
 	}
 
-
 	public function set_addons() {
-		$defaults = [ 
-						'geo-flags'		=> '0',
-						'geo-links'		=> '0',
-						'geo-redirects'	=> '0',
-						'geo-blocker'	=> '0',
-					];
+		$defaults = [
+			'geo-flags'     => '0',
+			'geo-links'     => '0',
+			'geo-redirects' => '0',
+			'geo-blocker'   => '0',
+		];
 
-		$defaults = apply_filters('geot/addons/defaults', $defaults);
+		$defaults = apply_filters( 'geot/addons/defaults', $defaults );
 
 		$opts = geot_pro_addons();
-		$opts = geot_wp_parse_args( $opts,  $defaults );
+		$opts = geot_wp_parse_args( $opts, $defaults );
 
-		foreach($opts as $key => $value) {
-			if( $value != 1 ) continue;
+		foreach ( $opts as $key => $value ) {
+			if ( $value != 1 ) {
+				continue;
+			}
 
-			$addon_index = apply_filters('geot/addons/file', GEOT_ADDONS_DIR . $key . '/' . $key . '.php');
+			$addon_index = apply_filters( 'geot/addons/file', GEOT_ADDONS_DIR . $key . '/' . $key . '.php' );
 
-			if( file_exists( $addon_index ) )
+			if ( file_exists( $addon_index ) ) {
 				require $addon_index;
+			}
+		}
+	}
+
+	/**
+	 * Main Geot Instance
+	 *
+	 * Ensures only one instance of WSI is loaded or can be loaded.
+	 *
+	 * @return Geot - Main instance
+	 * @see GEOT()
+	 * @since 1.0.0
+	 * @static
+	 */
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
+
+	/**
+	 * Cloning is forbidden.
+	 * @since 1.0.0
+	 */
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
+	}
+
+	/**
+	 * Unserializing instances of this class is forbidden.
+	 * @since 1.0.0
+	 */
+	public function __wakeup() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
+	}
+
+	/**
+	 * Auto-load in-accessible properties on demand.
+	 *
+	 * @param mixed $key
+	 *
+	 * @return mixed
+	 * @since 1.0.0
+	 */
+	public function __get( $key ) {
+		if ( in_array( $key, [ 'payment_gateways', 'shipping', 'mailer', 'checkout' ] ) ) {
+			return $this->$key();
 		}
 	}
 }

@@ -1,5 +1,6 @@
 <tr valign="top" class="geot-settings-title">
-	<th colspan="3"><h3><?php _e( 'Geo Links : ', 'geot' ); echo GEOL_VERSION; ?></h3></th>
+	<th colspan="3"><h3><?php _e( 'Geo Links : ', 'geot' );
+			echo GEOL_VERSION; ?></h3></th>
 </tr>
 <tr valign="top" class="">
 	<th><label for="page_goto"><?php _e( 'Redirection slug', 'geol' ); ?></label></th>
@@ -12,6 +13,6 @@
 <tr valign="top" class="">
 	<th><label for="opt_stats"><?php _e( 'Enable Stats', 'geol' ); ?></label></th>
 	<td colspan="3">
-		<input type="checkbox" name="geol_settings[opt_stats]" value="1" <?php checked($opts['opt_stats'],'1') ?> />
+		<input type="checkbox" name="geol_settings[opt_stats]" value="1" <?php checked( $opts['opt_stats'], '1' ) ?> />
 	</td>
 </tr>

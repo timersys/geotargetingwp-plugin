@@ -33,10 +33,15 @@ use GeotFunctions\Setting\GeotSettings;
 class GeoLinks {
 
 	/**
+	 * Plugin Instance
+	 * @since 1.0.0
+	 * @var The Geot plugin instance
+	 */
+	protected static $_instance = null;
+	/**
 	 * @var GeoLinks_Redirect $redirect
 	 */
 	public $redirect;
-
 	/**
 	 * @var GeoLinks_Admin $admin
 	 */
@@ -45,62 +50,6 @@ class GeoLinks {
 	 * @var GeoLinks_Settings $settings
 	 */
 	public $settings;
-
-
-	/**
-	 * Plugin Instance
-	 * @since 1.0.0
-	 * @var The Geot plugin instance
-	 */
-	protected static $_instance = null;
-
-	/**
-	 * Main Geot Instance
-	 *
-	 * Ensures only one instance of WSI is loaded or can be loaded.
-	 *
-	 * @since 1.0.0
-	 * @static
-	 * @see GEOL()
-	 * @return GeoLinks
-	 */
-	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
-		}
-
-		return self::$_instance;
-	}
-
-	/**
-	 * Cloning is forbidden.
-	 * @since 1.0.0
-	 */
-	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
-	}
-
-	/**
-	 * Unserializing instances of this class is forbidden.
-	 * @since 1.0.0
-	 */
-	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
-	}
-
-	/**
-	 * Auto-load in-accessible properties on demand.
-	 *
-	 * @param mixed $key
-	 *
-	 * @since 1.0.0
-	 * @return mixed
-	 */
-	public function __get( $key ) {
-		if ( in_array( $key, [ 'payment_gateways', 'shipping', 'mailer', 'checkout' ] ) ) {
-			return $this->$key();
-		}
-	}
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -162,5 +111,53 @@ class GeoLinks {
 		$this->admin    = new GeoLinks_Admin();
 		$this->settings = new GeoLinks_Settings();
 		$this->redirect = new Geol_Redirects();
+	}
+
+	/**
+	 * Main Geot Instance
+	 *
+	 * Ensures only one instance of WSI is loaded or can be loaded.
+	 *
+	 * @return GeoLinks
+	 * @see GEOL()
+	 * @since 1.0.0
+	 * @static
+	 */
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
+
+	/**
+	 * Cloning is forbidden.
+	 * @since 1.0.0
+	 */
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
+	}
+
+	/**
+	 * Unserializing instances of this class is forbidden.
+	 * @since 1.0.0
+	 */
+	public function __wakeup() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
+	}
+
+	/**
+	 * Auto-load in-accessible properties on demand.
+	 *
+	 * @param mixed $key
+	 *
+	 * @return mixed
+	 * @since 1.0.0
+	 */
+	public function __get( $key ) {
+		if ( in_array( $key, [ 'payment_gateways', 'shipping', 'mailer', 'checkout' ] ) ) {
+			return $this->$key();
+		}
 	}
 }

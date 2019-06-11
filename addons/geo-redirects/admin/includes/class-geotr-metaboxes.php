@@ -14,33 +14,34 @@
  * @subpackage Geotr/admin/includes
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geotr_Metaboxes{
+class Geotr_Metaboxes {
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version The version of this plugin.
+	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct() {
 
 		add_action( 'add_meta_boxes_geotr_cpt', [ $this, 'add_meta_boxes' ] );
-		add_action( 'save_post_geotr_cpt', [ $this, 'save_meta_options'] );
+		add_action( 'save_post_geotr_cpt', [ $this, 'save_meta_options' ] );
 
-		add_filter( 'geot/rules/post_types', [$this, 'rules_js_script'], 10, 1 );
+		add_filter( 'geot/rules/post_types', [ $this, 'rules_js_script' ], 10, 1 );
 	}
 
 
 	/**
 	 * Register the metaboxes for our cpt
-	 * @since    1.0.0
 	 * @return   void
+	 * @since    1.0.0
 	 */
 	public function add_meta_boxes() {
 		add_meta_box(
 			'geotr-rules',
-			 __( 'Redirection Rules', 'geotr' ),
+			__( 'Redirection Rules', 'geotr' ),
 			[ $this, 'geotr_rules' ],
 			'geotr_cpt',
 			'normal',
@@ -48,7 +49,7 @@ class Geotr_Metaboxes{
 		);
 		add_meta_box(
 			'geotr-opts',
-			 __( 'Redirection Options', 'geotr' ),
+			__( 'Redirection Options', 'geotr' ),
 			[ $this, 'geotr_opts' ],
 			'geotr_cpt',
 			'normal',
@@ -60,10 +61,10 @@ class Geotr_Metaboxes{
 	 * Saves the post meta of redirections
 	 * @since 1.0.0
 	 */
-	function  save_meta_options( $post_id ){
+	function save_meta_options( $post_id ) {
 
 		// Verify that the nonce is set and valid.
-		if ( !isset( $_POST['geotr_options_nonce'] ) || ! wp_verify_nonce( $_POST['geotr_options_nonce'], 'geotr_options' ) ) {
+		if ( ! isset( $_POST['geotr_options_nonce'] ) || ! wp_verify_nonce( $_POST['geotr_options_nonce'], 'geotr_options' ) ) {
 			return $post_id;
 		}
 		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
@@ -91,29 +92,36 @@ class Geotr_Metaboxes{
 		$opts = $_POST['geotr'];
 		unset( $_POST['geotr'] );
 
-		$post = get_post($post_id);
+		$post = get_post( $post_id );
 
 		// sanitize settings
-		$opts['whitelist']	 	    = $opts['whitelist']; // if we sanitize break lines are broken, we sanitize later
-		$opts['url']	 	        = sanitize_text_field( $opts['url'] );
-		$opts['exclude_se']         = absint( sanitize_text_field( $opts['exclude_se'] ) );
-		$opts['one_time_redirect'] 	= absint( sanitize_text_field( $opts['one_time_redirect'] ) );
-		$opts['status'] 	        = absint( sanitize_text_field( $opts['status'] ) );
+		$opts['whitelist']         = $opts['whitelist']; // if we sanitize break lines are broken, we sanitize later
+		$opts['url']               = sanitize_text_field( $opts['url'] );
+		$opts['exclude_se']        = absint( sanitize_text_field( $opts['exclude_se'] ) );
+		$opts['one_time_redirect'] = absint( sanitize_text_field( $opts['one_time_redirect'] ) );
+		$opts['status']            = absint( sanitize_text_field( $opts['status'] ) );
 
 		// save box settings
 		update_post_meta( $post_id, 'geotr_options', apply_filters( 'geotr/metaboxes/sanitized_options', $opts ) );
 
-		$keys_geot = apply_filters('geotr/metaboxes/keys_geot', ['country', 'country_region', 'city', 'city_region', 'state', 'zip']);
+		$keys_geot = apply_filters( 'geotr/metaboxes/keys_geot', [
+			'country',
+			'country_region',
+			'city',
+			'city_region',
+			'state',
+			'zip',
+		] );
 
 		// Start with rules
-		Geot_Helper::save_rules($post_id, $_POST, 'geotr_rules');
+		Geot_Helper::save_rules( $post_id, $_POST, 'geotr_rules' );
 	}
 
 	/**
 	 * Register the JavaScript for the admin area.
 	 * @since    1.0.0
 	 */
-	public function rules_js_script($post_types) {
+	public function rules_js_script( $post_types ) {
 
 		$post_types[] = 'geotr_cpt';
 
@@ -121,38 +129,42 @@ class Geotr_Metaboxes{
 	}
 
 
-    /**
-     * Include the metabox view for rules
-     * @param  object $post    spucpt post object
-     * @param  array $metabox full metabox items array
-     * @since 1.0.0
-     */
-    public function geotr_rules( $post, $metabox ) {
+	/**
+	 * Include the metabox view for rules
+	 *
+	 * @param object $post spucpt post object
+	 * @param array $metabox full metabox items array
+	 *
+	 * @since 1.0.0
+	 */
+	public function geotr_rules( $post, $metabox ) {
 
-    	$args = array(
-    				'title'	=> __("Perform redirect if", 'geotr' ),
-    				'desc'	=> __("Create a set of rules to determine where the redirect will be performed", 'geotr' ),
-    			);
+		$args = [
+			'title' => __( "Perform redirect if", 'geotr' ),
+			'desc'  => __( "Create a set of rules to determine where the redirect will be performed", 'geotr' ),
+		];
 
-    	Geot_Helper::html_rules($post, 'geotr_rules', $args);
+		Geot_Helper::html_rules( $post, 'geotr_rules', $args );
 
-	    //$groups = apply_filters('geotr/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, 'geotr_rules' ), $post->ID);
+		//$groups = apply_filters('geotr/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, 'geotr_rules' ), $post->ID);
 
 
-        //include GEOTR_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
-    }
+		//include GEOTR_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
+	}
 
-    /**
-     * Include the metabox view for opts
-     * @param  object $post    geotrcpt post object
-     * @param  array $metabox full metabox items array
-     * @since 1.0.0
-     */
-    public function geotr_opts( $post, $metabox ) {
+	/**
+	 * Include the metabox view for opts
+	 *
+	 * @param object $post geotrcpt post object
+	 * @param array $metabox full metabox items array
+	 *
+	 * @since 1.0.0
+	 */
+	public function geotr_opts( $post, $metabox ) {
 
-        $opts = apply_filters('geotr/metaboxes/get_options', Geotr_Helper::get_options( $post->ID ), $post->ID);
+		$opts = apply_filters( 'geotr/metaboxes/get_options', Geotr_Helper::get_options( $post->ID ), $post->ID );
 
-        include GEOTR_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
-    }
+		include GEOTR_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
+	}
 
 }

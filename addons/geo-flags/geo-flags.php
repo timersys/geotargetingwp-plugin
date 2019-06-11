@@ -18,18 +18,18 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       geotarget
  * Domain Path:       /languages
-*/
+ */
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'GEOF_PLUGIN_FILE' , __FILE__);
-define( 'GEOF_VERSION' , '1.0.7' );
-define( 'GEOF_PLUGIN_DIR' , plugin_dir_path(__FILE__) );
-define( 'GEOF_PLUGIN_URL' , plugin_dir_url(__FILE__) );
-define( 'GEOF_PLUGIN_HOOK' , basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
+define( 'GEOF_PLUGIN_FILE', __FILE__ );
+define( 'GEOF_VERSION', '1.0.7' );
+define( 'GEOF_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'GEOF_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'GEOF_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -48,5 +48,6 @@ function run_geotf() {
 	return GeoFlags::instance();
 
 }
+
 $GLOBALS['geotf'] = run_geotf();
 

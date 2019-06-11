@@ -12,6 +12,7 @@
  * @package    Geobl
  * @subpackage Geobl/includes
  */
+
 use GeotFunctions\Setting\GeotSettings;
 
 /**
@@ -28,75 +29,28 @@ use GeotFunctions\Setting\GeotSettings;
  */
 class Geobl {
 	/**
-	 * Public Class instance
-	 *
-	 * @since    1.0.0
-	 * @access   public
-	 * @var      Geobl_Public    $public Public class instance
-	 */
-	public $public;
-
-	/**
-	 * Admin Class instance
-	 *
-	 * @since    1.0.0
-	 * @access   public
-	 * @var      Geobl_Admin    $public Admin class instance
-	 */
-	public $admin;
-
-	/**
 	 * Plugin Instance
 	 * @since 1.0.0
 	 * @var The Fbl plugin instance
 	 */
 	protected static $_instance = null;
+	/**
+	 * Public Class instance
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @var      Geobl_Public $public Public class instance
+	 */
+	public $public;
+	/**
+	 * Admin Class instance
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @var      Geobl_Admin $public Admin class instance
+	 */
+	public $admin;
 	public $settings;
-
-	/**
-	 * Main plugin_name Instance
-	 *
-	 * Ensures only one instance of WSI is loaded or can be loaded.
-	 *
-	 * @since 1.0.0
-	 * @static
-	 * @see Geobl()
-	 * @return plugin_name - Main instance
-	 */
-	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
-		}
-		return self::$_instance;
-	}
-
-	/**
-	 * Cloning is forbidden.
-	 * @since 1.0.0
-	 */
-	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
-	}
-
-	/**
-	 * Unserializing instances of this class is forbidden.
-	 * @since 1.0.0
-	 */
-	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
-	}
-
-	/**
-	 * Auto-load in-accessible properties on demand.
-	 * @param mixed $key
-	 * @since 1.0.0
-	 * @return mixed
-	 */
-	public function __get( $key ) {
-		if ( in_array( $key, array( 'payment_gateways', 'shipping', 'mailer', 'checkout' ) ) ) {
-			return $this->$key();
-		}
-	}
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -128,7 +82,7 @@ class Geobl {
 		require_once GEOBL_PLUGIN_DIR . 'public/class-geobl-public.php';
 
 
-		if( is_admin() ) {
+		if ( is_admin() ) {
 			require_once GEOBL_PLUGIN_DIR . 'admin/class-geobl-admin.php';
 			require_once GEOBL_PLUGIN_DIR . 'admin/class-geobl-settings.php';
 		}
@@ -151,7 +105,6 @@ class Geobl {
 		add_action( 'plugins_loaded', [ $plugin_i18n, 'load_plugin_textdomain' ] );
 	}
 
-
 	/**
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
@@ -161,9 +114,11 @@ class Geobl {
 	 */
 	private function set_objects_admin() {
 
-		if( !is_admin() ) return;
+		if ( ! is_admin() ) {
+			return;
+		}
 
-		$this->admin = new Geobl_Admin();
+		$this->admin    = new Geobl_Admin();
 		$this->settings = new Geobl_Settings();
 
 		Geot_Rules::set_rules_fields();
@@ -178,5 +133,53 @@ class Geobl {
 	 */
 	private function set_objects_public() {
 		$this->public = new Geobl_Public();
+	}
+
+	/**
+	 * Main plugin_name Instance
+	 *
+	 * Ensures only one instance of WSI is loaded or can be loaded.
+	 *
+	 * @return plugin_name - Main instance
+	 * @see Geobl()
+	 * @since 1.0.0
+	 * @static
+	 */
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
+
+	/**
+	 * Cloning is forbidden.
+	 * @since 1.0.0
+	 */
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
+	}
+
+	/**
+	 * Unserializing instances of this class is forbidden.
+	 * @since 1.0.0
+	 */
+	public function __wakeup() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wsi' ), '2.1' );
+	}
+
+	/**
+	 * Auto-load in-accessible properties on demand.
+	 *
+	 * @param mixed $key
+	 *
+	 * @return mixed
+	 * @since 1.0.0
+	 */
+	public function __get( $key ) {
+		if ( in_array( $key, [ 'payment_gateways', 'shipping', 'mailer', 'checkout' ] ) ) {
+			return $this->$key();
+		}
 	}
 }

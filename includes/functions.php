@@ -4,27 +4,27 @@
  * Grab geot settings
  * @return mixed|void
  */
-function geot_pro_settings(){
-	return apply_filters('geot_pro/settings_page/opts', get_option( 'geot_pro_settings' ) );
+function geot_pro_settings() {
+	return apply_filters( 'geot_pro/settings_page/opts', get_option( 'geot_pro_settings' ) );
 }
 
-function geot_pro_addons(){
-	return apply_filters('geot_pro/settings_page/addons', get_option( 'geot_pro_addons' ) );
+function geot_pro_addons() {
+	return apply_filters( 'geot_pro/settings_page/addons', get_option( 'geot_pro_addons' ) );
 }
-
 
 
 /**
  * Intercept Geot
  *
  */
-function geot_pro_format($geot) {
+function geot_pro_format( $geot ) {
 
-	foreach( geot_pro_default() as $key => $value ) {
-		if( isset($geot[$key]) )
-			$output[$key] = is_array($geot[$key]) ? array_map('esc_html', $geot[$key]) : esc_html($geot[$key]);
-		else
-			$output[$key] = $value;
+	foreach ( geot_pro_default() as $key => $value ) {
+		if ( isset( $geot[ $key ] ) ) {
+			$output[ $key ] = is_array( $geot[ $key ] ) ? array_map( 'esc_html', $geot[ $key ] ) : esc_html( $geot[ $key ] );
+		} else {
+			$output[ $key ] = $value;
+		}
 	}
 
 	return $output;
@@ -32,28 +32,28 @@ function geot_pro_format($geot) {
 
 
 function geot_pro_default() {
-	$default = array(
-				'in_countries'			=> '',
-				'ex_countries'			=> '',
-				'in_countries_regions'	=> array(),
-				'ex_countries_regions'	=> array(),
-				'in_cities'				=> '',
-				'ex_cities'				=> '',
-				'in_cities_regions'		=> array(),
-				'ex_cities_regions'		=> array(),
-				'in_states'				=> '',
-				'ex_states'				=> '',
-				'in_zipcodes'			=> '',
-				'ex_zipcodes'			=> '',
-			);
+	$default = [
+		'in_countries'         => '',
+		'ex_countries'         => '',
+		'in_countries_regions' => [],
+		'ex_countries_regions' => [],
+		'in_cities'            => '',
+		'ex_cities'            => '',
+		'in_cities_regions'    => [],
+		'ex_cities_regions'    => [],
+		'in_states'            => '',
+		'ex_states'            => '',
+		'in_zipcodes'          => '',
+		'ex_zipcodes'          => '',
+	];
 
-	return apply_filters('geot_pro/global/default', $default);
+	return apply_filters( 'geot_pro/global/default', $default );
 }
 
 
 function geot_wp_parse_args( &$a, $b ) {
-	$a = (array) $a;
-	$b = (array) $b;
+	$a      = (array) $a;
+	$b      = (array) $b;
 	$result = $b;
 	foreach ( $a as $k => &$v ) {
 		if ( is_array( $v ) && isset( $result[ $k ] ) ) {
@@ -62,14 +62,16 @@ function geot_wp_parse_args( &$a, $b ) {
 			$result[ $k ] = $v;
 		}
 	}
+
 	return $result;
 }
 
-function geot_version_compare($version1, $version2, $operator = null) {
-	$p = '#(\.0+)+($|-)#';
-	$version1 = preg_replace($p, '', $version1);
-	$version2 = preg_replace($p, '', $version2);
-	return isset($operator) ? 
-		version_compare($version1, $version2, $operator) : 
-		version_compare($version1, $version2);
+function geot_version_compare( $version1, $version2, $operator = null ) {
+	$p        = '#(\.0+)+($|-)#';
+	$version1 = preg_replace( $p, '', $version1 );
+	$version2 = preg_replace( $p, '', $version2 );
+
+	return isset( $operator ) ?
+		version_compare( $version1, $version2, $operator ) :
+		version_compare( $version1, $version2 );
 }

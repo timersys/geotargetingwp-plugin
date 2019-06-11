@@ -13,12 +13,12 @@
 class Geot_Divi {
 
 	public function __construct() {
-		add_filter('et_pagebuilder_module_init', [ $this, 'module_init' ], 10, 1 );
-		add_filter('et_builder_main_tabs', [ $this, 'add_tabs' ], 10, 1 );
-		add_filter('et_module_shortcode_output', [ $this, 'render' ], 10, 3 );
+		add_filter( 'et_pagebuilder_module_init', [ $this, 'module_init' ], 10, 1 );
+		add_filter( 'et_builder_main_tabs', [ $this, 'add_tabs' ], 10, 1 );
+		add_filter( 'et_module_shortcode_output', [ $this, 'render' ], 10, 3 );
 
-		foreach( $this->get_modules() as $module_slug ) {
-			add_filter('et_pb_all_fields_unprocessed_'.$module_slug, [ $this, 'get_fields' ], 10, 1 );
+		foreach ( $this->get_modules() as $module_slug ) {
+			add_filter( 'et_pb_all_fields_unprocessed_' . $module_slug, [ $this, 'get_fields' ], 10, 1 );
 		}
 	}
 
@@ -94,35 +94,30 @@ class Geot_Divi {
 	}
 
 	/**
-	 * Get Regions
+	 * Format regions and normalize
 	 *
-	 * @param  string $slug_region
+	 * @param $check_multi
+	 * @param string $separator
+	 * @param $regions
 	 *
 	 * @return array
 	 */
-	static function get_regions( $slug_region = 'country' ) {
+	static function format_regions( $check_multi, $separator = '|', $regions ) {
 
-		$dropdown_values = [];
-
-		switch ( $slug_region ) {
-			case 'city':
-				$regions = geot_city_regions();
-				break;
-			default:
-				$regions = geot_country_regions();
+		if ( empty( $check_multi ) || empty( $regions ) || strpos( $check_multi, $separator ) === false ) {
+			return [];
 		}
 
-		if ( ! empty( $regions ) ) {
-			foreach ( $regions as $r ) {
-				if ( isset( $r['name'] ) ) {
-					$dropdown_values[ $r['name'] ] = $r['name'];
-				}
+		$output_regions = [];
+
+		foreach ( explode( $separator, $check_multi ) as $key => $onoff ) {
+			if ( strtolower( $onoff ) == 'on' && isset( $regions[ $key ] ) ) {
+				$output_regions[] = $regions[ $key ];
 			}
 		}
 
-		return $dropdown_values;
+		return $output_regions;
 	}
-
 
 	/**
 	 * Module Init
@@ -139,8 +134,8 @@ class Geot_Divi {
 
 	/**
 	 * Register Tabs
-	 * @var
 	 * @return array
+	 * @var
 	 */
 	public function add_tabs( $tabs ) {
 
@@ -190,8 +185,9 @@ class Geot_Divi {
 		global $et_fb_processing_shortcode_object;
 
 		// if is builder / edit mode
-		if( $et_fb_processing_shortcode_object == 1 )
+		if ( $et_fb_processing_shortcode_object == 1 ) {
 			return $output;
+		}
 
 		$geot_opts     = geot_pro_settings();
 		$reg_countries = array_values( self::get_regions( 'country' ) );
@@ -219,31 +215,34 @@ class Geot_Divi {
 		return $output;
 	}
 
-
 	/**
-	 * Format regions and normalize
+	 * Get Regions
 	 *
-	 * @param $check_multi
-	 * @param string $separator
-	 * @param $regions
+	 * @param string $slug_region
 	 *
 	 * @return array
 	 */
-	static function format_regions( $check_multi, $separator = '|', $regions ) {
+	static function get_regions( $slug_region = 'country' ) {
 
-		if ( empty( $check_multi ) || empty( $regions ) || strpos( $check_multi, $separator ) === false ) {
-			return [];
+		$dropdown_values = [];
+
+		switch ( $slug_region ) {
+			case 'city':
+				$regions = geot_city_regions();
+				break;
+			default:
+				$regions = geot_country_regions();
 		}
 
-		$output_regions = [];
-
-		foreach ( explode( $separator, $check_multi ) as $key => $onoff ) {
-			if ( strtolower( $onoff ) == 'on' && isset( $regions[ $key ] ) ) {
-				$output_regions[] = $regions[ $key ];
+		if ( ! empty( $regions ) ) {
+			foreach ( $regions as $r ) {
+				if ( isset( $r['name'] ) ) {
+					$dropdown_values[ $r['name'] ] = $r['name'];
+				}
 			}
 		}
 
-		return $output_regions;
+		return $dropdown_values;
 	}
 
 }

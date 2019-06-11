@@ -1,71 +1,71 @@
-jQuery(document).ready(function($) {
-	
-	//create TinyMCE plugin
-	tinymce.create('tinymce.plugins.geo_link', {
-		
-		init : function(ed, url) {
-			
-			// Setup the command when the button is pressed
-			ed.addCommand('geo_link_insert_shortcode', function() {
+jQuery(document).ready(function ($) {
 
-				jQuery('#geol_editor').dialog({
-					height: 500,
-					width: '600px',
-					buttons: {
-						"Insert Shortcode": function() {
+    //create TinyMCE plugin
+    tinymce.create('tinymce.plugins.geo_link', {
 
-							var geol_slug = jQuery('#geol-posts').val();
-							var geol_nofo = jQuery('input[name="geol_nofollow"]').val();
-							var geol_nore = jQuery('input[name="geol_noreferrer"]').val();
-							var str = '';
+        init: function (ed, url) {
 
-							str = '[geo-link slug="' + geol_slug + '"';
+            // Setup the command when the button is pressed
+            ed.addCommand('geo_link_insert_shortcode', function () {
 
-							if( geol_nofo == 'yes' )
-								str += ' nofollow="yes"';
-							else
-								str += ' nofollow="no"';
+                jQuery('#geol_editor').dialog({
+                    height: 500,
+                    width: '600px',
+                    buttons: {
+                        "Insert Shortcode": function () {
 
-							if( geol_nore == 'yes' )
-								str += ' noreferrer="yes"';
-							else
-								str += ' noreferrer="no"';
+                            var geol_slug = jQuery('#geol-posts').val();
+                            var geol_nofo = jQuery('input[name="geol_nofollow"]').val();
+                            var geol_nore = jQuery('input[name="geol_noreferrer"]').val();
+                            var str = '';
 
-							
-							var selected_text = ed.selection.getContent();
-							if (selected_text) {
+                            str = '[geo-link slug="' + geol_slug + '"';
 
-								str += "]" + selected_text + "[/geo-link]";
+                            if (geol_nofo == 'yes')
+                                str += ' nofollow="yes"';
+                            else
+                                str += ' nofollow="no"';
 
-							} else {
+                            if (geol_nore == 'yes')
+                                str += ' noreferrer="yes"';
+                            else
+                                str += ' noreferrer="no"';
 
-								str += "]YOUR TEXT OR IMG HERE[/geo-link]";
 
-							}
+                            var selected_text = ed.selection.getContent();
+                            if (selected_text) {
 
-							var Editor = tinyMCE.get('content');
-							Editor.focus();
-							Editor.selection.setContent(str);
+                                str += "]" + selected_text + "[/geo-link]";
 
-							jQuery( this ).dialog( "close" );
-						},
-						Cancel: function() {
-							jQuery( this ).dialog( "close" );
-						}
-					}
-				}).dialog('open');
+                            } else {
 
-			});
-			
-			//Add Button to Visual Editor Toolbar and launch the above command when it is clicked.
-			ed.addButton('geo_link', {
-				title : 'Insert shortcode',
-				cmd : 'geo_link_insert_shortcode',
-				image : geol_tinymce.icon
-			});
-		},
-	});
-	
-	//Setup the TinyMCE plugin. The first parameter is the button ID and the second parameter must match the first parameter of the above "tinymce.create ()" function.
-	tinymce.PluginManager.add('geo_link', tinymce.plugins.geo_link);
+                                str += "]YOUR TEXT OR IMG HERE[/geo-link]";
+
+                            }
+
+                            var Editor = tinyMCE.get('content');
+                            Editor.focus();
+                            Editor.selection.setContent(str);
+
+                            jQuery(this).dialog("close");
+                        },
+                        Cancel: function () {
+                            jQuery(this).dialog("close");
+                        }
+                    }
+                }).dialog('open');
+
+            });
+
+            //Add Button to Visual Editor Toolbar and launch the above command when it is clicked.
+            ed.addButton('geo_link', {
+                title: 'Insert shortcode',
+                cmd: 'geo_link_insert_shortcode',
+                image: geol_tinymce.icon
+            });
+        },
+    });
+
+    //Setup the TinyMCE plugin. The first parameter is the button ID and the second parameter must match the first parameter of the above "tinymce.create ()" function.
+    tinymce.PluginManager.add('geo_link', tinymce.plugins.geo_link);
 });
