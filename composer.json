@@ -30,7 +30,7 @@
     }
   ],
   "require": {
-    "timersys/geot-functions": "dev-feature/welcome",
+    "timersys/geot-functions": "dev-master",
     "mobiledetect/mobiledetectlib": "^2.8"
   }
 }
