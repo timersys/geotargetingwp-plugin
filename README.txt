@@ -1,10 +1,10 @@
-=== GeoTargeting Pro ===
+=== GeoTargeting WP ===
 Contributors: timersys
 Donate link: https://geotargetingwp.com/
-Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect
+Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 3.6
-Tested up to: 5.1.1
-Stable tag: 2.6
+Tested up to: 5.2.1
+Stable tag: 3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,11 +20,11 @@ E.g:
 `[geot country="Argentina"] Messi is the best! [/geot]`
 `[geot country="Portugal"] Cristiano ronaldo is the best! [/geot]`
 
-More info and docs on ([https://geotargetingwp.com/docs/geotargeting-pro/](https://geotargetingwp.com/docs/geotargeting-pro/))
+More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp.com/docs/))
 
 == Installation ==
 
-1. Unzip and Upload the directory 'geo-targeting' to the '/wp-content/plugins/' directory
+1. Unzip and Upload the directory 'geotargetingwp' to the '/wp-content/plugins/' directory
 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
@@ -37,6 +37,9 @@ More info and docs on ([https://geotargetingwp.com/docs/geotargeting-pro/](https
 
 
 == Changelog ==
+= 3.0 =
+* New plugin all in one
+* Welcome screen for better configuration
 
 = 2.6 =
 * Separate city regions from city field

@@ -1,22 +1,16 @@
 <?php
 
 /**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * Dashboard. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
  *
  * @link              https://geotargetingwp.com/
  * @since             1.0.1
  * @package           GeoTarget
  *
  * @wordpress-plugin
- * Plugin Name:       GeoTargetingwp Pro
+ * Plugin Name:       GeoTargetingWP
  * Plugin URI:        https://geotargetingwp.com/
- * Description:       Geo Targeting for WordPress will let you country-target your content based on users IP's and Geocountry Ip database
- * Version:           1.0
+ * Description:       Geo Targeting for WordPress will let you country-target your content based on users IP's and Geo country Ip database
+ * Version:           3.0
  * Author:            Timersys
  * Author URI:        https://geotargetingwp.com/
  * License:           GPL-2.0+
@@ -31,7 +25,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'GEOT_PLUGIN_FILE', __FILE__ );
-define( 'GEOT_VERSION', '1.0' );
+define( 'GEOT_VERSION', '3.0' );
 define( 'GEOT_DB_VERSION', '1.0' );
 define( 'GEOT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GEOT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -64,10 +58,6 @@ register_deactivation_hook( __FILE__, [ 'Geot_Deactivator', 'deactivate' ] );
  */
 require_once GEOT_PLUGIN_DIR . 'includes/class-geot.php';
 
-/**
- * Store the plugin global
- */
-global $geot;
 
 /**
  * Begins execution of the plugin.

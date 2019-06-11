@@ -27,6 +27,7 @@ class Geot_Metaboxes {
 		add_action( 'acf/include_field_types', [ $this, 'add_geot_to_acfv5' ] );
 		add_action( 'acf/register_fields', [ $this, 'add_geot_to_acfv4' ] );
 
+		// geotargeting pro
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
 		add_action( 'save_post', [ $this, 'save_meta_options' ], 20 );
 
