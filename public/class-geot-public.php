@@ -89,7 +89,7 @@ class Geot_Public {
 	public function enqueue_scripts() {
 
 		$src = 'js/geotarget-public.js';
-		if ( ! isset( $this->opts['debug_mode'] ) && ! isset( $_GET['geot_debug'] ) ) {
+		if ( ! isset( $_GET['geot_debug'] ) ) {
 			$src = 'js/min/geotarget-public-min.js';
 		}
 
@@ -441,9 +441,6 @@ class Geot_Public {
 	 */
 	public function print_debug_info() {
 		$opts = geot_settings();
-		if ( empty( $opts['debug_mode'] ) ) {
-			return;
-		}
 
 		?>
 		<!-- Geotargeting plugin Debug Info START-->

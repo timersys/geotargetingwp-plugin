@@ -49,6 +49,7 @@ class Geot_Ajax {
 	public function geot_ajax() {
 
 		$geots      = $posts = [];
+		$debug      = "";
 		$posts      = $this->get_geotargeted_posts();
 		$this->data = $_POST;
 		if ( isset( $this->data['geots'] ) ) {
@@ -61,9 +62,10 @@ class Geot_Ajax {
 					];
 				}
 			}
+			// only call debug info if we ran any geo action before to save requests
+			$debug = $this->getDebugInfo();
 		}
-		$opts  = geot_settings();
-		$debug = isset( $opts['debug_mode'] ) && '1' == $opts['debug_mode'] ? $this->getDebugInfo() : 'Debug mode disabled';
+
 		echo json_encode( [ 'success' => 1, 'data' => $geots, 'posts' => $posts, 'debug' => $debug ] );
 		die();
 	}
