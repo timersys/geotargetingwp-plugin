@@ -33,6 +33,7 @@ class Geot_Settings {
 		add_action( 'geot/settings_geotargeting-addons_panel', [ $this, 'addons_page' ] );
 
 		add_action( 'geot/wizard/steps', [ $this, 'add_steps' ], 10, 1 );
+		add_filter( 'geot/addons/defaults' [ $this, 'default_addons' ]);
 	}
 
 
@@ -67,10 +68,47 @@ class Geot_Settings {
 		include GEOT_PLUGIN_DIR . 'admin/partials/settings-page.php';
 	}
 
+
+	/**
+	 * Default Addons
+	 */
+	function default_addons($defaults) {
+		
+		// It is executing only once, when the plugin is activated
+		if( get_option('geot_activated') ) {
+			$defaults = [];
+
+			if( get_option('geot_plugin_geo_redirect') ) {
+				delete_option('geot_plugin_geo_redirect');
+				$defaults['geo-redirect'] = 1;
+			}
+
+			if( get_option('geot_plugin_geo_blocker') ) {
+				delete_option('geot_plugin_geo_blocker');
+				$defaults['geo-blocker'] = 1;
+			}
+
+			if( get_option('geot_plugin_geo_links') ) {
+				delete_option('geot_plugin_geo_links');
+				$defaults['geo-links'] = 1;
+			}
+
+			if( get_option('geot_plugin_geo_flags') ) {
+				delete_option('geot_plugin_geo_flags');
+				$defaults['geo-flags'] = 1;
+			}
+
+			delete_option('geot_activated');
+		}
+
+		return $defaults;
+	}
+
 	/**
 	 * Render Addons page
 	 */
 	function addons_page() {
+
 		$defaults = [
 			'geo-flags'     => '0',
 			'geo-links'     => '0',
@@ -89,34 +127,6 @@ class Geot_Settings {
 	}
 
 	function save_settings() {
-		
-		// It is executing only once, when the plugin is activated
-		if( get_option('geot_activated') && !geot_pro_addons() ) {
-			$settings = [];
-
-			if( get_option('geot_plugin_geo_redirect') ) {
-				delete_option('geot_plugin_geo_redirect');
-				$settings['geo-redirect'] = 1;
-			}
-
-			if( get_option('geot_plugin_geo_blocker') ) {
-				delete_option('geot_plugin_geo_blocker');
-				$settings['geo-blocker'] = 1;
-			}
-
-			if( get_option('geot_plugin_geo_links') ) {
-				delete_option('geot_plugin_geo_links');
-				$settings['geo-links'] = 1;
-			}
-
-			if( get_option('geot_plugin_geo_flags') ) {
-				delete_option('geot_plugin_geo_flags');
-				$settings['geo-flags'] = 1;
-			}
-
-			delete_option('geot_activated');
-			update_option( 'geot_pro_addons' ,  $settings);
-		}
 
 		if ( isset( $_POST['geot_nonce'] ) && wp_verify_nonce( $_POST['geot_nonce'], 'geot_pro_save_settings' ) ) {
 
