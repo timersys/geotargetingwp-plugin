@@ -44,7 +44,7 @@ class Geot_Settings {
 	 * @return mixed
 	 */
 	function add_tab( $tabs ) {
-		$tabs['geotargeting-settings'] = [ 'name' => __( 'Settings', 'geot' ) ];
+		$tabs['geotargeting-settings'] = [ 'name' => __( 'Geotargetingpro', 'geot' ) ];
 		$tabs['geotargeting-addons']   = [ 'name' => __( 'AddOns', 'geot' ) ];
 
 		return $tabs;
@@ -89,6 +89,35 @@ class Geot_Settings {
 	}
 
 	function save_settings() {
+		
+		// It is executing only once, when the plugin is activated
+		if( get_option('geot_activated') && !geot_pro_addons() ) {
+			$settings = [];
+
+			if( get_option('geot_plugin_geo_redirect') ) {
+				delete_option('geot_plugin_geo_redirect');
+				$settings['geo-redirect'] = 1;
+			}
+
+			if( get_option('geot_plugin_geo_blocker') ) {
+				delete_option('geot_plugin_geo_blocker');
+				$settings['geo-blocker'] = 1;
+			}
+
+			if( get_option('geot_plugin_geo_links') ) {
+				delete_option('geot_plugin_geo_links');
+				$settings['geo-links'] = 1;
+			}
+
+			if( get_option('geot_plugin_geo_flags') ) {
+				delete_option('geot_plugin_geo_flags');
+				$settings['geo-flags'] = 1;
+			}
+
+			delete_option('geot_activated');
+			update_option( 'geot_pro_addons' ,  $settings);
+		}
+
 		if ( isset( $_POST['geot_nonce'] ) && wp_verify_nonce( $_POST['geot_nonce'], 'geot_pro_save_settings' ) ) {
 
 			//Settings

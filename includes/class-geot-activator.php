@@ -40,6 +40,38 @@ class Geot_Activator {
 			);
 		}
 
+
+		// Geo Redirect
+		if ( is_plugin_active( 'geo-redirects/geo-redirects.php' ) ) {
+			update_option('geot_plugin_geo_redirect', 1);
+			deactivate_plugins( 'geo-redirects/geo-redirects.php' );
+		}
+
+		// Geo Blocker
+		if ( is_plugin_active( 'geo-blocker/geo-blocker.php' ) ) {
+			update_option('geot_plugin_geo_blocker', 1);
+			deactivate_plugins( 'geo-blocker/geo-blocker.php' );
+		}
+
+		// Geo Links
+		if ( is_plugin_active( 'geo-links/geo-links.php' ) ) {
+			update_option('geot_plugin_geo_links', 1);
+			deactivate_plugins( 'geo-links/geo-links.php' );
+		}
+
+		// Geo Flags
+		if ( is_plugin_active( 'geo-flags/geo-flags.php' ) ) {
+			update_option('geot_plugin_geo_flags', 1);
+			deactivate_plugins( 'geo-flags/geo-flags.php' );
+		}
+
+		// GeotargetingPro
+		if ( is_plugin_active( 'geotargeting-pro/geotargeting-pro.php' ) )
+			deactivate_plugins( 'geotargeting-pro/geotargeting-pro.php' );
+
+		update_option('geot_activated', 1);
+		
+
 		GeotFunctions\add_countries_to_db();
 		GeotFunctions\geot_activate();
 
