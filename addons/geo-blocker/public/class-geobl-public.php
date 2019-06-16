@@ -83,7 +83,7 @@ class Geobl_Public {
 
 		Geot_Rules::init();
 		$this->blocks = $this->get_blocks();
-		$opts_geot    = geot_pro_settings();
+		$opts_geot    = geot_settings();
 		if ( ! empty( $opts_geot['ajax_mode'] ) ) {
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		} else {

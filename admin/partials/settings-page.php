@@ -7,15 +7,7 @@
 			<tr valign="top" class="geot-settings-title">
 				<th colspan="3"><h3><?php _e( 'Geotargeting Pro : ', 'geot' ); ?></h3></th>
 			</tr>
-			<tr valign="top" class="">
-				<th><label for="ajax_mode"><?php _e( 'Ajax Mode', 'geot' ); ?></label></th>
-				<td colspan="3">
-					<input type="checkbox" id="ajax_mode" name="geot_settings[ajax_mode]"
-					       value="1" <?php checked( $opts['ajax_mode'], '1' ); ?>/>
-					<p class="help"><?php _e( 'In Ajax mode, after page load an extra request is made to get all data and everything is updated with javascript. That makes the plugin compatible with any cache plugin. More info on: ', 'geot' ); ?>
-						<a href="https://timersys.com/geotargeting/docs/ajax-mode/">Ajax mode info</a></p>
-				</td>
-			</tr>
+			
 			<tr valign="top" class="">
 				<th><label for="menu_integration"><?php _e( 'Disable Menu integration', 'geot' ); ?></label></th>
 				<td colspan="3">

@@ -33,7 +33,7 @@ class Geot_Settings {
 		add_action( 'geot/settings_geotargeting-addons_panel', [ $this, 'addons_page' ] );
 
 		add_action( 'geot/wizard/steps', [ $this, 'add_steps' ], 10, 1 );
-		add_filter( 'geot/addons/defaults' [ $this, 'default_addons' ]);
+		add_filter( 'geot/addons/defaults', [ $this, 'default_addons' ]);
 	}
 
 

@@ -27,7 +27,7 @@ class GeoFlags_Ajax_Shortcodes {
 	 */
 	public function __construct() {
 
-		$this->geot_opts = geof_settings();
+		$this->geot_opts = geot_settings();
 
 		add_action( 'init', [ $this, 'register_shortcodes' ] );
 	}

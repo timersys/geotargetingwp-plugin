@@ -110,7 +110,7 @@ public function handle_redirects() {
 
 	Geot_Rules::init();
 	$this->redirections = geotr_redirections();
-	$opts_geot          = geot_pro_settings();
+	$opts_geot          = geot_settings();
 	if ( ! empty( $opts_geot['ajax_mode'] ) ) {
 		add_action( 'wp_footer', [ $this, 'ajax_placeholder' ] );
 	} else {
