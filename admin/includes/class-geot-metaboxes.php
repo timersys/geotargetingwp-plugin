@@ -235,15 +235,6 @@ class Geot_Metaboxes {
 		// save box settings
 		update_post_meta( $post_id, 'geotr_options', apply_filters( 'geotr/metaboxes/sanitized_options', $opts ) );
 
-		$keys_geot = apply_filters( 'geotr/metaboxes/keys_geot', [
-			'country',
-			'country_region',
-			'city',
-			'city_region',
-			'state',
-			'zip',
-		] );
-
 		// Start with rules
 		Geot_Helper::save_rules( $post_id, $_POST, 'geotr_rules' );
 	}

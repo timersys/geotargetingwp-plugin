@@ -691,21 +691,23 @@ class Geot_Helper {
 			return;
 		}
 
+		$keys_geot = apply_filters( 'geot/metaboxes/keys_geot', [
+			'country',
+			'country_region',
+			'city',
+			'city_region',
+			'state',
+			'zip',
+		] );
+
+
 		$data = $input['geot_rules'];
 
 		// clean array keys
 		$groups = array_values( $data );
 		unset( $data );
 
-		foreach ( $groups as $group_id => $group ) {
-			if ( is_array( $group ) ) {
-
-				// clean array keys
-				$groups_a[] = array_values( $group );
-			}
-		}
-
-		/*
+		// Ordering the Rulers
 		foreach($groups as $group_id => $group ) {
 			if( is_array($group) ) {
 
@@ -725,9 +727,8 @@ class Geot_Helper {
 				}
 			}
 		}
-		*/
 
-		update_post_meta( $post_id, $meta_key, apply_filters( 'geot/metaboxes/sanitized_rules', $groups_a, $meta_key ) );
+		update_post_meta( $post_id, $meta_key, apply_filters( 'geot/metaboxes/sanitized_rules', $output_groups, $meta_key ) );
 
 		return true;
 	}
