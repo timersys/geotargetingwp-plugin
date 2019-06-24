@@ -47,31 +47,29 @@ class GeotWP_Activator {
 
 		// Geo Redirect
 		if ( is_plugin_active( 'geo-redirects/geo-redirects.php' ) ) {
-			update_option('geot_plugin_geo_redirect', 1);
 			deactivate_plugins( 'geo-redirects/geo-redirects.php' , true );
-			$addons['geo-redirect'] = 1;
+			$addons['geo-redirects'] = 1;
 		}
 
 		// Geo Blocker
 		if ( is_plugin_active( 'geo-blocker/geo-blocker.php' ) ) {
-			update_option('geot_plugin_geo_blocker', 1);
 			deactivate_plugins( 'geo-blocker/geo-blocker.php' , true );
+			$addons['geo-blocker'] = 1;
 		}
 
 		// Geo Links
 		if ( is_plugin_active( 'geo-links/geo-links.php' ) ) {
-			update_option('geot_plugin_geo_links', 1);
 			deactivate_plugins( 'geo-links/geo-links.php', true );
+			$addons['geo-links'] = 1;
 		}
 
 		// Geo Flags
 		if ( is_plugin_active( 'geo-flags/geo-flags.php' ) ) {
-			update_option('geot_plugin_geo_flags', 1);
 			deactivate_plugins( 'geo-flags/geo-flags.php' , true );
+			$addons['geo-flags'] = 1;
 		}
 
-		update_option('geot_activated', 1);
-		
+		update_option('geot_pro_addons', $addons );
 
 		GeotFunctions\add_countries_to_db();
 		GeotFunctions\geot_activate();

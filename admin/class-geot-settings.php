@@ -33,7 +33,6 @@ class GeotWP_Settings {
 		add_action( 'geot/settings_geotargeting-addons_panel', [ $this, 'addons_page' ] );
 
 		add_action( 'geot/wizard/steps', [ $this, 'add_steps' ], 10, 1 );
-		add_filter( 'geot/addons/defaults', [ $this, 'default_addons' ]);
 	}
 
 
@@ -63,46 +62,11 @@ class GeotWP_Settings {
 		$opts     = geotwp_settings();
 		$opts     = wp_parse_args( $opts, $defaults );
 
-		$return = 'admin.php?' . http_build_query( $_GET );
+		$return = esc_url( add_query_arg( $_GET , admin_url( 'admin.php' ) ) );
 
 		include GEOWP_PLUGIN_DIR . 'admin/partials/settings-page.php';
 	}
 
-
-	/**
-	 * Default Addons
-	 */
-	function default_addons($defaults) {
-		
-		// It is executing only once, when the plugin is activated
-		if( get_option('geot_activated') ) {
-			$defaults = [];
-
-			if( get_option('geot_plugin_geo_redirect') ) {
-				delete_option('geot_plugin_geo_redirect');
-				$defaults['geo-redirect'] = 1;
-			}
-
-			if( get_option('geot_plugin_geo_blocker') ) {
-				delete_option('geot_plugin_geo_blocker');
-				$defaults['geo-blocker'] = 1;
-			}
-
-			if( get_option('geot_plugin_geo_links') ) {
-				delete_option('geot_plugin_geo_links');
-				$defaults['geo-links'] = 1;
-			}
-
-			if( get_option('geot_plugin_geo_flags') ) {
-				delete_option('geot_plugin_geo_flags');
-				$defaults['geo-flags'] = 1;
-			}
-
-			delete_option('geot_activated');
-		}
-
-		return $defaults;
-	}
 
 	/**
 	 * Render Addons page
@@ -121,7 +85,7 @@ class GeotWP_Settings {
 		$opts = geotwp_addons();
 		$opts = geotwp_parse_args( $opts, $defaults );
 
-		$return = 'admin.php?' . http_build_query( $_GET );
+		$return = esc_url( add_query_arg( $_GET , admin_url( 'admin.php' ) ) );
 
 		include GEOWP_PLUGIN_DIR . 'admin/partials/addons-page.php';
 	}
@@ -146,7 +110,7 @@ class GeotWP_Settings {
 			do_action( 'geot/settings/save', $_POST );
 
 			if ( isset( $_POST['geot_return'] ) ) {
-				wp_redirect( esc_url_raw( admin_url( $_POST['geot_return'] ) ) );
+				wp_redirect( esc_url_raw( $_POST['geot_return'] ) );
 				exit();
 			}
 		}
