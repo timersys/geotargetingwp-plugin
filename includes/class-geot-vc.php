@@ -64,11 +64,11 @@ class Geot_VC {
 				'is_container'            => true,
 				'content_element'         => true,
 				'base'                    => 'vc_geot',
-				'icon'                    => GEOT_PLUGIN_URL . '/admin/img/world.png',
+				'icon'                    => GEOWP_PLUGIN_URL . '/admin/img/world.png',
 				'show_settings_on_create' => true,
 				'category'                => __( 'Geotargeting', 'geot' ),
 				'description'             => __( 'Place elements inside this geot container', 'geot' ),
-				'html_template'           => GEOT_PLUGIN_DIR . '/includes/vc/vc_geot.php',
+				'html_template'           => GEOWP_PLUGIN_DIR . '/includes/vc/vc_geot.php',
 				'js_view'                 => 'VcColumnView',
 				"params"                  => [
 					[
@@ -117,11 +117,11 @@ class Geot_VC {
 				'is_container'            => true,
 				'content_element'         => true,
 				'base'                    => 'vc_geot_city',
-				'icon'                    => GEOT_PLUGIN_URL . '/admin/img/cities.png',
+				'icon'                    => GEOWP_PLUGIN_URL . '/admin/img/cities.png',
 				'show_settings_on_create' => true,
 				'category'                => __( 'Geotargeting', 'geot' ),
 				'description'             => __( 'Place elements inside this geot container', 'geot' ),
-				'html_template'           => GEOT_PLUGIN_DIR . '/includes/vc/vc_geot_city.php',
+				'html_template'           => GEOWP_PLUGIN_DIR . '/includes/vc/vc_geot_city.php',
 				'js_view'                 => 'VcColumnView',
 				"params"                  => [
 					[
@@ -169,11 +169,11 @@ class Geot_VC {
 				'is_container'            => true,
 				'content_element'         => true,
 				'base'                    => 'vc_geot_state',
-				'icon'                    => GEOT_PLUGIN_URL . '/admin/img/states.png',
+				'icon'                    => GEOWP_PLUGIN_URL . '/admin/img/states.png',
 				'show_settings_on_create' => true,
 				'category'                => __( 'Geotargeting', 'geot' ),
 				'description'             => __( 'Place elements inside this geot container', 'geot' ),
-				'html_template'           => GEOT_PLUGIN_DIR . '/includes/vc/vc_geot_state.php',
+				'html_template'           => GEOWP_PLUGIN_DIR . '/includes/vc/vc_geot_state.php',
 				'js_view'                 => 'VcColumnView',
 				"params"                  => [
 					[

@@ -68,7 +68,7 @@ class Geot_Elementor {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( 'geo-elementor', GEOT_PLUGIN_URL . 'admin/css/admin.css', [], $this->version );
+		wp_enqueue_style( 'geo-elementor', GEOWP_PLUGIN_URL . 'admin/css/admin.css', [], $this->version );
 	}
 
 	/**
@@ -90,10 +90,10 @@ class Geot_Elementor {
 		global $geot_widgets;
 		$GLOBALS['geot_widgets'] = [];
 
-		require_once GEOT_PLUGIN_DIR . 'includes/elementor/elementor-geot-country.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/elementor/elementor-geot-city.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/elementor/elementor-geot-state.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/elementor/elementor-geot-zipcode.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/elementor-geot-country.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/elementor-geot-city.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/elementor-geot-state.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/elementor-geot-zipcode.php';
 	}
 
 	/**

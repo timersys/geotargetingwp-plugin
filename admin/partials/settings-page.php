@@ -5,7 +5,7 @@
 			<?php do_action( 'geot/settings_partial/before', $opts ); ?>
 
 			<tr valign="top" class="geot-settings-title">
-				<th colspan="3"><h3><?php _e( 'Geotargeting Pro : ', 'geot' ); ?></h3></th>
+				<th colspan="3"><h3><?php _e( 'GeotargetingWP : ', 'geot' ); ?></h3></th>
 			</tr>
 			
 			<tr valign="top" class="">

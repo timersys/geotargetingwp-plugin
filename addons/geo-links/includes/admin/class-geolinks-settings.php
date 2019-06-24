@@ -30,7 +30,7 @@ class GeoLinks_Settings {
 	 */
 	public function save_settings() {
 
-		$settings              = esc_sql( $_POST['geol_settings'] );
+		$settings              = $_POST['geol_settings'];
 		$settings['opt_stats'] = isset( $settings['opt_stats'] ) ? $settings['opt_stats'] : 0;
 
 		update_option( 'geol_settings', $settings );

@@ -193,10 +193,10 @@ class Geot_Gutenberg {
 		];
 
 		$localize_geot = [
-			'icon_country'    => GEOT_PLUGIN_URL . '/admin/img/world.png',
-			'icon_city'       => GEOT_PLUGIN_URL . '/admin/img/cities.png',
-			'icon_state'      => GEOT_PLUGIN_URL . '/admin/img/states.png',
-			'icon_zipcode'    => GEOT_PLUGIN_URL . '/admin/img/states.png',
+			'icon_country'    => GEOWP_PLUGIN_URL . '/admin/img/world.png',
+			'icon_city'       => GEOWP_PLUGIN_URL . '/admin/img/cities.png',
+			'icon_state'      => GEOWP_PLUGIN_URL . '/admin/img/states.png',
+			'icon_zipcode'    => GEOWP_PLUGIN_URL . '/admin/img/states.png',
 			'regions_country' => $this->get_regions( 'countries' ),
 			'regions_city'    => $this->get_regions( 'cities' ),
 			'modules'         => $modules_geot,
@@ -204,7 +204,7 @@ class Geot_Gutenberg {
 
 		wp_enqueue_script(
 			'gutenberg-geo',
-			GEOT_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot.js',
+			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot.js',
 			[ 'wp-blocks', 'wp-element', 'wp-components', 'wp-i18n', 'wp-editor' ],
 			$this->version,
 			true
@@ -217,7 +217,7 @@ class Geot_Gutenberg {
 		 ***********************/
 		wp_enqueue_script(
 			'gutenberg-geo-country',
-			GEOT_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-country.js',
+			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-country.js',
 			[ 'gutenberg-geo' ],
 			$this->version,
 			true
@@ -229,7 +229,7 @@ class Geot_Gutenberg {
 		 ***********************/
 		wp_enqueue_script(
 			'gutenberg-geo-city',
-			GEOT_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-city.js',
+			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-city.js',
 			[ 'gutenberg-geo' ],
 			$this->version,
 			true
@@ -242,7 +242,7 @@ class Geot_Gutenberg {
 		 ***********************/
 		wp_enqueue_script(
 			'gutenberg-geo-state',
-			GEOT_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-state.js',
+			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-state.js',
 			[ 'gutenberg-geo' ],
 			$this->version,
 			true
@@ -254,7 +254,7 @@ class Geot_Gutenberg {
 		 ***********************/
 		wp_enqueue_script(
 			'gutenberg-geo-zipcode',
-			GEOT_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-zipcode.js',
+			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-zipcode.js',
 			[ 'gutenberg-geo' ],
 			$this->version,
 			true

@@ -39,8 +39,8 @@ class Geot_Updater {
 		$opts = geot_settings();
 
 		// Setup the updater
-		$GeoUpdate = new GeotUpdates( GEOT_PLUGIN_FILE, [
-				'version' => GEOT_VERSION,
+		$GeoUpdate = new GeotUpdates( GEOWP_PLUGIN_FILE, [
+				'version' => GEOWP_VERSION,
 				'license' => isset( $opts['license'] ) ? $opts['license'] : '',
 			]
 		);
@@ -56,19 +56,19 @@ class Geot_Updater {
 		$db_version = get_option( 'geot_version' );
 
 		//Verify if plugin has be upgraded
-		if ( $db_version != null && geot_version_compare( GEOT_VERSION, $db_version, '!=' ) ) {
+		if ( $db_version != null && geot_version_compare( GEOWP_VERSION, $db_version, '!=' ) ) {
 
-			if ( geot_version_compare( GEOT_VERSION, '1.8.0', '>=' ) && ! get_option( 'geot_upgrade_1_8_0' ) ) {
+			if ( geot_version_compare( GEOWP_VERSION, '1.8.0', '>=' ) && ! get_option( 'geot_upgrade_1_8_0' ) ) {
 				self::geot_upgrade_1_8_0();
 			}
 
-			if ( geot_version_compare( GEOT_VERSION, '2.6.0', '>=' ) && ! get_option( 'geot_upgrade_2_6_0' ) ) {
+			if ( geot_version_compare( GEOWP_VERSION, '2.6.0', '>=' ) && ! get_option( 'geot_upgrade_2_6_0' ) ) {
 				self::geot_upgrade_2_6_0();
 			}
 
 			do_action( 'geotWP/upgraded' );
 
-			update_option( 'geot_version', GEOT_VERSION );
+			update_option( 'geot_version', GEOWP_VERSION );
 		}
 	}
 

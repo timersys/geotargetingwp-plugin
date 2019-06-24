@@ -8,7 +8,7 @@ class Geotr_Settings {
 	 * Geotr_Settings constructor.
 	 */
 	public function __construct() {
-		add_action( 'geot/settings_partial/after', [ $this, 'settings_page' ] );
+		//add_action( 'geot/settings_partial/after', [ $this, 'settings_page' ] );
 	}
 
 

@@ -37,7 +37,7 @@ class Geot_Admin {
 		add_action( 'widgets_init', [ $this, 'register_widgets' ] );
 
 		add_filter( 'geot/plugin_version', function () {
-			return GEOT_VERSION;
+			return GEOWP_VERSION;
 		} );
 		add_filter( 'geot/exclude/post_types', [ $this, 'exclude_posts' ], 10, 1 );
 
@@ -79,9 +79,9 @@ class Geot_Admin {
 
 		$post_id = isset( $post->ID ) ? $post->ID : '';
 
-		wp_enqueue_script( 'geot-admin-js', plugin_dir_url( __FILE__ ) . 'js/geot-admin.js', [ 'jquery' ], GEOT_VERSION, false );
+		wp_enqueue_script( 'geot-admin-js', plugin_dir_url( __FILE__ ) . 'js/geot-admin.js', [ 'jquery' ], GEOWP_VERSION, false );
 
-		wp_enqueue_style( 'geot-admin-css', plugin_dir_url( __FILE__ ) . 'css/geot-admin.css', [], GEOT_VERSION, 'all' );
+		wp_enqueue_style( 'geot-admin-css', plugin_dir_url( __FILE__ ) . 'css/geot-admin.css', [], GEOWP_VERSION, 'all' );
 
 		wp_localize_script( 'geot-admin-js', 'geot_js',
 			apply_filters( 'geot/rules/vars_localize',
@@ -135,7 +135,7 @@ class Geot_Admin {
 	 */
 	function add_editor() {
 
-		include GEOT_PLUGIN_DIR . 'admin/partials/tinymce-popup.php';
+		include GEOWP_PLUGIN_DIR . 'admin/partials/tinymce-popup.php';
 		wp_die();
 	}
 

@@ -45,8 +45,8 @@ class Geot_Settings {
 	 * @return mixed
 	 */
 	function add_tab( $tabs ) {
-		$tabs['geotargeting-settings'] = [ 'name' => __( 'Geotargetingpro', 'geot' ) ];
-		$tabs['geotargeting-addons']   = [ 'name' => __( 'AddOns', 'geot' ) ];
+		$tabs['geotargeting-addons']   = [ 'name' => __( 'Addons', 'geot' ) ];
+		$tabs['geotargeting-settings'] = [ 'name' => __( 'Addons Settings', 'geot' ) ];
 
 		return $tabs;
 	}
@@ -65,7 +65,7 @@ class Geot_Settings {
 
 		$return = 'admin.php?' . http_build_query( $_GET );
 
-		include GEOT_PLUGIN_DIR . 'admin/partials/settings-page.php';
+		include GEOWP_PLUGIN_DIR . 'admin/partials/settings-page.php';
 	}
 
 
@@ -123,7 +123,7 @@ class Geot_Settings {
 
 		$return = 'admin.php?' . http_build_query( $_GET );
 
-		include GEOT_PLUGIN_DIR . 'admin/partials/addons-page.php';
+		include GEOWP_PLUGIN_DIR . 'admin/partials/addons-page.php';
 	}
 
 	function save_settings() {
@@ -175,7 +175,7 @@ class Geot_Settings {
 		];
 		$opts     = wp_parse_args( $opts, apply_filters( 'geot/default_addons', $defaults ) );
 
-		require_once GEOT_PLUGIN_DIR . 'admin/partials/setup-wizard-addons.php';
+		require_once GEOWP_PLUGIN_DIR . 'admin/partials/setup-wizard-addons.php';
 	}
 
 	function setup_wizard_addons_save() {

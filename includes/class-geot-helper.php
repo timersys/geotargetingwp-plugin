@@ -745,7 +745,7 @@ class Geot_Helper {
 
 		$groups = apply_filters( 'geot/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, $meta_key ), $post->ID );
 
-		include GEOT_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
+		include GEOWP_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
 	}
 
 	/**

@@ -95,7 +95,7 @@ class Geot_Metaboxes {
 		}
 
 
-		include GEOT_PLUGIN_DIR . 'admin/partials/metabox-options.php';
+		include GEOWP_PLUGIN_DIR . 'admin/partials/metabox-options.php';
 	}
 
 
@@ -147,7 +147,7 @@ class Geot_Metaboxes {
 	 */
 	function add_geot_to_acfv5() {
 
-		include GEOT_PLUGIN_DIR . 'admin/includes/acf-geot-v5.php';
+		include GEOWP_PLUGIN_DIR . 'admin/includes/acf-geot-v5.php';
 	}
 
 	/**
@@ -156,7 +156,7 @@ class Geot_Metaboxes {
 	 */
 	function add_geot_to_acfv4() {
 
-		include GEOT_PLUGIN_DIR . 'admin/includes/acf-geot-v4.php';
+		include GEOWP_PLUGIN_DIR . 'admin/includes/acf-geot-v4.php';
 	}
 
 

@@ -125,10 +125,10 @@ class Geot_Divi {
 	 * @return array
 	 */
 	public function module_init() {
-		require_once GEOT_PLUGIN_DIR . 'includes/divi/divi-geot-country.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/divi/divi-geot-city.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/divi/divi-geot-state.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/divi/divi-geot-zipcode.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/divi/divi-geot-country.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/divi/divi-geot-city.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/divi/divi-geot-state.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/divi/divi-geot-zipcode.php';
 	}
 
 

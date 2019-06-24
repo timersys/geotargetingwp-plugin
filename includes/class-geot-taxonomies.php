@@ -51,7 +51,7 @@ class Geot_Taxonomies {
 		$regions_countries = wp_list_pluck( geot_country_regions(), 'name' );
 		$regions_cities    = wp_list_pluck( geot_city_regions(), 'name' );
 
-		include_once GEOT_PLUGIN_DIR . 'admin/partials/metabox-category.php';
+		include_once GEOWP_PLUGIN_DIR . 'admin/partials/metabox-category.php';
 	}
 
 
@@ -153,7 +153,7 @@ class Geot_Taxonomies {
 		$regions_countries = wp_list_pluck( geot_country_regions(), 'name' );
 		$regions_cities    = wp_list_pluck( geot_city_regions(), 'name' );
 
-		include_once GEOT_PLUGIN_DIR . 'admin/partials/metabox-woo-category.php';
+		include_once GEOWP_PLUGIN_DIR . 'admin/partials/metabox-woo-category.php';
 	}
 
 	/**

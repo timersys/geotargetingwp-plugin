@@ -24,27 +24,56 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'GEOT_PLUGIN_FILE', __FILE__ );
-define( 'GEOT_VERSION', '3.0' );
-define( 'GEOT_DB_VERSION', '1.0' );
-define( 'GEOT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'GEOT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'GEOT_ADDONS_DIR', plugin_dir_path( __FILE__ ) . 'addons/' );
-define( 'GEOT_ADDONS_URL', plugin_dir_url( __FILE__ ) . 'addons/' );
-define( 'GEOT_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
+define( 'GEOWP_PLUGIN_FILE', __FILE__ );
+define( 'GEOWP_VERSION', '3.0' );
+define( 'GEOWP_DB_VERSION', '1.0' );
+define( 'GEOWP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'GEOWP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'GEOWP_ADDONS_DIR', plugin_dir_path( __FILE__ ) . 'addons/' );
+define( 'GEOWP_ADDONS_URL', plugin_dir_url( __FILE__ ) . 'addons/' );
+define( 'GEOWP_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
 if ( ! defined( 'GEOTROOT_PLUGIN_FILE' ) ) {
-	define( 'GEOTROOT_PLUGIN_FILE', GEOT_PLUGIN_FILE );
+	define( 'GEOTROOT_PLUGIN_FILE', GEOWP_PLUGIN_FILE );
+}
+// deactivate all plugins
+
+// GeotargetingPro
+if ( is_plugin_active( 'geotargeting-pro/geotargeting-pro.php' ) )
+	deactivate_plugins( 'geotargeting-pro/geotargeting-pro.php', true );
+
+// Geo Redirect
+if ( is_plugin_active( 'geo-redirects/geo-redirects.php' ) ) {
+	update_option('geot_plugin_geo_redirect', 1);
+	deactivate_plugins( 'geo-redirects/geo-redirects.php' , true );
+}
+
+// Geo Blocker
+if ( is_plugin_active( 'geo-blocker/geo-blocker.php' ) ) {
+	update_option('geot_plugin_geo_blocker', 1);
+	deactivate_plugins( 'geo-blocker/geo-blocker.php' , true );
+}
+
+// Geo Links
+if ( is_plugin_active( 'geo-links/geo-links.php' ) ) {
+	update_option('geot_plugin_geo_links', 1);
+	deactivate_plugins( 'geo-links/geo-links.php', true );
+}
+
+// Geo Flags
+if ( is_plugin_active( 'geo-flags/geo-flags.php' ) ) {
+	update_option('geot_plugin_geo_flags', 1);
+	deactivate_plugins( 'geo-flags/geo-flags.php' , true );
 }
 
 /**
  * The code that runs during plugin activation.
  */
-require_once GEOT_PLUGIN_DIR . 'includes/class-geot-activator.php';
+require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-activator.php';
 
 /**
  * The code that runs during plugin deactivation.
  */
-require_once GEOT_PLUGIN_DIR . 'includes/class-geot-deactivator.php';
+require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-deactivator.php';
 
 /** This action is documented in includes/class-geot-activator.php */
 register_activation_hook( __FILE__, [ 'Geot_Activator', 'activate' ] );
@@ -56,7 +85,7 @@ register_deactivation_hook( __FILE__, [ 'Geot_Deactivator', 'deactivate' ] );
  * The core plugin class that is used to define internationalization,
  * dashboard-specific hooks, and public-facing site hooks.
  */
-require_once GEOT_PLUGIN_DIR . 'includes/class-geot.php';
+require_once GEOWP_PLUGIN_DIR . 'includes/class-geot.php';
 
 
 /**

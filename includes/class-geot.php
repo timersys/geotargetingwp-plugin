@@ -135,31 +135,31 @@ class Geot {
 	 */
 	private function load_dependencies() {
 
-		require GEOT_PLUGIN_DIR . 'vendor/autoload.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/functions.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/functions-ajax.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-i18n.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-shortcodes.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-ajax-shortcodes.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-ajax.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-vc.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-divi.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-gutenberg.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-elementor.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-rules.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-helper.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-updater.php';
-		require_once GEOT_PLUGIN_DIR . 'includes/class-geot-taxonomies.php';
+		require GEOWP_PLUGIN_DIR . 'vendor/autoload.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/functions.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/functions-ajax.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-i18n.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-shortcodes.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-ajax-shortcodes.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-ajax.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-vc.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-divi.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-gutenberg.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-elementor.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-rules.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-helper.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-updater.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-taxonomies.php';
 
-		require_once GEOT_PLUGIN_DIR . 'public/class-geot-public.php';
+		require_once GEOWP_PLUGIN_DIR . 'public/class-geot-public.php';
 
 		if ( is_admin() ) {
-			require_once GEOT_PLUGIN_DIR . 'admin/class-geot-admin.php';
-			require_once GEOT_PLUGIN_DIR . 'admin/class-geot-settings.php';
-			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-metaboxes.php';
-			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-dropdown-widget.php';
-			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-widgets.php';
-			require_once GEOT_PLUGIN_DIR . 'admin/includes/class-geot-menus.php';
+			require_once GEOWP_PLUGIN_DIR . 'admin/class-geot-admin.php';
+			require_once GEOWP_PLUGIN_DIR . 'admin/class-geot-settings.php';
+			require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-metaboxes.php';
+			require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-dropdown-widget.php';
+			require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-widgets.php';
+			require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-menus.php';
 		}
 	}
 
@@ -253,7 +253,7 @@ class Geot {
 				continue;
 			}
 
-			$addon_index = apply_filters( 'geot/addons/file', GEOT_ADDONS_DIR . $key . '/' . $key . '.php' );
+			$addon_index = apply_filters( 'geot/addons/file', GEOWP_ADDONS_DIR . $key . '/' . $key . '.php' );
 
 			if ( file_exists( $addon_index ) ) {
 				require $addon_index;
