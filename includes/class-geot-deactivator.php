@@ -20,7 +20,7 @@
  * @subpackage GeoTarget/includes
  * @author     Your Name <email@example.com>
  */
-class Geot_Deactivator {
+class GeotWP_Deactivator {
 
 	/**
 	 * Short Description. (use period)

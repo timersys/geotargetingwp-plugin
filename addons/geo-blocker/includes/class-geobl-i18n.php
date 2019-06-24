@@ -24,7 +24,7 @@
  * @subpackage Geobl/includes
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geobl_i18n {
+class GeotWP_Bl_i18n {
 
 	/**
 	 * The domain specified for this plugin.

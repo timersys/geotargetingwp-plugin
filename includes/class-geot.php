@@ -40,35 +40,35 @@ class Geot {
 	 */
 	protected static $_instance = null;
 	/**
-	 * @var Geot_Public $public
+	 * @var GeotWP_Public $public
 	 */
 	public $public;
 	/**
-	 * @var Geot_VC $vc
+	 * @var GeotWP_VC $vc
 	 */
 	public $vc;
 	/**
-	 * @var Geot_Admin $admin
+	 * @var GeotWP_Admin $admin
 	 */
 	public $admin;
 	/**
-	 * @var Geot_Settings $settings
+	 * @var GeotWP_Settings $settings
 	 */
 	public $settings;
 	/**
-	 * @var Geot_Updater $updater
+	 * @var GeotWP_Updater $updater
 	 */
 	public $updater;
 	/**
-	 * @var Geot_Widgets $widget
+	 * @var GeotWP_Widgets $widget
 	 */
 	public $widget;
 	/**
-	 * @var Geot_Menus $menus
+	 * @var GeotWP_Menus $menus
 	 */
 	public $menus;
 	/**
-	 * @var Geot_Categories $cats
+	 * @var GeotWP_Categories $cats
 	 */
 	public $taxs;
 	/**
@@ -119,13 +119,13 @@ class Geot {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Geot_i18n. Defines internationalization functionality.
-	 * - Geot_Admin. Defines all hooks for the dashboard.
-	 * - Geot_Public. Defines all hooks for the public side of the site.
-	 * - Geot_Function. Defines all main functions for targeting
-	 * - Geot_shortcodes. Defines all plugin shortcodes
-	 * - Geot_Widget. Defines plugin widget
-	 * - Geot_Widgets. Target all widgets with geot
+	 * - GeotWP_i18n. Defines internationalization functionality.
+	 * - GeotWP_Admin. Defines all hooks for the dashboard.
+	 * - GeotWP_Public. Defines all hooks for the public side of the site.
+	 * - GeotWP_Function. Defines all main functions for targeting
+	 * - GeotWP_shortcodes. Defines all plugin shortcodes
+	 * - GeotWP_Widget. Defines plugin widget
+	 * - GeotWP_Widgets. Target all widgets with geot
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -174,7 +174,7 @@ class Geot {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Geot_i18n();
+		$plugin_i18n = new GeotWP_i18n();
 		$plugin_i18n->set_domain( 'geot' );
 
 		add_action( 'plugins_loaded', [ $plugin_i18n, 'load_plugin_textdomain' ] );
@@ -189,12 +189,12 @@ class Geot {
 	 */
 	private function set_objects_public() {
 
-		$this->public    = new Geot_Public();
-		$this->vc        = new Geot_VC();
-		$this->gutenberg = new Geot_Gutenberg();
-		$this->elementor = new Geot_Elementor();
-		$this->divi      = new Geot_Divi();
-		$this->taxs      = new Geot_Taxonomies();
+		$this->public    = new GeotWP_Public();
+		$this->vc        = new GeotWP_VC();
+		$this->gutenberg = new GeotWP_Gutenberg();
+		$this->elementor = new GeotWP_Elementor();
+		$this->divi      = new GeotWP_Divi();
+		$this->taxs      = new GeotWP_Taxonomies();
 	}
 
 	/**
@@ -202,8 +202,8 @@ class Geot {
 	 * @access   private
 	 */
 	private function register_shortcodes() {
-		$shortcodes      = new Geot_Shortcodes();
-		$ajax_shortcodes = new Geot_Ajax_Shortcodes();
+		$shortcodes      = new GeotWP_Shortcodes();
+		$ajax_shortcodes = new GeotWP_Ajax_Shortcodes();
 	}
 
 	/**
@@ -219,12 +219,12 @@ class Geot {
 			return;
 		}
 
-		$this->admin     = new Geot_Admin();
-		$this->settings  = new Geot_Settings();
-		$this->metaboxes = new Geot_Metaboxes();
-		$this->updater   = new Geot_Updater();
-		$this->widget    = new Geot_Widgets();
-		$this->menus     = new Geot_Menus();
+		$this->admin     = new GeotWP_Admin();
+		$this->settings  = new GeotWP_Settings();
+		$this->metaboxes = new GeotWP_Metaboxes();
+		$this->updater   = new GeotWP_Updater();
+		$this->widget    = new GeotWP_Widgets();
+		$this->menus     = new GeotWP_Menus();
 	}
 
 	/**
@@ -232,7 +232,7 @@ class Geot {
 	 * @access   private
 	 */
 	private function register_ajax_calls() {
-		$this->ajax = new Geot_Ajax();
+		$this->ajax = new GeotWP_Ajax();
 	}
 
 	public function set_addons() {
@@ -245,8 +245,8 @@ class Geot {
 
 		$defaults = apply_filters( 'geot/addons/defaults', $defaults );
 
-		$opts = geot_pro_addons();
-		$opts = geot_wp_parse_args( $opts, $defaults );
+		$opts = geotwp_addons();
+		$opts = geotwp_parse_args( $opts, $defaults );
 
 		foreach ( $opts as $key => $value ) {
 			if ( $value != 1 ) {

@@ -44,7 +44,7 @@ do_action( 'geot/metaboxes/before_rules', $post );
 										<tr data-id="<?php echo $rule_id; ?>">
 											<td class="param"><?php
 
-												$choices = Geot_Rules::get_rules_choices();
+												$choices = GeotWP_R_ules::get_rules_choices();
 
 												// create field
 												$args = [
@@ -54,7 +54,7 @@ do_action( 'geot/metaboxes/before_rules', $post );
 													'value'    => $rule['param'],
 												];
 
-												Geot_Helper::print_select( $args, $choices );
+												GeotWP_Helper::print_select( $args, $choices );
 
 
 												?></td>
@@ -68,7 +68,7 @@ do_action( 'geot/metaboxes/before_rules', $post );
 													'param'    => $rule['param'],
 
 												];
-												Geot_Helper::ajax_render_operator( $args );
+												GeotWP_Helper::ajax_render_operator( $args );
 
 												?></td>
 											<td class="value"><?php
@@ -79,7 +79,7 @@ do_action( 'geot/metaboxes/before_rules', $post );
 													'name'     => 'geot_rules[' . $group_id . '][' . $rule_id . '][value]',
 													'param'    => $rule['param'],
 												];
-												Geot_Helper::ajax_render_rules( $args );
+												GeotWP_Helper::ajax_render_rules( $args );
 
 												?></td>
 											<td class="add">

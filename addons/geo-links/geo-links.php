@@ -25,18 +25,18 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'GEOL_PLUGIN_FILE', __FILE__ );
-define( 'GEOL_VERSION', '1.0.4' );
-define( 'GEOL_DB_VERSION', '1.2' );
-define( 'GEOL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'GEOL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'GEOL_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
+define( 'GEOTWP_L_PLUGIN_FILE', __FILE__ );
+define( 'GEOTWP_L_VERSION', '1.0.4' );
+define( 'GEOTWP_L_DB_VERSION', '1.2' );
+define( 'GEOTWP_L_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'GEOTWP_L_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'GEOTWP_L_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
 
 /**
  * The core plugin class that is used to define internationalization,
  * dashboard-specific hooks, and public-facing site hooks.
  */
-require_once GEOL_PLUGIN_DIR . 'includes/class-geolinks.php';
+require_once GEOTWP_L_PLUGIN_DIR . 'includes/class-geolinks.php';
 
 /**
  * Store the plugin global
@@ -53,11 +53,11 @@ global $geol;
  * @since    1.0.0
  */
 
-function Geol() {
+function GeotWP_L() {
 
-	return GeoLinks::instance();
+	return GeotWP_Links::instance();
 }
 
-$GLOBALS['geol'] = Geol();
+$GLOBALS['geol'] = GeotWP_L();
 
 

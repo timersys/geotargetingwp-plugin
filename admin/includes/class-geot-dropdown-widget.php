@@ -4,7 +4,7 @@
  * Adds GeoTarget Widget
  * @since  1.0.0
  */
-class Geot_Widget extends WP_Widget {
+class GeotWP_Widget extends WP_Widget {
 
 	/**
 	 * Register widget with WordPress.

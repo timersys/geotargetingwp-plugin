@@ -10,7 +10,7 @@
  * @subpackage GeoTarget/includes
  * @author     Your Name <email@example.com>
  */
-class Geot_Ajax_Shortcodes {
+class GeotWP_Ajax_Shortcodes {
 
 	/**
 	 * @since   1.6
@@ -28,7 +28,7 @@ class Geot_Ajax_Shortcodes {
 	 */
 	public function __construct() {
 
-		$this->geot_opts = geot_pro_settings();
+		$this->geot_opts = geotwp_settings();
 
 		add_action( 'init', [ $this, 'register_shortcodes' ] );
 	}

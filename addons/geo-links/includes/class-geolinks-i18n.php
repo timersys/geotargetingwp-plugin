@@ -9,8 +9,8 @@
  * @link       https://geotargetingwp.com/geotargeting-pro
  * @since      1.0.0
  *
- * @package    GeoLinks
- * @subpackage GeoLinks/includes
+ * @package    GeotWP_Links
+ * @subpackage GeotWP_Links/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that its ready for translation.
  *
  * @since      1.0.0
- * @package    GeoLinks
- * @subpackage GeoLinks/includes
+ * @package    GeotWP_Links
+ * @subpackage GeotWP_Links/includes
  * @author     Your Name <email@example.com>
  */
-class GeoLinks_i18n {
+class GeotWP_Links_i18n {
 
 	/**
 	 * The domain specified for this plugin.

@@ -21,7 +21,7 @@ use Jaybizzle\CrawlerDetect\CrawlerDetect;
  * @subpackage Geotr/public
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geotr_Public {
+class GeotWP_R_Public {
 /**
  * @var Array of Redirection posts
  */
@@ -108,8 +108,8 @@ public function init_geot() {
 
 public function handle_redirects() {
 
-	Geot_Rules::init();
-	$this->redirections = geotr_redirections();
+	GeotWP_R_ules::init();
+	$this->redirections = geotWPR_redirections();
 	$opts_geot          = geot_settings();
 	if ( ! empty( $opts_geot['ajax_mode'] ) ) {
 		add_action( 'wp_footer', [ $this, 'ajax_placeholder' ] );
@@ -129,7 +129,7 @@ private function check_for_rules() {
 				continue;
 			}
 			$rules       = ! empty( $r->geotr_rules ) ? unserialize( $r->geotr_rules ) : [];
-			$do_redirect = Geot_Rules::is_ok( $rules );
+			$do_redirect = GeotWP_R_ules::is_ok( $rules );
 			if ( $do_redirect ) {
 				$this->perform_redirect( $r );
 				break; // ajax mode won't redirect instantly so we need to break
@@ -300,8 +300,8 @@ public function fixRedirect( $redirect ) {
  * we call normal redirect logic but cancel it and print results
  */
 public function handle_ajax_redirects() {
-	Geot_Rules::init();
-	$this->redirections = geotr_redirections();
+	GeotWP_R_ules::init();
+	$this->redirections = geotWPR_redirections();
 	add_filter( 'geotr/cancel_redirect', function ( $redirect, $opts ) {
 		echo apply_filters( 'geotr/ajax_cancel_redirect', json_encode( $opts ), $opts );
 
@@ -315,7 +315,7 @@ public function handle_ajax_redirects() {
  * Enqueue script file
  */
 public function enqueue_scripts() {
-	wp_enqueue_script( 'geotr-js', plugins_url( 'js/geotr-public.js', __FILE__ ), [ 'jquery' ], GEOTR_VERSION, true );
+	wp_enqueue_script( 'geotr-js', plugins_url( 'js/geotr-public.js', __FILE__ ), [ 'jquery' ], GEOTWP_R_VERSION, true );
 	wp_localize_script( 'geotr-js', 'geotr', [
 		'ajax_url'      => admin_url( 'admin-ajax.php' ),
 		'pid'           => get_queried_object_id(),

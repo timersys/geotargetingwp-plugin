@@ -1,6 +1,6 @@
 <?php
 
-class Geot_Helper {
+class GeotWP_Helper {
 
 	private static $_user_is_targeted = [];
 	private static $_geotarget_posts = [];
@@ -743,7 +743,7 @@ class Geot_Helper {
 			]
 		);
 
-		$groups = apply_filters( 'geot/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, $meta_key ), $post->ID );
+		$groups = apply_filters( 'geot/metaboxes/get_rules', GeotWP_Helper::get_rules( $post->ID, $meta_key ), $post->ID );
 
 		include GEOWP_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
 	}

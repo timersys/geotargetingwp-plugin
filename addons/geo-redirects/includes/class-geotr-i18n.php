@@ -24,7 +24,7 @@
  * @subpackage Geotr/includes
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geotr_i18n {
+class GeotWP_R_i18n {
 
 	/**
 	 * The domain specified for this plugin.

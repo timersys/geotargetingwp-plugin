@@ -4,7 +4,7 @@
  * Adds GeoTarget to menus
  * @since  1.8
  */
-class Geot_Menus {
+class GeotWP_Menus {
 	/**
 	 * @since   1.6
 	 * @access  private
@@ -20,7 +20,7 @@ class Geot_Menus {
 	 * @var      string $version The version of this plugin.
 	 */
 	public function __construct() {
-		$this->geot_opts = geot_pro_settings();
+		$this->geot_opts = geotwp_settings();
 
 		if ( empty( $this->geot_opts['disable_menu_integration'] ) ) {
 			add_filter( 'wp_setup_nav_menu_item', [ $this, 'add_custom_fields' ] );
@@ -76,7 +76,7 @@ class Geot_Menus {
 	public function admin_menu_walker( $walker = "", $menu_id = "" ) {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-geot-admin-menu-walker.php';
 
-		return 'Geot_Admin_Menu_Walker';
+		return 'GeotWP_Admin_Menu_Walker';
 
 	}
 
@@ -104,7 +104,7 @@ class Geot_Menus {
 				$menu_item->classes[] = 'geot-ajax geot_menu_item';
 				add_filter( 'nav_menu_link_attributes', [ $this, 'add_geot_info' ], 10, 2 );
 			} else {
-				if ( Geot_Helper::user_is_targeted( $g, $menu_item->ID ) ) {
+				if ( GeotWP_Helper::user_is_targeted( $g, $menu_item->ID ) ) {
 					unset( $sorted_menu_items[ $k ] );
 				}
 			}

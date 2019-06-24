@@ -39,7 +39,7 @@ class Geobl {
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      Geobl_Public $public Public class instance
+	 * @var      GeotWP_Bl_Public $public Public class instance
 	 */
 	public $public;
 	/**
@@ -47,7 +47,7 @@ class Geobl {
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      Geobl_Admin $public Admin class instance
+	 * @var      GeotWP_Bl_Admin $public Admin class instance
 	 */
 	public $admin;
 	public $settings;
@@ -75,23 +75,23 @@ class Geobl {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		require_once GEOBL_PLUGIN_DIR . 'includes/functions.php';
-		require_once GEOBL_PLUGIN_DIR . 'includes/class-geobl-i18n.php';
-		require_once GEOBL_PLUGIN_DIR . 'includes/class-geobl-cpt.php';
-		require_once GEOBL_PLUGIN_DIR . 'includes/class-geobl-helper.php';
-		require_once GEOBL_PLUGIN_DIR . 'public/class-geobl-public.php';
+		require_once GEOTWP_BL_PLUGIN_DIR . 'includes/functions.php';
+		require_once GEOTWP_BL_PLUGIN_DIR . 'includes/class-geobl-i18n.php';
+		require_once GEOTWP_BL_PLUGIN_DIR . 'includes/class-geobl-cpt.php';
+		require_once GEOTWP_BL_PLUGIN_DIR . 'includes/class-geobl-helper.php';
+		require_once GEOTWP_BL_PLUGIN_DIR . 'public/class-geobl-public.php';
 
 
 		if ( is_admin() ) {
-			require_once GEOBL_PLUGIN_DIR . 'admin/class-geobl-admin.php';
-			require_once GEOBL_PLUGIN_DIR . 'admin/class-geobl-settings.php';
+			require_once GEOTWP_BL_PLUGIN_DIR . 'admin/class-geobl-admin.php';
+			require_once GEOTWP_BL_PLUGIN_DIR . 'admin/class-geobl-settings.php';
 		}
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Geobl_i18n class in order to set the domain and to register the hook
+	 * Uses the GeotWP_Bl_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -99,7 +99,7 @@ class Geobl {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Geobl_i18n();
+		$plugin_i18n = new GeotWP_Bl_i18n();
 		$plugin_i18n->set_domain( 'geobl' );
 
 		add_action( 'plugins_loaded', [ $plugin_i18n, 'load_plugin_textdomain' ] );
@@ -118,10 +118,10 @@ class Geobl {
 			return;
 		}
 
-		$this->admin    = new Geobl_Admin();
-		$this->settings = new Geobl_Settings();
+		$this->admin    = new GeotWP_Bl_Admin();
+		$this->settings = new GeotWP_Bl_Settings();
 
-		Geot_Rules::set_rules_fields();
+		GeotWP_R_ules::set_rules_fields();
 	}
 
 	/**
@@ -132,7 +132,7 @@ class Geobl {
 	 * @access   private
 	 */
 	private function set_objects_public() {
-		$this->public = new Geobl_Public();
+		$this->public = new GeotWP_Bl_Public();
 	}
 
 	/**

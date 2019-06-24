@@ -1,5 +1,5 @@
 <div class="geot-notice notice notice-error is-dismissible" data-notice-id="geolinks-cache">
-	<h3><i class=" dashicons-before dashicons-admin-site"></i> GeoLinks</h3>
+	<h3><i class=" dashicons-before dashicons-admin-site"></i> GeotWP_Links</h3>
 	<p><?php _e( 'We detected that your have a cache plugin active.', 'geol' ); ?></p>
 	<p><?php _e( 'Please be sure to whitelist the geol_cpt custom post type in your cache plugin.', 'geol' ); ?></p>
 </div>

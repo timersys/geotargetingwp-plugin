@@ -9,7 +9,7 @@
  * @subpackage Geotr/admin
  */
 
-class Geotr_Cpt {
+class GeotWP_R_Cpt {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -30,7 +30,7 @@ class Geotr_Cpt {
 	public function register_cpt() {
 
 		$labels = [
-			'name'               => 'Geo Redirects v' . GEOTR_VERSION,
+			'name'               => 'Geo Redirects v' . GEOTWP_R_VERSION,
 			'singular_name'      => _x( 'Geo Redirects', 'post type singular name', 'popups' ),
 			'menu_name'          => _x( 'Geo Redirects', 'admin menu', 'popups' ),
 			'name_admin_bar'     => _x( 'Geo Redirects', 'add new on admin bar', 'popups' ),
@@ -78,4 +78,4 @@ class Geotr_Cpt {
 	}
 }
 
-new Geotr_Cpt();
+new GeotWP_R_Cpt();

@@ -10,7 +10,7 @@
  * @subpackage GeoTarget/includes
  * @author     Your Name <email@example.com>
  */
-class GeoFlags_Shortcodes {
+class GeotWP_Flags_Shortcodes {
 
 	/**
 	 * @since   1.6

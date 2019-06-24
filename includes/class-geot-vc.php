@@ -10,7 +10,7 @@
  * @subpackage GeoTarget/includes
  * @author     Damian Logghe
  */
-class Geot_VC {
+class GeotWP_VC {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -245,10 +245,10 @@ add_action( 'init', function () {
 		class WPBakeryShortCode_VC_Geot extends WPBakeryShortCodesContainer {
 		}
 
-		class WPBakeryShortCode_VC_Geot_City extends WPBakeryShortCodesContainer {
+		class WPBakeryShortCode_VC_GeotWP_City extends WPBakeryShortCodesContainer {
 		}
 
-		class WPBakeryShortCode_VC_Geot_State extends WPBakeryShortCodesContainer {
+		class WPBakeryShortCode_VC_GeotWP_State extends WPBakeryShortCodesContainer {
 		}
 	}
 } );

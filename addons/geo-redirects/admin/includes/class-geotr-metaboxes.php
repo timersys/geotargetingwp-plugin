@@ -14,7 +14,7 @@
  * @subpackage Geotr/admin/includes
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geotr_Metaboxes {
+class GeotWP_R_Metaboxes {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -114,7 +114,7 @@ class Geotr_Metaboxes {
 		] );
 
 		// Start with rules
-		Geot_Helper::save_rules( $post_id, $_POST, 'geotr_rules' );
+		GeotWP_Helper::save_rules( $post_id, $_POST, 'geotr_rules' );
 	}
 
 	/**
@@ -144,12 +144,12 @@ class Geotr_Metaboxes {
 			'desc'  => __( "Create a set of rules to determine where the redirect will be performed", 'geotr' ),
 		];
 
-		Geot_Helper::html_rules( $post, 'geotr_rules', $args );
+		GeotWP_Helper::html_rules( $post, 'geotr_rules', $args );
 
-		//$groups = apply_filters('geotr/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, 'geotr_rules' ), $post->ID);
+		//$groups = apply_filters('geotr/metaboxes/get_rules', GeotWP_Helper::get_rules( $post->ID, 'geotr_rules' ), $post->ID);
 
 
-		//include GEOTR_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
+		//include GEOTWP_R_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
 	}
 
 	/**
@@ -162,9 +162,9 @@ class Geotr_Metaboxes {
 	 */
 	public function geotr_opts( $post, $metabox ) {
 
-		$opts = apply_filters( 'geotr/metaboxes/get_options', Geotr_Helper::get_options( $post->ID ), $post->ID );
+		$opts = apply_filters( 'geotr/metaboxes/get_options', GeotWP_R_Helper::get_options( $post->ID ), $post->ID );
 
-		include GEOTR_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
+		include GEOTWP_R_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
 	}
 
 }

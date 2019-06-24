@@ -4,7 +4,7 @@
  * Adds GeoTarget to categories
  * @since  1.8
  */
-class Geot_Taxonomies {
+class GeotWP_Taxonomies {
 
 	/**
 	 * @since   1.6
@@ -23,7 +23,7 @@ class Geot_Taxonomies {
 	public function __construct() {
 
 		$this->opts      = geot_settings();
-		$this->geot_opts = geot_pro_settings();
+		$this->geot_opts = geotwp_settings();
 
 		// Categories only if ajax mode is disabled
 		if ( empty( $this->geot_opts['ajax_mode'] ) ) {
@@ -45,7 +45,7 @@ class Geot_Taxonomies {
 	public function edit_category_fields( $tag ) {
 
 		$extra = get_term_meta( $tag->term_id, 'geot', true );
-		$geot  = geot_pro_format( $extra );
+		$geot  = geotwp_format( $extra );
 
 
 		$regions_countries = wp_list_pluck( geot_country_regions(), 'name' );
@@ -61,7 +61,7 @@ class Geot_Taxonomies {
 	public function save_category_fields( $term_id ) {
 		if ( isset( $_POST['geot'] ) ) {
 
-			$array_geot = geot_pro_format( $_POST['geot'] );
+			$array_geot = geotwp_format( $_POST['geot'] );
 
 			$without = array_filter( array_values( $array_geot ) );
 
@@ -92,10 +92,10 @@ class Geot_Taxonomies {
 					continue;
 				}
 
-				if ( ! Geot_Helper::is_targeted_country( $geot ) ||
-				     ! Geot_Helper::is_targeted_city( $geot ) ||
-				     ! Geot_Helper::is_targeted_state( $geot ) ||
-				     ! Geot_Helper::is_targeted_zipcode( $geot )
+				if ( ! GeotWP_Helper::is_targeted_country( $geot ) ||
+				     ! GeotWP_Helper::is_targeted_city( $geot ) ||
+				     ! GeotWP_Helper::is_targeted_state( $geot ) ||
+				     ! GeotWP_Helper::is_targeted_zipcode( $geot )
 				) {
 					$cat_exclude[] = $term_id * ( - 1 );
 				}
@@ -127,10 +127,10 @@ class Geot_Taxonomies {
 					continue;
 				}
 
-				if ( ! Geot_Helper::is_targeted_country( $geot ) ||
-				     ! Geot_Helper::is_targeted_city( $geot ) ||
-				     ! Geot_Helper::is_targeted_state( $geot ) ||
-				     ! Geot_Helper::is_targeted_zipcode( $geot )
+				if ( ! GeotWP_Helper::is_targeted_country( $geot ) ||
+				     ! GeotWP_Helper::is_targeted_city( $geot ) ||
+				     ! GeotWP_Helper::is_targeted_state( $geot ) ||
+				     ! GeotWP_Helper::is_targeted_zipcode( $geot )
 				) {
 					unset( $terms[ $id ] );
 				}
@@ -148,7 +148,7 @@ class Geot_Taxonomies {
 	 */
 	public function woo_edit_category_fields( $tag ) {
 		$extra = get_term_meta( $tag->term_id, 'geot', true );
-		$geot  = geot_pro_format( $extra );
+		$geot  = geotwp_format( $extra );
 
 		$regions_countries = wp_list_pluck( geot_country_regions(), 'name' );
 		$regions_cities    = wp_list_pluck( geot_city_regions(), 'name' );
@@ -167,7 +167,7 @@ class Geot_Taxonomies {
 
 		if ( isset( $_POST['geot'] ) ) {
 
-			$array_geot = geot_pro_format( $_POST['geot'] );
+			$array_geot = geotwp_format( $_POST['geot'] );
 
 			$without = array_filter( array_values( $array_geot ) );
 
@@ -194,10 +194,10 @@ class Geot_Taxonomies {
 				continue;
 			}
 
-			if ( ! Geot_Helper::is_targeted_country( $geot ) ||
-			     ! Geot_Helper::is_targeted_city( $geot ) ||
-			     ! Geot_Helper::is_targeted_state( $geot ) ||
-			     ! Geot_Helper::is_targeted_zipcode( $geot )
+			if ( ! GeotWP_Helper::is_targeted_country( $geot ) ||
+			     ! GeotWP_Helper::is_targeted_city( $geot ) ||
+			     ! GeotWP_Helper::is_targeted_state( $geot ) ||
+			     ! GeotWP_Helper::is_targeted_zipcode( $geot )
 			) {
 				$cat_exclude[] = $term_id;
 			}

@@ -4,7 +4,7 @@
  * @subpackage Geobl/admin
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geobl_Admin {
+class GeotWP_Bl_Admin {
 
 	/**
 	 * Initialize the class and set its properties.

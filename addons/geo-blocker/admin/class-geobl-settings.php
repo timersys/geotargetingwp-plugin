@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Class GeoLinks_Settings
+ * Class GeotWP_Links_Settings
  */
-class Geobl_Settings {
+class GeotWP_Bl_Settings {
 	/**
-	 * GeoLinks_Settings constructor.
+	 * GeotWP_Links_Settings constructor.
 	 */
 	public function __construct() {
 		// no settings page
@@ -19,6 +19,6 @@ class Geobl_Settings {
 	 */
 	public function settings_page() {
 
-		include GEOBL_PLUGIN_DIR . '/admin/partials/settings-page.php';
+		include GEOTWP_BL_PLUGIN_DIR . '/admin/partials/settings-page.php';
 	}
 }

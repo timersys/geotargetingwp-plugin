@@ -1,8 +1,8 @@
 <?php
 
-class GeoLinks_Notices {
+class GeotWP_Links_Notices {
 	/**
-	 * GeoLinks_Notices constructor.
+	 * GeotWP_Links_Notices constructor.
 	 */
 	public function __construct() {
 		add_action( 'admin_notices', [ $this, 'admin_notices' ] );
@@ -25,9 +25,9 @@ class GeoLinks_Notices {
 	 */
 	public function admin_notices() {
 		if ( \GeotFunctions\is_caching_plugin_active() && ! get_option( 'geolinks-cache' ) ) {
-			include_once GEOL_PLUGIN_DIR . 'includes/admin/partials/notice_cache.php';
+			include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/notice_cache.php';
 		}
 	}
 }
 
-new GeoLinks_Notices();
+new GeotWP_Links_Notices();

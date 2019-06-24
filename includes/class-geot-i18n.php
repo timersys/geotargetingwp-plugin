@@ -24,7 +24,7 @@
  * @subpackage GeoTarget/includes
  * @author     Your Name <email@example.com>
  */
-class Geot_i18n {
+class GeotWP_i18n {
 
 	/**
 	 * The domain specified for this plugin.

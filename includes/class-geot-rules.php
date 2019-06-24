@@ -8,7 +8,7 @@ use Jaybizzle\CrawlerDetect\CrawlerDetect;
  * @package    Geot
  * @subpackage Geot/includes
  */
-class Geot_Rules {
+class GeotWP_R_ules {
 
 	private static $post_id;
 	private static $detect;
@@ -131,44 +131,44 @@ class Geot_Rules {
 	 */
 	public static function set_rules_fields() {
 		// GEO
-		add_action( 'geot/rules/print_country_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_country_region_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_city_region_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_city_field', [ 'Geot_Helper', 'print_textfield' ], 10, 2 );
-		add_action( 'geot/rules/print_state_field', [ 'Geot_Helper', 'print_textfield' ], 10, 1 );
-		add_action( 'geot/rules/print_zip_field', [ 'Geot_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_country_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_country_region_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_city_region_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_city_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 2 );
+		add_action( 'geot/rules/print_state_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_zip_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 
 		// User
-		add_action( 'geot/rules/print_user_type_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_logged_user_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_left_comment_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_search_engine_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_same_site_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_user_type_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_logged_user_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_left_comment_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_search_engine_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_same_site_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
 
 		// Post
-		add_action( 'geot/rules/print_post_type_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_post_id_field', [ 'Geot_Helper', 'print_textfield' ], 10, 1 );
-		add_action( 'geot/rules/print_post_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_post_category_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_post_format_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_post_status_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_taxonomy_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_post_type_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_post_id_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_post_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_post_category_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_post_format_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_post_status_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_taxonomy_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
 
 		// Page
-		add_action( 'geot/rules/print_page_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_page_type_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_page_parent_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_page_template_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_page_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_page_type_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_page_parent_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_page_template_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
 
 		//Other
-		add_action( 'geot/rules/print_custom_url_field', [ 'Geot_Helper', 'print_textfield' ], 10, 1 );
-		add_action( 'geot/rules/print_mobiles_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_desktop_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_tablets_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_crawlers_field', [ 'Geot_Helper', 'print_select' ], 10, 2 );
-		add_action( 'geot/rules/print_referrer_field', [ 'Geot_Helper', 'print_textfield' ], 10, 1 );
-		add_action( 'geot/rules/print_query_string_field', [ 'Geot_Helper', 'print_textfield' ], 10, 1 );
-		add_action( 'geot/rules/print_cookie_field', [ 'Geot_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_custom_url_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_mobiles_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_desktop_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_tablets_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_crawlers_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_referrer_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_query_string_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_cookie_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 	}
 
 	/**

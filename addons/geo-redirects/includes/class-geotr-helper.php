@@ -6,7 +6,7 @@
  * @package    Geotr
  * @subpackage Geotr/includes
  */
-class Geotr_Helper {
+class GeotWP_R_Helper {
 
 	/**
 	 * Return the redirection options

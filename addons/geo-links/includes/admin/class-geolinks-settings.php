@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Class GeoLinks_Settings
+ * Class GeotWP_Links_Settings
  */
-class GeoLinks_Settings {
+class GeotWP_Links_Settings {
 	/**
-	 * GeoLinks_Settings constructor.
+	 * GeotWP_Links_Settings constructor.
 	 */
 	public function __construct() {
 		add_action( 'geot/settings/save', [ $this, 'save_settings' ] );
@@ -18,9 +18,9 @@ class GeoLinks_Settings {
 	 * @since 1.0.3
 	 */
 	public function settings_page() {
-		$opts = geol_settings();
+		$opts = geotWPL_settings();
 
-		include GEOL_PLUGIN_DIR . 'includes/admin/settings/settings-page.php';
+		include GEOTWP_L_PLUGIN_DIR . 'includes/admin/settings/settings-page.php';
 	}
 
 
@@ -35,6 +35,6 @@ class GeoLinks_Settings {
 
 		update_option( 'geol_settings', $settings );
 
-		GeoLinks_Permalinks::set_flush_needed();
+		GeotWP_Links_Permalinks::set_flush_needed();
 	}
 }

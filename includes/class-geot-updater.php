@@ -23,7 +23,7 @@ use GeotFunctions\GeotUpdates;
  * @subpackage GeoTarget/includes
  * @author     Your Name <email@example.com>
  */
-class Geot_Updater {
+class GeotWP_Updater {
 
 	public function __construct() {
 
@@ -56,13 +56,13 @@ class Geot_Updater {
 		$db_version = get_option( 'geot_version' );
 
 		//Verify if plugin has be upgraded
-		if ( $db_version != null && geot_version_compare( GEOWP_VERSION, $db_version, '!=' ) ) {
+		if ( $db_version != null && geotwp_version_compare( GEOWP_VERSION, $db_version, '!=' ) ) {
 
-			if ( geot_version_compare( GEOWP_VERSION, '1.8.0', '>=' ) && ! get_option( 'geot_upgrade_1_8_0' ) ) {
+			if ( geotwp_version_compare( GEOWP_VERSION, '1.8.0', '>=' ) && ! get_option( 'geot_upgrade_1_8_0' ) ) {
 				self::geot_upgrade_1_8_0();
 			}
 
-			if ( geot_version_compare( GEOWP_VERSION, '2.6.0', '>=' ) && ! get_option( 'geot_upgrade_2_6_0' ) ) {
+			if ( geotwp_version_compare( GEOWP_VERSION, '2.6.0', '>=' ) && ! get_option( 'geot_upgrade_2_6_0' ) ) {
 				self::geot_upgrade_2_6_0();
 			}
 
@@ -113,7 +113,7 @@ class Geot_Updater {
 		$array_insert = [];
 		$city_regions = wp_list_pluck( geot_city_regions(), 'name' );
 
-		$geot_posts = Geot_Helper::get_geotarget_posts();
+		$geot_posts = GeotWP_Helper::get_geotarget_posts();
 
 		if ( $geot_posts ) {
 			foreach ( $geot_posts as $p ) {

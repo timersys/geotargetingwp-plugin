@@ -25,17 +25,17 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'GEOF_PLUGIN_FILE', __FILE__ );
-define( 'GEOF_VERSION', '1.0.7' );
-define( 'GEOF_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'GEOF_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'GEOF_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
+define( 'GEOTWP_F_PLUGIN_FILE', __FILE__ );
+define( 'GEOTWP_F_VERSION', '1.0.7' );
+define( 'GEOTWP_F_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'GEOTWP_F_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'GEOTWP_F_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'lib/GeoFlags.php';
+require plugin_dir_path( __FILE__ ) . 'lib/GeotWP_Flags.php';
 
 
 global $geotf;
@@ -43,11 +43,11 @@ global $geotf;
  * Begins execution of the plugin.
  * @since    1.0.0
  */
-function run_geotf() {
+function run_geotWp_f() {
 
-	return GeoFlags::instance();
+	return GeotWP_Flags::instance();
 
 }
 
-$GLOBALS['geotf'] = run_geotf();
+$GLOBALS['geotf'] = run_geotWp_f();
 

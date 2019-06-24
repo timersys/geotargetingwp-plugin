@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<tr valign="top">
 		<th><label for="geobl_trigger"><?php _e( 'Template', 'geobl' ); ?></label></th>
 		<td>
-			<?php $located = Geobl_Helper::get_template_from_theme( $post->ID ); ?>
+			<?php $located = GeotWP_Bl_Helper::get_template_from_theme( $post->ID ); ?>
 
 			<?php if ( $located ) : ?>
 				<p class="help"><?php printf( __( 'Currently you have a template in <b>%s</b>.', 'geobl' ), $located ); ?></p>

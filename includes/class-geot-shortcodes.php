@@ -10,7 +10,7 @@
  * @subpackage GeoTarget/includes
  * @author     Your Name <email@example.com>
  */
-class Geot_Shortcodes {
+class GeotWP_Shortcodes {
 
 	/**
 	 * @since   1.6
@@ -29,7 +29,7 @@ class Geot_Shortcodes {
 	 */
 	public function __construct() {
 
-		$this->geot_opts = geot_pro_settings();
+		$this->geot_opts = geotwp_settings();
 
 		add_action( 'init', [ $this, 'register_shortcodes' ] );
 	}
@@ -451,7 +451,7 @@ class Geot_Shortcodes {
 
 
 		ob_start();
-		the_widget( 'Geot_Widget', $instance, $args );
+		the_widget( 'GeotWP_Widget', $instance, $args );
 		$output = ob_get_clean();
 
 		return $output;

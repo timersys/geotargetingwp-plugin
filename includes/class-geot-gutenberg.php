@@ -10,7 +10,7 @@
  * @subpackage GeoTarget/includes
  * @author     Damian Logghe
  */
-class Geot_Gutenberg {
+class GeotWP_Gutenberg {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -85,7 +85,7 @@ class Geot_Gutenberg {
 			$ex_regions_i = implode( ',', $ex_regions );
 		}
 
-		$geot_opts = geot_pro_settings();
+		$geot_opts = geotwp_settings();
 
 		if ( isset( $geot_opts['ajax_mode'] ) && $geot_opts['ajax_mode'] == '1' ) {
 			return '<div class="geot-ajax geot-filter" data-action="country_filter" data-filter="' . $in_countries . '" data-region="' . $in_regions_i . '" data-ex_filter="' . $ex_countries . '" data-ex_region="' . $ex_regions_i . '">' . $content . '</div>';
@@ -116,7 +116,7 @@ class Geot_Gutenberg {
 			$ex_regions_i = implode( ',', $ex_regions );
 		}
 
-		$geot_opts = geot_pro_settings();
+		$geot_opts = geotwp_settings();
 
 		if ( isset( $geot_opts['ajax_mode'] ) && $geot_opts['ajax_mode'] == '1' ) {
 			return '<div class="geot-ajax geot-filter" data-action="city_filter" data-filter="' . $in_cities . '" data-region="' . $in_regions_i . '" data-ex_filter="' . $ex_cities . '" data-ex_region="' . $ex_regions_i . '">' . $content . '</div>';
@@ -139,7 +139,7 @@ class Geot_Gutenberg {
 
 		extract( $attributes );
 
-		$geot_opts = geot_pro_settings();
+		$geot_opts = geotwp_settings();
 
 		if ( isset( $geot_opts['ajax_mode'] ) && $geot_opts['ajax_mode'] == '1' ) {
 			return '<div class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $in_states . '" data-ex_filter="' . $ex_states . '">' . $content . '</div>';
@@ -162,7 +162,7 @@ class Geot_Gutenberg {
 
 		extract( $attributes );
 
-		$geot_opts = geot_pro_settings();
+		$geot_opts = geotwp_settings();
 
 		if ( isset( $geot_opts['ajax_mode'] ) && $geot_opts['ajax_mode'] == '1' ) {
 			return '<div class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $in_zipcodes . '" data-ex_filter="' . $ex_zipcodes . '">' . $content . '</div>';

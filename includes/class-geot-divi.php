@@ -10,7 +10,7 @@
  * @subpackage GeoTarget/includes
  * @author     Damian Logghe
  */
-class Geot_Divi {
+class GeotWP_Divi {
 
 	public function __construct() {
 		add_filter( 'et_pagebuilder_module_init', [ $this, 'module_init' ], 10, 1 );
@@ -189,7 +189,7 @@ class Geot_Divi {
 			return $output;
 		}
 
-		$geot_opts     = geot_pro_settings();
+		$geot_opts     = geotwp_settings();
 		$reg_countries = array_values( self::get_regions( 'country' ) );
 		$reg_cities    = array_values( self::get_regions( 'city' ) );
 

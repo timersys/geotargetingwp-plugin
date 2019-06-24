@@ -10,7 +10,7 @@
  * @subpackage GeoTarget/includes
  * @author     Your Name <email@example.com>
  */
-class Geot_Ajax {
+class GeotWP_Ajax {
 	/**
 	 * $_POST data sent on ajax request
 	 * @var Array
@@ -37,8 +37,8 @@ class Geot_Ajax {
 		add_action( 'wp_ajax_geot_ajax', [ $this, 'geot_ajax' ] );
 		add_action( 'wp_ajax_nopriv_geot_ajax', [ $this, 'geot_ajax' ] );
 
-		add_action( 'wp_ajax_geot/field_group/render_rules', [ 'Geot_Helper', 'ajax_render_rules' ] );
-		add_action( 'wp_ajax_geot/field_group/render_operator', [ 'Geot_Helper', 'ajax_render_operator' ] );
+		add_action( 'wp_ajax_geot/field_group/render_rules', [ 'GeotWP_Helper', 'ajax_render_rules' ] );
+		add_action( 'wp_ajax_geot/field_group/render_operator', [ 'GeotWP_Helper', 'ajax_render_operator' ] );
 	}
 
 	/**
@@ -91,12 +91,12 @@ class Geot_Ajax {
 		};
 
 		// get all posts with geo options set ( ideally would be to retrieve just for the post type queried but I can't get post_type
-		$geot_posts = Geot_Helper::get_geotarget_posts();
+		$geot_posts = GeotWP_Helper::get_geotarget_posts();
 
 		if ( $geot_posts ) {
 			foreach ( $geot_posts as $p ) {
 				$options = unserialize( $p->geot_options );
-				$target  = Geot_Helper::user_is_targeted( $options, $p->ID );
+				$target  = GeotWP_Helper::user_is_targeted( $options, $p->ID );
 				if ( $target ) {
 					if ( ! isset( $options['geot_remove_post'] ) || '1' != $options['geot_remove_post'] ) {
 						$content_to_hide[] = [
@@ -388,7 +388,7 @@ class Geot_Ajax {
 
 		$target = unserialize( base64_decode( $geot['filter'] ) );
 
-		if ( Geot_Helper::user_is_targeted( $target, $geot['ex_filter'] ) ) {
+		if ( GeotWP_Helper::user_is_targeted( $target, $geot['ex_filter'] ) ) {
 			return true;
 		}
 

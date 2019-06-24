@@ -14,7 +14,7 @@
  * @subpackage Geotr/admin/includes
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geot_Metaboxes {
+class GeotWP_Metaboxes {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -53,7 +53,7 @@ class Geot_Metaboxes {
 	 */
 	public function add_meta_boxes() {
 
-		$post_types = apply_filters( 'geot/get_post_types', Geot_Helper::get_post_types() );
+		$post_types = apply_filters( 'geot/get_post_types', GeotWP_Helper::get_post_types() );
 
 		foreach ( $post_types as $cpt ) {
 			if ( in_array( $cpt, apply_filters( 'geot/exclude/post_types', [] ) ) ) {
@@ -77,7 +77,7 @@ class Geot_Metaboxes {
 	 * @return mixed
 	 */
 	public function geot_options_view( $post, $metabox ) {
-		$opts         = apply_filters( 'geot/metaboxes/get_cpt_options', Geot_Helper::get_cpt_options( $post->ID ), $post->ID );
+		$opts         = apply_filters( 'geot/metaboxes/get_cpt_options', GeotWP_Helper::get_cpt_options( $post->ID ), $post->ID );
 		$countries    = geot_countries();
 		$regions      = geot_country_regions();
 		$city_regions = geot_city_regions();
@@ -236,7 +236,7 @@ class Geot_Metaboxes {
 		update_post_meta( $post_id, 'geotr_options', apply_filters( 'geotr/metaboxes/sanitized_options', $opts ) );
 
 		// Start with rules
-		Geot_Helper::save_rules( $post_id, $_POST, 'geotr_rules' );
+		GeotWP_Helper::save_rules( $post_id, $_POST, 'geotr_rules' );
 	}
 
 
@@ -255,12 +255,12 @@ class Geot_Metaboxes {
 			'desc'  => __( "Create a set of rules to determine where the redirect will be performed", 'geotr' ),
 		];
 
-		Geot_Helper::html_rules( $post, 'geotr_rules', $args );
+		GeotWP_Helper::html_rules( $post, 'geotr_rules', $args );
 
-		//$groups = apply_filters('geotr/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, 'geotr_rules' ), $post->ID);
+		//$groups = apply_filters('geotr/metaboxes/get_rules', GeotWP_Helper::get_rules( $post->ID, 'geotr_rules' ), $post->ID);
 
 
-		//include GEOTR_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
+		//include GEOTWP_R_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
 	}
 
 	/**
@@ -273,9 +273,9 @@ class Geot_Metaboxes {
 	 */
 	public function meta_boxes_opts_geotr_cpt( $post, $metabox ) {
 
-		$opts = apply_filters( 'geot/metaboxes/geotr_cpt/get_options', Geotr_Helper::get_options( $post->ID ), $post->ID );
+		$opts = apply_filters( 'geot/metaboxes/geotr_cpt/get_options', GeotWP_R_Helper::get_options( $post->ID ), $post->ID );
 
-		include GEOTR_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
+		include GEOTWP_R_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
 	}
 
 
@@ -353,7 +353,7 @@ class Geot_Metaboxes {
 		update_post_meta( $post_id, 'geobl_options', apply_filters( 'geobl/metaboxes/sanitized_options', $opts ) );
 
 		// Start with rules
-		Geot_Helper::save_rules( $post_id, $_POST, 'geobl_rules' );
+		GeotWP_Helper::save_rules( $post_id, $_POST, 'geobl_rules' );
 	}
 
 
@@ -372,11 +372,11 @@ class Geot_Metaboxes {
 			'desc'  => __( "Create a set of rules to determine if the user will be blocked", 'geobl' ),
 		];
 
-		Geot_Helper::html_rules( $post, 'geobl_rules', $args );
+		GeotWP_Helper::html_rules( $post, 'geobl_rules', $args );
 
-		//$groups = apply_filters('geobl/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, 'geobl_rules' ), $post->ID);
+		//$groups = apply_filters('geobl/metaboxes/get_rules', GeotWP_Helper::get_rules( $post->ID, 'geobl_rules' ), $post->ID);
 
-		//include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
+		//include GEOTWP_BL_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
 	}
 
 	/**
@@ -389,9 +389,9 @@ class Geot_Metaboxes {
 	 */
 	public function meta_boxes_opts_geobl_cpt( $post, $metabox ) {
 
-		$opts = apply_filters( 'geobl/metaboxes/get_options', Geobl_Helper::get_options( $post->ID ), $post->ID );
+		$opts = apply_filters( 'geobl/metaboxes/get_options', GeotWP_Bl_Helper::get_options( $post->ID ), $post->ID );
 
-		include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
+		include GEOTWP_BL_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
 	}
 
 
@@ -411,7 +411,7 @@ class Geot_Metaboxes {
 	 */
 	function set_custom_cpt_columns_geol_cpt( $columns ) {
 
-		$settings   = geol_settings();
+		$settings   = geotWPL_settings();
 		$new_column = [];
 
 		foreach ( $columns as $key => $value ) {
@@ -443,8 +443,8 @@ class Geot_Metaboxes {
 	 */
 	function set_custom_cpt_values_geol_cpt( $column, $post_id ) {
 
-		$settings     = geol_settings();
-		$opts         = geol_options( $post_id );
+		$settings     = geotWPL_settings();
+		$opts         = geotWPL_options( $post_id );
 		$value_column = '';
 
 		switch ( $column ) {
@@ -504,7 +504,7 @@ class Geot_Metaboxes {
 			'core'
 		);
 
-		$settings = geol_settings();
+		$settings = geotWPL_settings();
 
 		if ( isset( $settings['opt_stats'] ) && $settings['opt_stats'] == 1 ) {
 
@@ -530,27 +530,27 @@ class Geot_Metaboxes {
 	 */
 	public function meta_box_opts_geol_cpt( $post, $metabox ) {
 
-		$settings = geol_settings();
-		$opts     = geol_options( $post->ID );
+		$settings = geotWPL_settings();
+		$opts     = geotWPL_options( $post->ID );
 
-		include GEOL_PLUGIN_DIR . '/includes/admin/metaboxes/metaboxes-opts.php';
+		include GEOTWP_L_PLUGIN_DIR . '/includes/admin/metaboxes/metaboxes-opts.php';
 	}
 
 	public function meta_box_urls_geol_cpt( $post, $metabox ) {
 
-		$opts      = geol_options( $post->ID );
-		$devices   = geol_devices();
+		$opts      = geotWPL_options( $post->ID );
+		$devices   = geotWPL_devices();
 		$countries = geot_countries();
 		$regions   = geot_country_regions();
 
-		include GEOL_PLUGIN_DIR . '/includes/admin/metaboxes/metaboxes-urls.php';
+		include GEOTWP_L_PLUGIN_DIR . '/includes/admin/metaboxes/metaboxes-urls.php';
 	}
 
 	public function meta_box_stats_geol_cpt( $post, $metabox ) {
 
-		$opts = geol_options( $post->ID );
+		$opts = geotWPL_options( $post->ID );
 
-		include GEOL_PLUGIN_DIR . '/includes/admin/metaboxes/metaboxes-stats.php';
+		include GEOTWP_L_PLUGIN_DIR . '/includes/admin/metaboxes/metaboxes-stats.php';
 	}
 
 	/**
@@ -589,8 +589,8 @@ class Geot_Metaboxes {
 		unset( $_POST['geol'] );
 
 		$post     = get_post( $post_id );
-		$outs     = geol_options( $post_id );
-		$settings = geol_settings();
+		$outs     = geotWPL_options( $post_id );
+		$settings = geotWPL_settings();
 
 		if ( isset( $post->post_name ) ) {
 			$source_slug          = sanitize_title( $opts['source_slug'] );

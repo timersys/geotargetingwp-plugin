@@ -3,7 +3,7 @@
  * Grab geotr settings
  * @return mixed|void
  */
-function geotr_redirections() {
+function geotWPR_redirections() {
 	global $wpdb;
 
 	$sql = "SELECT ID, 

@@ -4,7 +4,7 @@
  * Grab geol settings
  * @return mixed|void
  */
-function geol_settings() {
+function geotWPL_settings() {
 	$defaults = apply_filters( 'geol/settings_page/defaults', [
 			'goto_page' => 'goto',
 			'opt_stats' => '1',
@@ -24,7 +24,7 @@ function geol_settings() {
  *
  * @return array metadata values
  */
-function geol_options( $id ) {
+function geotWPL_options( $id ) {
 	$defaults = apply_filters( 'geol/metaboxes/defaults', [
 			'source_slug'   => '',
 			'status_code'   => '302',
@@ -57,7 +57,7 @@ function geol_options( $id ) {
  * Return the devices options
  * @return array metadata values
  */
-function geol_devices() {
+function geotWPL_devices() {
 	return apply_filters( 'geol/devices/defaults', [
 		'mobiles' => __( "Mobile Phone", 'geol' ),
 		'tablets' => __( "Tablet", 'geol' ),
@@ -69,7 +69,7 @@ function geol_devices() {
  * Return the format to selectize
  * @return array values
  */
-function format_selectize( $data, $format = 'countries' ) {
+function geotWPL_format_selectize( $data, $format = 'countries' ) {
 
 	$output = [];
 

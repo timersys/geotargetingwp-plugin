@@ -29,7 +29,7 @@ use GeotFunctions\Setting\GeotSettings;
  * @subpackage GeoTarget/includes
  * @author     Your Name <email@example.com>
  */
-class GeoFlags {
+class GeotWP_Flags {
 
 	/**
 	 * Plugin Instance
@@ -91,8 +91,8 @@ class GeoFlags {
 	 * @access   private
 	 */
 	private function register_shortcodes() {
-		$shortcodes      = new GeoFlags_Shortcodes();
-		$ajax_shortcodes = new GeoFlags_Ajax_Shortcodes();
+		$shortcodes      = new GeotWP_Flags_Shortcodes();
+		$ajax_shortcodes = new GeotWP_Flags_Ajax_Shortcodes();
 	}
 
 	/**
@@ -147,7 +147,7 @@ class GeoFlags {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( 'geotf', plugins_url( 'assets/css/flag-icon.min.css', dirname( __FILE__ ) ), null, GEOF_VERSION, 'all' );
+		wp_enqueue_style( 'geotf', plugins_url( 'assets/css/flag-icon.min.css', dirname( __FILE__ ) ), null, GEOTWP_F_VERSION, 'all' );
 	}
 
 }

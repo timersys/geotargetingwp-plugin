@@ -1,6 +1,6 @@
 <tr valign="top" class="geot-settings-title">
 	<th colspan="3"><h3><?php _e( 'Geo Links : ', 'geot' );
-			echo GEOL_VERSION; ?></h3></th>
+			echo GEOTWP_L_VERSION; ?></h3></th>
 </tr>
 <tr valign="top" class="">
 	<th><label for="page_goto"><?php _e( 'Redirection slug', 'geol' ); ?></label></th>

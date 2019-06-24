@@ -50,8 +50,8 @@ class Geol_Redirects {
 		if ( is_singular( 'geol_cpt' ) ) {
 
 			$post_id  = get_the_id();
-			$opts     = geol_options( $post_id );
-			$settings = geol_settings();
+			$opts     = geotWPL_options( $post_id );
+			$settings = geotWPL_settings();
 
 			$this->count_click( 'click', $post_id );
 
@@ -90,7 +90,7 @@ class Geol_Redirects {
 
 	function count_click( $field, $post_id, $dest_key = '' ) {
 
-		$opts = geol_options( $post_id );
+		$opts = geotWPL_options( $post_id );
 
 		switch ( $field ) {
 			case 'click' :
@@ -212,8 +212,8 @@ class Geol_Redirects {
 
 			$rel      = apply_filters( 'geolinks/link_rel_attr', [ 'noopener' ] );
 			$content  = ! empty( $content ) ? $content : 'Geo Link';
-			$settings = geol_settings();
-			$opts     = geol_options( $post->ID );
+			$settings = geotWPL_settings();
+			$opts     = geotWPL_options( $post->ID );
 
 
 			// REL

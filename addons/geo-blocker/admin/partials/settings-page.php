@@ -1,6 +1,6 @@
 <tr valign="top" class="geot-settings-title">
 	<th colspan="3"><h3><?php _e( 'Geo Blocker : ', 'geot' );
-			echo GEOBL_VERSION; ?></h3></th>
+			echo GEOTWP_BL_VERSION; ?></h3></th>
 </tr>
 <tr valign="top" class="">
 	<td colspan="4">

@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage GeoTarget/includes
  * @author     Damian Logghe
  */
-class Geot_Elementor {
+class GeotWP_Elementor {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -132,7 +132,7 @@ class Geot_Elementor {
 	 */
 	public function is_render( $should_render, $element ) {
 
-		$geot_opts = geot_pro_settings();
+		$geot_opts = geotwp_settings();
 		$settings  = $element->get_settings_for_display();
 
 		if ( ! isset( $geot_opts['ajax_mode'] ) || $geot_opts['ajax_mode'] != '1' ) {
@@ -159,7 +159,7 @@ class Geot_Elementor {
 	 */
 	public function ajax_before_render( $element ) {
 
-		$geot_opts = geot_pro_settings();
+		$geot_opts = geotwp_settings();
 		$settings  = $element->get_active_settings();
 
 		if ( isset( $geot_opts['ajax_mode'] ) && $geot_opts['ajax_mode'] == '1' ) {
@@ -183,7 +183,7 @@ class Geot_Elementor {
 	 */
 	public function ajax_after_render( $element ) {
 
-		$geot_opts = geot_pro_settings();
+		$geot_opts = geotwp_settings();
 		$settings  = $element->get_active_settings();
 
 		if ( isset( $geot_opts['ajax_mode'] ) && $geot_opts['ajax_mode'] == '1' ) {

@@ -9,8 +9,8 @@
  * @link       https://geotargetingwp.com/geo-links
  * @since      1.0.0
  *
- * @package    GeoLinks
- * @subpackage GeoLinks/includes
+ * @package    GeotWP_Links
+ * @subpackage GeotWP_Links/includes
  */
 
 use GeotFunctions\Setting\GeotSettings;
@@ -26,11 +26,11 @@ use GeotFunctions\Setting\GeotSettings;
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    GeoLinks
- * @subpackage GeoLinks/includes
+ * @package    GeotWP_Links
+ * @subpackage GeotWP_Links/includes
  * @author     Your Name <email@example.com>
  */
-class GeoLinks {
+class GeotWP_Links {
 
 	/**
 	 * Plugin Instance
@@ -39,15 +39,15 @@ class GeoLinks {
 	 */
 	protected static $_instance = null;
 	/**
-	 * @var GeoLinks_Redirect $redirect
+	 * @var GeotWP_Links_Redirect $redirect
 	 */
 	public $redirect;
 	/**
-	 * @var GeoLinks_Admin $admin
+	 * @var GeotWP_Links_Admin $admin
 	 */
 	public $admin;
 	/**
-	 * @var GeoLinks_Settings $settings
+	 * @var GeotWP_Links_Settings $settings
 	 */
 	public $settings;
 
@@ -74,22 +74,22 @@ class GeoLinks {
 	 */
 	private function load_dependencies() {
 
-		require_once GEOL_PLUGIN_DIR . 'includes/functions.php';
-		require_once GEOL_PLUGIN_DIR . 'includes/class-geolinks-i18n.php';
-		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-cache.php';
-		require_once GEOL_PLUGIN_DIR . 'includes/global/class-geolinks-cpt.php';
-		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-permalinks.php';
-		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-settings.php';
-		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-notices.php';
-		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-admin.php';
-		require_once GEOL_PLUGIN_DIR . 'includes/admin/class-geolinks-ajax.php';
-		require_once GEOL_PLUGIN_DIR . 'includes/public/class-geolinks-redirect.php';
+		require_once GEOTWP_L_PLUGIN_DIR . 'includes/functions.php';
+		require_once GEOTWP_L_PLUGIN_DIR . 'includes/class-geolinks-i18n.php';
+		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-cache.php';
+		require_once GEOTWP_L_PLUGIN_DIR . 'includes/global/class-geolinks-cpt.php';
+		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-permalinks.php';
+		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-settings.php';
+		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-notices.php';
+		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-admin.php';
+		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-ajax.php';
+		require_once GEOTWP_L_PLUGIN_DIR . 'includes/public/class-geolinks-redirect.php';
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the GeoLinks_i18n class in order to set the domain and to register the hook
+	 * Uses the GeotWP_Links_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -97,7 +97,7 @@ class GeoLinks {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new GeoLinks_i18n();
+		$plugin_i18n = new GeotWP_Links_i18n();
 		$plugin_i18n->set_domain( 'geolinks' );
 
 		add_action( 'plugins_loaded', [ $plugin_i18n, 'load_plugin_textdomain' ] );
@@ -108,8 +108,8 @@ class GeoLinks {
 	 * Set all global objects
 	 */
 	private function set_objects() {
-		$this->admin    = new GeoLinks_Admin();
-		$this->settings = new GeoLinks_Settings();
+		$this->admin    = new GeotWP_Links_Admin();
+		$this->settings = new GeotWP_Links_Settings();
 		$this->redirect = new Geol_Redirects();
 	}
 
@@ -118,7 +118,7 @@ class GeoLinks {
 	 *
 	 * Ensures only one instance of WSI is loaded or can be loaded.
 	 *
-	 * @return GeoLinks
+	 * @return GeotWP_Links
 	 * @see GEOL()
 	 * @since 1.0.0
 	 * @static

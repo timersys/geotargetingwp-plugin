@@ -39,7 +39,7 @@
 <!-- Geo Blocker plugin https://geotargetingwp.com-->
 <div class="geobl-container">
 	<div class="geobl-section">
-		<img src="<?php echo GEOBL_PLUGIN_URL; ?>/public/img/stop.svg" alt="Stop"/><br>
+		<img src="<?php echo GEOTWP_BL_PLUGIN_URL; ?>/public/img/stop.svg" alt="Stop"/><br>
 		<?php echo $message; ?>
 	</div>
 </div>

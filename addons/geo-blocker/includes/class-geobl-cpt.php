@@ -10,7 +10,7 @@
  * @subpackage Geobl/admin/includes
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geobl_Cpt {
+class GeotWP_Bl_Cpt {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -33,7 +33,7 @@ class Geobl_Cpt {
 	public function register_cpt() {
 
 		$labels = [
-			'name'               => 'Geo Blocker v' . GEOBL_VERSION,
+			'name'               => 'Geo Blocker v' . GEOTWP_BL_VERSION,
 			'singular_name'      => _x( 'Geo Blocker', 'post type singular name', 'popups' ),
 			'menu_name'          => _x( 'Geo Blocker', 'admin menu', 'popups' ),
 			'name_admin_bar'     => _x( 'Geo Blocker', 'add new on admin bar', 'popups' ),
@@ -81,4 +81,4 @@ class Geobl_Cpt {
 	}
 }
 
-new Geobl_Cpt();
+new GeotWP_Bl_Cpt();

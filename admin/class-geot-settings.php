@@ -21,7 +21,7 @@
  * @subpackage GeoTarget/admin
  * @author     Your Name <email@example.com>
  */
-class Geot_Settings {
+class GeotWP_Settings {
 
 	public function __construct() {
 
@@ -60,7 +60,7 @@ class Geot_Settings {
 			'disable_menu_integration'   => '0',
 			'disable_widget_integration' => '0',
 		];
-		$opts     = geot_pro_settings();
+		$opts     = geotwp_settings();
 		$opts     = wp_parse_args( $opts, $defaults );
 
 		$return = 'admin.php?' . http_build_query( $_GET );
@@ -118,8 +118,8 @@ class Geot_Settings {
 
 		$defaults = apply_filters( 'geot/addons/defaults', $defaults );
 
-		$opts = geot_pro_addons();
-		$opts = geot_wp_parse_args( $opts, $defaults );
+		$opts = geotwp_addons();
+		$opts = geotwp_parse_args( $opts, $defaults );
 
 		$return = 'admin.php?' . http_build_query( $_GET );
 
@@ -166,7 +166,7 @@ class Geot_Settings {
 
 
 	function setup_wizard_addons() {
-		$opts     = geot_pro_addons();
+		$opts     = geotwp_addons();
 		$defaults = [
 			'geo-flags'     => '0',
 			'geo-links'     => '0',

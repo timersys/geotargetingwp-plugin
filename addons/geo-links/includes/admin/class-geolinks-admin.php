@@ -5,17 +5,17 @@
  * @link       https://timersys.com
  * @since      1.0.0
  *
- * @package    GeoLinks
- * @subpackage GeoLinks/admin
+ * @package    GeotWP_Links
+ * @subpackage GeotWP_Links/admin
  */
 
 use GeotFunctions\GeotUpdates;
 
 /**
- * @subpackage GeoLinks/admin
+ * @subpackage GeotWP_Links/admin
  * @author     Damian Logghe <damian@timersys.com>
  */
-class GeoLinks_Admin {
+class GeotWP_Links_Admin {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -45,15 +45,15 @@ class GeoLinks_Admin {
 			return;
 		}
 
-		wp_enqueue_script( 'geol-admin-js', plugin_dir_url( __FILE__ ) . 'js/geol-admin.js', [ 'jquery' ], GEOL_VERSION, false );
+		wp_enqueue_script( 'geol-admin-js', plugin_dir_url( __FILE__ ) . 'js/geol-admin.js', [ 'jquery' ], GEOTWP_L_VERSION, false );
 
-		wp_enqueue_style( 'geol-admin-css', GEOL_PLUGIN_URL . 'includes/admin/css/geol-admin.css', [], GEOL_VERSION, 'all' );
+		wp_enqueue_style( 'geol-admin-css', GEOTWP_L_PLUGIN_URL . 'includes/admin/css/geol-admin.css', [], GEOTWP_L_VERSION, 'all' );
 
 		$geowp   = geot_settings();
 		$regions = ! empty( $geowp['region'] ) ? $geowp['region'] : [];
 
-		$list_countries = format_selectize( geot_countries(), 'countries' );
-		$list_regions   = format_selectize( $regions, 'regions' );
+		$list_countries = geotWPL_format_selectize( geot_countries(), 'countries' );
+		$list_regions   = geotWPL_format_selectize( $regions, 'regions' );
 
 		wp_localize_script( 'geol-admin-js', 'geol_var',
 			[
@@ -101,7 +101,7 @@ class GeoLinks_Admin {
 	public function tinymce_external( $plugin_array ) {
 
 		//set custom js url path
-		$plugin_array['geo_link'] = GEOL_PLUGIN_URL . 'includes/admin/js/geol-tinymce.js';
+		$plugin_array['geo_link'] = GEOTWP_L_PLUGIN_URL . 'includes/admin/js/geol-tinymce.js';
 
 		return $plugin_array;
 	}
@@ -127,7 +127,7 @@ class GeoLinks_Admin {
 	 * @since    1.0.0
 	 */
 	public function tinymce_varjs() {
-		include GEOL_PLUGIN_DIR . 'includes/admin/partials/tinymce_varjs.php';
+		include GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/tinymce_varjs.php';
 	}
 
 	/**
@@ -155,6 +155,6 @@ class GeoLinks_Admin {
 
 		$geol_results = $wpdb->get_results( $query );
 
-		include GEOL_PLUGIN_DIR . 'includes/admin/partials/tinymce_popup.php';
+		include GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/tinymce_popup.php';
 	}
 }

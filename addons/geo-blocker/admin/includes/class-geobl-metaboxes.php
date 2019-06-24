@@ -10,7 +10,7 @@
  * @subpackage Geobl/admin/includes
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geobl_Metaboxes {
+class GeotWP_Bl_Metaboxes {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -98,7 +98,7 @@ class Geobl_Metaboxes {
 		update_post_meta( $post_id, 'geobl_options', apply_filters( 'geobl/metaboxes/sanitized_options', $opts ) );
 
 		// Start with rules
-		Geot_Helper::save_rules( $post_id, $_POST, 'geobl_rules' );
+		GeotWP_Helper::save_rules( $post_id, $_POST, 'geobl_rules' );
 	}
 
 	/**
@@ -127,11 +127,11 @@ class Geobl_Metaboxes {
 			'desc'  => __( "Create a set of rules to determine if the user will be blocked", 'geobl' ),
 		];
 
-		Geot_Helper::html_rules( $post, 'geobl_rules', $args );
+		GeotWP_Helper::html_rules( $post, 'geobl_rules', $args );
 
-		//$groups = apply_filters('geobl/metaboxes/get_rules', Geot_Helper::get_rules( $post->ID, 'geobl_rules' ), $post->ID);
+		//$groups = apply_filters('geobl/metaboxes/get_rules', GeotWP_Helper::get_rules( $post->ID, 'geobl_rules' ), $post->ID);
 
-		//include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
+		//include GEOTWP_BL_PLUGIN_DIR . '/admin/partials/metaboxes/rules.php';
 	}
 
 	/**
@@ -144,9 +144,9 @@ class Geobl_Metaboxes {
 	 */
 	public function geobl_opts( $post, $metabox ) {
 
-		$opts = apply_filters( 'geobl/metaboxes/get_options', Geobl_Helper::get_options( $post->ID ), $post->ID );
+		$opts = apply_filters( 'geobl/metaboxes/get_options', GeotWP_Bl_Helper::get_options( $post->ID ), $post->ID );
 
-		include GEOBL_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
+		include GEOTWP_BL_PLUGIN_DIR . '/admin/partials/metaboxes/opts.php';
 	}
 
 }

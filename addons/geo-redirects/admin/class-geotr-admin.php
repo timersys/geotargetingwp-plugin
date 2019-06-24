@@ -4,7 +4,7 @@
  * @subpackage Geotr/admin
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geotr_Admin {
+class GeotWP_R_Admin {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -31,7 +31,7 @@ class Geotr_Admin {
 	function custom_columns( $column, $post_id ) {
 		global $wpdb;
 
-		$opts = Geotr_Helper::get_options( $post_id );
+		$opts = GeotWP_R_Helper::get_options( $post_id );
 
 		switch ( $column ) {
 

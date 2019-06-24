@@ -6,10 +6,10 @@
  * @link       https://timersys.com
  * @since      1.0.1
  *
- * @package    GeoLinks
- * @subpackage GeoLinks/Permalink
+ * @package    GeotWP_Links
+ * @subpackage GeotWP_Links/Permalink
  */
-class GeoLinks_Permalinks {
+class GeotWP_Links_Permalinks {
 
 	/**
 	 * Register actions and filters.
@@ -43,4 +43,4 @@ class GeoLinks_Permalinks {
 	}
 }
 
-GeoLinks_Permalinks::init();
+GeotWP_Links_Permalinks::init();

@@ -4,11 +4,11 @@
  * Grab geot settings
  * @return mixed|void
  */
-function geot_pro_settings() {
+function geotwp_settings() {
 	return apply_filters( 'geot_pro/settings_page/opts', get_option( 'geot_pro_settings' ) );
 }
 
-function geot_pro_addons() {
+function geotwp_addons() {
 	return apply_filters( 'geot_pro/settings_page/addons', get_option( 'geot_pro_addons' ) );
 }
 
@@ -16,10 +16,13 @@ function geot_pro_addons() {
 /**
  * Intercept Geot
  *
+ * @param $geot
+ *
+ * @return mixed
  */
-function geot_pro_format( $geot ) {
-
-	foreach ( geot_pro_default() as $key => $value ) {
+function geotwp_format( $geot ) {
+	$output = [];
+	foreach ( geotwp_default() as $key => $value ) {
 		if ( isset( $geot[ $key ] ) ) {
 			$output[ $key ] = is_array( $geot[ $key ] ) ? array_map( 'esc_html', $geot[ $key ] ) : esc_html( $geot[ $key ] );
 		} else {
@@ -30,8 +33,10 @@ function geot_pro_format( $geot ) {
 	return $output;
 }
 
-
-function geot_pro_default() {
+/**
+ * @return mixed|void
+ */
+function geotwp_default() {
 	$default = [
 		'in_countries'         => '',
 		'ex_countries'         => '',
@@ -51,13 +56,13 @@ function geot_pro_default() {
 }
 
 
-function geot_wp_parse_args( &$a, $b ) {
+function geotwp_parse_args( &$a, $b ) {
 	$a      = (array) $a;
 	$b      = (array) $b;
 	$result = $b;
 	foreach ( $a as $k => &$v ) {
 		if ( is_array( $v ) && isset( $result[ $k ] ) ) {
-			$result[ $k ] = geot_wp_parse_args( $v, $result[ $k ] );
+			$result[ $k ] = geotwp_parse_args( $v, $result[ $k ] );
 		} else {
 			$result[ $k ] = $v;
 		}
@@ -66,7 +71,7 @@ function geot_wp_parse_args( &$a, $b ) {
 	return $result;
 }
 
-function geot_version_compare( $version1, $version2, $operator = null ) {
+function geotwp_version_compare( $version1, $version2, $operator = null ) {
 	$p        = '#(\.0+)+($|-)#';
 	$version1 = preg_replace( $p, '', $version1 );
 	$version2 = preg_replace( $p, '', $version2 );

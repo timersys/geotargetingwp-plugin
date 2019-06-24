@@ -19,7 +19,7 @@ use function GeotWP\is_session_started;
  * @subpackage Geobl/public
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geobl_Public {
+class GeotWP_Bl_Public {
 	/**
 	 * @var Array of Redirection posts
 	 */
@@ -81,7 +81,7 @@ class Geobl_Public {
 
 	public function handle_blockers() {
 
-		Geot_Rules::init();
+		GeotWP_R_ules::init();
 		$this->blocks = $this->get_blocks();
 		$opts_geot    = geot_settings();
 		if ( ! empty( $opts_geot['ajax_mode'] ) ) {
@@ -123,7 +123,7 @@ class Geobl_Public {
 					continue;
 				}
 				$rules    = ! empty( $r->geobl_rules ) ? unserialize( $r->geobl_rules ) : [];
-				$do_block = Geot_Rules::is_ok( $rules );
+				$do_block = GeotWP_R_ules::is_ok( $rules );
 				if ( $do_block ) {
 					$this->perform_block( $r );
 					break;
@@ -195,7 +195,7 @@ class Geobl_Public {
 	public static function block_screen( $id, $message ) {
 
 		$args = [ 'message' => $message, 'id' => $id ];
-		Geobl_Helper::include_template( $args );
+		GeotWP_Bl_Helper::include_template( $args );
 	}
 
 	/**
@@ -203,7 +203,7 @@ class Geobl_Public {
 	 * we call normal block logic but cancel it and print results
 	 */
 	public function handle_ajax_blockers() {
-		Geot_Rules::init();
+		GeotWP_R_ules::init();
 		$this->blocks = $this->get_blocks();
 		$this->check_for_rules();
 		die();
@@ -213,7 +213,7 @@ class Geobl_Public {
 	 * Enqueue script file
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'geobl-js', plugins_url( 'js/geobl-public.js', __FILE__ ), [ 'jquery' ], GEOBL_VERSION, true );
+		wp_enqueue_script( 'geobl-js', plugins_url( 'js/geobl-public.js', __FILE__ ), [ 'jquery' ], GEOTWP_BL_VERSION, true );
 		wp_localize_script( 'geobl-js', 'geobl', [
 			'ajax_url'      => admin_url( 'admin-ajax.php' ),
 			'pid'           => get_queried_object_id(),
@@ -235,10 +235,10 @@ class Geobl_Public {
 		if ( isset( $_GET['wp-nonce'] ) && wp_verify_nonce( $_REQUEST['wp-nonce'], 'nonce-template' ) &&
 		     isset( $_GET['id'] ) && is_numeric( $_GET['id'] ) ) {
 
-			$opts = Geobl_Helper::get_options( $_GET['id'] );
+			$opts = GeotWP_Bl_Helper::get_options( $_GET['id'] );
 			$args = [ 'message' => do_shortcode( $opts['block_message'] ), 'id' => $_GET['id'] ];
 
-			Geobl_Helper::include_template( $args );
+			GeotWP_Bl_Helper::include_template( $args );
 		}
 		die();
 	}

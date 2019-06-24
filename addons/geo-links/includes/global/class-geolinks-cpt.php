@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Class GeoLinksCpt will handle all stuff related to custom post type
+ * Class GeotWP_LinksCpt will handle all stuff related to custom post type
  * @since 1.0.0
  */
 class Geolinks_Cpt {
 
 	/**
-	 * GeoLinksCpt constructor.
+	 * GeotWP_LinksCpt constructor.
 	 */
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_cpt' ] );
@@ -20,10 +20,10 @@ class Geolinks_Cpt {
 	 */
 	public function register_cpt() {
 
-		$settings = geol_settings();
+		$settings = geotWPL_settings();
 
 		$labels = [
-			'name'               => 'Geo Links v' . GEOL_VERSION,
+			'name'               => 'Geo Links v' . GEOTWP_L_VERSION,
 			'singular_name'      => _x( 'Geo Links', 'post type singular name', 'popups' ),
 			'menu_name'          => _x( 'Geo Links', 'admin menu', 'popups' ),
 			'name_admin_bar'     => _x( 'Geo Links', 'add new on admin bar', 'popups' ),

@@ -40,7 +40,7 @@ class Geotr {
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      Geotr_Public $public Public class instance
+	 * @var      GeotWP_R_Public $public Public class instance
 	 */
 	public $public;
 	/**
@@ -48,7 +48,7 @@ class Geotr {
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      Geotr_Admin $public Admin class instance
+	 * @var      GeotWP_R_Admin $public Admin class instance
 	 */
 	public $admin;
 	/**
@@ -56,7 +56,7 @@ class Geotr {
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      Geotr_Settings $settings Settings class instance
+	 * @var      GeotWP_R_Settings $settings Settings class instance
 	 */
 	public $settings;
 	/**
@@ -64,7 +64,7 @@ class Geotr {
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 * @var      Geotr_Metaboxes $public Metaboxes class instance
+	 * @var      GeotWP_R_Metaboxes $public Metaboxes class instance
 	 */
 	public $metaboxes;
 
@@ -91,22 +91,22 @@ class Geotr {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		require_once GEOTR_PLUGIN_DIR . 'includes/functions.php';
-		require_once GEOTR_PLUGIN_DIR . 'includes/class-geotr-i18n.php';
-		require_once GEOTR_PLUGIN_DIR . 'includes/class-geotr-cpt.php';
-		require_once GEOTR_PLUGIN_DIR . 'includes/class-geotr-helper.php';
-		require_once GEOTR_PLUGIN_DIR . 'public/class-geotr-public.php';
+		require_once GEOTWP_R_PLUGIN_DIR . 'includes/functions.php';
+		require_once GEOTWP_R_PLUGIN_DIR . 'includes/class-geotr-i18n.php';
+		require_once GEOTWP_R_PLUGIN_DIR . 'includes/class-geotr-cpt.php';
+		require_once GEOTWP_R_PLUGIN_DIR . 'includes/class-geotr-helper.php';
+		require_once GEOTWP_R_PLUGIN_DIR . 'public/class-geotr-public.php';
 
 		if ( is_admin() ) {
-			require_once GEOTR_PLUGIN_DIR . 'admin/class-geotr-admin.php';
-			require_once GEOTR_PLUGIN_DIR . 'admin/class-geotr-settings.php';
+			require_once GEOTWP_R_PLUGIN_DIR . 'admin/class-geotr-admin.php';
+			require_once GEOTWP_R_PLUGIN_DIR . 'admin/class-geotr-settings.php';
 		}
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Geotr_i18n class in order to set the domain and to register the hook
+	 * Uses the GeotWP_R_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -114,7 +114,7 @@ class Geotr {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Geotr_i18n();
+		$plugin_i18n = new GeotWP_R_i18n();
 		$plugin_i18n->set_domain( 'geotr' );
 
 		add_action( 'plugins_loaded', [ $plugin_i18n, 'load_plugin_textdomain' ] );
@@ -134,10 +134,10 @@ class Geotr {
 			return;
 		}
 
-		$this->admin    = new Geotr_Admin();
-		$this->settings = new Geotr_Settings();
+		$this->admin    = new GeotWP_R_Admin();
+		$this->settings = new GeotWP_R_Settings();
 
-		Geot_Rules::set_rules_fields();
+		GeotWP_R_ules::set_rules_fields();
 	}
 
 	/**
@@ -148,7 +148,7 @@ class Geotr {
 	 * @access   private
 	 */
 	private function set_objects_public() {
-		$this->public = new Geotr_Public();
+		$this->public = new GeotWP_R_Public();
 	}
 
 	/**

@@ -35,35 +35,7 @@ define( 'GEOWP_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( _
 if ( ! defined( 'GEOTROOT_PLUGIN_FILE' ) ) {
 	define( 'GEOTROOT_PLUGIN_FILE', GEOWP_PLUGIN_FILE );
 }
-// deactivate all plugins
 
-// GeotargetingPro
-if ( is_plugin_active( 'geotargeting-pro/geotargeting-pro.php' ) )
-	deactivate_plugins( 'geotargeting-pro/geotargeting-pro.php', true );
-
-// Geo Redirect
-if ( is_plugin_active( 'geo-redirects/geo-redirects.php' ) ) {
-	update_option('geot_plugin_geo_redirect', 1);
-	deactivate_plugins( 'geo-redirects/geo-redirects.php' , true );
-}
-
-// Geo Blocker
-if ( is_plugin_active( 'geo-blocker/geo-blocker.php' ) ) {
-	update_option('geot_plugin_geo_blocker', 1);
-	deactivate_plugins( 'geo-blocker/geo-blocker.php' , true );
-}
-
-// Geo Links
-if ( is_plugin_active( 'geo-links/geo-links.php' ) ) {
-	update_option('geot_plugin_geo_links', 1);
-	deactivate_plugins( 'geo-links/geo-links.php', true );
-}
-
-// Geo Flags
-if ( is_plugin_active( 'geo-flags/geo-flags.php' ) ) {
-	update_option('geot_plugin_geo_flags', 1);
-	deactivate_plugins( 'geo-flags/geo-flags.php' , true );
-}
 
 /**
  * The code that runs during plugin activation.
@@ -76,10 +48,10 @@ require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-activator.php';
 require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-deactivator.php';
 
 /** This action is documented in includes/class-geot-activator.php */
-register_activation_hook( __FILE__, [ 'Geot_Activator', 'activate' ] );
+register_activation_hook( __FILE__, [ 'GeotWP_Activator', 'activate' ] );
 
 /** This action is documented in includes/class-geot-deactivator.php */
-register_deactivation_hook( __FILE__, [ 'Geot_Deactivator', 'deactivate' ] );
+register_deactivation_hook( __FILE__, [ 'GeotWP_Deactivator', 'deactivate' ] );
 
 /**
  * The core plugin class that is used to define internationalization,

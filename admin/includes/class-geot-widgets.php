@@ -4,7 +4,7 @@
  * Adds GeoTarget to all Widgets
  * @since  1.0.0
  */
-class Geot_Widgets {
+class GeotWP_Widgets {
 
 	/**
 	 * @since   1.6
@@ -22,7 +22,7 @@ class Geot_Widgets {
 	 */
 	public function __construct() {
 
-		$this->geot_opts = geot_pro_settings();
+		$this->geot_opts = geotwp_settings();
 
 		// give users a way to disable widgets targeting
 		if ( empty( $this->geot_opts['disable_widget_integration'] ) &&
@@ -267,4 +267,4 @@ class Geot_Widgets {
 		return $the_widget;
 	}
 
-} // class Geot_Widgets
+} // class GeotWP_Widgets

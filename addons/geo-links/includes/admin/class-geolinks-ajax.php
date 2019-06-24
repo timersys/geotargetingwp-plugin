@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class GeoLinks_AJAX will handle all admin ajax calls
+ * Class GeotWP_Links_AJAX will handle all admin ajax calls
  * @since 1.0.0
  */
 class Geolinks_Ajax {
@@ -84,7 +84,7 @@ class Geolinks_Ajax {
 
 		$post_id = esc_html( $_POST['post_id'] );
 
-		$opts = geol_options( $post_id );
+		$opts = geotWPL_options( $post_id );
 
 		if ( $opts['dest'] ) {
 			foreach ( $opts['dest'] as $key => $data ) {

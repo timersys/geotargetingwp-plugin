@@ -6,7 +6,7 @@
  * @package    Geobl
  * @subpackage Geobl/includes
  */
-class Geobl_Helper {
+class GeotWP_Bl_Helper {
 
 	/**
 	 * Return the redirection options
@@ -39,10 +39,10 @@ class Geobl_Helper {
 			extract( $args );
 		}
 
-		$located = Geobl_Helper::get_template_from_theme( $id );
+		$located = GeotWP_Bl_Helper::get_template_from_theme( $id );
 		// use default one
 		if ( ! $located ) {
-			$located = GEOBL_PLUGIN_DIR . '/public/partials/geobl-template.php';
+			$located = GEOTWP_BL_PLUGIN_DIR . '/public/partials/geobl-template.php';
 		}
 
 		// Allow 3rd party plugin filter template file from their plugin.

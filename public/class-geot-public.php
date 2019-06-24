@@ -20,7 +20,7 @@
  * @subpackage GeoTarget/public
  * @author     Your Name <email@example.com>
  */
-class Geot_Public {
+class GeotWP_Public {
 	/**
 	 * Plugin settings
 	 * @var array
@@ -37,7 +37,7 @@ class Geot_Public {
 	public function __construct() {
 
 		$this->opts      = geot_settings();
-		$this->geot_opts = geot_pro_settings();
+		$this->geot_opts = geotwp_settings();
 
 		// if we have cache mode, load geotarget now to set session before content
 		if ( isset( $this->opts['cache_mode'] ) && $this->opts['cache_mode'] ) {
@@ -328,7 +328,7 @@ class Geot_Public {
 
 		$posts_to_exclude = [];
 		// get all posts with geo options set ( ideally would be to retrieve just for the post type queried but I can't get post_type
-		$geot_posts = Geot_Helper::get_geotarget_posts();
+		$geot_posts = GeotWP_Helper::get_geotarget_posts();
 
 		if ( $geot_posts ) {
 			foreach ( $geot_posts as $p ) {
@@ -341,7 +341,7 @@ class Geot_Public {
 				}
 
 
-				$target = Geot_Helper::user_is_targeted( $options, $p->ID );
+				$target = GeotWP_Helper::user_is_targeted( $options, $p->ID );
 				if ( $target ) {
 					$posts_to_exclude[] = $p->ID;
 				}
@@ -372,7 +372,7 @@ class Geot_Public {
 
 		$opts = get_post_meta( $post->ID, 'geot_options', true );
 
-		if ( Geot_Helper::user_is_targeted( $opts, $post->ID ) ) {
+		if ( GeotWP_Helper::user_is_targeted( $opts, $post->ID ) ) {
 			return apply_filters( 'geot/forbidden_text', '<p>' . $opts['forbidden_text'] . '</p>' );
 		}
 
@@ -400,7 +400,7 @@ class Geot_Public {
 			return;
 		}
 
-		if ( Geot_Helper::user_is_targeted( $opts, $post->ID ) ) {
+		if ( GeotWP_Helper::user_is_targeted( $opts, $post->ID ) ) {
 			add_filter( 'woocommerce_is_purchasable', '__return_false' );
 		}
 	}
@@ -429,7 +429,7 @@ class Geot_Public {
 				continue;
 			}
 
-			if ( Geot_Helper::user_is_targeted( $opts, $post_id ) ) {
+			if ( GeotWP_Helper::user_is_targeted( $opts, $post_id ) ) {
 				WC()->cart->remove_cart_item( $cart_item_key );
 			}
 		}

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class GeoLinksCpt will handle all stuff related to custom post type
+ * Class GeotWP_LinksCpt will handle all stuff related to custom post type
  * @since 1.0.0
  */
 class Geolinks_Cache {

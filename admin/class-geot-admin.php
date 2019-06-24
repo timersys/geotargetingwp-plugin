@@ -21,7 +21,7 @@
  * @subpackage GeoTarget/admin
  * @author     Your Name <email@example.com>
  */
-class Geot_Admin {
+class GeotWP_Admin {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -145,6 +145,6 @@ class Geot_Admin {
 	 */
 	public function register_widgets() {
 
-		register_widget( 'Geot_Widget' );
+		register_widget( 'GeotWP_Widget' );
 	}
 }
