@@ -35,7 +35,7 @@ define( 'GEOTWP_F_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'lib/GeotWP_Flags.php';
+require plugin_dir_path( __FILE__ ) . 'lib/GeoFlags.php';
 
 
 global $geotf;
