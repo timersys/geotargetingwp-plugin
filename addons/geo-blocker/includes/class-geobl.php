@@ -27,7 +27,7 @@ use GeotFunctions\Setting\GeotSettings;
  * @subpackage Geobl/includes
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geobl {
+class GeotWP_Bl {
 	/**
 	 * Plugin Instance
 	 * @since 1.0.0

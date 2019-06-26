@@ -42,8 +42,9 @@ class GeotWP_Activator {
 		// deactivate old plugins
 		$addons = [];
 		// GeotargetingPro
-		if ( is_plugin_active( 'geotargeting-pro/geotargeting-pro.php' ) )
+		if ( is_plugin_active( 'geotargeting-pro/geotargeting-pro.php' ) ) {
 			deactivate_plugins( 'geotargeting-pro/geotargeting-pro.php', true );
+		}
 
 		// Geo Redirect
 		if ( is_plugin_active( 'geo-redirects/geo-redirects.php' ) ) {

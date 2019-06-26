@@ -27,7 +27,7 @@ use GeotFunctions\Setting\GeotSettings;
  * @subpackage Geotr/includes
  * @author     Damian Logghe <damian@timersys.com>
  */
-class Geotr {
+class GeotWP_R {
 
 	/**
 	 * Plugin Instance

@@ -43,7 +43,7 @@ require GEOTWP_R_PLUGIN_DIR . 'includes/class-geotr.php';
 global $geotr;
 function run_geotWP_R() {
 
-	return Geotr::instance();
+	return GeotWP_R::instance();
 }
 
 $GLOBALS['geotr'] = run_geotWP_R();

@@ -42,7 +42,7 @@ global $geobl;
  */
 function run_geotwpBl() {
 
-	return Geobl::instance();
+	return GeotWP_Bl::instance();
 }
 
 $GLOBALS['geobl'] = run_geotwpBl();
