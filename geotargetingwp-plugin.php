@@ -35,8 +35,8 @@ define( 'GEOWP_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( _
 if ( ! defined( 'GEOTROOT_PLUGIN_FILE' ) ) {
 	define( 'GEOTROOT_PLUGIN_FILE', GEOWP_PLUGIN_FILE );
 }
-
-
+// load composer
+require GEOWP_PLUGIN_DIR . 'vendor/autoload.php';
 /**
  * The code that runs during plugin activation.
  */

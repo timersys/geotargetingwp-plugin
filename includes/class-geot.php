@@ -135,7 +135,6 @@ class Geot {
 	 */
 	private function load_dependencies() {
 
-		require GEOWP_PLUGIN_DIR . 'vendor/autoload.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/functions.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/functions-ajax.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-i18n.php';
