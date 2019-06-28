@@ -1,0 +1,184 @@
+html {
+    background: #f1f1f1;
+    margin: 0 20px;
+}
+
+body {
+    margin: 65px auto 24px;
+    box-shadow: none;
+    background: #f1f1f1;
+    padding: 0;
+    color: #444;
+    max-width: 700px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.geot-logo {
+    border: 0;
+    margin: 0 0 24px;
+    padding: 0;
+    text-align: center;
+}
+
+.geot-setup-steps {
+    padding: 0 0 24px;
+    margin: 0;
+    list-style: none outside;
+    overflow: hidden;
+    color: #ccc;
+    width: 100%;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+}
+
+.geot-setup-steps li {
+    width: 100%;
+    float: left;
+    padding: 0 0 .8em;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    border-bottom: 4px solid #ccc;
+    line-height: 1.4em;
+}
+
+.geot-setup-steps li::before {
+    content: '';
+    border: 4px solid #ccc;
+    border-radius: 100%;
+    width: 4px;
+    height: 4px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -6px;
+    margin-bottom: -8px;
+    background: #fff;
+}
+
+.geot-setup-steps li.done {
+    border-color: #20A9E0;
+    color: #20A9E0;
+}
+
+.geot-setup-steps li.done::before {
+    border-color: #20A9E0;
+    background: #20A9E0;
+}
+
+.geot-setup-steps li.active {
+    border-color: #20A9E0;
+    color: #20A9E0;
+    font-weight: 700;
+}
+
+.geot-setup-steps li.active::before {
+    border-color: #20A9E0;
+}
+
+.geot-setup-steps li a {
+    color: #20A9E0;
+    text-decoration: none;
+    padding: 1.5em;
+    margin: -1.5em;
+    position: relative;
+    z-index: 1;
+}
+
+
+.geot-setup-content {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .13);
+    padding: 2em;
+    margin: 0 0 20px;
+    background: #fff;
+    overflow: hidden;
+    zoom: 1;
+    text-align: left;
+}
+
+
+.geot-setup-content p {
+    margin: 20px 0;
+    font-size: 1em;
+    line-height: 1.75em;
+    color: #666;
+}
+
+.geot-setup-content .location-row {
+    margin-bottom: 15px;
+}
+
+.geot-setup-content .location-help {
+    font-size: small;
+    color: #AAAAAA;
+}
+.geot-setup-content .location-help a{
+    text-decoration: underline;
+    color: #666;
+}
+.geot-setup-content .location-input {
+    border: 1px solid #aaa;
+    border-color: #ddd;
+    border-radius: 4px;
+    height: 30px;
+    width: calc(100% - 8px - 24px - 2px);
+    padding-left: 8px;
+    padding-right: 24px;
+    font-size: 16px;
+    color: #444;
+    background-color: #fff;
+    display: inline-block;
+}
+
+.geot-setup-content .location-checkbox {
+    width: 18px;
+    height: 18px;
+}
+
+.geot-setup-content .location-label {
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: .5em;
+    margin-top: .85em;
+    display: inline-block;
+}
+
+.geot-setup-content .location-button {
+    font-weight: 300;
+    font-size: 16px !important;
+    box-shadow: none !important;
+    min-width: 12em !important;
+    margin-top: 10px;
+
+    background: #20A9E0;
+    border-color: #20A9E0;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 1px 0 #a36597;
+    text-shadow: none;
+}
+
+.geot-setup-content .location-button:hover {
+    background: #20A9E0;
+    border-color: #20A9E0;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 1px 0 #a36597;
+}
+
+.geot-setup-footer-links {
+    font-size: .85em;
+    color: #7b7b7b;
+    margin: 1.18em auto;
+    display: inline-block;
+    text-align: center;
+}
+
+
+/*	Extra	*/
+.text-center {
+    text-align: center;
+}
+
+.selectize-control {
+    margin-bottom: 0;
+    max-width: 100%;
+}
