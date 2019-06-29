@@ -1,6 +1,6 @@
 <?php
 
-namespace GeotFunctions\Record;
+namespace GeotCore\Record;
 
 /**
  * Holds the record that API will return

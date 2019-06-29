@@ -1,10 +1,10 @@
 <?php
 
-namespace GeotFunctions\Email;
+namespace GeotCore\Email;
 
 /**
  * Class GeotEmails
- * @package GeotFunctions\Email
+ * @package GeotCore\Email
  */
 class GeotEmails {
 

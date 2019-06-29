@@ -1,6 +1,6 @@
 <?php
 
-namespace GeotFunctions;
+namespace GeotCore;
 
 function add_countries_to_db() {
 	global $wpdb;

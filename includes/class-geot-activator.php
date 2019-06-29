@@ -72,8 +72,8 @@ class GeotWP_Activator {
 
 		update_option('geot_pro_addons', $addons );
 
-		GeotFunctions\add_countries_to_db();
-		GeotFunctions\geot_activate();
+		GeotCore\add_countries_to_db();
+		GeotCore\geot_activate();
 
 		do_action( 'geotWP/activated' );
 	}

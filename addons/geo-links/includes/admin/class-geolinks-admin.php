@@ -9,7 +9,7 @@
  * @subpackage GeotWP_Links/admin
  */
 
-use GeotFunctions\GeotUpdates;
+use GeotCore\GeotUpdates;
 
 /**
  * @subpackage GeotWP_Links/admin

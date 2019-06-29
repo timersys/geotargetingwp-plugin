@@ -1,6 +1,6 @@
 <?php
 
-namespace GeotFunctions;
+namespace GeotCore;
 
 use GeotWP\GeotargetingWP;
 

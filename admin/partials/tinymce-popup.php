@@ -6,7 +6,7 @@
 	<meta name="viewport"
 	      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link rel="stylesheet"
-	      href="<?php echo plugin_dir_url( GEOTROOT_PLUGIN_FILE ) . 'vendor/timersys/geot-functions/src/Setting/css/geotarget.css'; ?>"/>
+	      href="<?php echo plugin_dir_url( GEOTROOT_PLUGIN_FILE ) . 'includes/geot/Setting/css/geotarget.css'; ?>"/>
 	<style type="text/css">
 		.button.updated-message, a {
 			transition-property: border, background, color;
@@ -3683,7 +3683,7 @@
     var jQuery = args['jquery'];
 </script>
 <script type="text/javascript"
-        src="<?php echo plugin_dir_url( GEOTROOT_PLUGIN_FILE ) . 'vendor/timersys/geot-functions/src/Setting/js/selectize.min.js'; ?>"></script>
+        src="<?php echo plugin_dir_url( GEOTROOT_PLUGIN_FILE ) . 'includes/geot/Setting/js/selectize.min.js'; ?>"></script>
 
 <script type="text/javascript">
 

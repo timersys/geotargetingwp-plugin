@@ -1,6 +1,6 @@
 <?php
 
-namespace GeotFunctions;
+namespace GeotCore;
 
 /**
  * Helper function to convert to array

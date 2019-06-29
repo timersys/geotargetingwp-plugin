@@ -1,6 +1,6 @@
 <?php
 
-namespace GeotFunctions\Session;
+namespace GeotCore\Session;
 
 use EAMann\Sessionz\Handlers\EncryptionHandler;
 use EAMann\Sessionz\Handlers\MemoryHandler;

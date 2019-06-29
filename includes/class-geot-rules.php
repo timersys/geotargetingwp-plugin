@@ -21,11 +21,11 @@ class GeotWP_R_ules {
 
 	public static function init() {
 
-		self::$post_id      = \GeotFunctions\grab_post_id();
+		self::$post_id      = \GeotCore\grab_post_id();
 		self::$detect       = new Mobile_Detect;
 		self::$referrer     = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '';
 		self::$query_string = isset( $_SERVER['QUERY_STRING'] ) ? $_SERVER['QUERY_STRING'] : '';
-		self::$current_url  = \GeotFunctions\get_current_url();
+		self::$current_url  = \GeotCore\get_current_url();
 
 		if ( defined( 'DOING_AJAX' ) ) {
 

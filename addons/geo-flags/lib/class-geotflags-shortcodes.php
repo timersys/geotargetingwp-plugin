@@ -25,7 +25,7 @@ class GeotWP_Flags_Shortcodes {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @var      class    instance of GeotFunctions
+	 * @var      class    instance of GeotCore
 	 */
 	public function __construct() {
 

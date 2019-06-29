@@ -1,6 +1,6 @@
 <?php
 
-namespace GeotFunctions\Setting;
+namespace GeotCore\Setting;
 
 use GeotWP\GeotargetingWP;
 
@@ -27,7 +27,7 @@ class GeotSettings {
 		add_action( 'wp_ajax_geot_check_license', [ $this, 'ajax_check_license' ] );
 		add_action( 'wp_ajax_geot_cities_by_country', [ $this, 'geot_cities_by_country' ] );
 
-		$this->plugin_url = plugin_dir_url( GEOTROOT_PLUGIN_FILE ) . 'vendor/timersys/geot-functions/src/Setting/';
+		$this->plugin_url = plugin_dir_url( GEOTROOT_PLUGIN_FILE ) . 'includes/geot/Setting/';
 
 		// Check what page we are on.
 		$page = isset( $_GET['page'] ) ? $_GET['page'] : '';
@@ -112,7 +112,7 @@ class GeotSettings {
 		if ( 'post.php' == $pagenow ) {
 			wp_enqueue_style( 'wp-jquery-ui-dialog' );
 		}
-		$version = \GeotFunctions\get_version();
+		$version = \GeotCore\get_version();
 		wp_enqueue_style( 'geot', $this->plugin_url . 'css/geotarget.css', [], $version, 'all' );
 
 	}
@@ -123,7 +123,7 @@ class GeotSettings {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-		$version = \GeotFunctions\get_version();
+		$version = \GeotCore\get_version();
 		wp_enqueue_script( 'geot-selectize', $this->plugin_url . 'js/selectize.min.js', [ 'jquery' ], $version, false );
 		wp_enqueue_script( 'geot-chosen', $this->plugin_url . 'js/chosen.jquery.min.js', [ 'jquery' ], $version, false );
 		wp_enqueue_script( 'geot', $this->plugin_url . 'js/geotargeting-admin.js', [
@@ -226,7 +226,7 @@ class GeotSettings {
 	 * @since 1.0.0
 	 */
 	public function general_panel() {
-		$ips = \GeotFunctions\geot_ips();
+		$ips = \GeotCore\geot_ips();
 		include dirname( __FILE__ ) . '/partials/settings-page.php';
 	}
 

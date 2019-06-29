@@ -25,7 +25,7 @@ class GeotWP_Shortcodes {
 	 * @since    1.0.0
 	 * @var      string $GeoTarget The name of this plugin.
 	 * @var      string $version The version of this plugin.
-	 * @var      class    instance of GeotFunctions
+	 * @var      class    instance of GeotCore
 	 */
 	public function __construct() {
 

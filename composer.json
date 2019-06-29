@@ -37,7 +37,7 @@
       "includes/geot/Session/wp-session/OptionsHandler.php"
     ],
     "psr-4": {
-      "GeotFunctions\\": "includes/geot/"
+      "GeotCore\\": "includes/geot/"
     },
     "files": [
       "includes/geot/functions_include.php"

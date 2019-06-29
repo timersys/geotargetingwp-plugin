@@ -1,6 +1,6 @@
 <?php
 
-namespace GeotFunctions;
+namespace GeotCore;
 
 /**
  * Regenerate WpRocket settings on activation
@@ -17,7 +17,7 @@ function wp_rocket_loaded() {
 }
 
 function wp_rocket_activated() {
-	add_action( 'wp_rocket_loaded', 'GeotFunctions\wp_rocket_loaded' );
+	add_action( 'wp_rocket_loaded', 'GeotCore\wp_rocket_loaded' );
 }
 
-add_action( 'activate_wp-rocket/wp-rocket.php', 'GeotFunctions\wp_rocket_activated', 20 );
+add_action( 'activate_wp-rocket/wp-rocket.php', 'GeotCore\wp_rocket_activated', 20 );

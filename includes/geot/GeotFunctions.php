@@ -1,10 +1,10 @@
-<?php namespace GeotFunctions;
+<?php namespace GeotCore;
 
-use GeotFunctions\Email\GeotEmails;
-use GeotFunctions\Notice\GeotNotices;
-use GeotFunctions\Notification\GeotNotifications;
-use GeotFunctions\Record\RecordConverter;
-use GeotFunctions\Session\GeotSession;
+use GeotCore\Email\GeotEmails;
+use GeotCore\Notice\GeotNotices;
+use GeotCore\Notification\GeotNotifications;
+use GeotCore\Record\RecordConverter;
+use GeotCore\Session\GeotSession;
 use GeotWP\Exception\AddressNotFoundException;
 use GeotWP\Exception\GeotException;
 use GeotWP\Exception\InvalidLicenseException;
@@ -19,12 +19,12 @@ use function GeotWP\generateCallTrace;
 use function GeotWP\getUserIP;
 
 /**
- * Class GeotFunctions
+ * Class GeotCore
  * Bring all wordpress needed functions to make GeotargetingWP work
  * @version 1.1
- * @package GeotFunctions
+ * @package GeotCore
  */
-class GeotFunctions {
+class GeotCore {
 	// Hold the class instance.
 	private static $_instance = null;
 	/**
@@ -136,7 +136,7 @@ class GeotFunctions {
 	 *
 	 * Ensures only one instance is loaded or can be loaded.
 	 *
-	 * @return Geot - Main instance
+	 * @return GeotCore - Main instance
 	 * @see GEOT()
 	 * @since 1.0.0
 	 * @static

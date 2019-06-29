@@ -1,6 +1,6 @@
 <?php
 
-namespace GeotFunctions\Notification;
+namespace GeotCore\Notification;
 
 class GeotNotifications {
 	private static $msg;

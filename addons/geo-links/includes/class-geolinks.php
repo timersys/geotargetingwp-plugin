@@ -13,7 +13,7 @@
  * @subpackage GeotWP_Links/includes
  */
 
-use GeotFunctions\Setting\GeotSettings;
+use GeotCore\Setting\GeotSettings;
 
 
 /**

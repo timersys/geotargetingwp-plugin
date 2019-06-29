@@ -13,8 +13,8 @@
  * @subpackage GeoTarget/includes
  */
 
-use GeotFunctions\Setting\GeotSettings;
-use GeotFunctions\Setting\GeotWizard;
+use GeotCore\Setting\GeotSettings;
+use GeotCore\Setting\GeotWizard;
 
 
 /**

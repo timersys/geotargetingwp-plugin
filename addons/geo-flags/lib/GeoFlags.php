@@ -13,7 +13,7 @@
  * @subpackage GeoTarget/includes
  */
 
-use GeotFunctions\Setting\GeotSettings;
+use GeotCore\Setting\GeotSettings;
 
 /**
  * The core plugin class.

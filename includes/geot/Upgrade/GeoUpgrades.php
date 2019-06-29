@@ -1,6 +1,6 @@
 <?php
 
-namespace GeotFunctions\Upgrade;
+namespace GeotCore\Upgrade;
 
 
 class GeoUpgrades {

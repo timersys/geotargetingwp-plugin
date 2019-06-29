@@ -1,9 +1,9 @@
 <?php
 // Don't redefine the functions if included multiple times.
-use GeotFunctions\Session\GeotSession;
-use GeotFunctions\Upgrade\GeoUpgrades;
+use GeotCore\Session\GeotSession;
+use GeotCore\Upgrade\GeoUpgrades;
 
-if ( ! function_exists( 'GeotFunctions\toArray' ) ) {
+if ( ! function_exists( 'GeotCore\toArray' ) ) {
 	require __DIR__ . '/functions.php';
 	require __DIR__ . '/filters.php';
 	require __DIR__ . '/global-functions.php';

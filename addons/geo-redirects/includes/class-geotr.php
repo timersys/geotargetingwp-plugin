@@ -13,7 +13,7 @@
  * @subpackage Geotr/includes
  */
 
-use GeotFunctions\Setting\GeotSettings;
+use GeotCore\Setting\GeotSettings;
 
 /**
  * The core plugin class.

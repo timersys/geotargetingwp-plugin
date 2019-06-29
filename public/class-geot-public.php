@@ -41,7 +41,7 @@ class GeotWP_Public {
 
 		// if we have cache mode, load geotarget now to set session before content
 		if ( isset( $this->opts['cache_mode'] ) && $this->opts['cache_mode'] ) {
-			geot();
+			geotWP();
 		}
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );

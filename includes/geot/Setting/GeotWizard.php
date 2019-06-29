@@ -1,14 +1,14 @@
 <?php
 
-namespace GeotFunctions\Setting;
+namespace GeotCore\Setting;
 
-use GeotFunctions\Setting\GeotSettings;
+use GeotCore\Setting\GeotSettings;
 use GeotWP\GeotargetingWP;
 
 /**
  * Class GeotWizard
  * Pretty much the same as Woocommerce wizard
- * @package GeotFunctions\Setting
+ * @package GeotCore\Setting
  */
 class GeotWizard {
 
@@ -88,7 +88,7 @@ class GeotWizard {
 			}
 		}
 
-		$this->plugin_url = plugin_dir_url( GEOTROOT_PLUGIN_FILE ) . 'vendor/timersys/geot-functions/src/Setting/';
+		$this->plugin_url = plugin_dir_url( GEOTROOT_PLUGIN_FILE ) . 'includes/geot/Setting/';
 	}
 
 
@@ -209,7 +209,7 @@ class GeotWizard {
 		$opts     = wp_parse_args( $opts, apply_filters( 'geot/default_settings', $defaults ) );
 
 		$countries = geot_countries();
-		$ips       = \GeotFunctions\geot_ips();
+		$ips       = \GeotCore\geot_ips();
 
 		require_once dirname( __FILE__ ) . '/partials/setup-wizard-basic.php';
 	}
@@ -280,7 +280,7 @@ class GeotWizard {
 	 */
 	public function enqueue_scripts() {
 
-		$version = \GeotFunctions\get_version();
+		$version = \GeotCore\get_version();
 
 		wp_enqueue_style( 'buttons' );
 		wp_enqueue_style( 'geot-setup', $this->plugin_url . 'css/wizard.css', [ 'buttons' ], $version, 'all' );

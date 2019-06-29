@@ -1,14 +1,14 @@
 <?php
 
-use GeotFunctions\GeotFunctions;
+use GeotCore\GeotCore;
 use GeotWP\GeotargetingWP;
 
 /**
  * Function to get instance of the class
- * @return \GeotFunctions\Geot
+ * @return GeotCore
  */
-function geot() {
-	return GeotFunctions::instance();
+function geotWP() {
+	return GeotCore::instance();
 }
 
 /**
@@ -19,7 +19,7 @@ function geot() {
  * @return mixed
  */
 function geot_get( $key ) {
-	$g = geot();
+	$g = geotWP();
 
 	return $g->get( $key );
 }
@@ -48,7 +48,7 @@ function geot_user_country( $locale = 'en' ) {
  * @return object Current user country record. Methods are $country->iso_code $country->name $country->names
  */
 function geot_country_by_ip( $ip = '', $force = false ) {
-	$g = geot();
+	$g = geotWP();
 
 	return $g->getUserData( $ip, $force )->country;
 }
@@ -61,7 +61,7 @@ function geot_country_by_ip( $ip = '', $force = false ) {
  * @return object
  */
 function geot_data( $ip = '' ) {
-	$g = geot();
+	$g = geotWP();
 
 	return $g->getUserData( $ip );
 }
@@ -325,7 +325,7 @@ function geot_user_city_region( $default = '' ) {
  * @return bool
  */
 function geot_target( $include = '', $place_region = '', $exclude = '', $exclude_region = '', $key = 'country' ) {
-	$g    = geot();
+	$g    = geotWP();
 	$args = [
 		'include'        => $include,
 		'exclude'        => $exclude,

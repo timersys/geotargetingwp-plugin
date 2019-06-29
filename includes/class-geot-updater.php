@@ -1,7 +1,7 @@
 <?php
 
 use GeotWP\GeotargetingWP;
-use GeotFunctions\GeotUpdates;
+use GeotCore\GeotUpdates;
 
 /**
  * Fired during plugin updating
@@ -125,7 +125,7 @@ class GeotWP_Updater {
 					continue;
 				}
 
-				$list_cites = GeotFunctions\toArray( $opts['cities'] );
+				$list_cites = GeotCore\toArray( $opts['cities'] );
 
 				foreach ( $list_cites as $city ) {
 					if ( in_array( $city, $city_regions ) ) {

@@ -10,8 +10,8 @@
  * @subpackage Geotr/public
  */
 
-use GeotFunctions\Session\GeotSession;
-use function GeotFunctions\textarea_to_array;
+use GeotCore\Session\GeotSession;
+use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
 use function GeotWP\is_session_started;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
@@ -102,8 +102,8 @@ public static function ajax_placeholder(){
 <?php
 }
 
-public function init_geot() {
-	geot();
+public function init_geotWP() {
+	geotWP();
 }
 
 public function handle_redirects() {
@@ -152,7 +152,7 @@ private function pass_basic_rules( $redirection ) {
 
 	$opts = maybe_unserialize( $redirection->geotr_options );
 
-	$current_url = \GeotFunctions\get_current_url();
+	$current_url = \GeotCore\get_current_url();
 
 	// check for destination url
 	if ( empty( $opts['url'] ) || $current_url == $this->replaceShortcodes( $opts, true ) ) {
@@ -253,7 +253,7 @@ private function perform_redirect( $redirection ) {
 
 	// redirect 1 per session
 	if ( (int) $opts['one_time_redirect'] === 2 ) {
-		$session = geot()->getSession();
+		$session = geotWP()->getSession();
 
 		if ( ! empty( $session->get( 'geotr_redirect_' . $redirection->ID ) ) ) {
 			return;

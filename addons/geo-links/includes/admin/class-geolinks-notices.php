@@ -24,7 +24,7 @@ class GeotWP_Links_Notices {
 	 * Show notice if cache plugin exists
 	 */
 	public function admin_notices() {
-		if ( \GeotFunctions\is_caching_plugin_active() && ! get_option( 'geolinks-cache' ) ) {
+		if ( \GeotCore\is_caching_plugin_active() && ! get_option( 'geolinks-cache' ) ) {
 			include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/notice_cache.php';
 		}
 	}

@@ -10,7 +10,7 @@
  * @subpackage Geobl/public
  */
 
-use function GeotFunctions\textarea_to_array;
+use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
 use function GeotWP\is_session_started;
 
