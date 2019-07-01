@@ -7,7 +7,7 @@ use GeotWP\GeotargetingWP;
  * Function to get instance of the class
  * @return GeotCore
  */
-if( ! functions_exists( 'geotWP' ) ) {
+if( ! function_exists( 'geotWP' ) ) {
 	function geotWP() {
 		return GeotCore::instance();
 	}
@@ -19,7 +19,7 @@ if( ! functions_exists( 'geotWP' ) ) {
  *
  * @return mixed
  */
-if( ! functions_exists( 'geot_get' ) ) {
+if( ! function_exists( 'geot_get' ) ) {
 	function geot_get( $key ) {
 		$g = geotWP();
 
@@ -33,7 +33,7 @@ if( ! functions_exists( 'geot_get' ) ) {
  *
  * @return object Current user country Record. Methods are $country->iso_code $country->name $country->names
  */
-if( ! functions_exists( 'geot_user_country' ) ) {
+if( ! function_exists( 'geot_user_country' ) ) {
 	function geot_user_country( $locale = 'en' ) {
 		$c = geot_get( 'country' );
 		if ( $locale != 'en' && method_exists( $c, 'setDefaultLocale' ) ) {
@@ -50,7 +50,7 @@ if( ! functions_exists( 'geot_user_country' ) ) {
  *
  * @return object Current user country record. Methods are $country->iso_code $country->name $country->names
  */
-if( ! functions_exists( 'geot_country_by_ip' ) ) {
+if( ! function_exists( 'geot_country_by_ip' ) ) {
 	function geot_country_by_ip( $ip = '', $force = false ) {
 		$g = geotWP();
 
@@ -64,7 +64,7 @@ if( ! functions_exists( 'geot_country_by_ip' ) ) {
  *
  * @return object
  */
-if( ! functions_exists( 'geot_data' ) ) {
+if( ! function_exists( 'geot_data' ) ) {
 	function geot_data( $ip = '' ) {
 		$g = geotWP();
 
@@ -76,7 +76,7 @@ if( ! functions_exists( 'geot_data' ) ) {
  * [geot_country_code]
  * @return  string country CODE
  **/
-if( ! functions_exists( 'geot_country_code' ) ) {
+if( ! function_exists( 'geot_country_code' ) ) {
 	function geot_country_code() {
 		return geot_get( 'country' )->iso_code;
 	}
@@ -89,7 +89,7 @@ if( ! functions_exists( 'geot_country_code' ) ) {
  *
  * @return string country name
  */
-if( ! functions_exists( 'geot_country_name' ) ) {
+if( ! function_exists( 'geot_country_name' ) ) {
 	function geot_country_name( $locale = 'en' ) {
 		$c = geot_get( 'country' );
 		if ( $locale != 'en' && method_exists( $c, 'setDefaultLocale' ) ) {
@@ -108,7 +108,7 @@ if( ! functions_exists( 'geot_country_name' ) ) {
  *
  * @return string
  */
-if( ! functions_exists( 'geot_city_name' ) ) {
+if( ! function_exists( 'geot_city_name' ) ) {
 	function geot_city_name( $locale = 'en' ) {
 		$c = geot_get( 'city' );
 		if ( $locale != 'en' && method_exists( $c, 'setDefaultLocale' ) ) {
@@ -127,7 +127,7 @@ if( ! functions_exists( 'geot_city_name' ) ) {
  *
  * @return string
  */
-if( ! functions_exists( 'geot_state_name' ) ) {
+if( ! function_exists( 'geot_state_name' ) ) {
 	function geot_state_name( $locale = 'en' ) {
 		$s = geot_get( 'state' );
 		if ( $locale != 'en' && method_exists( $s, 'setDefaultLocale' ) ) {
@@ -142,7 +142,7 @@ if( ! functions_exists( 'geot_state_name' ) ) {
  * [geot_state_code]
  * @return string
  */
-if( ! functions_exists( 'geot_state_code' ) ) {
+if( ! function_exists( 'geot_state_code' ) ) {
 	function geot_state_code() {
 		return geot_get( 'state' )->iso_code;
 	}
@@ -156,7 +156,7 @@ if( ! functions_exists( 'geot_state_code' ) ) {
  *
  * @return string
  */
-if( ! functions_exists( 'geot_continent' ) ) {
+if( ! function_exists( 'geot_continent' ) ) {
 	function geot_continent( $locale = 'en' ) {
 		$c = geot_get( 'continent' );
 		if ( $locale != 'en' && method_exists( $c, 'setDefaultLocale' ) ) {
@@ -171,7 +171,7 @@ if( ! functions_exists( 'geot_continent' ) ) {
  * [geot_zip]
  * @return  string zip code
  **/
-if( ! functions_exists( 'geot_zip' ) ) {
+if( ! function_exists( 'geot_zip' ) ) {
 	function geot_zip() {
 		return geot_get( 'city' )->zip;
 	}
@@ -181,7 +181,7 @@ if( ! functions_exists( 'geot_zip' ) ) {
  *
  * @return object ->longitude() , ->latitude(), ->time_zone()
  */
-if( ! functions_exists( 'geot_location' ) ) {
+if( ! function_exists( 'geot_location' ) ) {
 	function geot_location() {
 		return geot_get( 'geolocation' );
 	}
@@ -190,7 +190,7 @@ if( ! functions_exists( 'geot_location' ) ) {
  * [geot_time_zone]
  * @return string time_zone
  */
-if( ! functions_exists( 'geot_time_zone' ) ) {
+if( ! function_exists( 'geot_time_zone' ) ) {
 	function geot_time_zone() {
 		return geot_get( 'geolocation' )->time_zone;
 	}
@@ -200,7 +200,7 @@ if( ! functions_exists( 'geot_time_zone' ) ) {
  * [geot_radius]
  * @return string radius
  */
-if( ! functions_exists( 'geot_radius' ) ) {
+if( ! function_exists( 'geot_radius' ) ) {
 	function geot_radius() {
 		return geot_get( 'geolocation' )->accuracy_radius;
 	}
@@ -209,7 +209,7 @@ if( ! functions_exists( 'geot_radius' ) ) {
  * [geot_lat]
  * @return string latitude
  */
-if( ! functions_exists( 'geot_lat' ) ) {
+if( ! function_exists( 'geot_lat' ) ) {
 	function geot_lat() {
 		return geot_get( 'geolocation' )->latitude;
 	}
@@ -218,7 +218,7 @@ if( ! functions_exists( 'geot_lat' ) ) {
  * [geot_lng]
  * @return string longitude
  */
-if( ! functions_exists( 'geot_lng' ) ) {
+if( ! function_exists( 'geot_lng' ) ) {
 	function geot_lng() {
 		return geot_get( 'geolocation' )->longitude;
 	}
@@ -230,7 +230,7 @@ if( ! functions_exists( 'geot_lng' ) ) {
  *
  * @return object Current user state. Values are $state->isoCode $state->name
  */
-if( ! functions_exists( 'geot_state_by_ip' ) ) {
+if( ! function_exists( 'geot_state_by_ip' ) ) {
 	function geot_state_by_ip( $ip = '' ) {
 		$data = geot_data( $ip );
 
@@ -244,7 +244,7 @@ if( ! functions_exists( 'geot_state_by_ip' ) ) {
  *
  * @return object cities names with country codes
  */
-if( ! functions_exists( 'geot_get_cities' ) ) {
+if( ! function_exists( 'geot_get_cities' ) ) {
 	function geot_get_cities( $country = 'US' ) {
 
 		$cities = get_option( 'geot_cities' . $country );
@@ -265,14 +265,14 @@ if( ! functions_exists( 'geot_get_cities' ) ) {
  *
  * @return string
  */
-if( ! functions_exists( 'geot_get_cities_choices' ) ) {
+if( ! function_exists( 'geot_get_cities_choices' ) ) {
 	function geot_get_cities_choices( $country ) {
 		$cities                                   = geot_get_cities( $country );
 		$choices = json_encode( array_map(
 			function ( $a ) {
 				return [ 'name' => $a->city, 'id' => $a->city ];
 			}, json_decode( $cities ) ) );
-	
+
 		return $choices;
 	}
 }
@@ -284,7 +284,7 @@ if( ! functions_exists( 'geot_get_cities_choices' ) ) {
  *
  * @return Array/String
  */
-if( ! functions_exists( 'geot_user_country_region' ) ) {
+if( ! function_exists( 'geot_user_country_region' ) ) {
 	function geot_user_country_region( $default = '' ) {
 
 		$country_code = geot_country_code();
@@ -313,7 +313,7 @@ if( ! functions_exists( 'geot_user_country_region' ) ) {
  *
  * @return Array/String
  */
-if( ! functions_exists( 'geot_user_city_region' ) ) {
+if( ! function_exists( 'geot_user_city_region' ) ) {
 	function geot_user_city_region( $default = '' ) {
 
 		$city_name = geot_city_name();
@@ -335,7 +335,7 @@ if( ! functions_exists( 'geot_user_city_region' ) ) {
 	}
 }
 /**
- * if( ! functions_exists( 'that M a i {
+ * if( ! function_exists( 'that M a i {
  * function that return is current user target the given countries / regions or not
  * Originally was to target also cities so I left that just in case but now we use geot_target_city
  *
@@ -348,7 +348,7 @@ if( ! functions_exists( 'geot_user_city_region' ) ) {
  *
  * @return bool
  */
-if( ! functions_exists( 'geot_target' ) ) {
+if( ! function_exists( 'geot_target' ) ) {
 	function geot_target( $include = '', $place_region = '', $exclude = '', $exclude_region = '', $key = 'country' ) {
 		$g    = geotWP();
 		$args = [
@@ -362,7 +362,7 @@ if( ! functions_exists( 'geot_target' ) ) {
 	}
 }
 /**
- * if( ! functions_exists( 'that M a i {
+ * if( ! function_exists( 'that M a i {
  * function that return is current user target the given city / regions or not
  *
  * @param string $city single city or comma list of cities
@@ -372,13 +372,13 @@ if( ! functions_exists( 'geot_target' ) ) {
  *
  * @return bool
  */
-if( ! functions_exists( 'geot_target_city' ) ) {
+if( ! function_exists( 'geot_target_city' ) ) {
 	function geot_target_city( $city = '', $city_region = '', $exclude = '', $exclude_region = '' ) {
 		return geot_target( $city, $city_region, $exclude, $exclude_region, 'city' );
 	}
 }
 /**
- * if( ! functions_exists( 'that M a i {
+ * if( ! function_exists( 'that M a i {
  * function that return is current user target the given state or not
  *
  * @param string $state single state or comma separated list of states
@@ -386,13 +386,13 @@ if( ! functions_exists( 'geot_target_city' ) ) {
  *
  * @return bool
  */
-if( ! functions_exists( 'geot_target_state' ) ) {
+if( ! function_exists( 'geot_target_state' ) ) {
 	function geot_target_state( $state = '', $exclude = '' ) {
 		return geot_target( $state, '', $exclude, '', 'state' );
 	}
 }
 /**
- * if( ! functions_exists( 'that M a i {
+ * if( ! function_exists( 'that M a i {
  * function that return is current user target the given state or not
  *
  * @param string $zip single state or comma separated list of states
@@ -400,7 +400,7 @@ if( ! functions_exists( 'geot_target_state' ) ) {
  *
  * @return bool
  */
-if( ! functions_exists( 'geot_target_zip' ) ) {
+if( ! function_exists( 'geot_target_zip' ) ) {
 	function geot_target_zip( $zip = '', $exclude = '' ) {
 		return geot_target( $zip, '', $exclude, '', 'zip' );
 	}
@@ -409,7 +409,7 @@ if( ! functions_exists( 'geot_target_zip' ) ) {
  * Grab geot settings
  * @return mixed|void
  */
-if( ! functions_exists( 'geot_settings' ) ) {
+if( ! function_exists( 'geot_settings' ) ) {
 	function geot_settings() {
 		return apply_filters( 'geot/settings_page/opts', get_option( 'geot_settings' ) );
 	}
@@ -418,7 +418,7 @@ if( ! functions_exists( 'geot_settings' ) ) {
  * Return Country Regions
  * @return mixed
  */
-if( ! functions_exists( 'geot_country_regions' ) ) {
+if( ! function_exists( 'geot_country_regions' ) ) {
 	function geot_country_regions() {
 		return apply_filters( 'geot/get_country_regions', [] );
 	}
@@ -427,7 +427,7 @@ if( ! functions_exists( 'geot_country_regions' ) ) {
  * Return City Regions
  * @return mixed
  */
-if( ! functions_exists( 'geot_city_regions' ) ) {
+if( ! function_exists( 'geot_city_regions' ) ) {
 	function geot_city_regions() {
 		return apply_filters( 'geot/get_city_regions', [] );
 	}
@@ -436,7 +436,7 @@ if( ! functions_exists( 'geot_city_regions' ) ) {
  * Grab countries from database
  * @return mixed
  */
-if( ! functions_exists( 'geot_countries' ) ) {
+if( ! function_exists( 'geot_countries' ) ) {
 	function geot_countries() {
 		return apply_filters( 'geot/get_countries', [] );
 	}
@@ -445,7 +445,7 @@ if( ! functions_exists( 'geot_countries' ) ) {
  * Prints geo debug data
  * @return bool|string
  */
-if( ! functions_exists( 'geot_debug_data' ) ) {
+if( ! function_exists( 'geot_debug_data' ) ) {
 	function geot_debug_data() {
 		$user_data = geot_data();
 		if ( empty( $user_data->country ) ) {
@@ -482,7 +482,7 @@ if( ! functions_exists( 'geot_debug_data' ) ) {
  * Return Predefined Country Regions
  * @return mixed
  */
-if( ! functions_exists( 'geot_predefined_regions' ) ) {
+if( ! function_exists( 'geot_predefined_regions' ) ) {
 function geot_predefined_regions() {
 
 	$regions =
