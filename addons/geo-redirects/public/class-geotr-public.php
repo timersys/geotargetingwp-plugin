@@ -28,7 +28,7 @@ class GeotWP_R_Public {
 private $redirections;
 
 public function __construct() {
-	add_action( 'plugins_loaded', [ $this, 'init_geot' ], - 2 );
+	add_action( 'plugins_loaded', [ $this, 'init_geotWP' ], - 2 );
 
 	$action_hook = defined( 'WP_CACHE' ) ? 'init' : 'wp';
 

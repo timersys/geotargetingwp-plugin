@@ -211,6 +211,8 @@ foreach ( $plugins as $plugin_path => $plugin ) {
 PHP Version:              <?php echo PHP_VERSION . PHP_EOL; ?>
 MySQL Version:            <?php echo $wpdb->db_version() . PHP_EOL; ?>
 Webserver Info:           <?php echo $_SERVER['SERVER_SOFTWARE'] . PHP_EOL; ?>
+Hostname:                 <?php $host = gethostname(); echo $host . PHP_EOL;?>
+IP:                       <?php echo gethostbyname($host) . PHP_EOL;?>
 
 ## PHP Configuration##
 
