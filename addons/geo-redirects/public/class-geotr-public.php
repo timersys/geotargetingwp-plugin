@@ -36,9 +36,9 @@ public function __construct() {
 		add_action( apply_filters( 'geotr/action_hook', $action_hook ), [ $this, 'handle_redirects' ] );
 	}
 
-	add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-	add_action( 'wp_ajax_nopriv_geo_redirects', [ $this, 'handle_ajax_redirects' ], 1 );
-	add_action( 'wp_ajax_geo_redirects', [ $this, 'handle_ajax_redirects' ], 1 );
+	//add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+	//add_action( 'wp_ajax_nopriv_geo_redirects', [ $this, 'handle_ajax_redirects' ], 1 );
+	//add_action( 'wp_ajax_geo_redirects', [ $this, 'handle_ajax_redirects' ], 1 );
 }
 
 
@@ -305,7 +305,7 @@ public function handle_ajax_redirects() {
 	add_filter( 'geotr/cancel_redirect', function ( $redirect, $opts ) {
 		echo apply_filters( 'geotr/ajax_cancel_redirect', json_encode( $opts ), $opts );
 
-		return true;
+		return $opts['url'];
 	}, 15, 3 );
 	$this->check_for_rules();
 	die();

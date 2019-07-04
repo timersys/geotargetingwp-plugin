@@ -413,4 +413,17 @@ class GeotWP_Ajax {
 
 	}
 
+
+	/**
+	 * Print geot flag
+	 *
+	 * @param $geot
+	 *
+	 * @return string
+	 */
+	private function geo_redirects( $geot ) {
+		$GeoRedirect = new GeotWP_R_Public();
+		return $GeoRedirect->handle_ajax_redirects();
+	}
+
 }
