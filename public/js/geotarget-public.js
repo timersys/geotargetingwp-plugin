@@ -76,6 +76,14 @@
             'action': 'geot_ajax',
             'geots': {},
             'vars': geot,
+            'pid': geot.pid,
+            'referrer': document.referrer,
+            'url': window.location.href,
+            'query_string': document.location.search,
+            'is_category': geot.is_category,
+            'is_archive': geot.is_archive,
+            'is_front_page': geot.is_front_page,
+            'is_search': geot.is_search,
             'geot_debug': geot_debug,
             'geot_debug_iso': geot_debug_iso,
             'geot_state': geot_state,
@@ -110,14 +118,6 @@
         var uniqid = getUniqueName('geot');
         data.geots[uniqid] = {
                 'action' : 'geo_redirects',
-                'pid': geot.pid,
-                'referrer': document.referrer,
-                'url': window.location.href,
-                'query_string': document.location.search
-                'is_category': geot.is_category,
-                'is_archive': geot.is_archive,
-                'is_front_page': geot.is_front_page,
-                'is_search': geot.is_search
             }
     });
 
@@ -129,15 +129,19 @@
                 remove = response.posts.remove,
                 hide = response.posts.hide,
                 debug = response.debug;
-            console.log(response);
+                console.log(response);
+
+            if( response.redirect && response.redirect.url ) {
+                $('.geotr-ajax').show();
+                    setTimeout(function () {
+                        location.replace(response.redirect.url)
+                }, 2000);
+            }
+
+
             if (results && results.length) {
                 for (i = 0; i < results.length; ++i) {
-                    if (results[i].action == 'geo_redirects' && results[i].value) { 
-                        $('.geotr-ajax').show();
-                            setTimeout(function () {
-                                location.replace(results[i].value)
-                        }, 2000);
-                    } else if (results[i].action == 'menu_filter') {
+                    if (results[i].action == 'menu_filter') {
                         if (results[i].value == true)
                             $('#' + results[i].id).parent('.menu-item').remove();
                     } else if (results[i].action.indexOf('filter') > -1) {

@@ -48,26 +48,53 @@ class GeotWP_Ajax {
 	 */
 	public function geot_ajax() {
 
-		$geots      = $posts = [];
-		$debug      = "";
+		$geots = $posts = [];
+		$debug = $redirect = $block = "";
 		$posts      = $this->get_geotargeted_posts();
+		$addons 	= $this->get_action_addons();
 		$this->data = $_POST;
 		if ( isset( $this->data['geots'] ) ) {
+
+			update_option('kao4', print_r($addons,true));
+			update_option('kao5', print_r($this->data['geots'],true));
+
 			foreach ( $this->data['geots'] as $id => $geot ) {
 				if ( method_exists( $this, $geot['action'] ) ) {
-					$geots[] = [
-						'id'     => $id,
-						'action' => $geot['action'],
-						'value'  => $this->{$geot['action']}( $geot ),
-					];
+
+					if( in_array($geot['action'], $addons) ) {
+						$redirect = $this->{$geot['action']}();
+					} else {
+						$geots[] = [
+							'id'     => $id,
+							'action' => $geot['action'],
+							'value'  => $this->{$geot['action']}( $geot ),
+						];
+					}
 				}
 			}
 			// only call debug info if we ran any geo action before to save requests
 			$debug = $this->getDebugInfo();
 		}
 
-		echo json_encode( [ 'success' => 1, 'data' => $geots, 'posts' => $posts, 'debug' => $debug ] );
+		update_option('kao6', print_r($geota,true));
+
+		echo json_encode( [ 'success' => 1, 'data' => $geots, 'posts' => $posts, 'redirect' => $redirect, 'debug' => $debug ] );
 		die();
+	}
+
+
+	private function get_action_addons() {
+		$actions = [];
+		$addons	= (array)geotwp_addons();
+
+		foreach($addons as $addon_key => $addon_value) {
+			switch($addon_key) {
+				case 'geo-redirects' : $actions[] = 'geo_redirects'; break;
+				case 'geo-blocker' : $actions[] = 'geo_blocks'; break;
+			}
+		}
+
+		return $actions;
 	}
 
 	/**
@@ -421,9 +448,10 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function geo_redirects( $geot ) {
+	private function geo_redirects() {
 		$GeoRedirect = new GeotWP_R_Public();
-		return $GeoRedirect->handle_ajax_redirects();
+
+		return $GeoRedirect->handle_ajax_geot_redirects();
 	}
 
 }

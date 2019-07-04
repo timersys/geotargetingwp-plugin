@@ -89,15 +89,15 @@ class GeotWP_Public {
 	public function enqueue_scripts() {
 
 		$src = 'js/geotarget-public.js';
-		if ( ! isset( $_GET['geot_debug'] ) ) {
+		/*if ( ! isset( $_GET['geot_debug'] ) ) {
 			$src = 'js/min/geotarget-public-min.js';
-		}
+		}*/
 
 		wp_enqueue_script( 'geot-js', plugin_dir_url( __FILE__ ) . $src, [ 'jquery' ], false, true );
 		wp_enqueue_script( 'geot-slick', plugin_dir_url( __FILE__ ) . 'js/min/selectize.min.js', [ 'jquery' ], false, true );
 		wp_localize_script( 'geot-js', 'geot', [
 			'ajax_url'          => admin_url( 'admin-ajax.php' ),
-			'ajax'              => isset( $this->geot_opts['ajax_mode'] ) ? '1' : '',
+			'ajax'              => isset( $this->opts['ajax_mode'] ) ? '1' : '',
 			'pid'				=> get_queried_object_id(),
 			'addons'			=> geotwp_addons(),
 			'is_archive'        => is_archive(),
@@ -448,7 +448,7 @@ class GeotWP_Public {
 
 		?>
 		<!-- Geotargeting plugin Debug Info START-->
-		<div id="geot-debug-info" style="display: none;"><!--<?php if ( empty( $this->geot_opts['ajax_mode'] ) ) {
+		<div id="geot-debug-info" style="display: none;"><!--<?php if ( empty( $this->opts['ajax_mode'] ) ) {
 				echo geot_debug_data();
 			} ?>--></div>
 		<!-- Geotargeting plugin Debug Info END-->
