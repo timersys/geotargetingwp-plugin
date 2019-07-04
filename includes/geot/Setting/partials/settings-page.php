@@ -128,7 +128,7 @@ $countries = geot_countries();
 					<input type="checkbox" id="ajax_mode" name="geot_settings[ajax_mode]"
 					       value="1" <?php checked( $opts['ajax_mode'], '1' ); ?>/>
 					<p class="help"><?php _e( 'In Ajax mode, after page load an extra request is made to get all data and everything is updated with javascript. That makes the plugin compatible with any cache plugin. More info on: ', 'geot' ); ?>
-						<a href="https://timersys.com/geotargeting/docs/ajax-mode/">Ajax mode info</a></p>
+						<a href="https://geotargetingwp.com/docs/geotargetingwp/ajax-mode/">Ajax mode info</a></p>
 				</td>
 			</tr>
 
