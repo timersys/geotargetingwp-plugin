@@ -185,7 +185,7 @@ class GeotWP_Divi {
 		global $et_fb_processing_shortcode_object;
 
 		// if is builder / edit mode
-		if ( $et_fb_processing_shortcode_object == 1 ) {
+		if ( $et_fb_processing_shortcode_object == 1 || $this->has_geot_opts($module->props) ) {
 			return $output;
 		}
 
@@ -215,6 +215,37 @@ class GeotWP_Divi {
 		return $output;
 	}
 
+	/**
+	 * Check if values are set
+	 * @param $props
+	 *
+	 * @return bool
+	 */
+	private function has_geot_opts( $props ){
+		$keys = [
+			'in_countries',
+			'in_region_countries',
+			'ex_countries',
+			'ex_region_countries',
+			'in_states',
+			'ex_states',
+			'in_cities',
+			'in_region_cities',
+			'ex_cities',
+			'ex_region_cities',
+			'in_zipcodes',
+			'ex_zipcodes'
+		];
+
+		// check if any of the valid key has a value
+		foreach( $keys as $key ) {
+			if( ! empty($props[$key] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 	/**
 	 * Get Regions
 	 *
