@@ -40,10 +40,6 @@ public function __construct() {
 	if ( ! is_admin() && ! $this->is_backend() && ! defined( 'DOING_AJAX' ) && ! defined( 'DOING_CRON' ) ) {
 		add_action( apply_filters( 'geotr/action_hook', $action_hook ), [ $this, 'handle_redirects' ] );
 	}
-
-	//add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-	//add_action( 'wp_ajax_nopriv_geo_redirects', [ $this, 'handle_ajax_redirects' ], 1 );
-	//add_action( 'wp_ajax_geo_redirects', [ $this, 'handle_ajax_redirects' ], 1 );
 }
 
 
@@ -317,22 +313,6 @@ public function handle_ajax_redirects() {
 
 	return $this->check_for_rules();
 	die();
-}
-
-/**
- * Enqueue script file
- */
-public function enqueue_scripts() {
-	wp_enqueue_script( 'geotr-js', plugins_url( 'js/geotr-public.js', __FILE__ ), [ 'jquery' ], GEOTWP_R_VERSION, true );
-	wp_localize_script( 'geotr-js', 'geotr', [
-		'ajax_url'      => admin_url( 'admin-ajax.php' ),
-		'pid'           => get_queried_object_id(),
-		'is_front_page' => is_front_page(),
-		'is_category'   => is_category(),
-		'site_url'      => site_url(),
-		'is_archive'    => is_archive(),
-		'is_search'     => is_search(),
-	] );
 }
 
 
