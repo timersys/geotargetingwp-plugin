@@ -27,6 +27,11 @@ class GeotWP_R_Public {
  */
 private $redirections;
 
+/**
+ * @var bool to ajaxmode
+ */
+public $ajax_call = false;
+
 public function __construct() {
 	add_action( 'plugins_loaded', [ $this, 'init_geotWP' ], - 2 );
 
@@ -36,9 +41,9 @@ public function __construct() {
 		add_action( apply_filters( 'geotr/action_hook', $action_hook ), [ $this, 'handle_redirects' ] );
 	}
 
-	add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-	add_action( 'wp_ajax_nopriv_geo_redirects', [ $this, 'handle_ajax_redirects' ], 1 );
-	add_action( 'wp_ajax_geo_redirects', [ $this, 'handle_ajax_redirects' ], 1 );
+	//add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+	//add_action( 'wp_ajax_nopriv_geo_redirects', [ $this, 'handle_ajax_redirects' ], 1 );
+	//add_action( 'wp_ajax_geo_redirects', [ $this, 'handle_ajax_redirects' ], 1 );
 }
 
 
@@ -109,7 +114,7 @@ public function init_geotWP() {
 public function handle_redirects() {
 
 	GeotWP_R_ules::init();
-	$this->redirections = geotWPR_redirections();
+	$this->redirections = $this->get_redirections();
 	$opts_geot          = geot_settings();
 	if ( ! empty( $opts_geot['ajax_mode'] ) ) {
 		add_action( 'wp_footer', [ $this, 'ajax_placeholder' ] );
@@ -131,11 +136,13 @@ private function check_for_rules() {
 			$rules       = ! empty( $r->geotr_rules ) ? unserialize( $r->geotr_rules ) : [];
 			$do_redirect = GeotWP_R_ules::is_ok( $rules );
 			if ( $do_redirect ) {
-				$this->perform_redirect( $r );
+				return $this->perform_redirect( $r );
 				break; // ajax mode won't redirect instantly so we need to break
 			}
 		}
 	}
+
+	return false;
 }
 
 /**
@@ -246,7 +253,7 @@ private function perform_redirect( $redirection ) {
 	// redirect one time uses cookies
 	if ( (int) $opts['one_time_redirect'] === 1 ) {
 		if ( isset( $_COOKIE[ 'geotr_redirect_' . $redirection->ID ] ) ) {
-			return;
+			return false;
 		}
 		setcookie( 'geotr_redirect_' . $redirection->ID, true, time() + apply_filters( 'geotr/cookie_expiration', YEAR_IN_SECONDS ), '/' );
 	}
@@ -256,7 +263,7 @@ private function perform_redirect( $redirection ) {
 		$session = geotWP()->getSession();
 
 		if ( ! empty( $session->get( 'geotr_redirect_' . $redirection->ID ) ) ) {
-			return;
+			return false;
 		}
 		$session->set( 'geotr_redirect_' . $redirection->ID, true );
 	}
@@ -271,8 +278,12 @@ private function perform_redirect( $redirection ) {
 
 	//last chance to abort
 	if ( ! apply_filters( 'geotr/cancel_redirect', false, $opts, $redirection ) ) {
-		wp_redirect( apply_filters( 'geotr/final_url', $opts['url'] ), $opts['status'] );
-		exit;
+		if( $this->ajax_call === true ) {
+			return $opts;
+		} else {
+			wp_redirect( apply_filters( 'geotr/final_url', $opts['url'] ), $opts['status'] );
+			exit;
+		}
 	}
 }
 
@@ -301,13 +312,10 @@ public function fixRedirect( $redirect ) {
  */
 public function handle_ajax_redirects() {
 	GeotWP_R_ules::init();
-	$this->redirections = geotWPR_redirections();
-	add_filter( 'geotr/cancel_redirect', function ( $redirect, $opts ) {
-		echo apply_filters( 'geotr/ajax_cancel_redirect', json_encode( $opts ), $opts );
+	$this->ajax_call = true;
+	$this->redirections = $this->get_redirections();
 
-		return true;
-	}, 15, 3 );
-	$this->check_for_rules();
+	return $this->check_for_rules();
 	die();
 }
 
@@ -325,6 +333,28 @@ public function enqueue_scripts() {
 		'is_archive'    => is_archive(),
 		'is_search'     => is_search(),
 	] );
+}
+
+
+/**
+ * Grab geotr settings
+ * @return mixed|void
+ */
+function get_redirections() {
+	global $wpdb;
+
+	$sql = "SELECT ID, 
+	MAX(CASE WHEN pm1.meta_key = 'geotr_rules' then pm1.meta_value ELSE NULL END) as geotr_rules,
+	MAX(CASE WHEN pm1.meta_key = 'geotr_options' then pm1.meta_value ELSE NULL END) as geotr_options
+    FROM $wpdb->posts p LEFT JOIN $wpdb->postmeta pm1 ON ( pm1.post_id = p.ID)  WHERE post_type='geotr_cpt' AND post_status='publish' GROUP BY p.ID";
+
+	$redirections = wp_cache_get( md5( $sql ), 'geotr_posts' );
+	if ( $redirections === false ) {
+		$redirections = $wpdb->get_results( $sql, OBJECT );
+		wp_cache_add( md5( $sql ), $redirections, 'geotr_posts' );
+	}
+
+	return $redirections;
 }
 
 }
