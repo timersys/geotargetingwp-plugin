@@ -19,3 +19,5 @@ composer.lock
 .idea
 .mmdb
 
+node_modules/
+package-lock.json
