@@ -53,11 +53,13 @@ class GeotWP_Ajax {
 		$posts      = $this->get_geotargeted_posts();
 		$this->data = $_POST;
 
-		if( isset($this->data['geot_redirects']) && $this->data['geot_redirects'] == 1 )
+		if ( isset( $this->data['geot_redirects'] ) && $this->data['geot_redirects'] == 1 ) {
 			$redirect = $this->geo_redirects();
+		}
 
-		if( isset($this->data['geot_blockers']) && $this->data['geot_blockers'] == 1 )
+		if ( isset( $this->data['geot_blockers'] ) && $this->data['geot_blockers'] == 1 ) {
 			$blocker = $this->geo_blockers();
+		}
 
 
 		if ( isset( $this->data['geots'] ) ) {
@@ -74,7 +76,13 @@ class GeotWP_Ajax {
 			$debug = $this->getDebugInfo();
 		}
 
-		echo json_encode( [ 'success' => 1, 'data' => $geots, 'posts' => $posts, 'redirect' => $redirect, 'blocker' => $blocker, 'debug' => $debug ] );
+		echo json_encode( [ 'success'  => 1,
+		                    'data'     => $geots,
+		                    'posts'    => $posts,
+		                    'redirect' => $redirect,
+		                    'blocker'  => $blocker,
+		                    'debug'    => $debug,
+		] );
 		die();
 	}
 
@@ -122,6 +130,32 @@ class GeotWP_Ajax {
 			'remove' => $posts_to_exclude,
 			'hide'   => $content_to_hide,
 		];
+	}
+
+	/**
+	 * Print geot Redirect
+	 *
+	 * @param $geot
+	 *
+	 * @return string
+	 */
+	private function geo_redirects() {
+		$GeoRedirect = new GeotWP_R_Public();
+
+		return $GeoRedirect->handle_ajax_redirects();
+	}
+
+	/**
+	 * Print geot Blocks
+	 *
+	 * @param $geot
+	 *
+	 * @return string
+	 */
+	private function geo_blockers() {
+		$GeoBlocker = new GeotWP_Bl_Public();
+
+		return $GeoBlocker->handle_ajax_blockers();
 	}
 
 	/**
@@ -419,30 +453,5 @@ class GeotWP_Ajax {
 
 		return '<' . $html . ' style="font-size:' . esc_attr( $size ) . '" class="flag-icon flag-icon-' . strtolower( esc_attr( $country_code ) ) . ' ' . $squared . '"></' . $html . '>';
 
-	}
-
-	/**
-	 * Print geot Redirect
-	 *
-	 * @param $geot
-	 *
-	 * @return string
-	 */
-	private function geo_redirects() {
-		$GeoRedirect = new GeotWP_R_Public();
-		return $GeoRedirect->handle_ajax_redirects();
-	}
-
-
-	/**
-	 * Print geot Blocks
-	 *
-	 * @param $geot
-	 *
-	 * @return string
-	 */
-	private function geo_blockers() {
-		$GeoBlocker = new GeotWP_Bl_Public();
-		return $GeoBlocker->handle_ajax_blockers();
 	}
 }

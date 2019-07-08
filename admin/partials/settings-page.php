@@ -7,7 +7,7 @@
 			<tr valign="top" class="geot-settings-title">
 				<th colspan="3"><h3><?php _e( 'GeotargetingWP : ', 'geot' ); ?></h3></th>
 			</tr>
-			
+
 			<tr valign="top" class="">
 				<th><label for="menu_integration"><?php _e( 'Disable Menu integration', 'geot' ); ?></label></th>
 				<td colspan="3">

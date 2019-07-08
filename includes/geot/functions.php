@@ -150,10 +150,11 @@ function uninstall( $posts = [], $taxonomies = [] ) {
 	foreach ( $posts as $post_type ) {
 
 		$taxonomies = array_merge( $taxonomies, get_object_taxonomies( $post_type ) );
-		$items      = get_posts( [ 'post_type'   => $post_type,
-		                           'post_status' => 'any',
-		                           'numberposts' => - 1,
-		                           'fields'      => 'ids',
+		$items      = get_posts( [
+			'post_type'   => $post_type,
+			'post_status' => 'any',
+			'numberposts' => - 1,
+			'fields'      => 'ids',
 		] );
 		if ( $items ) {
 			foreach ( $items as $item ) {

@@ -21,14 +21,13 @@ use function GeotWP\is_session_started;
  */
 class GeotWP_Bl_Public {
 	/**
+	 * @var bool to ajaxmode
+	 */
+	public $ajax_call = false;
+	/**
 	 * @var Array of Redirection posts
 	 */
 	private $blocks;
-
-	/**
- 	* @var bool to ajaxmode
- 	*/
-	public $ajax_call = false;
 
 	/**
 	 * Construct
@@ -87,10 +86,11 @@ class GeotWP_Bl_Public {
 		GeotWP_R_ules::init();
 		$this->blocks = $this->get_blocks();
 		$opts_geot    = geot_settings();
-		if ( !empty( $opts_geot['ajax_mode'] ) )
+		if ( ! empty( $opts_geot['ajax_mode'] ) ) {
 			add_action( 'wp_footer', [ $this, 'ajax_placeholder' ] );
-		else
+		} else {
 			$this->check_for_rules();
+		}
 	}
 
 	/**
@@ -186,10 +186,9 @@ class GeotWP_Bl_Public {
 		//last chance to abort
 		if ( ! apply_filters( 'geobl/cancel_block', false, $opts, $block ) ) {
 
-			if( $this->ajax_call ) {
+			if ( $this->ajax_call ) {
 				return GeotWP_Bl_Helper::get_template( $block->ID );
-			}
-			else {
+			} else {
 				echo GeotWP_Bl_Helper::get_template( $block->ID );
 				die();
 			}
@@ -204,7 +203,8 @@ class GeotWP_Bl_Public {
 	public function handle_ajax_blockers() {
 		GeotWP_R_ules::init();
 		$this->ajax_call = true;
-		$this->blocks = $this->get_blocks();
+		$this->blocks    = $this->get_blocks();
+
 		return $this->check_for_rules();
 		die();
 	}
@@ -220,7 +220,7 @@ class GeotWP_Bl_Public {
 		if ( isset( $_GET['wp-nonce'] ) && wp_verify_nonce( $_REQUEST['wp-nonce'], 'nonce-template' ) &&
 		     isset( $_GET['id'] ) && is_numeric( $_GET['id'] ) ) {
 
-			echo GeotWP_Bl_Helper::get_template( intval($_GET['id']) );
+			echo GeotWP_Bl_Helper::get_template( intval( $_GET['id'] ) );
 		}
 		die();
 	}

@@ -35,26 +35,28 @@ class GeotWP_Bl_Helper {
 	 */
 	public static function get_template( $id = null ) {
 
-		if( is_null($id) )
+		if ( is_null( $id ) ) {
 			return false;
+		}
 
-		$located	= GeotWP_Bl_Helper::get_template_from_theme( $id );
-		
+		$located = GeotWP_Bl_Helper::get_template_from_theme( $id );
+
 		// use default one
-		if ( ! $located )
+		if ( ! $located ) {
 			$located = GEOTWP_BL_PLUGIN_DIR . '/public/partials/geobl-template.php';
+		}
 
 		// Allow 3rd party plugin filter template file from their plugin.
 		$located = apply_filters( 'geobl/include_template', $located, $id );
 
 		ob_start();
-		
+
 		do_action( 'geobl/before_template', $located, $id );
 
 		include $located;
 
 		do_action( 'geobl/after_template', $located, $id );
-		
+
 		return ob_get_clean();
 	}
 

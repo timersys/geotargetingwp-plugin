@@ -39,7 +39,7 @@
 				       class="location-checkbox" <?php echo checked( $opts['geo-flags'], true ); ?> />
 				<?php _e( 'Geo Flags', 'geot' ); ?>
 			</label>
-			<div class="location-help"><?php  printf( __( 'Display <a href="%s" target="_blank">country flags</a> based on user location.', 'geot' ), 'https://geotargetingwp.com/geo-flags' ); ?></div>
+			<div class="location-help"><?php printf( __( 'Display <a href="%s" target="_blank">country flags</a> based on user location.', 'geot' ), 'https://geotargetingwp.com/geo-flags' ); ?></div>
 		</div>
 		<?php do_action( 'geot/wizard/addons/after' ); ?>
 

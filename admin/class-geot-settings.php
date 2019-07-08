@@ -62,7 +62,7 @@ class GeotWP_Settings {
 		$opts     = geotwp_settings();
 		$opts     = wp_parse_args( $opts, $defaults );
 
-		$return = esc_url( add_query_arg( $_GET , admin_url( 'admin.php' ) ) );
+		$return = esc_url( add_query_arg( $_GET, admin_url( 'admin.php' ) ) );
 
 		include GEOWP_PLUGIN_DIR . 'admin/partials/settings-page.php';
 	}
@@ -85,7 +85,7 @@ class GeotWP_Settings {
 		$opts = geotwp_addons();
 		$opts = geotwp_parse_args( $opts, $defaults );
 
-		$return = esc_url( add_query_arg( $_GET , admin_url( 'admin.php' ) ) );
+		$return = esc_url( add_query_arg( $_GET, admin_url( 'admin.php' ) ) );
 
 		include GEOWP_PLUGIN_DIR . 'admin/partials/addons-page.php';
 	}

@@ -7,7 +7,7 @@ use GeotWP\GeotargetingWP;
  * Function to get instance of the class
  * @return GeotCore
  */
-if( ! function_exists( 'geotWP' ) ) {
+if ( ! function_exists( 'geotWP' ) ) {
 	function geotWP() {
 		return GeotCore::instance();
 	}
@@ -19,7 +19,7 @@ if( ! function_exists( 'geotWP' ) ) {
  *
  * @return mixed
  */
-if( ! function_exists( 'geot_get' ) ) {
+if ( ! function_exists( 'geot_get' ) ) {
 	function geot_get( $key ) {
 		$g = geotWP();
 
@@ -33,7 +33,7 @@ if( ! function_exists( 'geot_get' ) ) {
  *
  * @return object Current user country Record. Methods are $country->iso_code $country->name $country->names
  */
-if( ! function_exists( 'geot_user_country' ) ) {
+if ( ! function_exists( 'geot_user_country' ) ) {
 	function geot_user_country( $locale = 'en' ) {
 		$c = geot_get( 'country' );
 		if ( $locale != 'en' && method_exists( $c, 'setDefaultLocale' ) ) {
@@ -50,7 +50,7 @@ if( ! function_exists( 'geot_user_country' ) ) {
  *
  * @return object Current user country record. Methods are $country->iso_code $country->name $country->names
  */
-if( ! function_exists( 'geot_country_by_ip' ) ) {
+if ( ! function_exists( 'geot_country_by_ip' ) ) {
 	function geot_country_by_ip( $ip = '', $force = false ) {
 		$g = geotWP();
 
@@ -64,7 +64,7 @@ if( ! function_exists( 'geot_country_by_ip' ) ) {
  *
  * @return object
  */
-if( ! function_exists( 'geot_data' ) ) {
+if ( ! function_exists( 'geot_data' ) ) {
 	function geot_data( $ip = '' ) {
 		$g = geotWP();
 
@@ -76,7 +76,7 @@ if( ! function_exists( 'geot_data' ) ) {
  * [geot_country_code]
  * @return  string country CODE
  **/
-if( ! function_exists( 'geot_country_code' ) ) {
+if ( ! function_exists( 'geot_country_code' ) ) {
 	function geot_country_code() {
 		return geot_get( 'country' )->iso_code;
 	}
@@ -89,7 +89,7 @@ if( ! function_exists( 'geot_country_code' ) ) {
  *
  * @return string country name
  */
-if( ! function_exists( 'geot_country_name' ) ) {
+if ( ! function_exists( 'geot_country_name' ) ) {
 	function geot_country_name( $locale = 'en' ) {
 		$c = geot_get( 'country' );
 		if ( $locale != 'en' && method_exists( $c, 'setDefaultLocale' ) ) {
@@ -108,7 +108,7 @@ if( ! function_exists( 'geot_country_name' ) ) {
  *
  * @return string
  */
-if( ! function_exists( 'geot_city_name' ) ) {
+if ( ! function_exists( 'geot_city_name' ) ) {
 	function geot_city_name( $locale = 'en' ) {
 		$c = geot_get( 'city' );
 		if ( $locale != 'en' && method_exists( $c, 'setDefaultLocale' ) ) {
@@ -127,7 +127,7 @@ if( ! function_exists( 'geot_city_name' ) ) {
  *
  * @return string
  */
-if( ! function_exists( 'geot_state_name' ) ) {
+if ( ! function_exists( 'geot_state_name' ) ) {
 	function geot_state_name( $locale = 'en' ) {
 		$s = geot_get( 'state' );
 		if ( $locale != 'en' && method_exists( $s, 'setDefaultLocale' ) ) {
@@ -142,7 +142,7 @@ if( ! function_exists( 'geot_state_name' ) ) {
  * [geot_state_code]
  * @return string
  */
-if( ! function_exists( 'geot_state_code' ) ) {
+if ( ! function_exists( 'geot_state_code' ) ) {
 	function geot_state_code() {
 		return geot_get( 'state' )->iso_code;
 	}
@@ -156,7 +156,7 @@ if( ! function_exists( 'geot_state_code' ) ) {
  *
  * @return string
  */
-if( ! function_exists( 'geot_continent' ) ) {
+if ( ! function_exists( 'geot_continent' ) ) {
 	function geot_continent( $locale = 'en' ) {
 		$c = geot_get( 'continent' );
 		if ( $locale != 'en' && method_exists( $c, 'setDefaultLocale' ) ) {
@@ -171,7 +171,7 @@ if( ! function_exists( 'geot_continent' ) ) {
  * [geot_zip]
  * @return  string zip code
  **/
-if( ! function_exists( 'geot_zip' ) ) {
+if ( ! function_exists( 'geot_zip' ) ) {
 	function geot_zip() {
 		return geot_get( 'city' )->zip;
 	}
@@ -181,7 +181,7 @@ if( ! function_exists( 'geot_zip' ) ) {
  *
  * @return object ->longitude() , ->latitude(), ->time_zone()
  */
-if( ! function_exists( 'geot_location' ) ) {
+if ( ! function_exists( 'geot_location' ) ) {
 	function geot_location() {
 		return geot_get( 'geolocation' );
 	}
@@ -190,7 +190,7 @@ if( ! function_exists( 'geot_location' ) ) {
  * [geot_time_zone]
  * @return string time_zone
  */
-if( ! function_exists( 'geot_time_zone' ) ) {
+if ( ! function_exists( 'geot_time_zone' ) ) {
 	function geot_time_zone() {
 		return geot_get( 'geolocation' )->time_zone;
 	}
@@ -200,7 +200,7 @@ if( ! function_exists( 'geot_time_zone' ) ) {
  * [geot_radius]
  * @return string radius
  */
-if( ! function_exists( 'geot_radius' ) ) {
+if ( ! function_exists( 'geot_radius' ) ) {
 	function geot_radius() {
 		return geot_get( 'geolocation' )->accuracy_radius;
 	}
@@ -209,7 +209,7 @@ if( ! function_exists( 'geot_radius' ) ) {
  * [geot_lat]
  * @return string latitude
  */
-if( ! function_exists( 'geot_lat' ) ) {
+if ( ! function_exists( 'geot_lat' ) ) {
 	function geot_lat() {
 		return geot_get( 'geolocation' )->latitude;
 	}
@@ -218,7 +218,7 @@ if( ! function_exists( 'geot_lat' ) ) {
  * [geot_lng]
  * @return string longitude
  */
-if( ! function_exists( 'geot_lng' ) ) {
+if ( ! function_exists( 'geot_lng' ) ) {
 	function geot_lng() {
 		return geot_get( 'geolocation' )->longitude;
 	}
@@ -230,7 +230,7 @@ if( ! function_exists( 'geot_lng' ) ) {
  *
  * @return object Current user state. Values are $state->isoCode $state->name
  */
-if( ! function_exists( 'geot_state_by_ip' ) ) {
+if ( ! function_exists( 'geot_state_by_ip' ) ) {
 	function geot_state_by_ip( $ip = '' ) {
 		$data = geot_data( $ip );
 
@@ -244,7 +244,7 @@ if( ! function_exists( 'geot_state_by_ip' ) ) {
  *
  * @return object cities names with country codes
  */
-if( ! function_exists( 'geot_get_cities' ) ) {
+if ( ! function_exists( 'geot_get_cities' ) ) {
 	function geot_get_cities( $country = 'US' ) {
 
 		$cities = get_option( 'geot_cities' . $country );
@@ -265,9 +265,9 @@ if( ! function_exists( 'geot_get_cities' ) ) {
  *
  * @return string
  */
-if( ! function_exists( 'geot_get_cities_choices' ) ) {
+if ( ! function_exists( 'geot_get_cities_choices' ) ) {
 	function geot_get_cities_choices( $country ) {
-		$cities                                   = geot_get_cities( $country );
+		$cities  = geot_get_cities( $country );
 		$choices = json_encode( array_map(
 			function ( $a ) {
 				return [ 'name' => $a->city, 'id' => $a->city ];
@@ -284,7 +284,7 @@ if( ! function_exists( 'geot_get_cities_choices' ) ) {
  *
  * @return Array/String
  */
-if( ! function_exists( 'geot_user_country_region' ) ) {
+if ( ! function_exists( 'geot_user_country_region' ) ) {
 	function geot_user_country_region( $default = '' ) {
 
 		$country_code = geot_country_code();
@@ -313,7 +313,7 @@ if( ! function_exists( 'geot_user_country_region' ) ) {
  *
  * @return Array/String
  */
-if( ! function_exists( 'geot_user_city_region' ) ) {
+if ( ! function_exists( 'geot_user_city_region' ) ) {
 	function geot_user_city_region( $default = '' ) {
 
 		$city_name = geot_city_name();
@@ -348,7 +348,7 @@ if( ! function_exists( 'geot_user_city_region' ) ) {
  *
  * @return bool
  */
-if( ! function_exists( 'geot_target' ) ) {
+if ( ! function_exists( 'geot_target' ) ) {
 	function geot_target( $include = '', $place_region = '', $exclude = '', $exclude_region = '', $key = 'country' ) {
 		$g    = geotWP();
 		$args = [
@@ -372,7 +372,7 @@ if( ! function_exists( 'geot_target' ) ) {
  *
  * @return bool
  */
-if( ! function_exists( 'geot_target_city' ) ) {
+if ( ! function_exists( 'geot_target_city' ) ) {
 	function geot_target_city( $city = '', $city_region = '', $exclude = '', $exclude_region = '' ) {
 		return geot_target( $city, $city_region, $exclude, $exclude_region, 'city' );
 	}
@@ -386,7 +386,7 @@ if( ! function_exists( 'geot_target_city' ) ) {
  *
  * @return bool
  */
-if( ! function_exists( 'geot_target_state' ) ) {
+if ( ! function_exists( 'geot_target_state' ) ) {
 	function geot_target_state( $state = '', $exclude = '' ) {
 		return geot_target( $state, '', $exclude, '', 'state' );
 	}
@@ -400,7 +400,7 @@ if( ! function_exists( 'geot_target_state' ) ) {
  *
  * @return bool
  */
-if( ! function_exists( 'geot_target_zip' ) ) {
+if ( ! function_exists( 'geot_target_zip' ) ) {
 	function geot_target_zip( $zip = '', $exclude = '' ) {
 		return geot_target( $zip, '', $exclude, '', 'zip' );
 	}
@@ -409,7 +409,7 @@ if( ! function_exists( 'geot_target_zip' ) ) {
  * Grab geot settings
  * @return mixed|void
  */
-if( ! function_exists( 'geot_settings' ) ) {
+if ( ! function_exists( 'geot_settings' ) ) {
 	function geot_settings() {
 		return apply_filters( 'geot/settings_page/opts', get_option( 'geot_settings' ) );
 	}
@@ -418,7 +418,7 @@ if( ! function_exists( 'geot_settings' ) ) {
  * Return Country Regions
  * @return mixed
  */
-if( ! function_exists( 'geot_country_regions' ) ) {
+if ( ! function_exists( 'geot_country_regions' ) ) {
 	function geot_country_regions() {
 		return apply_filters( 'geot/get_country_regions', [] );
 	}
@@ -427,7 +427,7 @@ if( ! function_exists( 'geot_country_regions' ) ) {
  * Return City Regions
  * @return mixed
  */
-if( ! function_exists( 'geot_city_regions' ) ) {
+if ( ! function_exists( 'geot_city_regions' ) ) {
 	function geot_city_regions() {
 		return apply_filters( 'geot/get_city_regions', [] );
 	}
@@ -436,7 +436,7 @@ if( ! function_exists( 'geot_city_regions' ) ) {
  * Grab countries from database
  * @return mixed
  */
-if( ! function_exists( 'geot_countries' ) ) {
+if ( ! function_exists( 'geot_countries' ) ) {
 	function geot_countries() {
 		return apply_filters( 'geot/get_countries', [] );
 	}
@@ -445,7 +445,7 @@ if( ! function_exists( 'geot_countries' ) ) {
  * Prints geo debug data
  * @return bool|string
  */
-if( ! function_exists( 'geot_debug_data' ) ) {
+if ( ! function_exists( 'geot_debug_data' ) ) {
 	function geot_debug_data() {
 		$user_data = geot_data();
 		if ( empty( $user_data->country ) ) {
@@ -482,280 +482,295 @@ if( ! function_exists( 'geot_debug_data' ) ) {
  * Return Predefined Country Regions
  * @return mixed
  */
-if( ! function_exists( 'geot_predefined_regions' ) ) {
-function geot_predefined_regions() {
+if ( ! function_exists( 'geot_predefined_regions' ) ) {
+	function geot_predefined_regions() {
 
-	$regions =
-		[
+		$regions =
 			[
-				'name'      => 'africa',
-				'countries' => [
-					'AO',
-					'BF',
-					'BI',
-					'BJ',
-					'BW',
-					'CD',
-					'CF',
-					'CG',
-					'CI',
-					'CM',
-					'CV',
-					'DJ',
-					'DZ',
-					'EG',
-					'EH',
-					'ER',
-					'ET',
-					'GA',
-					'GH',
-					'GM',
-					'GN',
-					'GQ',
-					'GW',
-					'KE',
-					'KM',
-					'LR',
-					'LS',
-					'LY',
-					'MA',
-					'MG',
-					'ML',
-					'MR',
-					'MU',
-					'MW',
-					'MZ',
-					'NA',
-					'NE',
-					'NG',
-					'RE',
-					'RW',
-					'SC',
-					'SD',
-					'SH',
-					'SL',
-					'SN',
-					'SO',
-					'ST',
-					'SZ',
-					'TD',
-					'TG',
-					'TN',
-					'TZ',
-					'UG',
-					'YT',
-					'ZA',
-					'ZM',
-					'ZW',
+				[
+					'name'      => 'africa',
+					'countries' => [
+						'AO',
+						'BF',
+						'BI',
+						'BJ',
+						'BW',
+						'CD',
+						'CF',
+						'CG',
+						'CI',
+						'CM',
+						'CV',
+						'DJ',
+						'DZ',
+						'EG',
+						'EH',
+						'ER',
+						'ET',
+						'GA',
+						'GH',
+						'GM',
+						'GN',
+						'GQ',
+						'GW',
+						'KE',
+						'KM',
+						'LR',
+						'LS',
+						'LY',
+						'MA',
+						'MG',
+						'ML',
+						'MR',
+						'MU',
+						'MW',
+						'MZ',
+						'NA',
+						'NE',
+						'NG',
+						'RE',
+						'RW',
+						'SC',
+						'SD',
+						'SH',
+						'SL',
+						'SN',
+						'SO',
+						'ST',
+						'SZ',
+						'TD',
+						'TG',
+						'TN',
+						'TZ',
+						'UG',
+						'YT',
+						'ZA',
+						'ZM',
+						'ZW',
+					],
 				],
-			],
 
-			[ 'name' => 'antarctica', 'countries' => [ 'AQ', 'BV', 'GS', 'HM', 'TF' ] ],
+				[ 'name' => 'antarctica', 'countries' => [ 'AQ', 'BV', 'GS', 'HM', 'TF' ] ],
 
-			[
-				'name'      => 'asia',
-				'countries' => [
-					'AE',
-					'AF',
-					'AM',
-					'AP',
-					'AZ',
-					'BD',
-					'BH',
-					'BN',
-					'BT',
-					'CC',
-					'CN',
-					'CX',
-					'CY',
-					'GE',
-					'HK',
-					'ID',
-					'IL',
-					'IN',
-					'IO',
-					'IQ',
-					'IR',
-					'JO',
-					'JP',
-					'KG',
-					'KH',
-					'KP',
-					'KR',
-					'KW',
-					'KZ',
-					'LA',
-					'LB',
-					'LK',
-					'MM',
-					'MN',
-					'MO',
-					'MV',
-					'MY',
-					'NP',
-					'OM',
-					'PH',
-					'PK',
-					'PS',
-					'QA',
-					'SA',
-					'SG',
-					'SY',
-					'TH',
-					'TJ',
-					'TL',
-					'TM',
-					'TW',
-					'UZ',
-					'VN',
-					'YE',
+				[
+					'name'      => 'asia',
+					'countries' => [
+						'AE',
+						'AF',
+						'AM',
+						'AP',
+						'AZ',
+						'BD',
+						'BH',
+						'BN',
+						'BT',
+						'CC',
+						'CN',
+						'CX',
+						'CY',
+						'GE',
+						'HK',
+						'ID',
+						'IL',
+						'IN',
+						'IO',
+						'IQ',
+						'IR',
+						'JO',
+						'JP',
+						'KG',
+						'KH',
+						'KP',
+						'KR',
+						'KW',
+						'KZ',
+						'LA',
+						'LB',
+						'LK',
+						'MM',
+						'MN',
+						'MO',
+						'MV',
+						'MY',
+						'NP',
+						'OM',
+						'PH',
+						'PK',
+						'PS',
+						'QA',
+						'SA',
+						'SG',
+						'SY',
+						'TH',
+						'TJ',
+						'TL',
+						'TM',
+						'TW',
+						'UZ',
+						'VN',
+						'YE',
+					],
 				],
-			],
 
-			[
-				'name'      => 'europe',
-				'countries' => [
-					'AD',
-					'AL',
-					'AT',
-					'AX',
-					'BA',
-					'BE',
-					'BG',
-					'BY',
-					'CH',
-					'CZ',
-					'DE',
-					'DK',
-					'EE',
-					'ES',
-					'EU',
-					'FI',
-					'FO',
-					'FR',
-					'FX',
-					'GB',
-					'GG',
-					'GI',
-					'GR',
-					'HR',
-					'HU',
-					'IE',
-					'IM',
-					'IS',
-					'IT',
-					'JE',
-					'LI',
-					'LT',
-					'LU',
-					'LV',
-					'MC',
-					'MD',
-					'ME',
-					'MK',
-					'MT',
-					'NL',
-					'NO',
-					'PL',
-					'PT',
-					'RO',
-					'RS',
-					'RU',
-					'SE',
-					'SI',
-					'SJ',
-					'SK',
-					'SM',
-					'TR',
-					'UA',
-					'VA',
+				[
+					'name'      => 'europe',
+					'countries' => [
+						'AD',
+						'AL',
+						'AT',
+						'AX',
+						'BA',
+						'BE',
+						'BG',
+						'BY',
+						'CH',
+						'CZ',
+						'DE',
+						'DK',
+						'EE',
+						'ES',
+						'EU',
+						'FI',
+						'FO',
+						'FR',
+						'FX',
+						'GB',
+						'GG',
+						'GI',
+						'GR',
+						'HR',
+						'HU',
+						'IE',
+						'IM',
+						'IS',
+						'IT',
+						'JE',
+						'LI',
+						'LT',
+						'LU',
+						'LV',
+						'MC',
+						'MD',
+						'ME',
+						'MK',
+						'MT',
+						'NL',
+						'NO',
+						'PL',
+						'PT',
+						'RO',
+						'RS',
+						'RU',
+						'SE',
+						'SI',
+						'SJ',
+						'SK',
+						'SM',
+						'TR',
+						'UA',
+						'VA',
+					],
 				],
-			],
 
-			[
-				'name'      => 'north-america',
-				'countries' => [
-					'AG',
-					'AI',
-					'AN',
-					'AW',
-					'BB',
-					'BL',
-					'BM',
-					'BS',
-					'BZ',
-					'CA',
-					'CR',
-					'CU',
-					'DM',
-					'DO',
-					'GD',
-					'GL',
-					'GP',
-					'GT',
-					'HN',
-					'HT',
-					'JM',
-					'KN',
-					'KY',
-					'LC',
-					'MF',
-					'MQ',
-					'MS',
-					'MX',
-					'NI',
-					'PA',
-					'PM',
-					'PR',
-					'SV',
-					'TC',
-					'TT',
-					'US',
-					'VC',
-					'VG',
-					'VI',
+				[
+					'name'      => 'north-america',
+					'countries' => [
+						'AG',
+						'AI',
+						'AN',
+						'AW',
+						'BB',
+						'BL',
+						'BM',
+						'BS',
+						'BZ',
+						'CA',
+						'CR',
+						'CU',
+						'DM',
+						'DO',
+						'GD',
+						'GL',
+						'GP',
+						'GT',
+						'HN',
+						'HT',
+						'JM',
+						'KN',
+						'KY',
+						'LC',
+						'MF',
+						'MQ',
+						'MS',
+						'MX',
+						'NI',
+						'PA',
+						'PM',
+						'PR',
+						'SV',
+						'TC',
+						'TT',
+						'US',
+						'VC',
+						'VG',
+						'VI',
+					],
 				],
-			],
 
-			[
-				'name'      => 'oceania',
-				'countries' => [
-					'AS',
-					'AU',
-					'CK',
-					'FJ',
-					'FM',
-					'GU',
-					'KI',
-					'MH',
-					'MP',
-					'NC',
-					'NF',
-					'NR',
-					'NU',
-					'NZ',
-					'PF',
-					'PG',
-					'PN',
-					'PW',
-					'SB',
-					'TK',
-					'TO',
-					'TV',
-					'UM',
-					'VU',
-					'WF',
-					'WS',
+				[
+					'name'      => 'oceania',
+					'countries' => [
+						'AS',
+						'AU',
+						'CK',
+						'FJ',
+						'FM',
+						'GU',
+						'KI',
+						'MH',
+						'MP',
+						'NC',
+						'NF',
+						'NR',
+						'NU',
+						'NZ',
+						'PF',
+						'PG',
+						'PN',
+						'PW',
+						'SB',
+						'TK',
+						'TO',
+						'TV',
+						'UM',
+						'VU',
+						'WF',
+						'WS',
+					],
 				],
-			],
 
-			[
-				'name'      => 'south-america',
-				'countries' => [ 'AR', 'BO', 'BR', 'CL', 'CO', 'EC', 'FK', 'GF', 'GY', 'PE', 'PY', 'SR', 'UY', 'VE' ],
-			],
+				[
+					'name'      => 'south-america',
+					'countries' => [
+						'AR',
+						'BO',
+						'BR',
+						'CL',
+						'CO',
+						'EC',
+						'FK',
+						'GF',
+						'GY',
+						'PE',
+						'PY',
+						'SR',
+						'UY',
+						'VE',
+					],
+				],
 
-		];
+			];
 
-	return apply_filters( 'geot/get_predefined_regions', $regions );
-}
+		return apply_filters( 'geot/get_predefined_regions', $regions );
+	}
 }

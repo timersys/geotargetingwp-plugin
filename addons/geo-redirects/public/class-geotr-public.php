@@ -23,14 +23,13 @@ use Jaybizzle\CrawlerDetect\CrawlerDetect;
  */
 class GeotWP_R_Public {
 /**
- * @var Array of Redirection posts
- */
-private $redirections;
-
-/**
  * @var bool to ajaxmode
  */
 public $ajax_call = false;
+/**
+ * @var Array of Redirection posts
+ */
+private $redirections;
 
 public function __construct() {
 	add_action( 'plugins_loaded', [ $this, 'init_geotWP' ], - 2 );
@@ -117,6 +116,27 @@ public function handle_redirects() {
 	} else {
 		$this->check_for_rules();
 	}
+}
+
+/**
+ * Grab geotr settings
+ * @return mixed|void
+ */
+function get_redirections() {
+	global $wpdb;
+
+	$sql = "SELECT ID, 
+	MAX(CASE WHEN pm1.meta_key = 'geotr_rules' then pm1.meta_value ELSE NULL END) as geotr_rules,
+	MAX(CASE WHEN pm1.meta_key = 'geotr_options' then pm1.meta_value ELSE NULL END) as geotr_options
+    FROM $wpdb->posts p LEFT JOIN $wpdb->postmeta pm1 ON ( pm1.post_id = p.ID)  WHERE post_type='geotr_cpt' AND post_status='publish' GROUP BY p.ID";
+
+	$redirections = wp_cache_get( md5( $sql ), 'geotr_posts' );
+	if ( $redirections === false ) {
+		$redirections = $wpdb->get_results( $sql, OBJECT );
+		wp_cache_add( md5( $sql ), $redirections, 'geotr_posts' );
+	}
+
+	return $redirections;
 }
 
 /**
@@ -274,7 +294,7 @@ private function perform_redirect( $redirection ) {
 
 	//last chance to abort
 	if ( ! apply_filters( 'geotr/cancel_redirect', false, $opts, $redirection ) ) {
-		if( $this->ajax_call === true ) {
+		if ( $this->ajax_call === true ) {
 			return $opts;
 		} else {
 			wp_redirect( apply_filters( 'geotr/final_url', $opts['url'] ), $opts['status'] );
@@ -308,33 +328,11 @@ public function fixRedirect( $redirect ) {
  */
 public function handle_ajax_redirects() {
 	GeotWP_R_ules::init();
-	$this->ajax_call = true;
+	$this->ajax_call    = true;
 	$this->redirections = $this->get_redirections();
 
 	return $this->check_for_rules();
 	die();
-}
-
-
-/**
- * Grab geotr settings
- * @return mixed|void
- */
-function get_redirections() {
-	global $wpdb;
-
-	$sql = "SELECT ID, 
-	MAX(CASE WHEN pm1.meta_key = 'geotr_rules' then pm1.meta_value ELSE NULL END) as geotr_rules,
-	MAX(CASE WHEN pm1.meta_key = 'geotr_options' then pm1.meta_value ELSE NULL END) as geotr_options
-    FROM $wpdb->posts p LEFT JOIN $wpdb->postmeta pm1 ON ( pm1.post_id = p.ID)  WHERE post_type='geotr_cpt' AND post_status='publish' GROUP BY p.ID";
-
-	$redirections = wp_cache_get( md5( $sql ), 'geotr_posts' );
-	if ( $redirections === false ) {
-		$redirections = $wpdb->get_results( $sql, OBJECT );
-		wp_cache_add( md5( $sql ), $redirections, 'geotr_posts' );
-	}
-
-	return $redirections;
 }
 
 }

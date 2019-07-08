@@ -98,12 +98,12 @@ class GeotWP_Public {
 		wp_localize_script( 'geot-js', 'geot', [
 			'ajax_url'          => admin_url( 'admin-ajax.php' ),
 			'ajax'              => isset( $this->opts['ajax_mode'] ) ? '1' : '',
-			'pid'				=> get_queried_object_id(),
-            'is_archive'        => is_archive(),
+			'pid'               => get_queried_object_id(),
+			'is_archive'        => is_archive(),
 			'is_search'         => is_search(),
 			'is_singular'       => is_singular(),
 			'is_front_page'     => is_front_page(),
-            'is_category'       => is_category(),
+			'is_category'       => is_category(),
 			'is_page'           => is_page(),
 			'is_single'         => is_single(),
 			'dropdown_search'   => apply_filters( 'geot/dropdown_widget/disable_search', false ),
@@ -376,7 +376,7 @@ class GeotWP_Public {
 		$opts = get_post_meta( $post->ID, 'geot_options', true );
 
 		if ( GeotWP_Helper::user_is_targeted( $opts, $post->ID ) ) {
-			return apply_filters( 'geot/forbidden_text', '<p>' . $opts['forbidden_text'] . '</p>' , $post, $opts);
+			return apply_filters( 'geot/forbidden_text', '<p>' . $opts['forbidden_text'] . '</p>', $post, $opts );
 		}
 
 		return $content;

@@ -167,18 +167,20 @@ class GeotCore {
 
 	/**
 	 * Use user's setting for showing IP
+	 *
 	 * @param $ip
 	 *
 	 * @return mixed
 	 */
 	function rewrite_ip( $ip ) {
 		$settings = geot_settings();
-		$ip = $_SERVER['REMOTE_ADDR'];
+		$ip       = $_SERVER['REMOTE_ADDR'];
 		if ( isset( $settings['var_ip'] ) && ! empty( $settings['var_ip'] ) ) {
 			$ip = $_SERVER[ $settings['var_ip'] ];
 		}
+
 		// if two ips provided, on use the first
-		return strstr( $ip, ',') === false ? $ip : strstr( $ip, ',', true);
+		return strstr( $ip, ',' ) === false ? $ip : strstr( $ip, ',', true );
 	}
 
 	/**

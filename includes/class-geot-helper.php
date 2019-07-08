@@ -708,22 +708,24 @@ class GeotWP_Helper {
 		unset( $data );
 
 		// Ordering the Rulers
-		foreach($groups as $group_id => $group ) {
-			if( is_array($group) ) {
+		foreach ( $groups as $group_id => $group ) {
+			if ( is_array( $group ) ) {
 
 				$output_geot = [];
-				$group_wkey = array_values( $group );
+				$group_wkey  = array_values( $group );
 
-				foreach( $group_wkey as $item_key => $items ) {
-					if( in_array($items['param'], $keys_geot) )
+				foreach ( $group_wkey as $item_key => $items ) {
+					if ( in_array( $items['param'], $keys_geot ) ) {
 						$output_geot[] = $items;
-					else
-						$output_groups[$group_id][] = $items;
+					} else {
+						$output_groups[ $group_id ][] = $items;
+					}
 				}
 
-				if( count($output_geot) > 0 ) {
-					foreach($output_geot as $item_geot)
-						$output_groups[$group_id][] = $item_geot;
+				if ( count( $output_geot ) > 0 ) {
+					foreach ( $output_geot as $item_geot ) {
+						$output_groups[ $group_id ][] = $item_geot;
+					}
 				}
 			}
 		}
