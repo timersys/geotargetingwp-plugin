@@ -186,26 +186,16 @@ class GeotWP_Bl_Public {
 		//last chance to abort
 		if ( ! apply_filters( 'geobl/cancel_block', false, $opts, $block ) ) {
 
-			if( $this->ajax_call )
-				return $opts;
+			if( $this->ajax_call ) {
+				return GeotWP_Bl_Helper::get_template( $block->ID );
+			}
 			else {
-				self::block_screen( $block->ID, $opts['block_message'] );
+				echo GeotWP_Bl_Helper::get_template( $block->ID );
 				die();
 			}
 		}
 	}
 
-	/**
-	 * Print placeholder in front end
-	 *
-	 * @param $id
-	 * @param $message
-	 */
-	public static function block_screen( $id, $message ) {
-
-		$args = [ 'message' => $message, 'id' => $id ];
-		GeotWP_Bl_Helper::include_template( $args );
-	}
 
 	/**
 	 * Handle Ajax call for blocks, Basically
@@ -230,10 +220,7 @@ class GeotWP_Bl_Public {
 		if ( isset( $_GET['wp-nonce'] ) && wp_verify_nonce( $_REQUEST['wp-nonce'], 'nonce-template' ) &&
 		     isset( $_GET['id'] ) && is_numeric( $_GET['id'] ) ) {
 
-			$opts = GeotWP_Bl_Helper::get_options( $_GET['id'] );
-			$args = [ 'message' => do_shortcode( $opts['block_message'] ), 'id' => $_GET['id'] ];
-
-			GeotWP_Bl_Helper::include_template( $args );
+			echo GeotWP_Bl_Helper::get_template( intval($_GET['id']) );
 		}
 		die();
 	}

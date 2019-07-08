@@ -179,8 +179,8 @@
                     }, 2000);
             }
 
-            if( blocker && blocker.block_message ) {
-                $('html').html(blocker.block_message);
+            if( blocker && blocker.length ) {
+                $('html').html(blocker);
             }
 
             console.log(response);

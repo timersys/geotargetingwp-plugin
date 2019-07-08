@@ -1,3 +1,5 @@
+<?php $opts = GeotWP_Bl_Helper::get_options( $id ); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +42,7 @@
 <div class="geobl-container">
 	<div class="geobl-section">
 		<img src="<?php echo GEOTWP_BL_PLUGIN_URL; ?>/public/img/stop.svg" alt="Stop"/><br>
-		<?php echo $message; ?>
+		<?php echo $opts['block_message']; ?>
 	</div>
 </div>
 </body>
