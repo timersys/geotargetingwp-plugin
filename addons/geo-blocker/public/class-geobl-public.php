@@ -43,8 +43,6 @@ class GeotWP_Bl_Public {
 			add_action( $action_hook, [ $this, 'handle_blockers' ] );
 		}
 
-		//add_action( 'wp_ajax_nopriv_geo_blocks', [ $this, 'handle_ajax_blockers' ], 1 );
-		//add_action( 'wp_ajax_geo_blocks', [ $this, 'handle_ajax_blockers' ], 1 );
 		add_action( 'wp_ajax_geo_template', [ $this, 'view_template' ], 1 );
 	}
 
@@ -221,21 +219,6 @@ class GeotWP_Bl_Public {
 		die();
 	}
 
-	/**
-	 * Enqueue script file
-	 */
-	public function enqueue_scripts() {
-		wp_enqueue_script( 'geobl-js', plugins_url( 'js/geobl-public.js', __FILE__ ), [ 'jquery' ], GEOTWP_BL_VERSION, true );
-		wp_localize_script( 'geobl-js', 'geobl', [
-			'ajax_url'      => admin_url( 'admin-ajax.php' ),
-			'pid'           => get_queried_object_id(),
-			'is_front_page' => is_front_page(),
-			'is_category'   => is_category(),
-			'site_url'      => site_url(),
-			'is_archive'    => is_archive(),
-			'is_search'     => is_search(),
-		] );
-	}
 
 	/**
 	 * Print default template
