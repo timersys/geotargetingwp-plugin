@@ -52,6 +52,14 @@ class GeotWP_Ajax {
 		$debug      = "";
 		$posts      = $this->get_geotargeted_posts();
 		$this->data = $_POST;
+
+		if( isset($this->data['geot_redirects']) && $this->data['geot_redirects'] == 1 )
+			$redirect = $this->geo_redirects();
+
+		if( isset($this->data['geot_blockers']) && $this->data['geot_blockers'] == 1 )
+			$blocker = $this->geo_blockers();
+
+
 		if ( isset( $this->data['geots'] ) ) {
 			foreach ( $this->data['geots'] as $id => $geot ) {
 				if ( method_exists( $this, $geot['action'] ) ) {
@@ -66,7 +74,7 @@ class GeotWP_Ajax {
 			$debug = $this->getDebugInfo();
 		}
 
-		echo json_encode( [ 'success' => 1, 'data' => $geots, 'posts' => $posts, 'debug' => $debug ] );
+		echo json_encode( [ 'success' => 1, 'data' => $geots, 'posts' => $posts, 'redirect' => $redirect, 'blocker' => $blocker, 'debug' => $debug ] );
 		die();
 	}
 
@@ -413,4 +421,28 @@ class GeotWP_Ajax {
 
 	}
 
+	/**
+	 * Print geot Redirect
+	 *
+	 * @param $geot
+	 *
+	 * @return string
+	 */
+	private function geo_redirects() {
+		$GeoRedirect = new GeotWP_R_Public();
+		return $GeoRedirect->handle_ajax_redirects();
+	}
+
+
+	/**
+	 * Print geot Blocks
+	 *
+	 * @param $geot
+	 *
+	 * @return string
+	 */
+	private function geo_blockers() {
+		$GeoBlocker = new GeotWP_Bl_Public();
+		return $GeoBlocker->handle_ajax_blockers();
+	}
 }

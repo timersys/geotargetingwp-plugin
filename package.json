@@ -1,0 +1,26 @@
+{
+  "name": "geotargetingwp-plugin",
+  "version": "1.0.0",
+  "description": "Geotargeting Pro Plugin\r =========================",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-uglify": "^4.0.1"
+  },
+  "devDependencies": {
+    "grunt-yui-compressor": "^0.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timersys/geotargetingwp-plugin.git"
+  },
+  "author": "Timersys",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timersys/geotargetingwp-plugin/issues"
+  },
+  "homepage": "https://github.com/timersys/geotargetingwp-plugin#readme"
+}

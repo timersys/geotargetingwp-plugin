@@ -116,6 +116,14 @@
             'action': 'geot_ajax',
             'geots': {},
             'vars': geot,
+            'pid': geot.pid,
+            'referrer': document.referrer,
+            'url': window.location.href,
+            'query_string': document.location.search,
+            'is_category': geot.is_category,
+            'is_archive': geot.is_archive,
+            'is_front_page': geot.is_front_page,
+            'is_search': geot.is_search,
             'geot_debug': geot_debug,
             'geot_debug_iso': geot_debug_iso,
             'geot_state': geot_state,
@@ -145,13 +153,36 @@
             'locale': _this.data('locale') || 'en',
         }
     });
+
+
+    if( $('.geotr-ajax').length )
+        data.geot_redirects = 1;
+
+    if( $('.geobl-ajax').length )
+        data.geot_blockers = 1;
+
+
     var onSuccess = function (response) {
         if (response.success) {
             var results = response.data,
                 i,
+                redirect = response.redirect,
+                blocker = response.blocker,
                 remove = response.posts.remove,
                 hide = response.posts.hide,
                 debug = response.debug;
+
+            if( redirect && redirect.url ) {
+                $('.geotr-ajax').show();
+                    setTimeout(function () {
+                        location.replace(redirect.url)
+                    }, 2000);
+            }
+
+            if( blocker && blocker.length ) {
+                $('html').html(blocker);
+            }
+
             console.log(response);
             if (results && results.length) {
                 for (i = 0; i < results.length; ++i) {
@@ -187,7 +218,11 @@
             }
         }
     }
+
+    var error_cb = function (data, error, errorThrown) {
+        console.log('Geot Ajax error: ' + error + ' - ' + errorThrown);
+    }
     if (geot && geot.ajax)
-        GeotRequest(data, onSuccess)
+        GeotRequest(data, onSuccess, error_cb);
 
 })(jQuery);

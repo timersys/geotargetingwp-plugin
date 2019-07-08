@@ -26,6 +26,11 @@ class GeotWP_Bl_Public {
 	private $blocks;
 
 	/**
+ 	* @var bool to ajaxmode
+ 	*/
+	public $ajax_call = false;
+
+	/**
 	 * Construct
 	 * @return bool
 	 */
@@ -38,8 +43,6 @@ class GeotWP_Bl_Public {
 			add_action( $action_hook, [ $this, 'handle_blockers' ] );
 		}
 
-		add_action( 'wp_ajax_nopriv_geo_blocks', [ $this, 'handle_ajax_blockers' ], 1 );
-		add_action( 'wp_ajax_geo_blocks', [ $this, 'handle_ajax_blockers' ], 1 );
 		add_action( 'wp_ajax_geo_template', [ $this, 'view_template' ], 1 );
 	}
 
@@ -84,11 +87,10 @@ class GeotWP_Bl_Public {
 		GeotWP_R_ules::init();
 		$this->blocks = $this->get_blocks();
 		$opts_geot    = geot_settings();
-		if ( ! empty( $opts_geot['ajax_mode'] ) ) {
-			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-		} else {
+		if ( !empty( $opts_geot['ajax_mode'] ) )
+			add_action( 'wp_footer', [ $this, 'ajax_placeholder' ] );
+		else
 			$this->check_for_rules();
-		}
 	}
 
 	/**
@@ -125,11 +127,13 @@ class GeotWP_Bl_Public {
 				$rules    = ! empty( $r->geobl_rules ) ? unserialize( $r->geobl_rules ) : [];
 				$do_block = GeotWP_R_ules::is_ok( $rules );
 				if ( $do_block ) {
-					$this->perform_block( $r );
+					return $this->perform_block( $r );
 					break;
 				}
 			}
 		}
+
+		return false;
 	}
 
 	/**
@@ -181,22 +185,17 @@ class GeotWP_Bl_Public {
 		$opts['block_message'] = do_shortcode( $opts['block_message'] );
 		//last chance to abort
 		if ( ! apply_filters( 'geobl/cancel_block', false, $opts, $block ) ) {
-			self::block_screen( $block->ID, $opts['block_message'] );
-			die();
+
+			if( $this->ajax_call ) {
+				return GeotWP_Bl_Helper::get_template( $block->ID );
+			}
+			else {
+				echo GeotWP_Bl_Helper::get_template( $block->ID );
+				die();
+			}
 		}
 	}
 
-	/**
-	 * Print placeholder in front end
-	 *
-	 * @param $id
-	 * @param $message
-	 */
-	public static function block_screen( $id, $message ) {
-
-		$args = [ 'message' => $message, 'id' => $id ];
-		GeotWP_Bl_Helper::include_template( $args );
-	}
 
 	/**
 	 * Handle Ajax call for blocks, Basically
@@ -204,26 +203,12 @@ class GeotWP_Bl_Public {
 	 */
 	public function handle_ajax_blockers() {
 		GeotWP_R_ules::init();
+		$this->ajax_call = true;
 		$this->blocks = $this->get_blocks();
-		$this->check_for_rules();
+		return $this->check_for_rules();
 		die();
 	}
 
-	/**
-	 * Enqueue script file
-	 */
-	public function enqueue_scripts() {
-		wp_enqueue_script( 'geobl-js', plugins_url( 'js/geobl-public.js', __FILE__ ), [ 'jquery' ], GEOTWP_BL_VERSION, true );
-		wp_localize_script( 'geobl-js', 'geobl', [
-			'ajax_url'      => admin_url( 'admin-ajax.php' ),
-			'pid'           => get_queried_object_id(),
-			'is_front_page' => is_front_page(),
-			'is_category'   => is_category(),
-			'site_url'      => site_url(),
-			'is_archive'    => is_archive(),
-			'is_search'     => is_search(),
-		] );
-	}
 
 	/**
 	 * Print default template
@@ -235,12 +220,13 @@ class GeotWP_Bl_Public {
 		if ( isset( $_GET['wp-nonce'] ) && wp_verify_nonce( $_REQUEST['wp-nonce'], 'nonce-template' ) &&
 		     isset( $_GET['id'] ) && is_numeric( $_GET['id'] ) ) {
 
-			$opts = GeotWP_Bl_Helper::get_options( $_GET['id'] );
-			$args = [ 'message' => do_shortcode( $opts['block_message'] ), 'id' => $_GET['id'] ];
-
-			GeotWP_Bl_Helper::include_template( $args );
+			echo GeotWP_Bl_Helper::get_template( intval($_GET['id']) );
 		}
 		die();
+	}
+
+	public function ajax_placeholder() {
+		echo '<div class="geobl-ajax" style="display: none"></div>';
 	}
 
 }
