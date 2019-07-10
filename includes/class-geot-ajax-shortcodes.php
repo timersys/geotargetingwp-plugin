@@ -29,6 +29,7 @@ class GeotWP_Ajax_Shortcodes {
 	public function __construct() {
 
 		$this->geot_opts = geotwp_settings();
+		$this->opts = geot_settings();
 
 		add_action( 'init', [ $this, 'register_shortcodes' ] );
 	}
@@ -39,7 +40,7 @@ class GeotWP_Ajax_Shortcodes {
 	 */
 	public function register_shortcodes() {
 
-		if ( ! isset( $this->geot_opts['ajax_mode'] ) || $this->geot_opts['ajax_mode'] != '1' ) {
+		if ( ! isset( $this->opts['ajax_mode'] ) || $this->opts['ajax_mode'] != '1' ) {
 			return;
 		}
 

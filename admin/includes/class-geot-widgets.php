@@ -23,10 +23,11 @@ class GeotWP_Widgets {
 	public function __construct() {
 
 		$this->geot_opts = geotwp_settings();
+		$this->opts = geot_settings();
 
 		// give users a way to disable widgets targeting
 		if ( empty( $this->geot_opts['disable_widget_integration'] ) &&
-		     empty( $this->geot_opts['ajax_mode'] )
+		     empty( $this->opts['ajax_mode'] )
 		) {
 			// add geot to all widgets
 			add_action( 'in_widget_form', [ $this, 'add_geot_to_widgets' ], 5, 3 );
@@ -172,7 +173,7 @@ class GeotWP_Widgets {
 	 */
 	public function target_widgets( $widget_data ) {
 
-		if ( ! empty( $this->geot_opts['ajax_mode'] ) ) {
+		if ( ! empty( $this->opts['ajax_mode'] ) ) {
 			return $widget_data;
 		}
 
@@ -254,7 +255,7 @@ class GeotWP_Widgets {
 
 
 		// don't work in ajax mode
-		if ( ! empty( $this->geot_opts['ajax_mode'] ) ) {
+		if ( ! empty( $this->opts['ajax_mode'] ) ) {
 			return $the_widget;
 		}
 

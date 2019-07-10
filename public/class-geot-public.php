@@ -289,7 +289,7 @@ class GeotWP_Public {
 			return $where;
 		}
 
-		if ( ( isset( $this->geot_opts['ajax_mode'] ) && $this->geot_opts['ajax_mode'] == '1' ) ) {
+		if ( ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) ) {
 			return $where;
 		}
 
@@ -365,7 +365,7 @@ class GeotWP_Public {
 	public function check_if_geotargeted_content( $content ) {
 		global $post;
 
-		if ( isset( $this->geot_opts['ajax_mode'] ) && $this->geot_opts['ajax_mode'] == '1' ) {
+		if ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) {
 			return $content;
 		}
 
@@ -447,7 +447,7 @@ class GeotWP_Public {
 
 		?>
 		<!-- Geotargeting plugin Debug Info START-->
-		<div id="geot-debug-info" style="display: none;"><!--<?php if ( empty( $this->geot_opts['ajax_mode'] ) ) {
+		<div id="geot-debug-info" style="display: none;"><!--<?php if ( empty( $this->opts['ajax_mode'] ) ) {
 				echo geot_debug_data();
 			} ?>--></div>
 		<!-- Geotargeting plugin Debug Info END-->

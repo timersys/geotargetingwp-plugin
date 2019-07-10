@@ -189,12 +189,12 @@ class GeotWP_Divi {
 			return $output;
 		}
 
-		$geot_opts     = geotwp_settings();
-		$reg_countries = array_values( self::get_regions( 'country' ) );
-		$reg_cities    = array_values( self::get_regions( 'city' ) );
+		$opts 			= geot_settings();
+		$reg_countries 	= array_values( self::get_regions( 'country' ) );
+		$reg_cities 	= array_values( self::get_regions( 'city' ) );
 
 
-		if ( isset( $geot_opts['ajax_mode'] ) && $geot_opts['ajax_mode'] == '1' ) {
+		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
 
 			$output = Divi_GeoZipcode::ajax_render( $module->props, $output );
 			$output = Divi_GeoState::ajax_render( $module->props, $output );

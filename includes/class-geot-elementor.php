@@ -132,10 +132,10 @@ class GeotWP_Elementor {
 	 */
 	public function is_render( $should_render, $element ) {
 
-		$geot_opts = geotwp_settings();
-		$settings  = $element->get_settings_for_display();
+		$opts 		= geot_settings();
+		$settings 	= $element->get_settings_for_display();
 
-		if ( ! isset( $geot_opts['ajax_mode'] ) || $geot_opts['ajax_mode'] != '1' ) {
+		if ( ! isset( $opts['ajax_mode'] ) || $opts['ajax_mode'] != '1' ) {
 
 			if ( ! Elementor_GeoCountry::is_render( $settings ) ||
 			     ! Elementor_GeoCity::is_render( $settings ) ||
@@ -159,10 +159,10 @@ class GeotWP_Elementor {
 	 */
 	public function ajax_before_render( $element ) {
 
-		$geot_opts = geotwp_settings();
-		$settings  = $element->get_active_settings();
+		$opts 		= geot_settings();
+		$settings 	= $element->get_active_settings();
 
-		if ( isset( $geot_opts['ajax_mode'] ) && $geot_opts['ajax_mode'] == '1' ) {
+		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
 
 			Elementor_GeoCountry::ajax_before_render( $settings );
 			Elementor_GeoCity::ajax_before_render( $settings );
@@ -183,10 +183,10 @@ class GeotWP_Elementor {
 	 */
 	public function ajax_after_render( $element ) {
 
-		$geot_opts = geotwp_settings();
-		$settings  = $element->get_active_settings();
+		$opts 		= geot_settings();
+		$settings 	= $element->get_active_settings();
 
-		if ( isset( $geot_opts['ajax_mode'] ) && $geot_opts['ajax_mode'] == '1' ) {
+		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
 
 			Elementor_GeoCountry::ajax_after_render( $settings );
 			Elementor_GeoCity::ajax_after_render( $settings );

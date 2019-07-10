@@ -26,7 +26,7 @@ class GeotWP_Taxonomies {
 		$this->geot_opts = geotwp_settings();
 
 		// Categories only if ajax mode is disabled
-		if ( empty( $this->geot_opts['ajax_mode'] ) ) {
+		if ( empty( $this->opts['ajax_mode'] ) ) {
 			add_action( 'edit_category_form_fields', [ $this, 'edit_category_fields' ], 10, 1 );
 			add_action( 'edited_category', [ $this, 'save_category_fields' ], 10, 1 );
 			add_action( 'pre_get_posts', [ $this, 'pre_get_posts' ], 10, 1 );

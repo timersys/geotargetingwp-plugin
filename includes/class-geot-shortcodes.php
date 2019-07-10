@@ -17,7 +17,7 @@ class GeotWP_Shortcodes {
 	 * @access  private
 	 * @var     Array of plugin settings
 	 */
-	private $geot_opts;
+	private $opts;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -29,7 +29,7 @@ class GeotWP_Shortcodes {
 	 */
 	public function __construct() {
 
-		$this->geot_opts = geotwp_settings();
+		$this->opts = geot_settings();
 
 		add_action( 'init', [ $this, 'register_shortcodes' ] );
 	}
@@ -42,7 +42,7 @@ class GeotWP_Shortcodes {
 
 		add_filter( 'geot/shortcodes/country_name', [ $this, 'the_english_country_names' ] );
 
-		if ( isset( $this->geot_opts['ajax_mode'] ) && $this->geot_opts['ajax_mode'] == '1' ) {
+		if ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) {
 			return;
 		}
 		// leave for backward compatibility
