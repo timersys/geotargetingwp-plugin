@@ -22,6 +22,9 @@ class GeotWP_VC {
 	public function __construct() {
 
 		add_action( 'init', [ $this, 'hook_to_visual' ] );
+
+		//WPBakery support
+		add_filter('vc_basic_grid_filter_query_suppress_filters', '__return_false');
 	}
 
 	public function hook_to_visual() {
