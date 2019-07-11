@@ -117,7 +117,7 @@ class GeotWP_Ajax {
 					if ( ! isset( $options['geot_remove_post'] ) || '1' != $options['geot_remove_post'] ) {
 						$content_to_hide[] = [
 							'id'  => $p->ID,
-							'msg' => apply_filters( 'geot/forbidden_text', $options['forbidden_text'] ),
+							'msg' => apply_filters( 'geot/forbidden_text', $options['forbidden_text'], false, $p ),
 						];
 					} else {
 						$posts_to_exclude[] = $p->ID;
