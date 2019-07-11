@@ -49,7 +49,7 @@ class GeotWP_Ajax {
 	public function geot_ajax() {
 
 		$geots      = $posts = [];
-		$debug      = "";
+		$debug = $redirect = $blocker = "";
 		$posts      = $this->get_geotargeted_posts();
 		$this->data = $_POST;
 
