@@ -71,7 +71,7 @@ class Elementor_GeoCountry {
 				'type'     => \Elementor\Controls_Manager::SELECT2,
 				'multiple' => true,
 				'default'  => '',
-				'options'  => GeoTarget_Elementor::get_regions( 'countries' ),
+				'options'  => GeotWP_Elementor::get_regions( 'countries' ),
 			]
 		);
 
@@ -109,7 +109,7 @@ class Elementor_GeoCountry {
 				'type'     => \Elementor\Controls_Manager::SELECT2,
 				'multiple' => true,
 				'default'  => '',
-				'options'  => GeoTarget_Elementor::get_regions( 'countries' ),
+				'options'  => GeotWP_Elementor::get_regions( 'countries' ),
 			]
 		);
 

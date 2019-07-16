@@ -71,7 +71,7 @@ class Elementor_GeoCity {
 				'type'     => \Elementor\Controls_Manager::SELECT2,
 				'multiple' => true,
 				'default'  => '',
-				'options'  => GeoTarget_Elementor::get_regions( 'cities' ),
+				'options'  => GeotWP_Elementor::get_regions( 'cities' ),
 			]
 		);
 
@@ -109,7 +109,7 @@ class Elementor_GeoCity {
 				'type'     => \Elementor\Controls_Manager::SELECT2,
 				'multiple' => true,
 				'default'  => '',
-				'options'  => GeoTarget_Elementor::get_regions( 'cities' ),
+				'options'  => GeotWP_Elementor::get_regions( 'cities' ),
 			]
 		);
 

@@ -82,7 +82,7 @@ class Geot {
 	public $gutenberg;
 
 	/**
-	 * @var GeoTarget_Elementor
+	 * @var GeotWP_Elementor
 	 */
 	public $elementor;
 
