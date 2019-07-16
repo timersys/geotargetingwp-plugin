@@ -154,7 +154,7 @@ class Geot {
 		require_once GEOWP_PLUGIN_DIR . 'public/class-geot-public.php';
 		require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-widgets.php';
 		require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-dropdown-widget.php';
-		
+
 		if ( is_admin() ) {
 			require_once GEOWP_PLUGIN_DIR . 'admin/class-geot-admin.php';
 			require_once GEOWP_PLUGIN_DIR . 'admin/class-geot-settings.php';
