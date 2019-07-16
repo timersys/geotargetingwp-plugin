@@ -150,15 +150,15 @@ class Geot {
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-updater.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-taxonomies.php';
 
+		require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-menus.php';
 		require_once GEOWP_PLUGIN_DIR . 'public/class-geot-public.php';
-
+		require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-widgets.php';
+		require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-dropdown-widget.php';
+		
 		if ( is_admin() ) {
 			require_once GEOWP_PLUGIN_DIR . 'admin/class-geot-admin.php';
 			require_once GEOWP_PLUGIN_DIR . 'admin/class-geot-settings.php';
 			require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-metaboxes.php';
-			require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-dropdown-widget.php';
-			require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-widgets.php';
-			require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-menus.php';
 		}
 	}
 
@@ -194,6 +194,8 @@ class Geot {
 		$this->elementor = new GeotWP_Elementor();
 		$this->divi      = new GeotWP_Divi();
 		$this->taxs      = new GeotWP_Taxonomies();
+		$this->menus     = new GeotWP_Menus();
+		$this->widget    = new GeotWP_Widgets();
 	}
 
 	/**
@@ -222,8 +224,7 @@ class Geot {
 		$this->settings  = new GeotWP_Settings();
 		$this->metaboxes = new GeotWP_Metaboxes();
 		$this->updater   = new GeotWP_Updater();
-		$this->widget    = new GeotWP_Widgets();
-		$this->menus     = new GeotWP_Menus();
+
 	}
 
 	/**

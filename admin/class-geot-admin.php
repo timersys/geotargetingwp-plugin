@@ -33,9 +33,6 @@ class GeotWP_Admin {
 		add_action( 'admin_init', [ $this, 'register_tiny_buttons' ] );
 		add_action( 'wp_ajax_geot_get_popup', [ $this, 'add_editor' ] );
 
-		// register dropdown widget
-		add_action( 'widgets_init', [ $this, 'register_widgets' ] );
-
 		add_filter( 'geot/plugin_version', function () {
 			return GEOWP_VERSION;
 		} );
@@ -139,12 +136,4 @@ class GeotWP_Admin {
 		wp_die();
 	}
 
-	/**
-	 * Register all plugin widgets
-	 * @return mixed
-	 */
-	public function register_widgets() {
-
-		register_widget( 'GeotWP_Widget' );
-	}
 }

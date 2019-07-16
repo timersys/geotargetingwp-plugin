@@ -69,6 +69,9 @@ class GeotWP_Public {
 		add_filter( 'spu/rules/rule_match/geot_country_region', [ $this, 'popup_country_region_match' ], 10, 2 );
 		add_filter( 'spu/rules/rule_match/geot_city_region', [ $this, 'popup_city_region_match' ], 10, 2 );
 		add_filter( 'spu/rules/rule_match/geot_state', [ $this, 'popup_state_match' ], 10, 2 );
+
+		// register dropdown widget
+		add_action( 'widgets_init', [ $this, 'register_widgets' ] );
 	}
 
 	/**
@@ -452,5 +455,13 @@ class GeotWP_Public {
 			} ?>--></div>
 		<!-- Geotargeting plugin Debug Info END-->
 		<?php
+	}
+
+	/**
+	 * Register all plugin widgets
+	 * @return mixed
+	 */
+	public function register_widgets() {
+		register_widget( 'GeotWP_Widget' );
 	}
 }
