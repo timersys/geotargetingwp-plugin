@@ -144,11 +144,7 @@ $countries = geot_countries();
 						<select name="geot_settings[var_ip]" class="geot-chosen-select"
 						        data-placeholder="<?php _e( 'Choose your real IP', 'geot' ); ?>">
 							<?php foreach ( $ips as $key => $label_ip ) : ?>
-								<option value="<?php echo $key; ?>" <?php echo selected( $key, $opts['fallback_country'] ); ?> ><?php echo $label_ip; ?></option>
-							<?php endforeach; ?>
-
-							<?php foreach ( $ips as $key => $label_ip ) : ?>
-								<option value="<?php echo $key ?>" <?php echo selected( $key, $opts['var_ip'] ); ?>><?php echo $label_ip; ?></option>
+								<option value="<?php echo $key ?>" <?php selected( $key, $opts['var_ip'] ); ?>><?php echo $label_ip; ?></option>
 							<?php endforeach; ?>
 						</select>
 					<?php endif; ?>
