@@ -9,7 +9,15 @@ function geotwp_settings() {
 }
 
 function geotwp_addons() {
-	return apply_filters( 'geot_pro/settings_page/addons', get_option( 'geot_pro_addons' ) );
+	$defaults = apply_filters( 'geot/addons/defaults', [
+		'geo-flags'     => '0',
+		'geo-links'     => '0',
+		'geo-redirects' => '0',
+		'geo-blocker'   => '0',
+	] );
+	$opts = get_option( 'geot_pro_addons' );
+	$opts = geotwp_parse_args( $opts, $defaults );
+	return apply_filters( 'geot_pro/settings_page/addons', $opts );
 }
 
 

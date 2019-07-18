@@ -8,6 +8,9 @@ $plugins        = get_plugins();
 $active_plugins = get_option( 'active_plugins', [] );
 $updates        = get_plugin_updates();
 $opts           = geot_settings();
+$addons         = geotwp_addons();
+$geowp_opts     = geotwp_settings();
+$geol_opts      = geotWPL_settings();
 ?>
 
 <h2>Geolocation data</h2>
@@ -18,7 +21,7 @@ $opts           = geot_settings();
 
 <?php echo strip_tags( preg_replace( '/\t+/', '', geot_debug_data() ) );
 echo PHP_EOL; ?>
-Geot Cookie set: <?php echo isset( $_COOKIE[ $this->opts['cookie_name'] ] ) ? 'true' : 'false';
+Geot Cookie set: <?php echo isset( $_COOKIE[ 'geot_country' ] ) ? 'true' : 'false';
 echo PHP_EOL; ?>
 
 ##Ip Resolved##
@@ -119,10 +122,24 @@ Ip2location: <?php echo isset( $opts['ip2location'] ) && $opts['ip2location'] ? 
 ##Settings page##
 
 Cache mode:               <?php echo isset( $opts['cache_mode'] ) && $opts['cache_mode'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
+Ajax mode:                <?php echo isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
 WpEngine mode:            <?php echo getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
 Kinsta mode:              <?php echo ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
 Maxmind mode:             <?php echo isset( $opts['maxmind'] ) && $opts['maxmind'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
 Ip2Location mode:         <?php echo isset( $opts['ip2location'] ) && $opts['ip2location'] ? 'On' : 'Off'; ?>
+
+
+##Addons##
+Redirects:               <?php echo isset( $addons['geo-redirects'] ) && $addons['geo-redirects'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
+Links:                   <?php echo isset( $addons['geo-links'] ) && $addons['geo-links'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
+Blocker:                 <?php echo isset( $addons['geo-blocker'] ) && $addons['geo-blocker'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
+Flags:                   <?php echo isset( $addons['geo-flags'] ) && $addons['geo-flags'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
+
+##Addons Settings##
+Disable menus: 	         <?php echo isset( $geowp_opts['disable_menu_integration'] ) && $geowp_opts['disable_menu_integration'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
+Disable widgets:         <?php echo isset( $geowp_opts['disable_widget_integration'] ) && $geowp_opts['disable_widget_integration'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
+Links Slug:              <?php echo isset( $geol_opts['goto_page'] ) ? $geol_opts['goto_page'] : 'Off'; ?><?php echo PHP_EOL; ?>
+Links Stats:             <?php echo !empty( $geol_opts['opt_stats'] )  ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
 
 
 ##Basic Info##

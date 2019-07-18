@@ -73,17 +73,7 @@ class GeotWP_Settings {
 	 */
 	function addons_page() {
 
-		$defaults = [
-			'geo-flags'     => '0',
-			'geo-links'     => '0',
-			'geo-redirects' => '0',
-			'geo-blocker'   => '0',
-		];
-
-		$defaults = apply_filters( 'geot/addons/defaults', $defaults );
-
 		$opts = geotwp_addons();
-		$opts = geotwp_parse_args( $opts, $defaults );
 
 		$return = esc_url( add_query_arg( $_GET, admin_url( 'admin.php' ) ) );
 
@@ -131,13 +121,6 @@ class GeotWP_Settings {
 
 	function setup_wizard_addons() {
 		$opts     = geotwp_addons();
-		$defaults = [
-			'geo-flags'     => '0',
-			'geo-links'     => '0',
-			'geo-redirects' => '0',
-			'geo-blocker'   => '0',
-		];
-		$opts     = wp_parse_args( $opts, apply_filters( 'geot/default_addons', $defaults ) );
 
 		require_once GEOWP_PLUGIN_DIR . 'admin/partials/setup-wizard-addons.php';
 	}

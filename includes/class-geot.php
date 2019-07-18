@@ -236,17 +236,8 @@ class Geot {
 	}
 
 	public function set_addons() {
-		$defaults = [
-			'geo-flags'     => '0',
-			'geo-links'     => '0',
-			'geo-redirects' => '0',
-			'geo-blocker'   => '0',
-		];
-
-		$defaults = apply_filters( 'geot/addons/defaults', $defaults );
 
 		$opts = geotwp_addons();
-		$opts = geotwp_parse_args( $opts, $defaults );
 
 		foreach ( $opts as $key => $value ) {
 			if ( $value != 1 ) {
