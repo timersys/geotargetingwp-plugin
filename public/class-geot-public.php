@@ -92,9 +92,6 @@ class GeotWP_Public {
 	public function enqueue_scripts() {
 
 		$src = 'js/geotarget-public.js';
-		if ( ! isset( $_GET['geot_debug'] ) ) {
-			$src = 'js/min/geotarget-public-min.js';
-		}
 
 		wp_enqueue_script( 'geot-js', plugin_dir_url( __FILE__ ) . $src, [ 'jquery' ], false, true );
 		wp_enqueue_script( 'geot-slick', plugin_dir_url( __FILE__ ) . 'js/min/selectize.min.js', [ 'jquery' ], false, true );
