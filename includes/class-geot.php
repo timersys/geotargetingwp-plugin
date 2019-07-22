@@ -143,6 +143,7 @@ class Geot {
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-ajax.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-vc.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-divi.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-wpbeaver.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-gutenberg.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-elementor.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-rules.php';
@@ -188,14 +189,15 @@ class Geot {
 	 */
 	private function set_objects_public() {
 
-		$this->public    = new GeotWP_Public();
-		$this->vc        = new GeotWP_VC();
-		$this->gutenberg = new GeotWP_Gutenberg();
-		$this->elementor = new GeotWP_Elementor();
-		$this->divi      = new GeotWP_Divi();
-		$this->taxs      = new GeotWP_Taxonomies();
-		$this->menus     = new GeotWP_Menus();
-		$this->widget    = new GeotWP_Widgets();
+		$this->public 		= new GeotWP_Public();
+		$this->vc 			= new GeotWP_VC();
+		$this->gutenberg 	= new GeotWP_Gutenberg();
+		$this->elementor 	= new GeotWP_Elementor();
+		$this->divi 		= new GeotWP_Divi();
+		$this->beaver 		= new GeotWP_WPBeaver();
+		$this->taxs 		= new GeotWP_Taxonomies();
+		$this->menus 		= new GeotWP_Menus();
+		$this->widget 		= new GeotWP_Widgets();
 	}
 
 	/**
@@ -251,6 +253,7 @@ class Geot {
 			}
 		}
 	}
+
 
 	/**
 	 * Main Geot Instance
