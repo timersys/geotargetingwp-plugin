@@ -106,8 +106,10 @@ class GeotWP_Ajax {
 			];
 		};
 
-		// get all posts with geo options set ( ideally would be to retrieve just for the post type queried but I can't get post_type
-		$geot_posts = GeotWP_Helper::get_geotarget_posts();
+		// by default we get all posts in case a widget or similar it's used so they are removed
+		// but add filter to give user the opportunity to remove just one post like for example just current page by passint this->data['pid'] if this->data['is_singular']
+		// this will make ajax mode save requests but won't be much efficient
+		$geot_posts = GeotWP_Helper::get_geotarget_posts( apply_filters( 'geot/get_geotargeted_posts_pass_id', null, $this->data ) );
 
 		if ( $geot_posts ) {
 			foreach ( $geot_posts as $p ) {
