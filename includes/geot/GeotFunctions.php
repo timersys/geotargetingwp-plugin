@@ -12,6 +12,7 @@ use GeotWP\Exception\InvalidSubscriptionException;
 use GeotWP\Exception\OutofCreditsException;
 use GeotWP\GeotargetingWP;
 use GeotWP\Record\GeotRecord;
+use GeotWP_Helper;
 use IP2Location\Database;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use MaxMind\Db\Reader;
@@ -588,7 +589,7 @@ class GeotCore {
 		$ret = false;
 		// Ips check
 		$settings = geot_settings();
-		if ( isset( $settings['fallback_country_ips'] ) && in_array( $this->ip, textarea_to_array( $settings['fallback_country_ips'] ) ) ) {
+		if ( isset( $settings['fallback_country_ips'] ) && GeotWP_Helper::checkIP( $this->ip, textarea_to_array( $settings['fallback_country_ips'] ) ) ) {
 			$ret = true;
 		}
 
@@ -683,7 +684,7 @@ class GeotCore {
 
 		// Ips check
 		$settings = geot_settings();
-		if ( isset( $settings['bots_country_ips'] ) && in_array( $this->ip, textarea_to_array( $settings['bots_country_ips'] ) ) ) {
+		if ( isset( $settings['bots_country_ips'] ) && GeotWP_Helper::checkIP( $this->ip, textarea_to_array( $settings['bots_country_ips'] ) ) ) {
 			$ret = true;
 		}
 

@@ -10,7 +10,7 @@ $updates        = get_plugin_updates();
 $opts           = geot_settings();
 $addons         = geotwp_addons();
 $geowp_opts     = geotwp_settings();
-$geol_opts      = geotWPL_settings();
+$geol_opts      = function_exists('geotWPL_settings') ? geotWPL_settings() : [];
 ?>
 
 <h2>Geolocation data</h2>
