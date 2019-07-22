@@ -10,6 +10,7 @@
  * @subpackage Geotr/public
  */
 
+use function GeotCore\get_current_url;
 use GeotCore\Session\GeotSession;
 use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
@@ -209,7 +210,7 @@ private function pass_basic_rules( $redirection ) {
  * @return mixed
  */
 private function replaceShortcodes( $opts, $basic_rules = false ) {
-	$url = defined( 'DOING_AJAX' ) && isset( $_REQUEST['url'] ) ? $_REQUEST['url'] : ( ( is_ssl() ? "https" : "http" ) . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}" );
+	$url = defined( 'DOING_AJAX' ) && isset( $_REQUEST['url'] ) ? $_REQUEST['url'] : get_current_url();
 
 	// remove query string from URL
 	$query_string = parse_url( $url, PHP_URL_QUERY );
