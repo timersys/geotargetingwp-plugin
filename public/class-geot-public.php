@@ -97,7 +97,7 @@ class GeotWP_Public {
 		wp_enqueue_script( 'geot-slick', plugin_dir_url( __FILE__ ) . 'js/min/selectize.min.js', [ 'jquery' ], false, true );
 		wp_localize_script( 'geot-js', 'geot', [
 			'ajax_url'          => admin_url( 'admin-ajax.php' ),
-			'ajax'              => isset( $this->opts['ajax_mode'] ) ? '1' : '',
+			'ajax'              => isset( $this->opts['ajax_mode'] ) ?  $this->opts['ajax_mode'] : '',
 			'pid'               => get_queried_object_id(),
 			'is_archive'        => is_archive(),
 			'is_search'         => is_search(),
