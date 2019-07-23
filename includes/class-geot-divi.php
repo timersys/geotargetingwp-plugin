@@ -185,7 +185,7 @@ class GeotWP_Divi {
 		global $et_fb_processing_shortcode_object;
 
 		// if is builder / edit mode
-		if ( $et_fb_processing_shortcode_object == 1 || $this->has_geot_opts( $module->props ) ) {
+		if ( $et_fb_processing_shortcode_object == 1 || !$this->has_geot_opts( $module->props ) ) {
 			return $output;
 		}
 
