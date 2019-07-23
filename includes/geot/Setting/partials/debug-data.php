@@ -122,7 +122,7 @@ Ip2location: <?php echo isset( $opts['ip2location'] ) && $opts['ip2location'] ? 
 ##Settings page##
 
 Cache mode:               <?php echo isset( $opts['cache_mode'] ) && $opts['cache_mode'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
-Ajax mode:                <?php echo isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
+Ajax mode:                <?php echo isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
 WpEngine mode:            <?php echo getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
 Kinsta mode:              <?php echo ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
 Maxmind mode:             <?php echo isset( $opts['maxmind'] ) && $opts['maxmind'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>

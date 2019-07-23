@@ -7,9 +7,12 @@ class GeotWP_Helper {
 
 	/**
 	 * Return geotarget posts
+	 *
+	 * @param null $pid
+	 *
 	 * @return array|null|object
 	 */
-	public static function get_geotarget_posts() {
+	public static function get_geotarget_posts( $pid = null ) {
 		global $wpdb;
 
 		if ( ! empty( self::$_geotarget_posts ) ) {
@@ -32,6 +35,9 @@ class GeotWP_Helper {
 					p.post_status = 'publish' AND pm.meta_key = '_geot_post' AND
 					pm2.meta_key = 'geot_options' AND pm.meta_value != ''
 				";
+		if( $pid ) {
+			$sql .= " AND p.ID = " . filter_var( $pid, FILTER_VALIDATE_INT );
+		}
 
 		return self::$_geotarget_posts = $wpdb->get_results( $sql );
 	}
