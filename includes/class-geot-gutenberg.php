@@ -206,7 +206,7 @@ class GeotWP_Gutenberg {
 			'gutenberg-geo',
 			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot.js',
 			[ 'wp-blocks', 'wp-element', 'wp-components', 'wp-i18n', 'wp-editor' ],
-			$this->version,
+			GEOWP_VERSION,
 			true
 		);
 		wp_localize_script( 'gutenberg-geo', 'gutgeot', $localize_geot );
@@ -219,7 +219,7 @@ class GeotWP_Gutenberg {
 			'gutenberg-geo-country',
 			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-country.js',
 			[ 'gutenberg-geo' ],
-			$this->version,
+			GEOWP_VERSION,
 			true
 		);
 
@@ -231,7 +231,7 @@ class GeotWP_Gutenberg {
 			'gutenberg-geo-city',
 			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-city.js',
 			[ 'gutenberg-geo' ],
-			$this->version,
+			GEOWP_VERSION,
 			true
 
 		);
@@ -244,7 +244,7 @@ class GeotWP_Gutenberg {
 			'gutenberg-geo-state',
 			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-state.js',
 			[ 'gutenberg-geo' ],
-			$this->version,
+			GEOWP_VERSION,
 			true
 		);
 
@@ -256,7 +256,7 @@ class GeotWP_Gutenberg {
 			'gutenberg-geo-zipcode',
 			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-zipcode.js',
 			[ 'gutenberg-geo' ],
-			$this->version,
+			GEOWP_VERSION,
 			true
 		);
 	}

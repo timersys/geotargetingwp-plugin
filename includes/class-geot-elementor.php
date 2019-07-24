@@ -68,7 +68,7 @@ class GeotWP_Elementor {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( 'geo-elementor', GEOWP_PLUGIN_URL . 'admin/css/admin.css', [], $this->version );
+		wp_enqueue_style( 'geo-elementor', GEOWP_PLUGIN_URL . 'admin/css/admin.css', [], GEOWP_VERSION );
 	}
 
 	/**
