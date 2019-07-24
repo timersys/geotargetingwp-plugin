@@ -260,3 +260,20 @@ function geot_ips() {
 
 	return $ips;
 }
+
+/**
+ * Return countries by searching by continent name in the predefined regions
+ * @param $continent
+ *
+ * @return array
+ */
+function get_countries_from_predefined_regions( $continent ) {
+	$regions = geot_predefined_regions();
+
+	foreach ( $regions as $index => $continent_a ) {
+		if( $continent == $continent_a['name'] ) {
+			return $continent_a['countries'];
+		}
+	}
+	return [];
+}
