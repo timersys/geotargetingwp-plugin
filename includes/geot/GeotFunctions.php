@@ -198,6 +198,8 @@ class GeotCore {
 		$exclude_places = toArray( $args['exclude'] );
 		$saved_regions  = apply_filters( 'geot/get_' . $key . '_regions', [] );
 		$plural_key     = toPlural( $key );
+		$predefined_regions = geot_predefined_regions();
+		$continents = wp_list_pluck( geot_predefined_regions(), 'name' );
 
 		$user_state           = new \StdClass();
 		$user_state->iso_code = '';
@@ -206,13 +208,20 @@ class GeotCore {
 		$this->checkLocale( 'en' );
 
 		//Append any regions
-		if ( ! empty( $args['region'] ) && ! empty( $saved_regions ) ) {
+		if ( ! empty( $args['region'] ) ) {
 			$region = toArray( $args['region'] );
 			foreach ( $region as $region_name ) {
-				foreach ( $saved_regions as $sr_key => $saved_region ) {
-					if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) ) {
-						$places = array_merge( (array) $places, (array) $saved_region[ $plural_key ] );
+				// user saved regions
+				if( ! empty( $saved_regions ) ) {
+					foreach ( $saved_regions as $sr_key => $saved_region ) {
+						if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) ) {
+							$places = array_merge( (array) $places, (array) $saved_region[ $plural_key ] );
+						}
 					}
+				}
+				// predefined regions
+				if( $plural_key == 'countries' && in_array( $region_name, $continents ) ) {
+					$places = array_merge( (array) $places, get_countries_from_predefined_regions( $region_name ) );
 				}
 			}
 			// if the key is cities and the user it's using region, check also against states. The database it's full of states and people it's using them so why not checking
@@ -221,13 +230,20 @@ class GeotCore {
 			}
 		}
 		// append excluded regions to excluded places
-		if ( ! empty( $args['exclude_region'] ) && ! empty( $saved_regions ) ) {
+		if ( ! empty( $args['exclude_region'] ) ) {
 			$exclude_region = toArray( $args['exclude_region'] );
 			foreach ( $exclude_region as $region_name ) {
-				foreach ( $saved_regions as $sr_key => $saved_region ) {
-					if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) ) {
-						$exclude_places = array_merge( (array) $exclude_places, (array) $saved_region[ $plural_key ] );
+				// user saved regions
+				if( ! empty( $saved_regions ) ) {
+					foreach ( $saved_regions as $sr_key => $saved_region ) {
+						if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) ) {
+							$exclude_places = array_merge( (array) $exclude_places, (array) $saved_region[ $plural_key ] );
+						}
 					}
+				}
+				// predefined regions
+				if( $plural_key == 'countries' && in_array( $region_name, $continents ) ) {
+					$exclude_places = array_merge( (array) $exclude_places, get_countries_from_predefined_regions( $region_name ) );
 				}
 			}
 		}
