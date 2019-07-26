@@ -444,7 +444,10 @@ class GeotWP_Public {
 	 */
 	public function print_debug_info() {
 		$opts = geot_settings();
-
+		// only show if we use get parameter
+		if( ! isset( $_GET['geot_debug'] ) ) {
+			return;
+		}
 		?>
 		<!-- Geotargeting plugin Debug Info START-->
 		<div id="geot-debug-info" style="display: none;"><!--<?php if ( empty( $this->opts['ajax_mode'] ) ) {
