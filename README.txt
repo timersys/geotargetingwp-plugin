@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 3.6
 Tested up to: 5.2.3
-Stable tag: 3.0.1.1
+Stable tag: 3.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,10 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.0.2 =
+* Added Beaver builder support
+* Fixed issue with debug mode that consumed extra requests
+
 = 3.0.1.1 =
 * Fixed issue with DIVI
 * Fixed undefined error message appearing in logs
