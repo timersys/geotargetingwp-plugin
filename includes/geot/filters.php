@@ -7,7 +7,7 @@ add_filter( 'geot/get_country_regions', function () {
 	$settings = geot_settings();
 	$regions  = isset( $settings['region'] ) ? $settings['region'] : [];
 
-	return $regions;
+	return array_merge( $regions, geot_predefined_regions() );
 } );
 
 add_filter( 'geot/get_city_regions', function () {
