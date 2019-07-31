@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 3.6
 Tested up to: 5.2.3
-Stable tag: 3.0.2
+Stable tag: 3.0.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,12 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.0.2.1 =
+* Fixed relative urls not working in redirects
+* Fixed divi estetic icon
+* Beaver Builder ultimate addon compatibility fix
+* FixedPredefined regions not showing in rules
+
 = 3.0.2 =
 * Added Beaver builder support
 * Fixed issue with debug mode that consumed extra requests
