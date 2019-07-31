@@ -16,7 +16,7 @@ class GeotWP_WPBeaver {
 	 * Initializes the class once all plugins have loaded.
 	 */
 	public function __construct() {
-		add_action( 'plugins_loaded', [ $this, 'module_init' ] );
+		add_action( 'plugins_loaded', [ $this, 'module_init' ], 1 );
 
 		add_filter( 'fl_builder_register_settings_form', [$this, 'get_fields'], 10, 2);
 		//add_filter( 'fl_builder_render_module_content', [$this, 'render'], 10, 2 );
