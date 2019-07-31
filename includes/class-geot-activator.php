@@ -72,6 +72,21 @@ class GeotWP_Activator {
 
 		update_option( 'geot_pro_addons', $addons );
 
+		// Check ajax mode
+		if( ! get_option('geot_wp_ajax_checked') ) {
+			$opts   = get_option( 'geot_pro_settings' );
+			$r_opts = get_option( 'geotr_settings' );
+			$l_opts = get_option( 'geobl_settings' );
+			if ( ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == 1 ) ||
+			     ( isset( $r_opts['ajax_mode'] ) && $r_opts['ajax_mode'] == 1 ) ||
+			     ( isset( $l_opts['ajax_mode'] ) && $l_opts['ajax_mode'] == 1 ) ) {
+				$wpopts              = geot_settings();
+				$wpopts['ajax_mode'] = 1;
+				update_option( 'geot_settings', $wpopts );
+				update_option( 'geot_wp_ajax_checked', 1 );
+			}
+		}
+
 		GeotCore\add_countries_to_db();
 		GeotCore\geot_activate();
 
