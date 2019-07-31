@@ -316,8 +316,6 @@ public function fixRedirect( $redirect ) {
 
 	if ( strpos( $redirect, $site ) !== false && $site_scheme != $redirect_scheme ) { //internal URL
 		$redirect = str_replace( $redirect_scheme, $site_scheme, $redirect );
-	} elseif ( empty( $redirect_scheme ) ) { //external URL without scheme
-		$redirect = 'http://' . $redirect;
 	}
 
 	return $redirect;
