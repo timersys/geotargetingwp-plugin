@@ -69,6 +69,15 @@ class GeotWP_Public {
 		add_filter( 'spu/rules/rule_match/geot_country_region', [ $this, 'popup_country_region_match' ], 10, 2 );
 		add_filter( 'spu/rules/rule_match/geot_city_region', [ $this, 'popup_city_region_match' ], 10, 2 );
 		add_filter( 'spu/rules/rule_match/geot_state', [ $this, 'popup_state_match' ], 10, 2 );
+		add_filter( 'spu/rules/rule_match/geot_zip', [ $this, 'popup_zip_match' ], 10, 2 );
+		add_filter( 'spu/rules/rule_match/geot_city', [ $this, 'popup_city_match' ], 10, 2 );
+
+		add_action( 'spu/rules/print_geot_country_field', [ 'Spu_Helper', 'print_select' ], 10, 2 );
+		add_action( 'spu/rules/print_geot_country_region_field', [ 'Spu_Helper', 'print_select' ], 10, 2 );
+		add_action( 'spu/rules/print_geot_city_region_field', [ 'Spu_Helper', 'print_select' ], 10, 2 );
+		add_action( 'spu/rules/print_geot_state_field', [ 'Spu_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'spu/rules/print_geot_city_field', [ 'Spu_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'spu/rules/print_geot_zip_field', [ 'Spu_Helper', 'print_textfield' ], 10, 1 );
 
 		// register dropdown widget
 		add_action( 'widgets_init', [ $this, 'register_widgets' ] );
@@ -125,10 +134,8 @@ class GeotWP_Public {
 			'geot_country_region' => 'Country Region',
 			'geot_city_region'    => 'City Region',
 			'geot_state'          => 'State',
-			'geot_country'        => 'Country',
-			'geot_country_region' => 'Country Region',
-			'geot_city_region'    => 'City Region',
-			'geot_state'          => 'State',
+			'geot_ciy'            => 'City',
+			'geot_zio'            => 'Zip',
 		];
 
 		return $choices;
@@ -255,6 +262,40 @@ class GeotWP_Public {
 		} else {
 
 			return ! geot_target_state( $rule['value'], '' );
+		}
+	}
+	/**
+	 * @param bool $match false default
+	 * @param array $rule rule to compare
+	 *
+	 * @return boolean true if match
+	 */
+	function popup_city_match( $match, $rule ) {
+
+		if ( $rule['operator'] == "==" ) {
+
+			return geot_target_city( $rule['value'], '' );
+
+		} else {
+
+			return ! geot_target_city( $rule['value'], '' );
+		}
+	}
+	/**
+	 * @param bool $match false default
+	 * @param array $rule rule to compare
+	 *
+	 * @return boolean true if match
+	 */
+	function popup_zip_match( $match, $rule ) {
+
+		if ( $rule['operator'] == "==" ) {
+
+			return geot_target_zip( $rule['value'], '' );
+
+		} else {
+
+			return ! geot_target_zip( $rule['value'], '' );
 		}
 	}
 
