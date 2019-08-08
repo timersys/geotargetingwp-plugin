@@ -11,6 +11,8 @@
  */
 
 use function GeotCore\get_current_url;
+use function GeotCore\is_backend;
+use function GeotCore\is_builder;
 use GeotCore\Session\GeotSession;
 use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
@@ -37,22 +39,10 @@ public function __construct() {
 
 	$action_hook = defined( 'WP_CACHE' ) ? 'init' : 'wp';
 
-	if ( ! is_admin() && ! $this->is_backend() && ! defined( 'DOING_AJAX' ) && ! defined( 'DOING_CRON' ) ) {
+	if ( ! is_admin() && ! is_backend() && ! defined( 'DOING_AJAX' ) && ! defined( 'DOING_CRON' ) && ! is_builder() ) {
 		add_action( apply_filters( 'geotr/action_hook', $action_hook ), [ $this, 'handle_redirects' ] );
 	}
 }
-
-
-/**
- * Check if we are trying to login
- * @return bool
- */
-private function is_backend() {
-	$ABSPATH_MY = str_replace( [ '\\', '/' ], DIRECTORY_SEPARATOR, ABSPATH );
-
-	return ( ( in_array( $ABSPATH_MY . 'wp-login.php', get_included_files() ) || in_array( $ABSPATH_MY . 'wp-register.php', get_included_files() ) ) || $GLOBALS['pagenow'] === 'wp-login.php' || $_SERVER['PHP_SELF'] == '/wp-login.php' );
-}
-
 
 // Call geot once to init session handling
 // otherwise it will fail with georedirects and cache mode turned on

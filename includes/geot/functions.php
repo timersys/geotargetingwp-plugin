@@ -277,3 +277,37 @@ function get_countries_from_predefined_regions( $continent ) {
 	}
 	return [];
 }
+
+/**
+ * Sometimes builder run on front end which our plugins try to redirect or block
+ * @return bool
+ */
+function is_builder() {
+
+	// is Elementor
+	if ( isset( $_GET['elementor-preview'] ) && is_numeric( $_GET['elementor-preview'] ) ) {
+		return true;
+	}
+
+	// is DIVI
+	if ( isset( $_GET['et_fb'] ) && is_numeric( $_GET['et_fb'] ) ) {
+		return true;
+	}
+
+	// is Gutemberg
+	if ( isset( $_GET['_locale'] ) && $_GET['_locale'] == 'user' ) {
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * Similar to is_builder but for backend non wp-admin pages
+ * @return bool
+ */
+function is_backend() {
+	$ABSPATH_MY = str_replace( [ '\\', '/' ], DIRECTORY_SEPARATOR, ABSPATH );
+
+	return ( ( in_array( $ABSPATH_MY . 'wp-login.php', get_included_files() ) || in_array( $ABSPATH_MY . 'wp-register.php', get_included_files() ) ) || $GLOBALS['pagenow'] === 'wp-login.php' || $_SERVER['PHP_SELF'] == '/wp-login.php' );
+}

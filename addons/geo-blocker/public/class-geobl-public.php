@@ -10,6 +10,8 @@
  * @subpackage Geobl/public
  */
 
+use function GeotCore\is_backend;
+use function GeotCore\is_builder;
 use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
 use function GeotWP\is_session_started;
@@ -36,7 +38,7 @@ class GeotWP_Bl_Public {
 	public function __construct() {
 		$action_hook = defined( 'WP_CACHE' ) ? 'init' : 'wp';
 
-		if ( ! is_admin() && ! $this->is_backend() && ! $this->is_builder() &&
+		if ( ! is_admin() && ! is_backend() && ! is_builder() &&
 		     ! defined( 'DOING_AJAX' ) && ! defined( 'DOING_CRON' )
 		) {
 			add_action( $action_hook, [ $this, 'handle_blockers' ] );
@@ -45,42 +47,10 @@ class GeotWP_Bl_Public {
 		add_action( 'wp_ajax_geo_template', [ $this, 'view_template' ], 1 );
 	}
 
-	/**
-	 * Check if we are trying to login
-	 * @return bool
-	 */
-	private function is_backend() {
-		$ABSPATH_MY = str_replace( [ '\\', '/' ], DIRECTORY_SEPARATOR, ABSPATH );
-		$ret        = ( ( in_array( $ABSPATH_MY . 'wp-login.php', get_included_files() ) || in_array( $ABSPATH_MY . 'wp-register.php', get_included_files() ) ) || $GLOBALS['pagenow'] === 'wp-login.php' || $_SERVER['PHP_SELF'] == '/wp-login.php' );
-
-		return apply_filters( 'geobl/block_backend', $ret );
-	}
-
 
 	/**
-	 * Check if is a builder ( Elementor/Divi/Gutemberg )
-	 * @return bool
+	 *
 	 */
-	private function is_builder() {
-
-		// is Elementor
-		if ( isset( $_GET['elementor-preview'] ) && is_numeric( $_GET['elementor-preview'] ) ) {
-			return true;
-		}
-
-		// is DIVI
-		if ( isset( $_GET['et_fb'] ) && is_numeric( $_GET['et_fb'] ) ) {
-			return true;
-		}
-
-		// is Gutemberg
-		if ( isset( $_GET['_locale'] ) && $_GET['_locale'] == 'user' ) {
-			return true;
-		}
-
-		return false;
-	}
-
 	public function handle_blockers() {
 
 		GeotWP_R_ules::init();
