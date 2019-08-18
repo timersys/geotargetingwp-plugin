@@ -153,7 +153,7 @@ $countries = geot_countries();
                                         labelField: 'name',
                                         searchField: 'name',
                                         options: <?php echo isset( $city_region['cities'] ) && is_array( $city_region['cities'] ) ? json_encode( array_map( function ( $a ) {
-											return [ 'name' => $a ];
+											return [ 'name' => stripslashes($a) ];
 										}, $city_region['cities'] ) ) : '""'; ?>,
                                         items: ['<?php echo isset( $city_region['cities'] ) && is_array( $city_region['cities'] ) ? implode( "','", $city_region['cities'] ) : '';?>'],
                                         render: function (item, escape) {
