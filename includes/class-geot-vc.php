@@ -66,7 +66,7 @@ class GeotWP_VC {
 				'name'                    => __( 'Target Countries', 'geot' ),
 				'is_container'            => true,
 				'content_element'         => true,
-				'base'                    => 'vc_geot',
+				'base'                    => 'vc_geotwp_country',
 				'icon'                    => GEOWP_PLUGIN_URL . '/admin/img/world.png',
 				'show_settings_on_create' => true,
 				'category'                => __( 'Geotargeting', 'geot' ),
@@ -119,7 +119,7 @@ class GeotWP_VC {
 				'name'                    => __( 'Target Cities', 'geot' ),
 				'is_container'            => true,
 				'content_element'         => true,
-				'base'                    => 'vc_geot_city',
+				'base'                    => 'vc_geotwp_city',
 				'icon'                    => GEOWP_PLUGIN_URL . '/admin/img/cities.png',
 				'show_settings_on_create' => true,
 				'category'                => __( 'Geotargeting', 'geot' ),
@@ -171,7 +171,7 @@ class GeotWP_VC {
 				'name'                    => __( 'Target States', 'geot' ),
 				'is_container'            => true,
 				'content_element'         => true,
-				'base'                    => 'vc_geot_state',
+				'base'                    => 'vc_geotwp_state',
 				'icon'                    => GEOWP_PLUGIN_URL . '/admin/img/states.png',
 				'show_settings_on_create' => true,
 				'category'                => __( 'Geotargeting', 'geot' ),
@@ -245,7 +245,7 @@ class GeotWP_VC {
 
 add_action( 'init', function () {
 	if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
-		class WPBakeryShortCode_VC_Geot extends WPBakeryShortCodesContainer {
+		class WPBakeryShortCode_VC_GeotWP_Country extends WPBakeryShortCodesContainer {
 		}
 
 		class WPBakeryShortCode_VC_GeotWP_City extends WPBakeryShortCodesContainer {
