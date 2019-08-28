@@ -3736,7 +3736,7 @@
 
                 } else {
 
-                    str += "]<p>Please add your content in this area.</p>[/geot_city]";
+                    str += "]<p>Please add your content in this area.</p>[/geot_filter_city]";
 
                 }
             } else if ($.find('#geot_city_region').val()) {
