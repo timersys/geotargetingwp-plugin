@@ -3696,7 +3696,7 @@
             var mode = $.find('#geot_editor .geot_include_mode:checked').val();
 
             if ($.find('#geot_state').val()) {
-                var str = '[geot_state ';
+                var str = '[geot_filter_state ';
                 if (mode == 'include') {
                     str += 'state="';
                 } else {
@@ -3710,15 +3710,15 @@
                 var selected_text = parentEditor.selection.getContent();
                 if (selected_text) {
 
-                    str += "]" + selected_text + "[/geot_state]";
+                    str += "]" + selected_text + "[/geot_filter_state]";
 
                 } else {
 
-                    str += "]<p>Please add your content in this area.</p>[/geot_state]";
+                    str += "]<p>Please add your content in this area.</p>[/geot_filter_state]";
 
                 }
             } else if ($.find('#geot_city').val()) {
-                var str = '[geot_city ';
+                var str = '[geot_filter_city ';
                 if (mode == 'include') {
                     str += 'city="';
                 } else {
@@ -3732,7 +3732,7 @@
                 var selected_text = parentEditor.selection.getContent();
                 if (selected_text) {
 
-                    str += "]" + selected_text + "[/geot_city]";
+                    str += "]" + selected_text + "[/geot_filter_city]";
 
                 } else {
 
@@ -3740,7 +3740,7 @@
 
                 }
             } else if ($.find('#geot_city_region').val()) {
-                var str = '[geot_city ';
+                var str = '[geot_filter_city ';
                 if (mode == 'include') {
                     str += 'region="';
                 } else {
@@ -3754,16 +3754,16 @@
                 var selected_text = parentEditor.selection.getContent();
                 if (selected_text) {
 
-                    str += "]" + selected_text + "[/geot_city]";
+                    str += "]" + selected_text + "[/geot_filter_city]";
 
                 } else {
 
-                    str += "]<p>Please add your content in this area.</p>[/geot_city]";
+                    str += "]<p>Please add your content in this area.</p>[/geot_filter_city]";
 
                 }
             } else {
 
-                var str = '[geot ';
+                var str = '[geot_filter ';
 
                 if ($.find('#geot_region').val()) {
                     if (mode == 'include') {
@@ -3793,11 +3793,11 @@
                 var selected_text = parentEditor.selection.getContent();
                 if (selected_text) {
 
-                    str += "]" + selected_text + "[/geot]";
+                    str += "]" + selected_text + "[/geot_filter]";
 
                 } else {
 
-                    str += "] <p>Please add your content in this area.</p> [/geot]";
+                    str += "] <p>Please add your content in this area.</p> [/geot_filter]";
 
                 }
 
