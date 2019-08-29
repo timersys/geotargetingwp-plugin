@@ -21,7 +21,7 @@ class GeotWP_R_Helper {
 
 			'url'               => '',
 			'one_time_redirect' => '',
-			'exclude_se'        => '',
+			'exclude_se'        => '1',
 			'pass_query_string' => '',
 			'whitelist'         => '',
 			'status'            => 302,
