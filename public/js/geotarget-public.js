@@ -146,16 +146,18 @@
         if (_this.hasClass('geot_menu_item'))
             _this = $(this).find('a').first();
 
-        var uniqid = getUniqueName('geot');
-        _this.attr('id', uniqid);
-        data.geots[uniqid] = {
-            'action': _this.data('action') || '',
-            'filter': _this.data('filter') || '',
-            'region': _this.data('region') || '',
-            'ex_filter': _this.data('ex_filter') || '',
-            'ex_region': _this.data('ex_region') || '',
-            'default': _this.data('default') || '',
-            'locale': _this.data('locale') || 'en',
+        if( _this.data('action') && _this.data('action').length ) {
+            var uniqid = getUniqueName('geot');
+            _this.attr('id', uniqid);
+            data.geots[uniqid] = {
+                'action': _this.data('action') || '',
+                'filter': _this.data('filter') || '',
+                'region': _this.data('region') || '',
+                'ex_filter': _this.data('ex_filter') || '',
+                'ex_region': _this.data('ex_region') || '',
+                'default': _this.data('default') || '',
+                'locale': _this.data('locale') || 'en',
+            }
         }
     });
 
