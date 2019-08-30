@@ -218,6 +218,7 @@ class GeotWizard {
 		check_admin_referer( 'geot-setup' );
 
 		$settings = array_map( 'esc_html', $_POST['geot_settings'] );
+		$settings = array_map( 'trim', $settings );
 
 		// update license field
 		if ( ! empty( $settings['license'] ) ) {
