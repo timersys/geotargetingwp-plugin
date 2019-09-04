@@ -114,14 +114,15 @@
 
             // vars
             var $tr2 = $tr.clone(),
-                old_id = $tr2.attr('data-id'),
+                old_id = $tr.parent().find('tr').last().attr('data-id'),
+                current_id = $tr2.attr('data-id'),
                 new_id = 'rule_' + (parseInt(old_id.replace('rule_', ''), 10) + 1);
 
             // update names
             $tr2.find('[name]').each(function () {
 
-                $(this).attr('name', $(this).attr('name').replace(old_id, new_id));
-                $(this).attr('id', $(this).attr('id').replace(old_id, new_id));
+                $(this).attr('name', $(this).attr('name').replace(current_id, new_id));
+                $(this).attr('id', $(this).attr('id').replace(current_id, new_id));
             });
 
             // update data-i
