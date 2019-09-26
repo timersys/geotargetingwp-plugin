@@ -381,6 +381,11 @@ class GeotCore {
 
 			$this->ip = apply_filters( 'geot/user_ip', $this->ip );
 
+			// it's a valid IP ?
+			if(! $this->valid_ip( $this->ip ) ) {
+				return $this->getFallbackCountry();
+			}
+
 			if ( empty( $this->opts['license'] ) ) {
 				throw new InvalidLicenseException( json_encode( [ 'error' => 'License is missing' ] ) );
 			}
@@ -867,5 +872,19 @@ class GeotCore {
 
 	public function getSession() {
 		return $this->session;
+	}
+
+	/**
+	 * Check for a valid IP so we can save requests to users
+	 *
+	 * @param $ip
+	 *
+	 * @return bool
+	 */
+	private function valid_ip( $ip ) {
+		if( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
+			return true;
+		}
+		return false;
 	}
 }
