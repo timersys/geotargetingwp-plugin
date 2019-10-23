@@ -92,13 +92,29 @@ class GeotWP_Taxonomies {
 					continue;
 				}
 
-				if ( ! GeotWP_Helper::is_targeted_country( $geot ) ||
-				     ! GeotWP_Helper::is_targeted_city( $geot ) ||
-				     ! GeotWP_Helper::is_targeted_state( $geot ) ||
-				     ! GeotWP_Helper::is_targeted_zipcode( $geot )
-				) {
+				$geot_country = $geot_city = $geot_state = $geot_zipcode = false;
+
+				// Country
+				if( ! empty( $geot['in_countries'] ) || ! empty( $geot['ex_countries'] ) ||
+					! empty( $geot['in_countries_regions'] ) || ! empty( $geot['ex_countries_regions'] )
+				) $geot_country = GeotWP_Helper::is_targeted_country( $geot );
+
+				// City
+				if( ! empty( $geot['in_cities'] ) || ! empty( $geot['ex_cities'] ) ||
+					! empty( $geot['in_cities_regions'] ) || ! empty( $geot['ex_cities_regions'] )
+				) $geot_city = GeotWP_Helper::is_targeted_city( $geot );
+
+				// State
+				if( ! empty( $geot['in_states'] ) || ! empty( $geot['ex_states'] ) )
+					$geot_state = GeotWP_Helper::is_targeted_state( $geot );
+
+				// Zipcode
+				if( ! empty( $geot['in_zipcodes'] ) || ! empty( $geot['ex_zipcodes'] ) )
+					$geot_zipcode = GeotWP_Helper::is_targeted_zipcode( $geot );
+
+				// Exclude ID
+				if( ! $geot_country && ! $geot_city && ! $geot_state && ! $geot_zipcode )
 					$cat_exclude[] = $term_id * ( - 1 );
-				}
 			}
 
 			if ( count( $cat_exclude ) > 0 ) {
@@ -127,13 +143,29 @@ class GeotWP_Taxonomies {
 					continue;
 				}
 
-				if ( ! GeotWP_Helper::is_targeted_country( $geot ) ||
-				     ! GeotWP_Helper::is_targeted_city( $geot ) ||
-				     ! GeotWP_Helper::is_targeted_state( $geot ) ||
-				     ! GeotWP_Helper::is_targeted_zipcode( $geot )
-				) {
+				$geot_country = $geot_city = $geot_state = $geot_zipcode = false;
+
+				// Country
+				if( ! empty( $geot['in_countries'] ) || ! empty( $geot['ex_countries'] ) ||
+					! empty( $geot['in_countries_regions'] ) || ! empty( $geot['ex_countries_regions'] )
+				) $geot_country = GeotWP_Helper::is_targeted_country( $geot );
+
+				// City
+				if( ! empty( $geot['in_cities'] ) || ! empty( $geot['ex_cities'] ) ||
+					! empty( $geot['in_cities_regions'] ) || ! empty( $geot['ex_cities_regions'] )
+				) $geot_city = GeotWP_Helper::is_targeted_city( $geot );
+
+				// State
+				if( ! empty( $geot['in_states'] ) || ! empty( $geot['ex_states'] ) )
+					$geot_state = GeotWP_Helper::is_targeted_state( $geot );
+
+				// Zipcode
+				if( ! empty( $geot['in_zipcodes'] ) || ! empty( $geot['ex_zipcodes'] ) )
+					$geot_zipcode = GeotWP_Helper::is_targeted_zipcode( $geot );
+
+				// Exclude ID
+				if( ! $geot_country && ! $geot_city && ! $geot_state && ! $geot_zipcode )
 					unset( $terms[ $id ] );
-				}
 			}
 		}
 
@@ -194,13 +226,29 @@ class GeotWP_Taxonomies {
 				continue;
 			}
 
-			if ( ! GeotWP_Helper::is_targeted_country( $geot ) ||
-			     ! GeotWP_Helper::is_targeted_city( $geot ) ||
-			     ! GeotWP_Helper::is_targeted_state( $geot ) ||
-			     ! GeotWP_Helper::is_targeted_zipcode( $geot )
-			) {
+			$geot_country = $geot_city = $geot_state = $geot_zipcode = false;
+
+			// Country
+			if( ! empty( $geot['in_countries'] ) || ! empty( $geot['ex_countries'] ) ||
+				! empty( $geot['in_countries_regions'] ) || ! empty( $geot['ex_countries_regions'] )
+			) $geot_country = GeotWP_Helper::is_targeted_country( $geot );
+
+			// City
+			if( ! empty( $geot['in_cities'] ) || ! empty( $geot['ex_cities'] ) ||
+				! empty( $geot['in_cities_regions'] ) || ! empty( $geot['ex_cities_regions'] )
+			) $geot_city = GeotWP_Helper::is_targeted_city( $geot );
+
+			// State
+			if( ! empty( $geot['in_states'] ) || ! empty( $geot['ex_states'] ) )
+				$geot_state = GeotWP_Helper::is_targeted_state( $geot );
+
+			// Zipcode
+			if( ! empty( $geot['in_zipcodes'] ) || ! empty( $geot['ex_zipcodes'] ) )
+				$geot_zipcode = GeotWP_Helper::is_targeted_zipcode( $geot );
+
+			// Exclude ID
+			if( ! $geot_country && ! $geot_city && ! $geot_state && ! $geot_zipcode )
 				$cat_exclude[] = $term_id;
-			}
 		}
 
 
