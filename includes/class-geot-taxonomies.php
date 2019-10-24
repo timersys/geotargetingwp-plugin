@@ -80,7 +80,7 @@ class GeotWP_Taxonomies {
 	public function pre_get_posts( $q ) {
 
 		if ( ! is_admin() && $q->is_main_query() &&
-		     isset( $q->query['post_type'] ) && $q->query['post_type'] == 'post'
+		     isset( $q->query['category_name'] ) && ! empty( $q->query['category_name'] )
 		) {
 			$cat_exclude = [];
 			$cats_ids    = get_categories( [ 'fields' => 'ids', 'geot' => true ] );
