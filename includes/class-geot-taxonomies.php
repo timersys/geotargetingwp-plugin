@@ -30,6 +30,7 @@ class GeotWP_Taxonomies {
 			add_action( 'edit_category_form_fields', [ $this, 'edit_category_fields' ], 10, 1 );
 			add_action( 'edited_category', [ $this, 'save_category_fields' ], 10, 1 );
 			add_action( 'pre_get_posts', [ $this, 'pre_get_posts' ], 10, 1 );
+			add_action( 'pre_get_posts', [ $this, 'pre_get_categories' ], 10, 1 );
 			add_action( 'get_terms', [ $this, 'get_terms' ], 10, 4 );
 
 			// Woocommerce - Categories Products
@@ -41,6 +42,8 @@ class GeotWP_Taxonomies {
 
 	/**
 	 * Render settings Category
+	 * @since    1.0.0
+	 * @param OBJECT $tag
 	 */
 	public function edit_category_fields( $tag ) {
 
@@ -57,6 +60,8 @@ class GeotWP_Taxonomies {
 
 	/**
 	 * Save Settings Category
+	 * @since    1.0.0
+	 * @param INT $term_id
 	 */
 	public function save_category_fields( $term_id ) {
 		if ( isset( $_POST['geot'] ) ) {
@@ -75,57 +80,94 @@ class GeotWP_Taxonomies {
 
 
 	/**
-	 * Pre Get Post
+	 * Modify query to single post
+	 * @since    1.0.0
+	 * @param OBJECT $q
 	 */
 	public function pre_get_posts( $q ) {
 
-		if ( ! is_admin() && $q->is_main_query() &&
-		     isset( $q->query['category_name'] ) && ! empty( $q->query['category_name'] )
-		) {
-			$cat_exclude = [];
-			$cats_ids    = get_categories( [ 'fields' => 'ids', 'geot' => true ] );
+		if ( is_admin() || ! $q->is_main_query() || ! $q->is_single )
+			return;
 
-			foreach ( $cats_ids as $term_id ) {
-				$geot = get_term_meta( $term_id, 'geot', true );
+		if( isset( $q->query['post_type'] ) && $q->query['post_type'] == 'product' ){
+			$post = get_page_by_path( $q->query['name'], OBJECT, 'product' );
+			$taxonomy = 'product_cat';
+		} else {
+			$post = get_page_by_path( $q->query['name'], OBJECT, 'post' );
+			$taxonomy = 'category';
+		}
 
-				if ( ! $geot ) {
-					continue;
-				}
+		if( ! $post )
+			return;
 
-				$geot_country = $geot_city = $geot_state = $geot_zipcode = false;
+		$post_exclude = $q->get( 'post__not_in' );
 
-				// Country
-				if( ! empty( $geot['in_countries'] ) || ! empty( $geot['ex_countries'] ) ||
-					! empty( $geot['in_countries_regions'] ) || ! empty( $geot['ex_countries_regions'] )
-				) $geot_country = GeotWP_Helper::is_targeted_country( $geot );
+		if( in_array($post->ID, $post_exclude) )
+			return;
 
-				// City
-				if( ! empty( $geot['in_cities'] ) || ! empty( $geot['ex_cities'] ) ||
-					! empty( $geot['in_cities_regions'] ) || ! empty( $geot['ex_cities_regions'] )
-				) $geot_city = GeotWP_Helper::is_targeted_city( $geot );
+		$cats_ids = wp_get_object_terms($post->ID, $taxonomy, ['fields' => 'ids', 'geot' => true] );
 
-				// State
-				if( ! empty( $geot['in_states'] ) || ! empty( $geot['ex_states'] ) )
-					$geot_state = GeotWP_Helper::is_targeted_state( $geot );
+		foreach ( $cats_ids as $term_id ) {
+			$geot = get_term_meta( $term_id, 'geot', true );
 
-				// Zipcode
-				if( ! empty( $geot['in_zipcodes'] ) || ! empty( $geot['ex_zipcodes'] ) )
-					$geot_zipcode = GeotWP_Helper::is_targeted_zipcode( $geot );
-
-				// Exclude ID
-				if( ! $geot_country && ! $geot_city && ! $geot_state && ! $geot_zipcode )
-					$cat_exclude[] = $term_id * ( - 1 );
+			if ( ! $geot ) {
+				continue;
 			}
 
-			if ( count( $cat_exclude ) > 0 ) {
-				$q->set( 'cat', implode( ',', $cat_exclude ) );
+			if( ! $this->verify_geot($geot) ) {
+				$post_exclude[] = $post->ID;
+				break;
 			}
+		}
+
+
+		if ( count( $post_exclude ) > 0 ) {
+			$q->set( 'post__not_in', $post_exclude );
 		}
 	}
 
 
 	/**
+	 * Modify query to category
+	 * @since    1.0.0
+	 * @param OBJECT $q
+	 */
+	public function pre_get_categories( $q ) {
+
+		if ( is_admin() || ! $q->is_main_query() || ! $q->is_category )
+			return;
+
+		if( ! isset( $q->query['category_name'] ) || empty( $q->query['category_name'] ) )
+			return;
+		
+		$cat_exclude = [];
+		$cats_ids    = get_categories( [ 'fields' => 'ids', 'geot' => true ] );
+
+		foreach ( $cats_ids as $term_id ) {
+			$geot = get_term_meta( $term_id, 'geot', true );
+
+			if ( ! $geot )
+				continue;
+
+			if( ! $this->verify_geot($geot) )
+				$cat_exclude[] = $term_id * ( - 1 );
+		}
+
+		if ( count( $cat_exclude ) > 0 ) {
+			$q->set( 'cat', implode( ',', $cat_exclude ) );
+		}
+
+	}
+
+
+	/**
 	 * Get Terms Hook
+	 * @since    1.0.0
+	 * @param ARRAY $terms
+	 * @param ARRAY $taxonomies
+	 * @param ARRAY $args
+	 * @param OBJECT $term_query
+	 * @return ARRAY $terms
 	 */
 	public function get_terms( $terms, $taxonomies, $args, $term_query ) {
 
@@ -143,28 +185,7 @@ class GeotWP_Taxonomies {
 					continue;
 				}
 
-				$geot_country = $geot_city = $geot_state = $geot_zipcode = false;
-
-				// Country
-				if( ! empty( $geot['in_countries'] ) || ! empty( $geot['ex_countries'] ) ||
-					! empty( $geot['in_countries_regions'] ) || ! empty( $geot['ex_countries_regions'] )
-				) $geot_country = GeotWP_Helper::is_targeted_country( $geot );
-
-				// City
-				if( ! empty( $geot['in_cities'] ) || ! empty( $geot['ex_cities'] ) ||
-					! empty( $geot['in_cities_regions'] ) || ! empty( $geot['ex_cities_regions'] )
-				) $geot_city = GeotWP_Helper::is_targeted_city( $geot );
-
-				// State
-				if( ! empty( $geot['in_states'] ) || ! empty( $geot['ex_states'] ) )
-					$geot_state = GeotWP_Helper::is_targeted_state( $geot );
-
-				// Zipcode
-				if( ! empty( $geot['in_zipcodes'] ) || ! empty( $geot['ex_zipcodes'] ) )
-					$geot_zipcode = GeotWP_Helper::is_targeted_zipcode( $geot );
-
-				// Exclude ID
-				if( ! $geot_country && ! $geot_city && ! $geot_state && ! $geot_zipcode )
+				if( ! $this->verify_geot($geot) )
 					unset( $terms[ $id ] );
 			}
 		}
@@ -175,8 +196,8 @@ class GeotWP_Taxonomies {
 
 	/**
 	 * Edit category thumbnail field.
-	 *
-	 * @param mixed $term Term (category) being edited.
+	 * @since    1.0.0
+	 * @param OBJECT $tag
 	 */
 	public function woo_edit_category_fields( $tag ) {
 		$extra = get_term_meta( $tag->term_id, 'geot', true );
@@ -190,10 +211,8 @@ class GeotWP_Taxonomies {
 
 	/**
 	 * Save category fields
-	 *
-	 * @param mixed $term_id Term ID being saved.
-	 * @param mixed $tt_id Term taxonomy ID.
-	 * @param string $taxonomy Taxonomy slug.
+	 * @since    1.0.0
+	 * @param int $term_id Term ID being saved.
 	 */
 	public function woo_save_category_fields( $term_id ) {
 
@@ -213,6 +232,8 @@ class GeotWP_Taxonomies {
 
 	/**
 	 * Pre Get Post to Woocommerce
+	 * @since    1.0.0
+	 * @param OBJECT $q
 	 */
 	public function woo_pre_get_posts( $q ) {
 
@@ -226,28 +247,7 @@ class GeotWP_Taxonomies {
 				continue;
 			}
 
-			$geot_country = $geot_city = $geot_state = $geot_zipcode = false;
-
-			// Country
-			if( ! empty( $geot['in_countries'] ) || ! empty( $geot['ex_countries'] ) ||
-				! empty( $geot['in_countries_regions'] ) || ! empty( $geot['ex_countries_regions'] )
-			) $geot_country = GeotWP_Helper::is_targeted_country( $geot );
-
-			// City
-			if( ! empty( $geot['in_cities'] ) || ! empty( $geot['ex_cities'] ) ||
-				! empty( $geot['in_cities_regions'] ) || ! empty( $geot['ex_cities_regions'] )
-			) $geot_city = GeotWP_Helper::is_targeted_city( $geot );
-
-			// State
-			if( ! empty( $geot['in_states'] ) || ! empty( $geot['ex_states'] ) )
-				$geot_state = GeotWP_Helper::is_targeted_state( $geot );
-
-			// Zipcode
-			if( ! empty( $geot['in_zipcodes'] ) || ! empty( $geot['ex_zipcodes'] ) )
-				$geot_zipcode = GeotWP_Helper::is_targeted_zipcode( $geot );
-
-			// Exclude ID
-			if( ! $geot_country && ! $geot_city && ! $geot_state && ! $geot_zipcode )
+			if( ! $this->verify_geot($geot) )
 				$cat_exclude[] = $term_id;
 		}
 
@@ -266,6 +266,40 @@ class GeotWP_Taxonomies {
 			$q->set( 'tax_query', $tax_query );
 		}
 	}
-}
 
+
+	/**
+	 * Verify if geotargeting
+	 * @since    1.0.0
+	 * @param ARRAY $geot
+	 * @return boolean
+	 */
+	protected function verify_geot($geot) {
+		$geot_country = $geot_city = $geot_state = $geot_zipcode = false;
+
+		// Country
+		if( ! empty( $geot['in_countries'] ) || ! empty( $geot['ex_countries'] ) ||
+			! empty( $geot['in_countries_regions'] ) || ! empty( $geot['ex_countries_regions'] )
+		) $geot_country = GeotWP_Helper::is_targeted_country( $geot );
+
+		// City
+		if( ! empty( $geot['in_cities'] ) || ! empty( $geot['ex_cities'] ) ||
+			! empty( $geot['in_cities_regions'] ) || ! empty( $geot['ex_cities_regions'] )
+		) $geot_city = GeotWP_Helper::is_targeted_city( $geot );
+
+		// State
+		if( ! empty( $geot['in_states'] ) || ! empty( $geot['ex_states'] ) )
+			$geot_state = GeotWP_Helper::is_targeted_state( $geot );
+
+		// Zipcode
+		if( ! empty( $geot['in_zipcodes'] ) || ! empty( $geot['ex_zipcodes'] ) )
+			$geot_zipcode = GeotWP_Helper::is_targeted_zipcode( $geot );
+
+		// Verify
+		if( $geot_country || $geot_city || $geot_state || $geot_zipcode )
+			return true;
+
+		return false;
+	}
+}
 ?>
