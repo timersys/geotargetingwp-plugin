@@ -3,8 +3,8 @@ Contributors: timersys
 Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 3.6
-Tested up to: 5.2.3
-Stable tag: 3.0.2.2
+Tested up to: 5.3
+Stable tag: 3.0.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,10 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.0.2.3 =
+* Fixed issue with geo taxonomies
+* Validate ip to save request with invalid ones
+
 = 3.0.2.2 =
 * Fixed issue with page builders because redirects
 * Removed .git folder for users that use GIT to upload plugins
