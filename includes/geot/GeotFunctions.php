@@ -176,7 +176,7 @@ class GeotCore {
 	function rewrite_ip( $ip ) {
 		$settings = geot_settings();
 		$ip       = $_SERVER['REMOTE_ADDR'];
-		if ( isset( $settings['var_ip'] ) && ! empty( $settings['var_ip'] ) ) {
+		if ( isset( $settings['var_ip'] ) && ! empty( $settings['var_ip'] ) && isset($_SERVER[ $settings['var_ip'] ] ) ) {
 			$ip = $_SERVER[ $settings['var_ip'] ];
 		}
 
