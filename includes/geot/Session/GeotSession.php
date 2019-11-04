@@ -94,7 +94,7 @@ class GeotSession {
 				$start_session = false;
 			}
 		}
-		if ( isset( $_GET['page'] ) && 'geot-debug-data' == $_GET['page'] ) {
+		if ( ( isset( $_GET['page'] ) && 'geot-debug-data' == $_GET['page'] ) || ( is_admin() && ! defined('DOING_AJAX') ) ) {
 			$start_session = false;
 		}
 
