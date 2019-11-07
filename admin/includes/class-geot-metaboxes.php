@@ -118,7 +118,7 @@ class GeotWP_Metaboxes {
 			return $post_id;
 		}
 
-		if ( did_action( 'save_post' ) !== 1 ) {
+		if ( ! isset( $_POST['geot'] ) ) {
 			return $post_id;
 		}
 
@@ -126,7 +126,8 @@ class GeotWP_Metaboxes {
 		unset( $_POST['geot'] );
 
 		// save box settings
-		update_post_meta( $post_id, 'geot_options', apply_filters( 'geot/metaboxes/sanitized_options', $opts ) );
+		update_post_meta( $_POST['post_ID'], 'geot_options', apply_filters( 'geot/metaboxes/sanitized_options', $opts ) );
+		
 		// add one post meta to let us retrieve only posts that need to be geotarted ( used on helpers class )
 		$geot_post = false;
 		if ( ! empty( $opts['country_code'] ) ||
@@ -138,7 +139,7 @@ class GeotWP_Metaboxes {
 		) {
 			$geot_post = true;
 		}
-		update_post_meta( $post_id, '_geot_post', $geot_post );
+		update_post_meta( $_POST['post_ID'], '_geot_post', $geot_post );
 	}
 
 	/**
