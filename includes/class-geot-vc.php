@@ -299,7 +299,7 @@ class GeotWP_VC {
 		$class = 'notice notice-warning ';
 		$title = __('GeotargetingWP','geot');
 
-		$link 	= add_query_arg( 'geot_upgrade', 1, site_url( $_SERVER['REQUEST_URI'] ) );
+		$link 	= add_query_arg( 'geot_upgrade', 1 );
     	$message = sprintf(__( 'We need to update your database, please make a backup and <a href="%s">click here to start</a>', 'geot' ), esc_url($link));
  
     	printf( '<div class="%s"><h2>%s</h2><p>%s</p></div>',
@@ -355,7 +355,7 @@ class GeotWP_VC {
 
 
 			update_option('geot_vc_upgraded', true);
-			$link = remove_query_arg('geot_upgrade', site_url( $_SERVER['REQUEST_URI'] ) );
+			$link = remove_query_arg('geot_upgrade' );
 
 			wp_safe_redirect($link);
 			exit();
