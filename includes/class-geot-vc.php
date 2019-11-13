@@ -25,6 +25,10 @@ class GeotWP_VC {
 
 		//WPBakery support
 		add_filter('vc_basic_grid_filter_query_suppress_filters', '__return_false');
+
+		// Upgrade Shortcodes
+		add_action( 'admin_init', [ $this, 'action_upgrade' ] );
+		add_action( 'admin_notices', [ $this, 'notice_upgrade' ] );
 	}
 
 	public function hook_to_visual() {
@@ -241,6 +245,79 @@ class GeotWP_VC {
 
 		return $output;
 	}
+
+
+	public function notice_upgrade() {
+
+		$status = get_option('geot_vc_upgraded', false);
+
+		if( $status )
+			return;
+
+		$class = 'notice notice-warning ';
+		$title = __('GeotargetingWP','geot');
+
+		$link 	= add_query_arg( 'geot_upgrade', 1, site_url( $_SERVER['REQUEST_URI'] ) );
+    	$message = sprintf(__( 'We need to update your database, please make a backup and <a href="%s">click here to start</a>', 'geot' ), esc_url($link));
+ 
+    	printf( '<div class="%s"><h2>%s</h2><p>%s</p></div>',
+    		esc_attr( $class ),
+    		esc_html( $title ),
+    		wp_kses_post( $message )
+    	); 
+	}
+
+
+	function action_upgrade() {
+		if( isset( $_GET['geot_upgrade'] ) && $_GET['geot_upgrade'] == 1 ) {
+
+			global $wpdb;
+
+
+			// Country
+			$args = [
+				'ini_find'		=> '[vc_geot ',
+				'ini_replace' 	=> '[vc_geotwp_country ',
+				'fin_find'		=> '[/vc_geot]',
+				'fin_replace' 	=> '[/vc_geotwp_country]',
+				'like' 			=> '%[vc_geot%',
+				'notlike'		=> '%[vc_geotwp_country%',
+			];
+			geotwp_update_like($args);
+
+
+			// City
+			$args = [
+				'ini_find'		=> '[vc_geot_city ',
+				'ini_replace' 	=> '[vc_geotwp_city ',
+				'fin_find'		=> '[/vc_geot_city]',
+				'fin_replace' 	=> '[/vc_geotwp_city]',
+				'like' 			=> '%[vc_geot_city%',
+				'notlike'		=> '%[vc_geotwp_city%',
+			];
+			geotwp_update_like($args);
+
+
+			// States
+			$args = [
+				'ini_find'		=> '[vc_geot_state ',
+				'ini_replace' 	=> '[vc_geotwp_state ',
+				'fin_find'		=> '[/vc_geot_state]',
+				'fin_replace' 	=> '[/vc_geotwp_state]',
+				'like' 		=> '%[vc_geot_state%',
+				'notlike'	=> '%[vc_geotwp_state%',
+			];
+			geotwp_update_like($args);
+
+
+			update_option('geot_vc_upgraded', true);
+			$link = remove_query_arg('geot_upgrade', site_url( $_SERVER['REQUEST_URI'] ) );
+
+			wp_safe_redirect($link);
+			exit();
+		}
+	}
+
 }
 
 add_action( 'init', function () {

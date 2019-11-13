@@ -88,3 +88,31 @@ function geotwp_version_compare( $version1, $version2, $operator = null ) {
 		version_compare( $version1, $version2, $operator ) :
 		version_compare( $version1, $version2 );
 }
+
+
+/**
+ * Geot SQL to upgrade
+ * @param  ARRAY $args
+ * @return mixed
+ */
+function geotwp_update_like($args = []) {
+	global $wpdb;
+
+	if( empty($args) || count($args) == 0 )
+		return;	
+
+	extract($args);
+
+	$update = 'UPDATE
+					'.$wpdb->posts.'
+				SET
+					post_content = REPLACE(post_content, %s, %s),
+					post_content = REPLACE(post_content, %s, %s)
+				WHERE
+					post_content LIKE "%s" AND
+					post_content NOT LIKE "%s"';
+
+	$query = $wpdb->prepare($update, $ini_find, $ini_replace, $fin_find, $fin_replace, $like, $notlike);
+	
+	$wpdb->query($query);
+}
