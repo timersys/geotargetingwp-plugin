@@ -246,8 +246,16 @@ class GeotWP_VC {
 		return $output;
 	}
 
-
+	/**
+	 * Admin Notice to upgrade
+	 * @return mixed
+	 */
 	public function notice_upgrade() {
+
+		// Check if Visual Composer is installed
+		if ( ! defined( 'WPB_VC_VERSION' ) ) {
+			return;
+		}
 
 		$status = get_option('geot_vc_upgraded', false);
 
@@ -267,12 +275,14 @@ class GeotWP_VC {
     	); 
 	}
 
-
+	/**
+	 * Action upgrade
+	 * @return redirect
+	 */
 	function action_upgrade() {
 		if( isset( $_GET['geot_upgrade'] ) && $_GET['geot_upgrade'] == 1 ) {
 
 			global $wpdb;
-
 
 			// Country
 			$args = [
