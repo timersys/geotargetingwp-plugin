@@ -204,6 +204,40 @@ class GeotWP_VC {
 				],
 			]
 		);
+		vc_map(
+			[
+				'name'                    => __( 'Target Zip', 'geot' ),
+				'is_container'            => true,
+				'content_element'         => true,
+				'base'                    => 'vc_geotwp_zip',
+				'icon'                    => GEOWP_PLUGIN_URL . '/admin/img/world.png',
+				'show_settings_on_create' => true,
+				'category'                => __( 'Geotargeting', 'geot' ),
+				'description'             => __( 'Place elements inside this geot container', 'geot' ),
+				'html_template'           => GEOWP_PLUGIN_DIR . '/includes/vc/vc_geot_zip.php',
+				'js_view'                 => 'VcColumnView',
+				"params"                  => [
+					[
+						"type"        => "textfield",
+						"class"       => "",
+						"heading"     => __( "Zip", 'geot' ),
+						"param_name"  => "zip",
+						"value"       => __( "", 'geot' ),
+						"description" => __( "Type zip code. Also you can write a comma separated list of zip codes", 'geot' ),
+						'group'       => __( 'GeoTargeting', 'geot' ),
+					],
+					[
+						"type"        => "textfield",
+						"class"       => "",
+						"heading"     => __( "Exclude zip", 'geot' ),
+						"param_name"  => "exclude_zip",
+						"value"       => __( "", 'geot' ),
+						"description" => __( "Type zip code. Also you can write a comma separated list of zip codes", 'geot' ),
+						'group'       => __( 'GeoTargeting', 'geot' ),
+					],
+				],
+			]
+		);
 
 	}
 
@@ -339,6 +373,9 @@ add_action( 'init', function () {
 		}
 
 		class WPBakeryShortCode_VC_GeotWP_State extends WPBakeryShortCodesContainer {
+		}
+
+		class WPBakeryShortCode_VC_GeotWP_Zip extends WPBakeryShortCodesContainer {
 		}
 	}
 } );
