@@ -324,11 +324,14 @@ class GeotWP_R_ules {
 	*/
 	public static function rule_match_ip( $rule ) {
 		$ip = geot_ips();
+
+		$array_value = array_map('trim', explore( ',', $rule['value'] ) );
+
 		if ( $rule['operator'] == "==" ) {
-			return ( $ip == $rule['value'] );
+			return ( in_array( $ip, $rule['value'] ) );
 		}
 
-		return ( $ip != $rule['value'] );
+		return ( ! in_array( $ip, $rule['value'] ) );
 
 	}
 
