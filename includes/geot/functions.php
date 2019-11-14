@@ -200,7 +200,7 @@ function geot_activate() {
 }
 
 
-function geot_ips() {
+function geot_ips_available() {
 	$ips = [];
 
 	// Server

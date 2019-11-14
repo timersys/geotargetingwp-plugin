@@ -209,7 +209,7 @@ class GeotWizard {
 		$opts     = wp_parse_args( $opts, apply_filters( 'geot/default_settings', $defaults ) );
 
 		$countries = geot_countries();
-		$ips       = \GeotCore\geot_ips();
+		$ips       = \GeotCore\geot_ips_available();
 
 		require_once dirname( __FILE__ ) . '/partials/setup-wizard-basic.php';
 	}

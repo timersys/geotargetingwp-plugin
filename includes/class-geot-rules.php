@@ -58,6 +58,7 @@ class GeotWP_R_ules {
 		add_filter( 'geot/rules/rule_match/city_region', [ self::class, 'rule_match_city_region' ] );
 		add_filter( 'geot/rules/rule_match/state', [ self::class, 'rule_match_state' ] );
 		add_filter( 'geot/rules/rule_match/zip', [ self::class, 'rule_match_zip' ] );
+		add_filter( 'geot/rules/rule_match/ip', [ self::class, 'rule_match_ip' ] );
 
 		// User
 		add_filter( 'geot/rules/rule_match/user_type', [ self::class, 'rule_match_user_type' ] );
@@ -137,6 +138,7 @@ class GeotWP_R_ules {
 		add_action( 'geot/rules/print_city_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 2 );
 		add_action( 'geot/rules/print_state_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 		add_action( 'geot/rules/print_zip_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_ip_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 
 		// User
 		add_action( 'geot/rules/print_user_type_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
@@ -178,12 +180,13 @@ class GeotWP_R_ules {
 	public static function get_rules_choices() {
 		$choices = [
 			__( "Geotargeting", 'geot' ) => [
-				'country'        => __( 'Country', 'geot' ),
-				'country_region' => __( 'Country Region', 'geot' ),
-				'city'           => __( 'City', 'geot' ),
-				'city_region'    => __( 'City Region', 'geot' ),
-				'state'          => __( 'State', 'geot' ),
-				'zip'            => __( 'Zip Code', 'geot' ),
+				'country'			=> __( 'Country', 'geot' ),
+				'country_region'	=> __( 'Country Region', 'geot' ),
+				'city'				=> __( 'City', 'geot' ),
+				'city_region'		=> __( 'City Region', 'geot' ),
+				'state'				=> __( 'State', 'geot' ),
+				'zip'				=> __( 'Zip Code', 'geot' ),
+				'ip'				=> __( 'IP', 'geot' ),
 			],
 			__( "User", 'geot' )         => [
 				'user_type'     => __( "User role", 'geot' ),
@@ -312,6 +315,20 @@ class GeotWP_R_ules {
 		}
 
 		return ( $zip != $rule['value'] );
+
+	}
+
+	/*
+	* rule_match_ip
+	* @since 1.0.0
+	*/
+	public static function rule_match_ip( $rule ) {
+		$ip = geot_ips();
+		if ( $rule['operator'] == "==" ) {
+			return ( $ip == $rule['value'] );
+		}
+
+		return ( $ip != $rule['value'] );
 
 	}
 

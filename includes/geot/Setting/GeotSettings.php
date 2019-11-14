@@ -226,7 +226,7 @@ class GeotSettings {
 	 * @since 1.0.0
 	 */
 	public function general_panel() {
-		$ips = \GeotCore\geot_ips();
+		$ips = \GeotCore\geot_ips_available();
 		include dirname( __FILE__ ) . '/partials/settings-page.php';
 	}
 
