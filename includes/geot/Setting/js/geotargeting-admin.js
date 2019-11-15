@@ -155,19 +155,24 @@
             region.remove();
         });
 
-        // Zip Regions
-        $(".add-zip-region").click(function (e) {
+        // add zip region
+        $(".add-zip-region").on('click', function (e) {
             e.preventDefault();
 
             const region = $(this).prev('.zip-region-group'),
                 new_region = region.clone(),
                 new_id = parseInt(region.data('id'), 10) + 1;
 
-            new_region.find('input[type="text"]').attr('name', 'geot_settings[zip_region][' + new_id + '][name]').val('');
+            new_region.find('input.zip-region-name').attr('name', 'geot_settings[zip_region][' + new_id + '][name]').val('');
+            new_region.find('input.zip-region-list').attr('name', 'geot_settings[zip_region][' + new_id + '][zips]').val('');
             
-            const $old_select = region.find('input[type="text"].zipcodes');
-            new_region.find('input[type="text"].zipcodes').attr('name', 'geot_settings[zip_region][' + new_id + '][zips]');
-            
+            new_region.insertAfter(region);
+        });
+        // Remove zip region
+        $(".geot-settings").on('click', '.remove-zip-region', function (e) {
+            e.preventDefault();
+            var region = $(this).parent('.zip-region-group');
+            region.remove();
         });
 
         $(document).on('change', '.region-name', function () {

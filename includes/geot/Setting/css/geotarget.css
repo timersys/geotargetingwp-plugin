@@ -68,6 +68,7 @@ input.api-keys {
 
 .geot-settings .region-group,
 .geot-settings .redirection-group,
+.geot-settings .zip-region-group,
 .geot-settings .city-region-group {
     display: block;
     margin-bottom: 20px;
@@ -76,6 +77,7 @@ input.api-keys {
 
 .geot-settings .redirection-group:last-child,
 .geot-settings .region-group:last-child,
+.geot-settings .zip-region-group:last-child,
 .geot-settings .city-region-group:last-child {
     margin-bottom: 0;
 }
@@ -88,6 +90,7 @@ input.api-keys {
 
 .geot-settings .redirection-group .remove-redirection,
 .geot-settings .city-region-group .remove-city-region,
+.geot-settings .zip-region-group .remove-zip-region,
 .geot-settings .region-group .remove-region {
     display: none;
     text-decoration: none;
@@ -103,6 +106,7 @@ input.api-keys {
 
 .geot-settings .redirection-group:hover .remove-redirection,
 .geot-settings .region-group:hover .remove-region,
+.geot-settings .zip-region-group:hover .remove-zip-region,
 .geot-settings .city-region-group:hover .remove-city-region {
     display: inline-block;
 
@@ -110,15 +114,22 @@ input.api-keys {
 
 .geot-settings .redirection-group:hover .remove-redirection:hover,
 .geot-settings .city-region-group:hover .remove-city-region:hover,
+.geot-settings .zip-region-group:hover .remove-zip-region:hover,
 .geot-settings .region-group:hover .remove-region:hover {
     color: red;
 }
 
 .geot-settings .add-redirection,
 .geot-settings .add-region,
+.geot-settings .add-zip-region,
 .geot-settings .add-city-region {
     clear: both;
     margin-top: 10px;
+}
+
+.geot-settings .zip-region-group input.zip-region-list {
+    width: 42%;
+    display: block;
 }
 
 #geot_widget .chosen-container-multi .chosen-choices li.search-field input[type=text],
