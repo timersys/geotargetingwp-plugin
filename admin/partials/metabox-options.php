@@ -148,6 +148,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<td colspan="2"></td>
 	</tr>
 	<tr valign="top">
+		<th><label for="geot_position"><?php _e( 'Zip Regions:', 'geot' ); ?></label></th>
+		<td>
+			<?php if ( is_array( $zip_regions ) ) : ?>
+				<select name="geot[zip_region][]" multiple class="geot-chosen-select-multiple" data-placeholder="<?php _e( 'Type or choose zip region name...', 'geot' ); ?>">
+					<?php foreach ( $zip_regions as $r ) : ?>
+						<?php
+							if ( ! is_array( $opts ) || ! isset( $r['name'] ) ) {
+								continue;
+							}
+						?>
+						<option value="<?php echo $r['name']; ?>" <?php echo isset( $opts['zip_region'] ) ? selected( true, @in_array( $r['name'], $opts['zip_region'] ), true ) : ''; ?>>
+							<?php echo $r['name']; ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+			
+			<?php else : ?>
+				<p><?php _e('Add some regions first.','geot'); ?></p>
+			<?php endif; ?>
+		</td>
+		<td colspan="2"></td>
+	</tr>
+	<tr valign="top">
 		<th><label for="gstates"><?php _e( 'Zipcodes:', 'geot' ); ?></label></th>
 		<td>
 

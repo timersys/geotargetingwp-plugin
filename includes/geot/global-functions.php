@@ -433,6 +433,15 @@ if ( ! function_exists( 'geot_city_regions' ) ) {
 	}
 }
 /**
+ * Return Zip Regions
+ * @return mixed
+ */
+if ( ! function_exists( 'geot_zip_regions' ) ) {
+	function geot_zip_regions() {
+		return apply_filters( 'geot/get_zip_regions', [] );
+	}
+}
+/**
  * Grab countries from database
  * @return mixed
  */

@@ -90,9 +90,10 @@ class GeotWP_Helper {
 			}
 		}
 
-		if ( ! empty( $opts['zipcodes'] ) ) {
-			$zipcodes       = ! empty( $opts['zipcodes'] ) ? $opts['zipcodes'] : '';
-			$zipcode_target = geot_target_zip( $zipcodes );
+		if ( ! empty( $opts['zipcodes'] ) || ! empty( $opts['zip_region'] ) ) {
+			$zipcodes 	= ! empty( $opts['zipcodes'] ) ? $opts['zipcodes'] : '';
+			$regions 	= ! empty( $opts['zip_region'] ) ? $opts['zip_region'] : '';
+			$zipcode_target = geot_target_zip( $zipcodes, $regions );
 
 			if ( $mode == 'exclude' && $zipcode_target ) {
 				$zipcode_remove = true;
