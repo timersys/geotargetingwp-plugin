@@ -155,6 +155,21 @@
             region.remove();
         });
 
+        // Zip Regions
+        $(".add-zip-region").click(function (e) {
+            e.preventDefault();
+
+            const region = $(this).prev('.zip-region-group'),
+                new_region = region.clone(),
+                new_id = parseInt(region.data('id'), 10) + 1;
+
+            new_region.find('input[type="text"]').attr('name', 'geot_settings[zip_region][' + new_id + '][name]').val('');
+            
+            const $old_select = region.find('input[type="text"].zipcodes');
+            new_region.find('input[type="text"].zipcodes').attr('name', 'geot_settings[zip_region][' + new_id + '][zips]');
+            
+        });
+
         $(document).on('change', '.region-name', function () {
 
             $(this).val(slugify($(this).val()));

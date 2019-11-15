@@ -196,6 +196,37 @@ $countries = geot_countries();
 				</td>
 
 			</tr>
+			<tr valign="top" class="">
+				<th><h3><?php _e( 'Zip Codes:', 'geot' ); ?></h3></th>
+				<td colspan="3">
+				</td>
+			</tr>
+			<tr valign="top" class="">
+				<th><label for="region"><?php _e( 'Create new region', 'geot' ); ?></label></th>
+				<td colspan="3">
+					<?php
+
+					if ( ! empty( $opts['zip_region'] ) ) {
+						$i = 0;
+						foreach ( $opts['zip_region'] as $region ) {
+							$i ++; ?>
+
+							<div class="zip-region-group" data-id="<?php echo $i; ?>">
+
+								<input type="text" class="zip-region-name" placeholder="Enter Zip region name"
+								       name="geot_settings[zip_region][<?php echo $i; ?>][name]"
+								       value="<?php echo ! empty( $zip_region['name'] ) ? esc_attr( $zip_region['name'] ) : ''; ?>"/>
+								<a href="#" class="remove-zip-region" title="<?php _e( 'Remove Zip', 'geot' ); ?>">-</a>
+								<input type="text" class="zipcodes" name="geot_settings[zip_region][<?php echo $i; ?>][zips]" data-placeholder="<?php _e( 'Type Zip Code separate with commas...', 'geot' ); ?>" />
+
+							</div>
+						<?php }
+					} ?>
+					<a href="#" class="add-zip-region button"><?php _e( 'Add Zip Regions', 'geot' ); ?></a>
+					<p class="help"><?php _e( 'Add as many zips you need for each region', 'geot' ); ?></p>
+				</td>
+
+			</tr>
 
 			<?php do_action( 'geot/regions_page/after' ); ?>
 
