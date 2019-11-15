@@ -447,17 +447,7 @@ if ( ! function_exists( 'geot_countries' ) ) {
  */
 if ( ! function_exists('geot_ips' ) ) {
 	function geot_ips() {
-
-		$settings = geot_settings();
-		$ip = $_SERVER['REMOTE_ADDR'];
-
-		if( isset( $settings['var_ip'] ) && ! empty( $settings['var_ip'] ) )
-			$ip = $_SERVER[ $settings['var_ip'] ];
-
-		// if two ups provided, use first (varnish style)
-		$ip = strstr( $ip, ',') === false ? $ip : strstr( $ip, ',', true);
-
-		return apply_filters( 'geot/user_ip', $ip);
+		return apply_filters( 'geot/user_ip', '' );
 	}
 }
 /**
