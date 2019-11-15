@@ -18,7 +18,7 @@ $opts = geot_settings();
 if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
 	echo '<div class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $zip . '" data-ex_filter="' . $exclude_zip . '">' . wpb_js_remove_wpautop( $content ) . '</div>';
 } else {
-	if ( geot_target_zip( $zip, $exclude_zip ) ) {
+	if ( geot_target_zip( $zip, [], $exclude_zip ) ) {
 		echo wpb_js_remove_wpautop( $content );
 	}
 }

@@ -148,12 +148,14 @@ class GeotWP_Ajax_Shortcodes {
 	 */
 	function geot_filter_zips( $atts, $content ) {
 		extract( shortcode_atts( [
-			'zip'         => '',
-			'exclude_zip' => '',
-			'html_tag'    => 'div',
+			'zip'				=> '',
+			'region'			=> '',
+			'exclude_zip'		=> '',
+			'exclude_region'	=> '',
+			'html_tag'			=> 'div',
 		], $atts ) );
 
-		return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $zip . '" data-ex_filter="' . $exclude_zip . '" >' . do_shortcode( $content ) . '</' . $html_tag . '>';
+		return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $zip . '" data-region="' . $region . '" data-ex_filter="' . $exclude_zip . '" data-ex_region="' . $exclude_region . '">' . do_shortcode( $content ) . '</' . $html_tag . '>';
 
 	}
 

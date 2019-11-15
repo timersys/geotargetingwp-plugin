@@ -165,7 +165,7 @@ class GeotWP_Shortcodes {
 		], $atts ) );
 
 
-		if ( geot_target_zip( $zip, $exclude_zip ) ) {
+		if ( geot_target_zip( $zip, [], $exclude_zip ) ) {
 			return do_shortcode( $content );
 		}
 

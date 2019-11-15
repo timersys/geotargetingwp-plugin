@@ -59,7 +59,7 @@ class WPBeaver_GeoZipcode {
 		}
 
 
-		if ( geot_target_zip( $in_zipcodes, $ex_zipcodes ) ) {
+		if ( geot_target_zip( $in_zipcodes, [], $ex_zipcodes ) ) {
 			return true;
 		}
 

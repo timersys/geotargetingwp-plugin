@@ -167,7 +167,7 @@ class GeotWP_Gutenberg {
 		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
 			return '<div class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $in_zipcodes . '" data-ex_filter="' . $ex_zipcodes . '">' . $content . '</div>';
 		} else {
-			if ( geot_target_zip( $in_zipcodes, $ex_zipcodes ) ) {
+			if ( geot_target_zip( $in_zipcodes, [], $ex_zipcodes ) ) {
 				return $content;
 			}
 		}

@@ -228,7 +228,7 @@ class GeotWP_Widgets {
 						return false;
 					}
 				} elseif ( ! empty( $widget_data['geot_zipcodes'] ) ) {
-					if ( ! geot_target_zip( [], @$widget_data['geot_zipcodes'] ) ) {
+					if ( ! geot_target_zip( [], [], @$widget_data['geot_zipcodes'] ) ) {
 						return false;
 					}
 				} else {

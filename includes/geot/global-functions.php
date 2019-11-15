@@ -401,8 +401,8 @@ if ( ! function_exists( 'geot_target_state' ) ) {
  * @return bool
  */
 if ( ! function_exists( 'geot_target_zip' ) ) {
-	function geot_target_zip( $zip = '', $exclude = '' ) {
-		return geot_target( $zip, '', $exclude, '', 'zip' );
+	function geot_target_zip( $zip = '', $zip_region = '', $exclude = '', $exclude_region = '' ) {
+		return geot_target( $zip, $zip_region, $exclude, $exclude_region, 'zip' );
 	}
 }
 /**
