@@ -263,13 +263,15 @@ class GeotWP_R_ules {
 		*/
 	public static function rule_match_city( $rule ) {
 
-		$city = geot_city_name();
+		$city = strtolower( geot_city_name() );
+
+		$array_value = array_map('strtolower', array_map('trim', explode(',', $rule['value'])));
 
 		if ( $rule['operator'] == "==" ) {
-			return ( strtolower( $city ) == strtolower( $rule['value'] ) );
+			return ( in_array( $city, $array_value ) );
 		}
 
-		return ! ( strtolower( $city ) == strtolower( $rule['value'] ) );
+		return ( ! in_array( $city, $array_value ) );
 
 	}
 
@@ -279,14 +281,16 @@ class GeotWP_R_ules {
 	*/
 	public static function rule_match_state( $rule ) {
 
-		$state      = geot_state_name();
-		$state_code = geot_state_code();
+		$state      = strtolower( geot_state_name() );
+		$state_code = strtolower( geot_state_code() );
+
+		$array_value = array_map('strtolower', array_map('trim', explode(',', $rule['value'])));
 
 		if ( $rule['operator'] == "==" ) {
-			return ( strtolower( $state ) == strtolower( $rule['value'] ) || strtolower( $state_code ) == strtolower( $rule['value'] ) );
+			return ( in_array( $state, $array_value ) || in_array( $state_code, $array_value ) );
 		}
 
-		return ! ( strtolower( $state ) == strtolower( $rule['value'] ) || strtolower( $state_code ) == strtolower( $rule['value'] ) );
+		return ! ( in_array( $state, $array_value ) || in_array( $state_code, $array_value ) );
 
 	}
 
@@ -310,11 +314,14 @@ class GeotWP_R_ules {
 	*/
 	public static function rule_match_zip( $rule ) {
 		$zip = geot_zip();
+
+		$array_value = array_map('trim', explode( ',', $rule['value'] ) );
+
 		if ( $rule['operator'] == "==" ) {
-			return ( $zip == $rule['value'] );
+			return ( in_array( $zip, $array_value ) );
 		}
 
-		return ( $zip != $rule['value'] );
+		return ( ! in_array( $zip, $array_value ) );
 
 	}
 
@@ -325,13 +332,13 @@ class GeotWP_R_ules {
 	public static function rule_match_ip( $rule ) {
 		$ip = geot_ips();
 
-		$array_value = array_map('trim', explore( ',', $rule['value'] ) );
+		$array_value = array_map('trim', explode( ',', $rule['value'] ) );
 
 		if ( $rule['operator'] == "==" ) {
-			return ( in_array( $ip, $rule['value'] ) );
+			return ( in_array( $ip, $array_value ) );
 		}
 
-		return ( ! in_array( $ip, $rule['value'] ) );
+		return ( ! in_array( $ip, $array_value ) );
 
 	}
 
