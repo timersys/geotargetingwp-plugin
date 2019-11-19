@@ -48,6 +48,9 @@ class GeotWP_Elementor {
 			case 'cities':
 				$regions = geot_city_regions();
 				break;
+			case 'zips':
+				$regions = geot_zip_regions();
+				break;
 			default:
 				$regions = geot_country_regions();
 		}
