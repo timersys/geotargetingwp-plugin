@@ -134,7 +134,7 @@ class GeotWP_Widgets {
 			</p>
 
 			<p>
-				<label for="geot_position"><?php _e( 'Or type zipcodes (comma separated):', 'geot' ); ?></label><br/>
+				<label for="geot_position"><?php _e( 'Or type zipcodes or zip regions (comma separated):', 'geot' ); ?></label><br/>
 				<input type="text" class="geot_text" name="<?php echo $t->get_field_name( 'geot_zipcodes' ); ?>"
 				       value="<?php echo esc_attr( $instance['geot_zipcodes'] ); ?>"/>
 			</p>
@@ -202,7 +202,7 @@ class GeotWP_Widgets {
 			if ( 'include' == @$widget_data['geot_include_mode'] ) {
 
 				if ( ! empty( $widget_data['geot_zipcodes'] ) ) {
-					if ( ! geot_target_zip( @$widget_data['geot_zipcodes'] ) ) {
+					if ( ! geot_target_zip( @$widget_data['geot_zipcodes'], @$widget_data['geot_zipcodes'] ) ) {
 						return false;
 					}
 				} elseif ( ! empty( $widget_data['geot_cities'] ) ) {
@@ -228,7 +228,7 @@ class GeotWP_Widgets {
 						return false;
 					}
 				} elseif ( ! empty( $widget_data['geot_zipcodes'] ) ) {
-					if ( ! geot_target_zip( [], [], @$widget_data['geot_zipcodes'] ) ) {
+					if ( ! geot_target_zip( [], [], @$widget_data['geot_zipcodes'], @$widget_data['geot_zipcodes'] ) ) {
 						return false;
 					}
 				} else {
