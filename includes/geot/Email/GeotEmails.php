@@ -14,7 +14,7 @@ class GeotEmails {
 	public static function OutOfQueriesException() {
 		if ( false === get_transient( 'geot_OutOfQueriesException' ) ) {
 			set_transient( 'geot_OutOfQueriesException', true, 2 * 3600 );
-			$message = sprintf( __( 'Your <a href="%s">GeotargetingWP account</a> have run out of queries. Please <a href="%s">add some</a> more to continue using this plugin.', 'geot' ), 'https://geotargetingwp.com/dashboard/credits', 'https://geotargetingwp.com/dashboard/credits' );
+			$message = sprintf( __( 'Your <a href="%s">GeotargetingWP account</a> have run out of requests. Please <a href="%s">renew your billing cycle</a> to continue using this plugin.', 'geot' ), 'https://geotargetingwp.com/dashboard/stats', 'https://geotargetingwp.com/dashboard/stats' );
 			$subject = __( 'Geotargeting plugin Error!', 'geot' );
 			$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
 			wp_mail( get_bloginfo( 'admin_email' ), $subject, $message, $headers );
