@@ -58,6 +58,8 @@ function geotwp_default() {
 		'ex_states'            => '',
 		'in_zipcodes'          => '',
 		'ex_zipcodes'          => '',
+		'in_zips_regions'    => [],
+		'ex_zips_regions'    => [],
 	];
 
 	return apply_filters( 'geot_pro/global/default', $default );

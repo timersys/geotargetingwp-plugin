@@ -252,12 +252,14 @@ class GeotWP_Helper {
 
 		extract( $opts );
 
-		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) ) {
+		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
+			count( $in_zips_regions ) == 0 && count( $ex_zips_regions ) == 0
+		) {
 			return true;
 		}
 
 
-		if ( geot_target_zip( $in_zipcodes, [], $ex_zipcodes ) ) {
+		if ( geot_target_zip( $in_zipcodes, $in_zips_regions, $ex_zipcodes, $ex_zips_regions ) ) {
 			return true;
 		}
 
