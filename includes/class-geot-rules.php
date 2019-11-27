@@ -58,6 +58,7 @@ class GeotWP_R_ules {
 		add_filter( 'geot/rules/rule_match/city_region', [ self::class, 'rule_match_city_region' ] );
 		add_filter( 'geot/rules/rule_match/state', [ self::class, 'rule_match_state' ] );
 		add_filter( 'geot/rules/rule_match/zip', [ self::class, 'rule_match_zip' ] );
+		add_filter( 'geot/rules/rule_match/zip_region', [ self::class, 'rule_match_zip_region' ] );
 		add_filter( 'geot/rules/rule_match/ip', [ self::class, 'rule_match_ip' ] );
 
 		// User
@@ -137,6 +138,7 @@ class GeotWP_R_ules {
 		add_action( 'geot/rules/print_city_region_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
 		add_action( 'geot/rules/print_city_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 2 );
 		add_action( 'geot/rules/print_state_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_zip_region_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
 		add_action( 'geot/rules/print_zip_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 		add_action( 'geot/rules/print_ip_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 
@@ -185,6 +187,7 @@ class GeotWP_R_ules {
 				'city'				=> __( 'City', 'geot' ),
 				'city_region'		=> __( 'City Region', 'geot' ),
 				'state'				=> __( 'State', 'geot' ),
+				'zip_region'		=> __( 'Zip Region', 'geot' ),
 				'zip'				=> __( 'Zip Code', 'geot' ),
 				'ip'				=> __( 'IP', 'geot' ),
 			],
@@ -305,6 +308,20 @@ class GeotWP_R_ules {
 		}
 
 		return ( ! geot_target_city( '', $rule['value'] ) );
+
+	}
+
+	/*
+	* rule_match_zip_region
+	* @since 1.0.0
+	*/
+	public static function rule_match_zip_region( $rule ) {
+
+		if ( $rule['operator'] == "==" ) {
+			return ( geot_target_zip( '', $rule['value'] ) );
+		}
+
+		return ( ! geot_target_zip( '', $rule['value'] ) );
 
 	}
 

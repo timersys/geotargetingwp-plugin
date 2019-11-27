@@ -456,6 +456,12 @@ class GeotWP_Helper {
 					$choices[ $r['name'] ] = $r['name'];
 				}
 				break;
+			case "zip_region":
+				$regions = geot_zip_regions();
+				foreach ( $regions as $r ) {
+					$choices[ $r['name'] ] = $r['name'];
+				}
+				break;
 			case "post_type":
 				// all post types except attachment
 				$choices = apply_filters( 'geot/get_post_types', get_post_types(), [ 'attachment' ] );
