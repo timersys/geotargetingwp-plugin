@@ -3695,7 +3695,52 @@
 
             var mode = $.find('#geot_editor .geot_include_mode:checked').val();
 
-            if ($.find('#geot_state').val()) {
+            if ($.find('#geot_zip').val()) {
+                var str = '[geot_filter_zip ';
+                if (mode == 'include') {
+                    str += 'zip="';
+                } else {
+                    str += 'exclude_city="';
+                }
+
+                str += $.find('#geot_zip').val();
+
+                str += '" ';
+
+                var selected_text = parentEditor.selection.getContent();
+                if (selected_text) {
+
+                    str += "]" + selected_text + "[/geot_filter_zip]";
+
+                } else {
+
+                    str += "]<p>Please add your content in this area.</p>[/geot_filter_zip]";
+
+                }
+            } else if ($.find('#geot_zip_region').val()) {
+                var str = '[geot_filter_zip ';
+                if (mode == 'include') {
+                    str += 'region="';
+                } else {
+                    str += 'exclude_region="';
+                }
+
+                str += $.find('#geot_zip_region').val();
+
+                str += '" ';
+
+                var selected_text = parentEditor.selection.getContent();
+                if (selected_text) {
+
+                    str += "]" + selected_text + "[/geot_filter_zip]";
+
+                } else {
+
+                    str += "]<p>Please add your content in this area.</p>[/geot_filter_zip]";
+
+                }
+
+            } else if ($.find('#geot_state').val()) {
                 var str = '[geot_filter_state ';
                 if (mode == 'include') {
                     str += 'state="';

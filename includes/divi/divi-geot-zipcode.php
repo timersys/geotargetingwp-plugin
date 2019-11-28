@@ -65,7 +65,7 @@ class Divi_GeoZipcode {
 	 *
 	 * @return array
 	 */
-	static function is_render( $settings ) {
+	static function is_render( $settings, $regions ) {
 
 		extract( $settings );
 
