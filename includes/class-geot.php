@@ -91,6 +91,11 @@ class Geot {
 	 */
 	public $divi;
 
+	/*
+	 * @var GeoTarget_Fusion
+	 */
+	public $fusion;
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -146,6 +151,7 @@ class Geot {
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-wpbeaver.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-gutenberg.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-elementor.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-fusion.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-rules.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-helper.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-updater.php';
@@ -194,6 +200,7 @@ class Geot {
 		$this->gutenberg 	= new GeotWP_Gutenberg();
 		$this->elementor 	= new GeotWP_Elementor();
 		$this->divi 		= new GeotWP_Divi();
+		$this->divi 		= new GeotWP_Fusion();
 		$this->beaver 		= new GeotWP_WPBeaver();
 		$this->taxs 		= new GeotWP_Taxonomies();
 		$this->menus 		= new GeotWP_Menus();
