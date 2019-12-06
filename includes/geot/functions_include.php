@@ -4,6 +4,7 @@ use GeotCore\Session\GeotSession;
 use GeotCore\Upgrade\GeoUpgrades;
 
 if ( ! function_exists( 'GeotCore\toArray' ) ) {
+	require __DIR__ . '/GeotFunctions.php';
 	require __DIR__ . '/functions.php';
 	require __DIR__ . '/filters.php';
 	require __DIR__ . '/global-functions.php';

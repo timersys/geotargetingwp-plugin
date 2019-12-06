@@ -23,133 +23,151 @@ class DatabaseHandler extends SessionHandler {
 	 * before trying to use it.
 	 *
 	 * @see https://github.com/ericmann/wp-session-manager/issues/55
+	 *
+	 * @return bool|\WP_Error True if the table exists, False if using options, Error if failed.
 	 */
-	public static function create_table() {
-		if ( defined( 'WP_SESSION_USE_OPTIONS' ) && WP_SESSION_USE_OPTIONS ) {
-			return;
+	public static function createTable() {
+		if (defined('WP_SESSION_USE_OPTIONS') && WP_SESSION_USE_OPTIONS) {
+			return false;
 		}
 
-		$current_db_version = '0.1';
-		$created_db_version = get_option( 'sm_session_db_version', '0.0' );
+		$current_db_version = '0.2';
+		$created_db_version = get_option('sm_session_db_version', '0.0');
 
-		if ( version_compare( $created_db_version, $current_db_version, '<' ) ) {
-			global $wpdb;
-
-			$collate = '';
-			if ( $wpdb->has_cap( 'collation' ) ) {
-				$collate = $wpdb->get_charset_collate();
-			}
-
-			$table = "CREATE TABLE {$wpdb->prefix}sm_sessions (
-		  session_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-		  session_key char(32) NOT NULL,
-		  session_value LONGTEXT NOT NULL,
-		  session_expiry BIGINT(20) UNSIGNED NOT NULL,
-		  PRIMARY KEY  (session_key),
-		  UNIQUE KEY session_id (session_id)
-		) $collate;";
-
-			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-			dbDelta( $table );
-
-			add_option( 'sm_session_db_version', '0.1', '', 'no' );
-
-			// Nuke any legacy sessions from the options table.
-			OptionsHandler::delete_all();
+		// If we're up-to-date, don't run the update
+		if ($created_db_version === $current_db_version) {
+			return true;
 		}
+
+		global $wpdb;
+
+		$collate = '';
+		if ($wpdb->has_cap('collation')) {
+			$collate = $wpdb->get_charset_collate();
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		require_once ABSPATH . 'wp-admin/install-helper.php';
+
+		switch ($created_db_version) {
+			case '0.1':
+				$dropped = maybe_drop_column(
+					"{$wpdb->prefix}sm_sessions",
+					'session_id',
+					"ALTER TABLE {$wpdb->prefix}sm_sessions DROP COLUMN session_id;"
+				);
+
+				if (! $dropped) {
+					return new \WP_Error('Unable to update session tables!');
+				}
+
+				update_option('sm_session_db_version', '0.2');
+				break;
+			case '0.0':
+			default:
+				$created = maybe_create_table(
+					"{$wpdb->prefix}sm_sessions",
+					"CREATE TABLE {$wpdb->prefix}sm_sessions (
+						session_key char(32) NOT NULL,
+						session_value LONGTEXT NOT NULL,
+						session_expiry BIGINT(20) UNSIGNED NOT NULL,
+						PRIMARY KEY  (session_key)
+					) $collate;"
+				);
+
+				if (! $created) {
+					return new \WP_Error('Unable to create session tables!');
+				}
+
+				add_option('sm_session_db_version', '0.2', '', 'no');
+
+				// Nuke any legacy sessions from the options table.
+				OptionsHandler::deleteAll();
+		}
+
+		return true;
 	}
 
 	/**
 	 * Pass things through to the next middleware. This function is a no-op.
 	 *
-	 * @param string $path Path where the storage lives
-	 * @param string $name Name of the session store to create
-	 * @param callable $next Next create operation in the stack
+	 * @param string   $path Path where the storage lives.
+	 * @param string   $name Name of the session store to create.
+	 * @param callable $next Next create operation in the stack.
 	 *
 	 * @return mixed
 	 */
-	public function create( $path, $name, $next ) {
-		return $next( $path, $name );
+	public function create($path, $name, $next) {
+		return $next($path, $name);
 	}
 
 	/**
 	 * Store the item in the database and then pass the data, unchanged, down
 	 * the middleware stack.
 	 *
-	 * @param string $id
-	 * @param string $data
-	 * @param callable $next
+	 * @param string   $key  Key of the data to store.
+	 * @param string   $data Actual data to store.
+	 * @param callable $next Next write operation in the stack.
 	 *
 	 * @return mixed
 	 */
-	public function write( $id, $data, $next ) {
-		$this->_write( $id, $data );
+	public function write($key, $data, $next) {
+		$this->directWrite($key, $data);
 
-		return $next( $id, $data );
+		return $next($key, $data);
 	}
 
 	/**
 	 * Actually write the data to the WordPress database.
 	 *
-	 * @param string $id ID of the session to write
-	 * @param string $data Serialized data to write
-	 * @param int    [$expires] Timestamp (in seconds from now) when the session expires
+	 * @param string $key     Key of the session to write.
+	 * @param string $data    Serialized data to write.
+	 * @param int    $expires Timestamp (in seconds from now) when the session expires.
 	 *
-	 * @return bool|int false if the row could not be inserted or the number of affected rows (which will always be 1).
 	 * @global \wpdb $wpdb
 	 *
+	 * @return bool|int false if the row could not be inserted or the number of affected rows (which will always be 1).
 	 */
-	protected function _write( $id, $data, $expires = null ) {
+	protected function directWrite($key, $data = '', $expires = null) {
 		global $wpdb;
 
-		if ( $expires === null ) {
-			$lifetime = (int) ini_get( 'session.gc_maxlifetime' );
-			$expires  = time() + $lifetime;
+		if (null === $wpdb) {
+			return false;
+		}
+
+		if (null === $expires) {
+			$lifetime = (int) ini_get('session.gc_maxlifetime');
+			$expires = time() + $lifetime;
 		}
 
 		$session = [
-			'session_key'    => $this->sanitize( $id ),
+			'session_key'    => $this->sanitize($key),
 			'session_value'  => $data,
 			'session_expiry' => $expires,
 		];
 
-		if ( empty( $data ) ) {
-			return $this->_delete( $id );
+		if (empty($data)) {
+			return $this->directDelete($key);
 		}
 
-		return $wpdb->replace( "{$wpdb->prefix}sm_sessions", $session );
-	}
-
-	/**
-	 * Delete a session from the database.
-	 *
-	 * @param string $id Session identifier
-	 *
-	 * @global \wpdb $wpdb
-	 */
-	protected function _delete( $id ) {
-		global $wpdb;
-
-		$session_id = $this->sanitize( $id );
-
-		$wpdb->delete( "{$wpdb->prefix}sm_sessions", [ 'session_key' => $session_id ] );
+		return $wpdb->replace("{$wpdb->prefix}sm_sessions", $session);
 	}
 
 	/**
 	 * Grab the item from the database if it exists, otherwise delve deeper
 	 * into the stack and retrieve from another underlying middlware.
 	 *
-	 * @param string $id
-	 * @param callable $next
+	 * @param string   $key  Key of the session to read.
+	 * @param callable $next Next read operation in the stack.
 	 *
 	 * @return string
 	 */
-	public function read( $id, $next ) {
-		$data = $this->_read( $id );
-		if ( false === $data ) {
-			$data = $next( $id );
-			if ( false !== $data ) {
-				$this->_write( $id, $data );
+	public function read($key, $next) {
+		$data = $this->directRead($key);
+		if (false === $data) {
+			$data = $next($key);
+			if (false !== $data) {
+				$this->directWrite($key, $data);
 			}
 		}
 
@@ -159,25 +177,29 @@ class DatabaseHandler extends SessionHandler {
 	/**
 	 * Get an item out of a WordPress option
 	 *
-	 * @param string $id
+	 * @param string $key Key of the session to read.
 	 *
-	 * @return bool|string
 	 * @global \wpdb $wpdb
 	 *
+	 * @return bool|string
 	 */
-	protected function _read( $id ) {
+	protected function directRead($key) {
 		global $wpdb;
-		$session_id = $this->sanitize( $id );
+		$session_key = $this->sanitize($key);
+
+		if (null === $wpdb) {
+			return false;
+		}
 
 		$session = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT * FROM {$wpdb->prefix}sm_sessions WHERE session_key = %s",
-				esc_sql( $session_id )
+				$session_key
 			),
 			ARRAY_A
 		);
 
-		if ( $session === null ) {
+		if (null === $session) {
 			return false;
 		}
 
@@ -187,38 +209,64 @@ class DatabaseHandler extends SessionHandler {
 	/**
 	 * Purge an item from the database immediately.
 	 *
-	 * @param string $id
-	 * @param callable $next
+	 * @param string   $key  Key of the session to purge.
+	 * @param callable $next Next delete operation in the stack.
 	 *
 	 * @return mixed
 	 */
-	public function delete( $id, $next ) {
-		$this->_delete( $id );
+	public function delete($key, $next) {
+		$this->directDelete($key);
 
-		return $next( $id );
+		return $next($key);
+	}
+
+	/**
+	 * Delete a session from the database.
+	 *
+	 * @param string $key Session identifier.
+	 *
+	 * @global \wpdb $wpdb
+	 */
+	protected function directDelete($key) {
+		global $wpdb;
+
+		$session_key = $this->sanitize($key);
+
+		if (null !== $wpdb) {
+			$wpdb->delete("{$wpdb->prefix}sm_sessions", ['session_key' => $session_key]);
+		}
 	}
 
 	/**
 	 * Update the database by removing any sessions that are no longer valid.
 	 *
-	 * @param int $maxlifetime (Unused)
-	 * @param callable $next Next clean operation in the stack
+	 * @param int $maxlifetime (Unused).
+	 * @param callable $next Next clean operation in the stack.
 	 *
 	 * @return mixed
-	 * @global \wpdb $wpdb
-	 *
 	 */
-	public function clean( $maxlifetime, $next ) {
+	public function clean($maxlifetime, $next) {
+		self::directClean();
+
+		return $next($maxlifetime);
+	}
+
+	/**
+	 * Update the database by removing any sessions that are no longer valid
+	 *
+	 * @global \wpdb $wpdb
+	 */
+	public static function directClean() {
 		global $wpdb;
 
-		$wpdb->query(
-			$wpdb->prepare(
-				"DELETE FROM {$wpdb->prefix}sm_sessions WHERE session_expiry < %s LIMIT %d",
-				time(),
-				1000
-			)
-		);
-
-		return $next( $maxlifetime );
+		if (null !== $wpdb) {
+			$wpdb->query(
+				$wpdb->prepare(
+					"DELETE FROM {$wpdb->prefix}sm_sessions WHERE session_expiry < %s LIMIT %d",
+					time(),
+					1000
+				)
+			);
+		}
 	}
 }
