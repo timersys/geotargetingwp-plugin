@@ -5,8 +5,11 @@ namespace GeotCore\Session;
 use EAMann\Sessionz\Handlers\EncryptionHandler;
 use EAMann\Sessionz\Handlers\MemoryHandler;
 use EAMann\Sessionz\Manager;
-use EAMann\WPSession\DatabaseHandler;
+use EAMann\WPSession\SessionHandler;
+use EAMann\WPSession\Objects\Option;
 use EAMann\WPSession\OptionsHandler;
+use EAMann\WPSession\CacheHandler;
+use EAMann\WPSession\DatabaseHandler;
 
 /**
  * GeotSession wrapper Class
@@ -91,7 +94,7 @@ class GeotSession {
 					wp_schedule_event(time(), $timeout, 'wp_session_database_gc');
 				}
 				
-				add_action( 'wp_session_database_gc', array('DatabaseHandler', 'directClean') );
+				add_action( 'wp_session_database_gc', array('EAMann\WPSession\DatabaseHandler', 'directClean') );
 			}
 
 			// If we have an external object cache, let's use it!
