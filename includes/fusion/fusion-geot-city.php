@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Fusion_GeoCity {
 
 	/**
-	 * Add the actual fields
+	 * Geot fields to City
 	 *
 	 * @return array
 	 */
@@ -66,7 +66,7 @@ class Fusion_GeoCity {
 	/**
 	 * Conditional if render
 	 *
-	 * @return array
+	 * @return bool
 	 */
 	static function is_render( $attrs ) {
 
@@ -94,11 +94,9 @@ class Fusion_GeoCity {
 	/**
 	 * if is ajax, apply render
 	 *
-	 * @return array
+	 * @return string
 	 */
 	static function ajax_render( $attrs, $output ) {
-
-		$in_regions_commas = $ex_regions_commas = '';
 
 		extract( $attrs );
 
@@ -113,11 +111,7 @@ class Fusion_GeoCity {
 			return $output;
 		}
 
-		$in_regions_commas = array_map( 'trim', implode( ',', $in_regions ) );
-		$ex_regions_commas = array_map( 'trim', implode( ',', $ex_regions ) );
-
-
-		return '<div class="geot-ajax geot-filter" data-action="city_filter" data-filter="' . $in_cities . '" data-region="' . $in_regions_commas . '" data-ex_filter="' . $ex_cities . '" data-ex_region="' . $ex_regions_commas . '">' . $output . '</div>';
+		return '<div class="geot-ajax geot-filter" data-action="city_filter" data-filter="' . $in_cities . '" data-region="' . $in_regions . '" data-ex_filter="' . $ex_cities . '" data-ex_region="' . $ex_regions . '">' . $output . '</div>';
 	}
 
 }

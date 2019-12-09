@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Fusion_GeoState {
 
 	/**
-	 * Add the actual fields
+	 * Geot fields to State
 	 *
 	 * @return array
 	 */
@@ -48,7 +48,7 @@ class Fusion_GeoState {
 	/**
 	 * Add the actual fields
 	 *
-	 * @return array
+	 * @return bool
 	 */
 	static function is_render( $attrs ) {
 
@@ -73,7 +73,7 @@ class Fusion_GeoState {
 	/**
 	 * if is ajax, apply render
 	 *
-	 * @return array
+	 * @return string
 	 */
 	static function ajax_render( $attrs, $output ) {
 

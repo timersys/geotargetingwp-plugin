@@ -24,18 +24,26 @@ class GeotWP_Fusion {
 
 		add_action( 'fusion_builder_before_init', [ $this, 'init' ] );
 		add_filter( 'fusion_builder_element_params', [ $this, 'element_params' ], 10, 2 );
-
-
 		add_filter( 'do_shortcode_tag', [$this, 'shortcode_tag'], 10, 4 );
-
 	}
 
+	/**
+	 * Include the files
+	 * @return mixed
+	 */
 	public function init() {
 		require_once GEOWP_PLUGIN_DIR . 'includes/fusion/fusion-geot-country.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/fusion/fusion-geot-city.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/fusion/fusion-geot-state.php';
 	}
 
+	/**
+	 * Lets add params to each element
+	 * 
+	 * @param  array  $params    element params
+	 * @param  string $shortcode shortcode name
+	 * @return array  $params    original params and Geot params
+	 */
 	public function element_params($params = [], $shortcode = '') {
 
 		$geot_keys = [
@@ -71,8 +79,7 @@ class GeotWP_Fusion {
 	 * Get Regions
 	 *
 	 * @param string $slug_region
-	 *
-	 * @return array
+	 * @return array $dropdown_values
 	 */
 	static function get_regions( $slug_region = 'country' ) {
 
@@ -97,7 +104,15 @@ class GeotWP_Fusion {
 		return $dropdown_values;
 	}
 
-
+	/**
+	 * Shortocode filter in the front
+	 * 
+	 * @param  string $output Shortcode output
+	 * @param  string $tag    Shortcode name
+	 * @param  array  $attrs  Shortcode attributes
+	 * @param  array  $m      Regular expression match array.
+	 * @return mixed
+	 */
 	public function shortcode_tag($output, $tag, $attrs, $m) {
 
 		if( substr($tag, 0, 7) != 'fusion_' )
@@ -129,7 +144,7 @@ class GeotWP_Fusion {
 			return $output;
 
 
-		//$this->init();
+		$this->init();
 
 		$opts 			= geot_settings();
 		$reg_countries 	= array_values( self::get_regions( 'country' ) );
