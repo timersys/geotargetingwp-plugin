@@ -48,13 +48,13 @@ class GeotSession {
 	 * @since 1.5
 	 */
 	public function __construct() {
-		
-		if (session_status() !== PHP_SESSION_DISABLED && (!defined('WP_CLI') || false === WP_CLI)) {
-			add_action('plugins_loaded', array( $this, 'wp_session_manager_initialize'), 1,  0);
-			
+
+		if ( session_status() !== PHP_SESSION_DISABLED && ( ! defined( 'WP_CLI' ) || false === WP_CLI ) ) {
+			add_action( 'plugins_loaded', [ $this, 'wp_session_manager_initialize' ], 1, 0 );
+
 			// If we're not in a cron, start the session
-			if (!defined('DOING_CRON') || false === DOING_CRON) {
-				add_action('plugins_loaded', array( $this, 'wp_session_manager_start_session' ), 10, 0);
+			if ( ! defined( 'DOING_CRON' ) || false === DOING_CRON ) {
+				add_action( 'plugins_loaded', [ $this, 'wp_session_manager_start_session' ], 10, 0 );
 			}
 		}
 	}
@@ -73,7 +73,7 @@ class GeotSession {
 
 			// Queue up the session stack
 			$wp_session_handler = Manager::initialize();
-			
+
 			// Fall back to database storage where needed.
 			if ( defined( 'WP_SESSION_USE_OPTIONS' ) && WP_SESSION_USE_OPTIONS ) {
 				$wp_session_handler->addHandler( new OptionsHandler() );
@@ -88,18 +88,18 @@ class GeotSession {
 				 *
 				 * @param string $timeout Interval with which to purge stale sessions
 				 */
-				$timeout = apply_filters('wp_session_gc_interval', 'hourly');
-				
-				if (!wp_next_scheduled('wp_session_database_gc')) {
-					wp_schedule_event(time(), $timeout, 'wp_session_database_gc');
+				$timeout = apply_filters( 'wp_session_gc_interval', 'hourly' );
+
+				if ( ! wp_next_scheduled( 'wp_session_database_gc' ) ) {
+					wp_schedule_event( time(), $timeout, 'wp_session_database_gc' );
 				}
-				
-				add_action( 'wp_session_database_gc', array('EAMann\WPSession\DatabaseHandler', 'directClean') );
+
+				add_action( 'wp_session_database_gc', [ 'EAMann\WPSession\DatabaseHandler', 'directClean' ] );
 			}
 
 			// If we have an external object cache, let's use it!
-			if (wp_using_ext_object_cache()) {
-				$wp_session_handler->addHandler(new CacheHandler());
+			if ( wp_using_ext_object_cache() ) {
+				$wp_session_handler->addHandler( new CacheHandler() );
 			}
 
 			if ( defined( 'WP_SESSION_ENC_KEY' ) && WP_SESSION_ENC_KEY ) {
@@ -112,16 +112,17 @@ class GeotSession {
 			$_SESSION['wp_session_manager'] = 'active';
 		}
 
-		if (! isset($_SESSION['wp_session_manager']) || $_SESSION['wp_session_manager'] !== 'active') {
-			add_action('admin_notices', array($this,'wp_session_manager_multiple_sessions_notice'));
+		if ( ! isset( $_SESSION['wp_session_manager'] ) || $_SESSION['wp_session_manager'] !== 'active' ) {
+			add_action( 'admin_notices', [ $this, 'wp_session_manager_multiple_sessions_notice' ] );
+
 			return;
 		}
-		
+
 		// Create the required table.
 		DatabaseHandler::createTable();
-		register_deactivation_hook(__FILE__, function () {
-			wp_clear_scheduled_hook('wp_session_database_gc');
-		});
+		register_deactivation_hook( __FILE__, function () {
+			wp_clear_scheduled_hook( 'wp_session_database_gc' );
+		} );
 	}
 
 	/**
@@ -143,7 +144,7 @@ class GeotSession {
 				$start_session = false;
 			}
 		}
-		if ( ( isset( $_GET['page'] ) && 'geot-debug-data' == $_GET['page'] ) || ( is_admin() && ! defined('DOING_AJAX') ) ) {
+		if ( ( isset( $_GET['page'] ) && 'geot-debug-data' == $_GET['page'] ) || ( is_admin() && ! defined( 'DOING_AJAX' ) ) ) {
 			$start_session = false;
 		}
 
@@ -213,7 +214,7 @@ class GeotSession {
 	public function wp_session_manager_multiple_sessions_notice() {
 		global $wp_session_messages;
 		echo '<div class="notice notice-error">';
-		echo '<p>'.esc_html($wp_session_messages['multiple_sessions']).'</p>';
+		echo '<p>' . esc_html( $wp_session_messages['multiple_sessions'] ) . '</p>';
 		echo '</div>';
 	}
 
