@@ -215,7 +215,7 @@ class GeotCore {
 				if( ! empty( $saved_regions ) ) {
 					foreach ( $saved_regions as $sr_key => $saved_region ) {
 						if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) ) {
-							$places = array_merge( (array) $places, (array) $saved_region[ $plural_key ] );
+							$places = array_merge( (array) $places, toArray( $saved_region[ $plural_key ] ) );
 						}
 					}
 				}
@@ -237,7 +237,7 @@ class GeotCore {
 				if( ! empty( $saved_regions ) ) {
 					foreach ( $saved_regions as $sr_key => $saved_region ) {
 						if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) ) {
-							$exclude_places = array_merge( (array) $exclude_places, (array) $saved_region[ $plural_key ] );
+							$exclude_places = array_merge( (array) $exclude_places, toArray( $saved_region[ $plural_key ] ) );
 						}
 					}
 				}

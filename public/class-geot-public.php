@@ -291,11 +291,11 @@ class GeotWP_Public {
 
 		if ( $rule['operator'] == "==" ) {
 
-			return geot_target_zip( $rule['value'], '' );
+			return geot_target_zip( $rule['value'] );
 
 		} else {
 
-			return ! geot_target_zip( $rule['value'], '' );
+			return ! geot_target_zip( $rule['value'] );
 		}
 	}
 

@@ -337,7 +337,7 @@ class GeotSettings {
 				}
 			}
 			if ( isset( $_GET['view'] ) && 'regions' == $_GET['view'] ) {
-				foreach ( [ 'region', 'city_region' ] as $input ) {
+				foreach ( [ 'region', 'city_region', 'zip_region' ] as $input ) {
 					if ( ! isset( $settings[ $input ] ) || empty( $settings[ $input ] ) ) {
 						$settings[ $input ] = null;
 					}

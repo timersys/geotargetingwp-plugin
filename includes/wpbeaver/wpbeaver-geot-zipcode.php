@@ -32,10 +32,24 @@ class WPBeaver_GeoZipcode {
 					'label' => __( 'Include ZipCodes', 'Geot' ),
 					'help' => esc_html__( 'Type zip codes separated by commas.', 'geot' ),
 				],
+				'in_region_zips' => [
+					'type' => 'select',
+					'multi-select' => true,
+					'label' => __( 'Include Zip Regions', 'Geot' ),
+					'options' => GeotWP_WPBeaver::get_regions( 'zip' ),
+					'help' => esc_html__( 'Choose region name to show content to.', 'geot' ),
+				],
 				'ex_states' => [
 					'type' => 'text',
 					'label' => __( 'Exclude ZipCodes', 'Geot' ),
 					'help' => esc_html__( 'Type zip codes separated by commas.', 'geot' ),
+				],
+				'ex_region_zips' => [
+					'type' => 'select',
+					'multi-select' => true,
+					'label' => __( 'Exclude Zip Regions', 'Geot' ),
+					'options' => GeotWP_WPBeaver::get_regions( 'zip' ),
+					'help' => esc_html__( 'Choose region name to show content to.', 'geot' ),
 				],
 			],
 		];
@@ -54,12 +68,14 @@ class WPBeaver_GeoZipcode {
 		extract((array)$settings);
 
 
-		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) ) {
+		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
+			count( (array)$in_region_zips ) == 0 && count( (array)$ex_region_zips ) == 0
+		) {
 			return true;
 		}
 
 
-		if ( geot_target_zip( $in_zipcodes, $ex_zipcodes ) ) {
+		if ( geot_target_zip( $in_zipcodes, $in_region_zips, $ex_zipcodes, $ex_region_zips ) ) {
 			return true;
 		}
 
@@ -74,13 +90,26 @@ class WPBeaver_GeoZipcode {
 	 */
 	static function ajax_render( $settings, $output ) {
 
+		$in_regions_commas = $ex_regions_commas = '';
+
 		extract( (array)$settings );
 
-		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) ) {
+		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
+			count( (array)$in_region_cities ) == 0 && count( (array)$ex_region_cities ) == 0
+		) {
 			return $output;
 		}
 
 
-		return '<div class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $in_zipcodes . '" data-ex_filter="' . $ex_zipcodes . '">' . $output . '</div>';
+		if ( count( (array)$in_region_cities ) > 0 ) {
+			$in_regions_commas = implode( ',', (array)$in_region_cities );
+		}
+
+		if ( count( (array)$ex_region_cities ) > 0 ) {
+			$ex_regions_commas = implode( ',', (array)$ex_region_cities );
+		}
+
+
+		return '<div class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $in_zipcodes . '" data-region="' . $in_regions_commas . '" data-ex_filter="' . $ex_zipcodes . '" data-ex_region="' . $ex_regions_commas . '">' . $output . '</div>';
 	}
 }

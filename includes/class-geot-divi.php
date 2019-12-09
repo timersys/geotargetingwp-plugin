@@ -192,6 +192,7 @@ class GeotWP_Divi {
 		$opts 			= geot_settings();
 		$reg_countries 	= array_values( self::get_regions( 'country' ) );
 		$reg_cities 	= array_values( self::get_regions( 'city' ) );
+		$reg_zips 		= array_values( self::get_regions( 'zip' ) );
 
 
 		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
@@ -206,7 +207,7 @@ class GeotWP_Divi {
 			if ( ! Divi_GeoCountry::is_render( $module->props, $reg_countries ) ||
 			     ! Divi_GeoCity::is_render( $module->props, $reg_cities ) ||
 			     ! Divi_GeoState::is_render( $module->props ) ||
-			     ! Divi_GeoZipcode::is_render( $module->props )
+			     ! Divi_GeoZipcode::is_render( $module->props, $reg_zips )
 			) {
 				return '';
 			}
@@ -262,6 +263,9 @@ class GeotWP_Divi {
 		switch ( $slug_region ) {
 			case 'city':
 				$regions = geot_city_regions();
+				break;
+			case 'zip':
+				$regions = geot_zip_regions();
 				break;
 			default:
 				$regions = geot_country_regions();

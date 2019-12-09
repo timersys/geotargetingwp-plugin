@@ -51,8 +51,9 @@ class GeotWP_Taxonomies {
 		$geot  = geotwp_format( $extra );
 
 
-		$regions_countries = wp_list_pluck( geot_country_regions(), 'name' );
-		$regions_cities    = wp_list_pluck( geot_city_regions(), 'name' );
+		$regions_countries	= wp_list_pluck( geot_country_regions(), 'name' );
+		$regions_cities		= wp_list_pluck( geot_city_regions(), 'name' );
+		$regions_zips		= wp_list_pluck( geot_zip_regions(), 'name' );
 
 		include_once GEOWP_PLUGIN_DIR . 'admin/partials/metabox-category.php';
 	}
@@ -203,8 +204,9 @@ class GeotWP_Taxonomies {
 		$extra = get_term_meta( $tag->term_id, 'geot', true );
 		$geot  = geotwp_format( $extra );
 
-		$regions_countries = wp_list_pluck( geot_country_regions(), 'name' );
-		$regions_cities    = wp_list_pluck( geot_city_regions(), 'name' );
+		$regions_countries	= wp_list_pluck( geot_country_regions(), 'name' );
+		$regions_cities		= wp_list_pluck( geot_city_regions(), 'name' );
+		$regions_zips		= wp_list_pluck( geot_zip_regions(), 'name' );
 
 		include_once GEOWP_PLUGIN_DIR . 'admin/partials/metabox-woo-category.php';
 	}
@@ -292,8 +294,9 @@ class GeotWP_Taxonomies {
 			$geot_state = GeotWP_Helper::is_targeted_state( $geot );
 
 		// Zipcode
-		if( ! empty( $geot['in_zipcodes'] ) || ! empty( $geot['ex_zipcodes'] ) )
-			$geot_zipcode = GeotWP_Helper::is_targeted_zipcode( $geot );
+		if( ! empty( $geot['in_zipcodes'] ) || ! empty( $geot['ex_zipcodes'] ) ||
+			! empty( $geot['in_zips_regions'] ) || ! empty( $geot['ex_zips_regions'] )
+		) $geot_zipcode = GeotWP_Helper::is_targeted_zipcode( $geot );
 
 		// Verify
 		if( $geot_country || $geot_city || $geot_state || $geot_zipcode )

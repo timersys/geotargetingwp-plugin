@@ -38,6 +38,7 @@ class GeotWP_VC {
 		}
 
 		vc_add_shortcode_param( 'geot_dropdown', [ $this, 'dropdown_field' ] );
+		
 		$regions         = geot_country_regions();
 		$dropdown_values = [ __( 'Choose one', 'geot' ) => '' ];
 
@@ -56,6 +57,17 @@ class GeotWP_VC {
 			foreach ( $city_regions as $k => $r ) {
 				if ( isset( $r['name'] ) ) {
 					$city_dropdown_values[ $r['name'] ] = $r['name'];
+				}
+			}
+		}
+
+		$zip_regions         = geot_zip_regions();
+		$zip_dropdown_values = [ __( 'Choose one', 'geot' ) => '' ];
+
+		if ( ! empty( $zip_regions ) ) {
+			foreach ( $zip_regions as $k => $r ) {
+				if ( isset( $r['name'] ) ) {
+					$zip_dropdown_values[ $r['name'] ] = $r['name'];
 				}
 			}
 		}
@@ -86,8 +98,7 @@ class GeotWP_VC {
 						"value"       => __( "", 'geot' ),
 						"description" => __( "Type country name or ISO code. Also you can write a comma separated list of countries", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
-					],
-					[
+					],[
 						"type"        => "geot_dropdown",
 						"class"       => "",
 						"heading"     => __( "Region", 'geot' ),
@@ -96,8 +107,7 @@ class GeotWP_VC {
 						"value"       => $dropdown_values,
 						"description" => __( "Choose region name to show content to", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
-					],
-					[
+					],[
 						"type"        => "textfield",
 						"class"       => "",
 						"heading"     => __( "Exclude Country", 'geot' ),
@@ -105,8 +115,7 @@ class GeotWP_VC {
 						"value"       => __( "", 'geot' ),
 						"description" => __( "Type country name or ISO code. Also you could write a comma separated list of countries", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
-					],
-					[
+					],[
 						"type"        => "geot_dropdown",
 						"class"       => "",
 						"heading"     => __( "Exclude Region", 'geot' ),
@@ -139,8 +148,7 @@ class GeotWP_VC {
 						"value"       => __( "", 'geot' ),
 						"description" => __( "Type city name. Also you can write a comma separated list of cities", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
-					],
-					[
+					],[
 						"type"        => "geot_dropdown",
 						"class"       => "",
 						"heading"     => __( "City Region", 'geot' ),
@@ -148,8 +156,7 @@ class GeotWP_VC {
 						"value"       => $city_dropdown_values,
 						"description" => __( "Choose region name to show content to", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
-					],
-					[
+					],[
 						"type"        => "textfield",
 						"class"       => "",
 						"heading"     => __( "Exclude City", 'geot' ),
@@ -157,8 +164,7 @@ class GeotWP_VC {
 						"value"       => __( "", 'geot' ),
 						"description" => __( "Type city name. Also you could write a comma separated list of cities", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
-					],
-					[
+					],[
 						"type"        => "geot_dropdown",
 						"class"       => "",
 						"heading"     => __( "Exclude City Region", 'geot' ),
@@ -191,8 +197,7 @@ class GeotWP_VC {
 						"value"       => __( "", 'geot' ),
 						"description" => __( "Type state name or ISO code. Also you can write a comma separated list of states", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
-					],
-					[
+					],[
 						"type"        => "textfield",
 						"class"       => "",
 						"heading"     => __( "Exclude State", 'geot' ),
@@ -225,14 +230,29 @@ class GeotWP_VC {
 						"value"       => __( "", 'geot' ),
 						"description" => __( "Type zip code. Also you can write a comma separated list of zip codes", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
-					],
-					[
+					],[
+						"type"        => "geot_dropdown",
+						"class"       => "",
+						"heading"     => __( "Zip Region", 'geot' ),
+						"param_name"  => "region",
+						"value"       => $zip_dropdown_values,
+						"description" => __( "Choose region name to show content to", 'geot' ),
+						'group'       => __( 'GeoTargeting', 'geot' ),
+					],					[
 						"type"        => "textfield",
 						"class"       => "",
 						"heading"     => __( "Exclude zip", 'geot' ),
 						"param_name"  => "exclude_zip",
 						"value"       => __( "", 'geot' ),
 						"description" => __( "Type zip code. Also you can write a comma separated list of zip codes", 'geot' ),
+						'group'       => __( 'GeoTargeting', 'geot' ),
+					],[
+						"type"        => "geot_dropdown",
+						"class"       => "",
+						"heading"     => __( "Zip Region", 'geot' ),
+						"param_name"  => "exclude_region",
+						"value"       => $zip_dropdown_values,
+						"description" => __( "Choose region name to exclude content.", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
 					],
 				],

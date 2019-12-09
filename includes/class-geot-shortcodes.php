@@ -161,11 +161,13 @@ class GeotWP_Shortcodes {
 	function geot_filter_zips( $atts, $content ) {
 		extract( shortcode_atts( [
 			'zip'         => '',
+			'region'      => '',
 			'exclude_zip' => '',
+			'exclude_region' => '',
 		], $atts ) );
 
 
-		if ( geot_target_zip( $zip, $exclude_zip ) ) {
+		if ( geot_target_zip( $zip, $region, $exclude_zip, $exclude_region ) ) {
 			return do_shortcode( $content );
 		}
 

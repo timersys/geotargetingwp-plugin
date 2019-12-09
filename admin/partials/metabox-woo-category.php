@@ -149,6 +149,21 @@
 		<span class="description"><?php _e( 'Type zip codes separated by commas.', 'geot' ); ?></span>
 	</td>
 </tr>
+
+<tr class="form-field">
+	<th scope="row" valign="top">
+		<label for="geot-in-zips-regions"><?php _e( 'Include Zip Regions' ); ?></label>
+	</th>
+	<td>
+		<select name="geot[in_zips_regions][]" id="geot-in-zips-regions" class="geot-chosen-select-multiple"
+		        multiple="multiple">
+			<?php foreach ( $regions_zips as $region ) : ?>
+				<option value="<?php echo $region; ?>" <?php selected( in_array( $region, $geot['in_zips_regions'] ), true, true ); ?>><?php echo $region; ?></option>
+			<?php endforeach; ?>
+		</select>
+	</td>
+</tr>
+
 <tr class="form-field">
 	<th scope="row" valign="top">
 		<label for="geot-ex-zipcodes"><?php _e( 'Exclude Zipcodes' ); ?></label>
@@ -157,5 +172,19 @@
 		<input type="text" name="geot[ex_zipcodes]" id="geot-ex-zipcodes" class="selectize-input"
 		       value="<?php echo $geot['ex_zipcodes']; ?>" style="width:80%;"><br/>
 		<span class="description"><?php _e( 'Type zip codes separated by commas.', 'geot' ); ?></span>
+	</td>
+</tr>
+
+<tr class="form-field">
+	<th scope="row" valign="top">
+		<label for="geot-ex-zips-regions"><?php _e( 'Exclude Zip Regions' ); ?></label>
+	</th>
+	<td>
+		<select name="geot[ex_zips_regions][]" id="geot-ex-zips-regions" class="geot-chosen-select-multiple"
+		        multiple="multiple">
+			<?php foreach ( $regions_zips as $region ) : ?>
+				<option value="<?php echo $region; ?>" <?php selected( in_array( $region, $geot['in_zips_regions'] ), true, true ); ?>><?php echo $region; ?></option>
+			<?php endforeach; ?>
+		</select>
 	</td>
 </tr>

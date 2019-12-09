@@ -24,15 +24,23 @@ registerBlockType('geotargeting-pro/gutenberg-zipcode', {
             type: 'string',
             default: '',
         },
+        in_regions: {
+            type: 'array',
+            default: [],
+        },
         ex_zipcodes: {
             type: 'string',
             default: '',
+        },
+        ex_regions: {
+            type: 'array',
+            default: [],
         },
     },
 
     edit: function (props) {
         const {attributes, setAttributes, className, focus, setFocus} = props;
-        const {in_zipcodes, ex_zipcodes} = attributes;
+        const {in_zipcodes, in_regions, ex_zipcodes, ex_regions} = attributes;
 
         const ALLOWED_BLOCKS = [];
 
@@ -52,6 +60,14 @@ registerBlockType('geotargeting-pro/gutenberg-zipcode', {
             setAttributes({ex_zipcodes: newContent});
         }
 
+        function onChangeInRegions(newContent) {
+            setAttributes({in_regions: newContent});
+        }
+
+        function onChangeExRegions(newContent) {
+            setAttributes({ex_regions: newContent});
+        }
+
         if (in_zipcodes) {
             block_sign_msg.push(__('Include Zipcodes', 'geot') + ' : ' + in_zipcodes);
         }
@@ -60,6 +76,13 @@ registerBlockType('geotargeting-pro/gutenberg-zipcode', {
             block_sign_msg.push(__('Exclude Zipcodes', 'geot') + ' : ' + ex_zipcodes);
         }
 
+        if (in_regions.length) {
+            block_sign_msg.push(__('Include Regions', 'geot') + ' : ' + in_regions.join(' , '));
+        }
+
+        if (ex_regions.length) {
+            block_sign_msg.push(__('Exclude Regions', 'geot') + ' : ' + ex_regions.join(' , '));
+        }
 
         if (block_sign_msg.length != 0)
             block_top_msg = block_sign_msg.join(' , ');
@@ -77,12 +100,34 @@ registerBlockType('geotargeting-pro/gutenberg-zipcode', {
                         }),
                     ),
                     el(PanelRow, {},
+                        el(SelectControl, {
+                                label: __('Include Zipcode Regions', 'geot'),
+                                multiple: true,
+                                options: gutgeot.regions_zip,
+                                onChange: onChangeInRegions,
+                                value: in_regions,
+                                help: __('Choose region name to show content to', 'geot'),
+                            },
+                        ),
+                    ),
+                    el(PanelRow, {},
                         el(TextControl, {
                             label: __('Exclude Zipcodes', 'geot'),
                             value: ex_zipcodes,
                             onChange: onChangeExZipcodes,
                             help: __('Type zip codes separated by commas.', 'geot'),
                         }),
+                    ),
+                    el(PanelRow, {},
+                        el(SelectControl, {
+                                label: __('Exclude Zipcode Regions', 'geot'),
+                                multiple: true,
+                                options: gutgeot.regions_zip,
+                                onChange: onChangeExRegions,
+                                value: ex_regions,
+                                help: __('Choose region name to exclude content', 'geot'),
+                            },
+                        ),
                     ),
                 ),
             ),

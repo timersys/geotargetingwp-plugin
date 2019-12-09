@@ -60,8 +60,12 @@ class GeotWP_Menus {
 
 		// Check if element is properly sent
 		if ( isset( $_REQUEST['menu-item-geot'] ) && is_array( $_REQUEST['menu-item-geot'] ) ) {
-			$geot_country_value = $_REQUEST['menu-item-geot'][ $menu_item_db_id ];
-			update_post_meta( $menu_item_db_id, '_menu_item_geot', $geot_country_value );
+			$geot_value = $_REQUEST['menu-item-geot'][ $menu_item_db_id ];
+
+			$geot_value['city_region'] = $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['cities'];
+			$geot_value['zip_region'] = $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['zipcodes'];
+
+			update_post_meta( $menu_item_db_id, '_menu_item_geot', $geot_value );
 		}
 
 	}

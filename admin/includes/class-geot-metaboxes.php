@@ -78,9 +78,10 @@ class GeotWP_Metaboxes {
 	 */
 	public function geot_options_view( $post, $metabox ) {
 		$opts         = apply_filters( 'geot/metaboxes/get_cpt_options', GeotWP_Helper::get_cpt_options( $post->ID ), $post->ID );
-		$countries    = geot_countries();
-		$regions      = geot_country_regions();
-		$city_regions = geot_city_regions();
+		$countries 		= geot_countries();
+		$regions 		= geot_country_regions();
+		$city_regions 	= geot_city_regions();
+		$zip_regions	= geot_zip_regions();
 
 		if ( ! isset( $opts['forbidden_text'] ) ) {
 			$opts['forbidden_text'] = __( 'This content is restricted in your region', 'geot' );
@@ -135,6 +136,7 @@ class GeotWP_Metaboxes {
 		     ! empty( $opts['city_region'] ) ||
 		     ! empty( $opts['cities'] ) ||
 		     ! empty( $opts['states'] ) ||
+		     ! empty( $opts['zip_region'] ) ||
 		     ! empty( $opts['zipcodes'] )
 		) {
 			$geot_post = true;

@@ -1,7 +1,8 @@
 <?php
-$countries    = geot_countries();
-$regions      = geot_country_regions();
-$city_regions = geot_city_regions();
+$countries 		= geot_countries();
+$regions 		= geot_country_regions();
+$city_regions 	= geot_city_regions();
+$zip_regions 	= geot_zip_regions();
 ?>
 <form name="form" autocomplete="off">
 	<div id="geot_editor" class="shortcode_editor" title="Country Geo Target Text" style="">
@@ -96,6 +97,34 @@ $city_regions = geot_city_regions();
 				<td>
 					<input type="text" name="geot[state]" id="geot_state"
 					       data-placeholder="<?php _e( 'Type states separated by comma', 'geot' ); ?>"/>
+				</td>
+				<td colspan="2"></td>
+			</tr>
+
+			<tr valign="top">
+				<th><label for="geot_position"><?php _e( 'Or type zips:', 'geot' ); ?></label></th>
+				<td>
+					<input type="text" name="geot[zip]" id="geot_zip"
+					       data-placeholder="<?php _e( 'Type zips separated by comma', 'geot' ); ?>"/>
+				</td>
+				<td colspan="2"></td>
+			</tr>
+			<tr valign="top">
+				<th><label for="geot_position"><?php _e( 'Or choose zip Regions:', 'geot' ); ?></label></th>
+				<td>
+					<select name="geot[zip_region][]" id="geot_zip_region" multiple
+					        class="geot-chosen-select-multiple"
+					        data-placeholder="<?php _e( 'Type or choose zips region name...', 'geot' ); ?>">
+						<?php
+						if ( is_array( $zip_regions ) ) {
+							foreach ( $zip_regions as $cr ) {
+								?>
+								<option value="<?php echo strtolower( $cr['name'] ); ?>"> <?php echo $cr['name']; ?></option>
+								<?php
+							}
+						}
+						?>
+					</select>
 				</td>
 				<td colspan="2"></td>
 			</tr>

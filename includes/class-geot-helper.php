@@ -90,9 +90,10 @@ class GeotWP_Helper {
 			}
 		}
 
-		if ( ! empty( $opts['zipcodes'] ) ) {
-			$zipcodes       = ! empty( $opts['zipcodes'] ) ? $opts['zipcodes'] : '';
-			$zipcode_target = geot_target_zip( $zipcodes );
+		if ( ! empty( $opts['zipcodes'] ) || ! empty( $opts['zip_region'] ) ) {
+			$zipcodes 	= ! empty( $opts['zipcodes'] ) ? $opts['zipcodes'] : '';
+			$regions 	= ! empty( $opts['zip_region'] ) ? $opts['zip_region'] : '';
+			$zipcode_target = geot_target_zip( $zipcodes, $regions );
 
 			if ( $mode == 'exclude' && $zipcode_target ) {
 				$zipcode_remove = true;
@@ -251,12 +252,14 @@ class GeotWP_Helper {
 
 		extract( $opts );
 
-		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) ) {
+		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
+			count( $in_zips_regions ) == 0 && count( $ex_zips_regions ) == 0
+		) {
 			return true;
 		}
 
 
-		if ( geot_target_zip( $in_zipcodes, $ex_zipcodes ) ) {
+		if ( geot_target_zip( $in_zipcodes, $in_zips_regions, $ex_zipcodes, $ex_zips_regions ) ) {
 			return true;
 		}
 
@@ -449,6 +452,12 @@ class GeotWP_Helper {
 				break;
 			case "city_region":
 				$regions = geot_city_regions();
+				foreach ( $regions as $r ) {
+					$choices[ $r['name'] ] = $r['name'];
+				}
+				break;
+			case "zip_region":
+				$regions = geot_zip_regions();
 				foreach ( $regions as $r ) {
 					$choices[ $r['name'] ] = $r['name'];
 				}

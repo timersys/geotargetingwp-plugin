@@ -414,7 +414,7 @@ class GeotWP_Ajax {
 	 */
 	private function zip_filter( $geot ) {
 
-		if ( geot_target_zip( $geot['filter'], $geot['ex_filter'] ) ) {
+		if ( geot_target_zip( $geot['filter'], [], $geot['ex_filter'] ) ) {
 			return true;
 		}
 

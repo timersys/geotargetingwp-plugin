@@ -63,7 +63,7 @@ class GeotWP_WPBeaver {
 						'geot-countries'	=> $section_countries,
 						'geot-cities'		=> $section_city,
 						'geot-states'		=> $section_states,
-						'geot-zipcodes'	=> $section_zipcodes,
+						'geot-zipcodes'		=> $section_zipcodes,
 					],
 				],
 			];
@@ -174,6 +174,9 @@ class GeotWP_WPBeaver {
 		switch ( $slug_region ) {
 			case 'city':
 				$regions = geot_city_regions();
+				break;
+			case 'zip':
+				$regions = geot_zip_regions();
 				break;
 			default:
 				$regions = geot_country_regions();
