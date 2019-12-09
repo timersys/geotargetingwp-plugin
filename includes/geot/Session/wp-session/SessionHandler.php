@@ -21,15 +21,14 @@ use EAMann\Sessionz\Handler;
 abstract class SessionHandler implements Handler {
 
 	/**
-	 * Sanitize a potential Session ID so we aren't fetching broken data
+	 * Sanitize a potential Session key so we aren't fetching broken data
 	 * from the options table.
 	 *
-	 * @param string $id
+	 * @param string $key Session key to sanitize.
 	 *
 	 * @return string
 	 */
-	protected function sanitize( $id ) {
-		return preg_replace( "/[^A-Za-z0-9_]/", '', $id );
+	protected function sanitize($key) {
+		return preg_replace('/[^A-Za-z0-9_]/', '', $key);
 	}
-
 }
