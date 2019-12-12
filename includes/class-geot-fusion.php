@@ -35,6 +35,7 @@ class GeotWP_Fusion {
 		require_once GEOWP_PLUGIN_DIR . 'includes/fusion/fusion-geot-country.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/fusion/fusion-geot-city.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/fusion/fusion-geot-state.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/fusion/fusion-geot-zip.php';
 	}
 
 	/**
@@ -57,6 +58,10 @@ class GeotWP_Fusion {
 			'geot_ex_region_cities',
 			'geot_in_states',
 			'geot_ex_states',
+			'geot_in_zips',
+			'geot_in_region_zips',
+			'geot_ex_zips',
+			'geot_ex_region_zips',
 		];
 
 
@@ -68,7 +73,8 @@ class GeotWP_Fusion {
 			$params,
 			Fusion_GeoCountry::get_fields(),
 			Fusion_GeoCity::get_fields(),
-			Fusion_GeoState::get_fields()
+			Fusion_GeoState::get_fields(),
+			Fusion_GeoZip::get_fields()
 		);
 
 		return $params;
@@ -88,6 +94,9 @@ class GeotWP_Fusion {
 		switch ( $slug_region ) {
 			case 'city':
 				$regions = geot_city_regions();
+				break;
+			case 'zip':
+				$regions = geot_zip_regions();
 				break;
 			default:
 				$regions = geot_country_regions();
@@ -130,8 +139,11 @@ class GeotWP_Fusion {
 			'geot_ex_region_cities',
 			'geot_in_states',
 			'geot_ex_states',
-		];
-
+			'geot_in_zips',
+			'geot_in_region_zips',
+			'geot_ex_zips',
+			'geot_ex_region_zips',
+		];	
 
 		foreach( $geot_keys as $geot_key ) {
 			if( isset( $attrs[$geot_key] ) && !empty( $attrs[$geot_key] ) ) {
@@ -140,15 +152,12 @@ class GeotWP_Fusion {
 			}
 		}
 
+
 		if( ! $found )
 			return $output;
 
 
 		$this->init();
-
-		$opts 			= geot_settings();
-		$reg_countries 	= array_values( self::get_regions( 'country' ) );
-		$reg_cities 	= array_values( self::get_regions( 'city' ) );
 
 
 		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
@@ -156,12 +165,14 @@ class GeotWP_Fusion {
 			$output = Fusion_GeoCountry::ajax_render( $attrs, $output );
 			$output = Fusion_GeoCity::ajax_render( $attrs, $output );
 			$output = Fusion_GeoState::ajax_render( $attrs, $output );
+			$output = Fusion_GeoZip::ajax_render( $attrs, $output );
 
 		} else {
 
 			if ( ! Fusion_GeoCountry::is_render( $attrs ) ||
 			     ! Fusion_GeoCity::is_render( $attrs ) ||
-			     ! Fusion_GeoState::is_render( $attrs )
+			     ! Fusion_GeoState::is_render( $attrs ) ||
+			     ! Fusion_GeoZip::is_render( $attrs )
 			) {
 				return '';
 			}

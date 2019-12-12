@@ -105,7 +105,7 @@ class Fusion_GeoCity {
 		$in_regions = trim( $geot_in_region_cities );
 		$ex_regions = trim( $geot_ex_region_cities );
 
-		if ( empty( $in_countries ) && empty( $ex_countries ) &&
+		if ( empty( $in_cities ) && empty( $ex_cities ) &&
 		     empty( $in_regions ) && empty( $ex_regions )
 		) {
 			return $output;

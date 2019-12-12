@@ -13,10 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage GeoTarget/includes
  * @author     Damian Logghe
  */
-class Fusion_GeoState {
+class Fusion_GeoZip {
 
 	/**
-	 * Add the actual fields
+	 * Geot fields to Zip
 	 *
 	 * @return array
 	 */
@@ -26,16 +26,34 @@ class Fusion_GeoState {
 			[
 				'type'			=> 'textfield',
 				'heading'		=> esc_attr__( 'Include Zips', 'geot' ),
-				'description'	=> esc_attr__( 'Type zips codes separated by commas.', 'geot' ),
+				'description'	=> esc_attr__( 'Type Zip codes separated by commas.', 'geot' ),
 				'param_name'	=> 'geot_in_zips',
+				'default'		=> '',
+				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
+			],
+			[
+				'type'			=> 'multiple_select',
+				'heading'		=> esc_attr__( 'Include Zip Regions', 'geot' ),
+				'description'	=> esc_attr__( 'Choose region name to show content to.', 'geot' ),
+				'param_name'	=> 'geot_in_region_zips',
+				'value'			=> GeotWP_Fusion::get_regions( 'zip' ),
 				'default'		=> '',
 				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
 			],
 			[
 				'type'			=> 'textfield',
 				'heading'		=> esc_attr__( 'Exclude Zips', 'geot' ),
-				'description'	=> esc_attr__( 'Type zips codes separated by commas.', 'geot' ),
+				'description'	=> esc_attr__( 'Type Zip codes separated by commas.', 'geot' ),
 				'param_name'	=> 'geot_ex_zips',
+				'default'		=> '',
+				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
+			],
+			[
+				'type'			=> 'multiple_select',
+				'heading'		=> esc_attr__( 'Exclude Zip Regions', 'geot' ),
+				'description'	=> esc_attr__( 'Choose region name to show content to.', 'geot' ),
+				'param_name'	=> 'geot_ex_region_zips',
+				'value'			=> GeotWP_Fusion::get_regions( 'zip' ),
 				'default'		=> '',
 				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
 			]
@@ -46,9 +64,9 @@ class Fusion_GeoState {
 
 
 	/**
-	 * Add the actual fields
+	 * Conditional if render
 	 *
-	 * @return array
+	 * @return bool
 	 */
 	static function is_render( $attrs ) {
 
@@ -56,13 +74,16 @@ class Fusion_GeoState {
 
 		$in_zips = trim( $geot_in_zips );
 		$ex_zips = trim( $geot_ex_zips );
+		$in_regions = array_map( 'trim', explode( ',', $geot_in_region_zips ) );
+		$ex_regions = array_map( 'trim', explode( ',', $geot_ex_region_zips ) );
 
-		if ( empty( $in_zips ) && empty( $ex_zips ) ) {
+		if ( empty( $in_zips ) && empty( $ex_zips ) &&
+		     count( $in_regions ) == 0 && count( $ex_regions ) == 0
+		) {
 			return true;
 		}
 
-
-		if ( geot_target_zip( $in_zips, $ex_zips ) ) {
+		if ( geot_target_zip( $in_zips, $in_regions, $ex_zips, $ex_regions ) ) {
 			return true;
 		}
 
@@ -73,17 +94,24 @@ class Fusion_GeoState {
 	/**
 	 * if is ajax, apply render
 	 *
-	 * @return array
+	 * @return string
 	 */
-	static function ajax_render( $settings, $output ) {
+	static function ajax_render( $attrs, $output ) {
 
-		extract( $settings );
+		extract( $attrs );
 
-		if ( empty( $in_states ) && empty( $ex_states ) ) {
+		$in_zips = trim( $geot_in_zips );
+		$ex_zips = trim( $geot_ex_zips );
+		$in_regions = trim( $geot_in_region_zips );
+		$ex_regions = trim( $geot_ex_region_zips );
+
+		if ( empty( $in_zips ) && empty( $ex_zips ) &&
+		     empty( $in_regions ) && empty( $ex_regions )
+		) {
 			return $output;
 		}
 
-
-		return '<div class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $in_states . '" data-ex_filter="' . $ex_states . '">' . $output . '</div>';
+		return '<div class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $in_zips . '" data-region="' . $in_regions . '" data-ex_filter="' . $ex_zips . '" data-ex_region="' . $ex_regions . '">' . $output . '</div>';
 	}
+
 }
