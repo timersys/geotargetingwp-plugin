@@ -61,7 +61,7 @@ $countries = geot_countries();
 				<tr valign="top" class="">
 					<th><label for=""><?php _e( 'Enable Maxmind Database', 'geot' ); ?></label></th>
 					<td colspan="3">
-						<label><input type="checkbox" id="" name="geot_settings[maxmind]"
+						<label><input type="checkbox" id="maxmind" name="geot_settings[maxmind]"
 						              value="1" <?php checked( $opts['maxmind'], '1' ); ?>/>
 							<p class="help"><?php _e( 'Check this if you want to use the database located on:', 'geot' );
 								echo ' ' . GeotCore\maxmind_db(); ?></p>
@@ -73,7 +73,7 @@ $countries = geot_countries();
 				<tr valign="top" class="">
 					<th><label for=""><?php _e( 'Enable IP2Location Database', 'geot' ); ?></label></th>
 					<td colspan="3">
-						<label><input type="checkbox" id="" name="geot_settings[ip2location]"
+						<label><input type="checkbox" id="ip2location" name="geot_settings[ip2location]"
 						              value="1" <?php checked( $opts['ip2location'], '1' ); ?>/>
 							<p class="help"><?php _e( 'Check this if you want to use the database located on:', 'geot' );
 								echo ' ' . \GeotCore\ip2location_db(); ?></p>
@@ -85,7 +85,7 @@ $countries = geot_countries();
 				<tr valign="top" class="">
 					<th><label for=""><?php _e( 'Enable WPEngine Geolocation', 'geot' ); ?></label></th>
 					<td colspan="3">
-						<label><input type="checkbox" id="" name="geot_settings[wpengine]"
+						<label><input type="checkbox" id="wpengine" name="geot_settings[wpengine]"
 						              value="1" <?php checked( $opts['wpengine'], '1' ); ?>/>
 							<p class="help"><?php _e( 'Check this if you want to use WPEngine database', 'geot' ); ?></p>
 					</td>
@@ -95,7 +95,7 @@ $countries = geot_countries();
 				<tr valign="top" class="">
 					<th><label for=""><?php _e( 'Enable Litespeed Geolocation', 'geot' ); ?></label></th>
 					<td colspan="3">
-						<label><input type="checkbox" id="" name="geot_settings[litespeed]"
+						<label><input type="checkbox" id="litespeed" name="geot_settings[litespeed]"
 						              value="1" <?php checked( $opts['litespeed'], '1' ); ?>/>
 							<p class="help"><?php _e( 'Check this if you want to use Litespeed local database', 'geot' ); ?></p>
 					</td>
@@ -106,7 +106,7 @@ $countries = geot_countries();
 				<tr valign="top" class="">
 					<th><label for=""><?php _e( 'Enable Kinsta Geolocation', 'geot' ); ?></label></th>
 					<td colspan="3">
-						<label><input type="checkbox" id="" name="geot_settings[kinsta]"
+						<label><input type="checkbox" id="kinsta" name="geot_settings[kinsta]"
 						              value="1" <?php checked( $opts['kinsta'], '1' ); ?>/>
 							<p class="help"><?php _e( 'Check this if you want to use Kinsta database', 'geot' ); ?></p>
 					</td>
@@ -116,7 +116,7 @@ $countries = geot_countries();
 			<tr valign="top" class="">
 				<th><label for=""><?php _e( 'Cache Mode', 'geot' ); ?></label></th>
 				<td colspan="3">
-					<label><input type="checkbox" id="" name="geot_settings[cache_mode]"
+					<label><input type="checkbox" id="cache_mode" name="geot_settings[cache_mode]"
 					              value="1" <?php checked( $opts['cache_mode'], '1' ); ?>/>
 						<p class="help"><?php echo sprintf( __( 'Check this if you want to save the user location into PHP Sessions. More info <a href="%s">here</a>', 'geot' ), 'https://geotargetingwp.com/docs/geotargeting-pro/configuration#cache' ); ?></p>
 				</td>

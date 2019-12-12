@@ -5,8 +5,11 @@ namespace GeotCore\Session;
 use EAMann\Sessionz\Handlers\EncryptionHandler;
 use EAMann\Sessionz\Handlers\MemoryHandler;
 use EAMann\Sessionz\Manager;
-use EAMann\WPSession\DatabaseHandler;
+use EAMann\WPSession\SessionHandler;
+use EAMann\WPSession\Objects\Option;
 use EAMann\WPSession\OptionsHandler;
+use EAMann\WPSession\CacheHandler;
+use EAMann\WPSession\DatabaseHandler;
 
 /**
  * GeotSession wrapper Class
@@ -46,33 +49,80 @@ class GeotSession {
 	 */
 	public function __construct() {
 
+		if ( session_status() !== PHP_SESSION_DISABLED && ( ! defined( 'WP_CLI' ) || false === WP_CLI ) ) {
+			add_action( 'plugins_loaded', [ $this, 'wp_session_manager_initialize' ], 1, 0 );
+
+			// If we're not in a cron, start the session
+			if ( ! defined( 'DOING_CRON' ) || false === DOING_CRON ) {
+				add_action( 'plugins_loaded', [ $this, 'wp_session_manager_start_session' ], 10, 0 );
+			}
+		}
+	}
+
+
+	/**
+	 * Initialize the plugin, bootstrap autoloading, and register default hooks
+	 */
+	public function wp_session_manager_initialize() {
+
 		if ( ! $this->should_start_session() ) {
 			return;
 		}
 
-		// Queue up the session stack
-		$wp_session_handler = Manager::initialize();
-		if ( defined( 'WP_SESSION_USE_OPTIONS' ) && WP_SESSION_USE_OPTIONS ) {
-			$wp_session_handler->addHandler( new OptionsHandler() );
-		} else {
-			$wp_session_handler->addHandler( new DatabaseHandler() );
+		if ( ! isset( $_SESSION ) ) {
+
+			// Queue up the session stack
+			$wp_session_handler = Manager::initialize();
+
+			// Fall back to database storage where needed.
+			if ( defined( 'WP_SESSION_USE_OPTIONS' ) && WP_SESSION_USE_OPTIONS ) {
+				$wp_session_handler->addHandler( new OptionsHandler() );
+			} else {
+				$wp_session_handler->addHandler( new DatabaseHandler() );
+
+				/**
+				 * The database handler can automatically clean up sessions as it goes. By default,
+				 * we'll run the cleanup routine every hour to catch any stale sessions that PHP's
+				 * garbage collector happens to miss. This timeout can be filtered to increase or
+				 * decrease the frequency of the manual purge.
+				 *
+				 * @param string $timeout Interval with which to purge stale sessions
+				 */
+				$timeout = apply_filters( 'wp_session_gc_interval', 'hourly' );
+
+				if ( ! wp_next_scheduled( 'wp_session_database_gc' ) ) {
+					wp_schedule_event( time(), $timeout, 'wp_session_database_gc' );
+				}
+
+				add_action( 'wp_session_database_gc', [ 'EAMann\WPSession\DatabaseHandler', 'directClean' ] );
+			}
+
+			// If we have an external object cache, let's use it!
+			if ( wp_using_ext_object_cache() ) {
+				$wp_session_handler->addHandler( new CacheHandler() );
+			}
+
+			if ( defined( 'WP_SESSION_ENC_KEY' ) && WP_SESSION_ENC_KEY ) {
+				$wp_session_handler->addHandler( new EncryptionHandler( WP_SESSION_ENC_KEY ) );
+			}
+
+			// Use an in-memory cache for the instance if we can. This will only help in rare cases.
+			$wp_session_handler->addHandler( new MemoryHandler() );
+
+			$_SESSION['wp_session_manager'] = 'active';
 		}
 
-		if ( defined( 'WP_SESSION_ENC_KEY' ) && WP_SESSION_ENC_KEY ) {
-			$wp_session_handler->addHandler( new EncryptionHandler( WP_SESSION_ENC_KEY ) );
-		}
+		if ( ! isset( $_SESSION['wp_session_manager'] ) || $_SESSION['wp_session_manager'] !== 'active' ) {
+			add_action( 'admin_notices', [ $this, 'wp_session_manager_multiple_sessions_notice' ] );
 
-		$wp_session_handler->addHandler( new MemoryHandler() );
+			return;
+		}
 
 		// Create the required table.
-		add_action( 'admin_init', [ 'EAMann\WPSession\DatabaseHandler', 'create_table' ] );
-		add_action( 'wp_session_init', [ 'EAMann\WPSession\DatabaseHandler', 'create_table' ] );
-		add_action( 'wp_install', [ 'EAMann\WPSession\DatabaseHandler', 'create_table' ] );
-
-		// Start up session management, if we're not in the CLI
-		if ( ! defined( 'WP_CLI' ) || false === WP_CLI ) {
-			add_action( 'plugins_loaded', [ $this, 'wp_session_manager_start_session' ], 10, 0 );
-		}
+		DatabaseHandler::createTable();
+		register_deactivation_hook( __FILE__, function () {
+			wp_clear_scheduled_hook( 'wp_session_database_gc' );
+		} );
 	}
 
 	/**
@@ -94,7 +144,7 @@ class GeotSession {
 				$start_session = false;
 			}
 		}
-		if ( ( isset( $_GET['page'] ) && 'geot-debug-data' == $_GET['page'] ) || ( is_admin() && ! defined('DOING_AJAX') ) ) {
+		if ( ( isset( $_GET['page'] ) && 'geot-debug-data' == $_GET['page'] ) || ( is_admin() && ! defined( 'DOING_AJAX' ) ) ) {
 			$start_session = false;
 		}
 
@@ -150,11 +200,24 @@ class GeotSession {
 	/**
 	 * If a session hasn't already been started by some external system, start one!
 	 */
-	function wp_session_manager_start_session() {
+	public function wp_session_manager_start_session() {
 		if ( session_status() !== PHP_SESSION_ACTIVE ) {
 			session_start();
 		}
 	}
+
+	/**
+	 * Print an admin notice if too many plugins are manipulating sessions.
+	 *
+	 * @global array $wp_session_messages
+	 */
+	public function wp_session_manager_multiple_sessions_notice() {
+		global $wp_session_messages;
+		echo '<div class="notice notice-error">';
+		echo '<p>' . esc_html( $wp_session_messages['multiple_sessions'] ) . '</p>';
+		echo '</div>';
+	}
+
 
 	/**
 	 * Cloning is forbidden.

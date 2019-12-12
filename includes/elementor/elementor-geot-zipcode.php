@@ -15,9 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Elementor_GeoZipcode {
 
-
 	/**
-	 *
 	 * Get Fields in the Elementor Admin
 	 *
 	 * @param Class $control
@@ -64,6 +62,17 @@ class Elementor_GeoZipcode {
 		);
 
 		$control->add_control(
+			'in_regions_zips',
+			[
+				'label'    => __( 'Regions', 'geot' ),
+				'type'     => \Elementor\Controls_Manager::SELECT2,
+				'multiple' => true,
+				'default'  => '',
+				'options'  => GeotWP_Elementor::get_regions( 'zips' ),
+			]
+		);
+
+		$control->add_control(
 			'ex_header_zipcodes',
 			[
 				'label'     => __( 'Exclude', 'geot' ),
@@ -90,6 +99,17 @@ class Elementor_GeoZipcode {
 			]
 		);
 
+		$control->add_control(
+			'ex_regions_zips',
+			[
+				'label'    => __( 'Regions', 'geot' ),
+				'type'     => \Elementor\Controls_Manager::SELECT2,
+				'multiple' => true,
+				'default'  => '',
+				'options'  => GeotWP_Elementor::get_regions( 'zips' ),
+			]
+		);
+
 		$control->end_controls_section();
 
 	}
@@ -106,12 +126,13 @@ class Elementor_GeoZipcode {
 
 		extract( $settings );
 
-		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes )
+		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
+			 empty( $in_regions_zips ) && empty( $ex_regions_zips )
 		) {
 			return true;
 		}
 
-		if ( geot_target_zip( $in_zipcodes, $ex_zipcodes ) ) {
+		if ( geot_target_zip( $in_zipcodes, $in_regions_zips, $ex_zipcodes, $ex_regions_zips ) ) {
 			return true;
 		}
 
@@ -130,11 +151,21 @@ class Elementor_GeoZipcode {
 
 		extract( $settings );
 
-		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) ) {
+		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
+			empty( $in_regions_zips ) && empty( $ex_regions_zips )
+		) {
 			return;
 		}
 
-		echo '<div class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $in_zipcodes . '" data-ex_filter="' . $ex_zipcodes . '">';
+		if ( is_array( $in_regions_zips ) && count( $in_regions_zips ) > 0 ) {
+			$in_regions_i = implode( ',', $in_regions_zips );
+		}
+
+		if ( is_array( $ex_regions_zips ) && count( $ex_regions_zips ) > 0 ) {
+			$ex_regions_i = implode( ',', $ex_regions_zips );
+		}
+
+		echo '<div class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $in_zipcodes . '" data-region="' . $in_regions_i . '" data-ex_filter="' . $ex_zipcodes . '" data-ex_region="' . $ex_regions_i . '">';
 	}
 
 
@@ -149,7 +180,9 @@ class Elementor_GeoZipcode {
 
 		extract( $settings );
 
-		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) ) {
+		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
+			empty( $in_regions_zips ) && empty( $ex_regions_zips )
+		) {
 			return;
 		}
 

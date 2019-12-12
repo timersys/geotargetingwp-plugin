@@ -31,8 +31,10 @@
   ],
   "autoload": {
     "classmap": [
-      "includes/geot/Session/wp-session/SessionHandler.php",
+      "includes/geot/Session/wp-session/CacheHandler.php",
+      "includes/geot/Session/wp-session/deprecated.php",
       "includes/geot/Session/wp-session/DatabaseHandler.php",
+      "includes/geot/Session/wp-session/SessionHandler.php",
       "includes/geot/Session/wp-session/Option.php",
       "includes/geot/Session/wp-session/OptionsHandler.php"
     ],

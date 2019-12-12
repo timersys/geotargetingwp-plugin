@@ -92,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									       name="geol[dest][<?php echo $key; ?>][zipcodes]"
 									       value="<?php echo isset( $data['zipcodes'] ) ? esc_attr( $data['zipcodes'] ) : ''; ?>"
 									       placeholder="<?php _e( 'Zipcodes', 'geol' ); ?>"/>
-									<p class="help-text"><?php _e( 'Type zip codes separated by commas.', 'geol' ); ?></p>
+									<p class="help-text"><?php _e( 'Type zip codes or zip regions separated by commas.', 'geol' ); ?></p>
 								</td>
 
 							</tr>

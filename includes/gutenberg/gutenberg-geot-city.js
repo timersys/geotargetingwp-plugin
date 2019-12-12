@@ -90,7 +90,7 @@ registerBlockType('geotargeting-pro/gutenberg-city', {
 
         return el(Fragment, {},
             el(InspectorControls, {},
-                el(PanelBody, {title: __('Target Cities Block', 'geot')},
+                el(PanelBody, {title: __('Target Cities Settings', 'geot')},
                     el(PanelRow, {},
                         el(TextControl, {
                             label: __('Include Cities', 'geot'),

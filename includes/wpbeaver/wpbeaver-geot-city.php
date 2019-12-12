@@ -35,7 +35,7 @@ class WPBeaver_GeoCity {
 				'in_region_cities' => [
 					'type' => 'select',
 					'multi-select' => true,
-					'label' => __( 'Include Region Cities', 'Geot' ),
+					'label' => __( 'Include City Regions', 'Geot' ),
 					'options' => GeotWP_WPBeaver::get_regions( 'city' ),
 					'help' => esc_html__( 'Choose region name to show content to.', 'geot' ),
 				],
@@ -47,7 +47,7 @@ class WPBeaver_GeoCity {
 				'ex_region_cities' => [
 					'type' => 'select',
 					'multi-select' => true,
-					'label' => __( 'Exclude Region Cities', 'Geot' ),
+					'label' => __( 'Exclude City Regions', 'Geot' ),
 					'options' => GeotWP_WPBeaver::get_regions( 'city' ),
 					'help' => esc_html__( 'Choose region name to show content to.', 'geot' ),
 				],

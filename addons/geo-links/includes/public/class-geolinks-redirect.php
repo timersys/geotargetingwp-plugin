@@ -181,7 +181,7 @@ class Geol_Redirects {
 		}
 
 		// Zipcodes
-		if ( ! empty( $redirect['zipcodes'] ) && ! geot_target_zip( $redirect['zipcodes'] ) ) {
+		if ( ! empty( $redirect['zipcodes'] ) && ! geot_target_zip( $redirect['zipcodes'] ) && ! geot_target_zip( '', $redirect['zipcodes'] ) ) {
 			return false;
 		}
 
