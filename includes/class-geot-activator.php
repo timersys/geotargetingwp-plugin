@@ -90,6 +90,8 @@ class GeotWP_Activator {
 		GeotCore\add_countries_to_db();
 		GeotCore\geot_activate();
 
+		delete_option( 'geotWP-deactivated' );
+
 		do_action( 'geotWP/activated' );
 	}
 }

@@ -118,3 +118,13 @@ function geotwp_update_like($args = []) {
 	
 	$wpdb->query($query);
 }
+
+/**
+ * Geot replace spaces by hyphen
+ * @param  STRING $string
+ * @return STRING
+ */
+function geotwp_spaces_by_hyphen($string) {
+
+	return str_replace(' ', '-', $string);
+}
