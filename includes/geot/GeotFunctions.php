@@ -87,6 +87,7 @@ class GeotCore {
 		     && ! empty( $this->opts['cache_mode'] )
 		     && ! apply_filters( 'geot/disable_setUserData', false )
 		     && ! defined( 'DOING_AJAX' )
+		     && ! is_rest_request()
 		     && ! isset( $_GET['wc_ajax'] )
 		) {
 			add_action( 'init', [ $this, 'getUserData' ] );
@@ -419,9 +420,9 @@ class GeotCore {
 			if ( $this->user_whitelisted() ) {
 				return $this->getFallbackCountry();
 			}
-			// check for crawlers
+			// check for crawlers and if rest
 			$CD = new CrawlerDetect();
-			if ( $CD->isCrawler() || $this->treatAsBot() ) {
+			if ( $CD->isCrawler() || $this->treatAsBot() || is_rest_request() ) {
 				return $this->setData( 'country', 'iso_code', ! empty( $this->opts['bots_country'] ) ? $this->opts['bots_country'] : 'US' );
 			}
 

@@ -92,6 +92,25 @@ function get_current_url() {
 }
 
 /**
+ * Check if a rest request
+ * @return bool
+ */
+function is_rest_request() {
+	$prefix = rest_get_url_prefix( );
+	if (defined('REST_REQUEST') && REST_REQUEST // (#1)
+	    || isset($_GET['rest_route']) // (#2)
+	       && strpos( trim( $_GET['rest_route'], '\\/' ), $prefix , 0 ) === 0)
+		return true;
+	// (#3)
+	global $wp_rewrite;
+	if ($wp_rewrite === null) $wp_rewrite = new \WP_Rewrite();
+
+	// (#4)
+	$rest_url = wp_parse_url( trailingslashit( rest_url( ) ) );
+	$current_url = wp_parse_url( add_query_arg( array( ) ) );
+	return strpos( rtrim($current_url['path'],'/'), rtrim($rest_url['path'],'/'), 0 ) === 0;
+}
+/**
  * Return maxmind db path
  * @return mixed
  */

@@ -90,6 +90,10 @@ class Geot {
 	 * @var GeoTarget_Gutenberg
 	 */
 	public $divi;
+	/**
+	 * @var GeotWP_Metaboxes
+	 */
+	public $metaboxes;
 
 	/**
 	 * Define the core functionality of the plugin.

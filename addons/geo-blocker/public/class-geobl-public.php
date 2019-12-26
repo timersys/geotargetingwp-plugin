@@ -12,6 +12,7 @@
 
 use function GeotCore\is_backend;
 use function GeotCore\is_builder;
+use function GeotCore\is_rest_request;
 use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
 use function GeotWP\is_session_started;
@@ -122,6 +123,11 @@ class GeotWP_Bl_Public {
 
 		// check user IP
 		if ( ! empty( $opts['whitelist'] ) && $this->user_is_whitelisted( $opts['whitelist'] ) ) {
+			return false;
+		}
+
+		// dont block on rest
+		if( is_rest_request() ) {
 			return false;
 		}
 

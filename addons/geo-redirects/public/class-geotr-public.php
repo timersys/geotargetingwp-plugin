@@ -14,6 +14,7 @@ use function GeotCore\get_current_url;
 use function GeotCore\is_backend;
 use function GeotCore\is_builder;
 use GeotCore\Session\GeotSession;
+use function GeotCore\is_rest_request;
 use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
 use function GeotWP\is_session_started;
@@ -180,6 +181,11 @@ private function pass_basic_rules( $redirection ) {
 		if ( $detect->isCrawler() ) {
 			return false;
 		}
+	}
+
+	// dont redirect on rest
+	if( is_rest_request() ) {
+		return false;
 	}
 
 	// check user IP
