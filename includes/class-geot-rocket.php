@@ -65,6 +65,8 @@ class GeotWP_Rocket {
 	 * @return Mixed
 	 */
 	public function activate_geotargetingwp() {
+		add_filter( 'rocket_htaccess_mod_rewrite', [ $this, 'update_mod_rewrite' ], 999 );
+		add_filter( 'before_rocket_htaccess_rules', [ $this, 'update_htaccess'], 999 );
 		add_filter('rocket_cache_dynamic_cookies', 'rocket_add_geotargetingwp_dynamic_cookies');
 		add_filter('rocket_cache_mandatory_cookies', 'rocket_add_geotargetingwp_mandatory_cookie');
 	
@@ -112,6 +114,7 @@ class GeotWP_Rocket {
 	 */
 	public function add_cookies($geot = []) {
 
+		$geot[] = 'country';
 		$geot[] = 'state';
 		$geot[] = 'city';
 
