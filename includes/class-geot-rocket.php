@@ -7,8 +7,9 @@ class GeotWP_Rocket {
 	 */
 	public function __construct() {
 
-		remove_filter( 'rocket_htaccess_mod_rewrite', '__return_false', 72 );
 		remove_action( 'geotWP/activated', 'rocket_activate_geotargetingwp', 11 );
+
+		add_action( 'update_option_wp_rocket_settings', [ $this, 'update_rocket_settings' ], 9 );
 
 		add_filter( 'rocket_htaccess_mod_rewrite', [ $this, 'update_mod_rewrite' ], 999 );
 		add_filter( 'before_rocket_htaccess_rules', [ $this, 'update_htaccess'], 999 );
@@ -21,6 +22,14 @@ class GeotWP_Rocket {
 		add_filter( 'geot_rocket_city', 'geotwp_spaces_by_hyphen', 10, 1);
 
 		add_filter( 'rocket_geotargetingwp_enabled_cookies', [$this, 'add_cookies']);
+	}
+
+	/**
+	 * When it updates the rocket options
+	 * @return mixed
+	 */
+	public function update_rocket_settings() {
+		remove_filter( 'rocket_htaccess_mod_rewrite', '__return_false', 72 );
 	}
 
 	/**
