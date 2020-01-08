@@ -406,7 +406,7 @@ class GeotCore {
 
 			// If user set cookie and not in debug mode. If we pass ip we are forcing to use ip instead of cookies. Eg in dropdown widget
 			if ( ! empty( $_COOKIE[ $this->opts['cookie_name'] ] ) && ! $force ) {
-				return $this->setData( 'country', 'iso_code', $_COOKIE[ $this->opts['cookie_name'] ] );
+				return $this->setData(  $_COOKIE[ $this->opts['cookie_name'] ] );
 			}
 
 			// If we already calculated on session return (if we are not calling by IP & if cache mode (sessions) is turned on)
@@ -423,7 +423,7 @@ class GeotCore {
 			// check for crawlers and if rest
 			$CD = new CrawlerDetect();
 			if ( $CD->isCrawler() || $this->treatAsBot() || is_rest_request() ) {
-				return $this->setData( 'country', 'iso_code', ! empty( $this->opts['bots_country'] ) ? $this->opts['bots_country'] : 'US' );
+				return $this->setData( ! empty( $this->opts['bots_country'] ) ? $this->opts['bots_country'] : 'US' );
 			}
 
 			// WP Engine ?
@@ -591,15 +591,22 @@ class GeotCore {
 	/**
 	 * Add new values or update in user data
 	 *
-	 * @param $key
-	 * @param $property
-	 * @param $value
+	 * @param $iso_code
 	 *
 	 * @return mixed
 	 */
-	public function setData( $key, $property, $value ) {
-		$this->user_data[ $this->cache_key ]->$key->$property = $value;
-		$this->user_data[ $this->cache_key ]                  = new GeotRecord( $this->user_data[ $this->cache_key ] );
+	public function setData( $iso_code ) {
+
+		$record = (object) [
+			'continent'   => new \StdClass(),
+			'country'     => new \StdClass(),
+			'state'       => new \StdClass(),
+			'city'        => new \StdClass(),
+			'geolocation' => new \StdClass(),
+		];
+		$record->country = $this->getCountryByIsoCode( $iso_code );
+
+		$this->user_data[ $this->cache_key ] = new GeotRecord( $record );
 
 		return $this->user_data[ $this->cache_key ];
 	}
@@ -627,23 +634,22 @@ class GeotCore {
 		if ( empty( $this->opts['fallback_country'] ) ) {
 			$this->opts['fallback_country'] = 'US';
 		}
-		$record = (object) [
-			'continent'   => new \StdClass(),
-			'country'     => new \StdClass(),
-			'state'       => new \StdClass(),
-			'city'        => new \StdClass(),
-			'geolocation' => new \StdClass(),
-		];
 		// debug page return empty
 		if ( isset( $_GET['page'] ) && 'geot-debug-data' == $_GET['page'] ) {
+
+			$record = (object) [
+				'continent'   => new \StdClass(),
+				'country'     => new \StdClass(),
+				'state'       => new \StdClass(),
+				'city'        => new \StdClass(),
+				'geolocation' => new \StdClass(),
+			];
+
 			return new GeotRecord( $record );
 		}
 
-		$record->country = $this->getCountryByIsoCode( $this->opts['fallback_country'] );
+		return $this->setData( $this->opts['fallback_country'] );
 
-		$this->user_data[ $this->cache_key ] = new GeotRecord( $record );
-
-		return $this->user_data[ $this->cache_key ];
 
 	}
 
