@@ -89,6 +89,7 @@ class GeotCore {
 		     && ! defined( 'DOING_AJAX' )
 		     && ! is_rest_request()
 		     && ! isset( $_GET['wc_ajax'] )
+		     && ! isset( $_GET['wc-ajax'] )
 		) {
 			add_action( 'init', [ $this, 'getUserData' ] );
 			add_action( 'init', [ $this, 'createRocketCookies' ], 15 );
