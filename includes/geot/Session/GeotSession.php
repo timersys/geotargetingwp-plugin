@@ -48,7 +48,9 @@ class GeotSession {
 	 * @since 1.5
 	 */
 	public function __construct() {
-
+		if ( ! $this->should_start_session() ) {
+			return;
+		}
 		if ( session_status() !== PHP_SESSION_DISABLED && ( ! defined( 'WP_CLI' ) || false === WP_CLI ) ) {
 			add_action( 'plugins_loaded', [ $this, 'wp_session_manager_initialize' ], 1, 0 );
 
@@ -64,11 +66,7 @@ class GeotSession {
 	 * Initialize the plugin, bootstrap autoloading, and register default hooks
 	 */
 	public function wp_session_manager_initialize() {
-
-		if ( ! $this->should_start_session() ) {
-			return;
-		}
-
+		
 		if ( ! isset( $_SESSION ) ) {
 
 			// Queue up the session stack
