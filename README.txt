@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 3.6
 Tested up to: 5.3
-Stable tag: 3.0.2.3
+Stable tag: 3.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,15 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.0.3 =
+* Added zip regions
+* Added Avada fusion builder support
+* disable sessions in admin area
+* Added new rule to match IPs
+* Recoded public js to make methods accesible for devs
+* State city and zip can be separated by comma to add multiple values
+* Updated Session library (clean old sessions issue)
+
 = 3.0.2.3 =
 * Fixed issue with geo taxonomies
 * Validate ip to save request with invalid ones
