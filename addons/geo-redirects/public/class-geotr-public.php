@@ -57,7 +57,7 @@ public static function ajax_placeholder(){
 	<div>
 		<?php do_action( 'geotr/ajax_placeholder' ); ?>
 		<img src="<?php echo plugin_dir_url( __FILE__ ); ?>img/loading.svg" alt="loading"/>
-		<p><?php _e( 'Please wait while you are redirected to the right page...', 'geotr' ); ?></p>
+		<p><?php apply_filters( 'geotr/ajax_message', _e( 'Please wait while you are redirected to the right page...', 'geotr' ) ); ?></p>
 	</div>
 </div>
 <style>
