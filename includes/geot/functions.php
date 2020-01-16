@@ -214,7 +214,7 @@ function uninstall( $posts = [], $taxonomies = [] ) {
  * @param array $taxonomies
  */
 function geot_activate() {
-	$settings = get_option( 'geot_settings' );
+	$settings = get_option( 'geot_settings', false );
 
 	if ( ! $settings ) {
 		set_transient( 'geot_activator', true, 30 );

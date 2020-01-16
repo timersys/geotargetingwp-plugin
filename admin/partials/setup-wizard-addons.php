@@ -4,7 +4,7 @@
 
 		<?php do_action( 'geot/wizard/addons/before' ); ?>
 
-		<p><?php _e( 'Choose which addons you want to enable. You can change all settings later anyway.', 'letsgo' ); ?></p>
+		<p><?php _e( 'Choose which addons you want to enable. You can change all settings later anyway.', 'geot' ); ?></p>
 
 
 		<div class="location-row">

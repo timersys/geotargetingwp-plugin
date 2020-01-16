@@ -66,6 +66,10 @@ class GeotWP_Updater {
 				self::geot_upgrade_2_6_0();
 			}
 
+			if ( geotwp_version_compare( GEOWP_VERSION, '3.0.3', '>=' ) && ! get_option( 'geot_upgrade_3_0_3' ) ) {
+				self::geot_upgrade_3_0_3();
+			}
+
 			do_action( 'geotWP/upgraded' );
 
 			update_option( 'geot_version', GEOWP_VERSION );
@@ -156,5 +160,12 @@ class GeotWP_Updater {
 		}
 
 		update_option( 'geot_upgrade_2_6_0', 1 );
+	}
+
+
+	public function geot_upgrade_3_0_3() {
+		set_transient( 'geot_updater', true, 30 );
+
+		update_option( 'geot_upgrade_3_0_3', 1 );
 	}
 }
