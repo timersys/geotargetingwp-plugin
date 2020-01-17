@@ -409,7 +409,8 @@ class GeotSettings {
 	 * Redirect to Wizard
 	 */
 	public function redirect_wizard() {
-		if ( ! get_transient( 'geot_activator' ) || ! get_transient( 'geot_updater' ) ) {
+
+		if ( ! get_transient( 'geot_activator' ) && ! get_transient( 'geot_updater' ) ) {
 			return;
 		}
 
