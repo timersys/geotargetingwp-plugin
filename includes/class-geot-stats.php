@@ -23,10 +23,12 @@
  */
 class GeotWP_Stats {
 
-	//protected $url_stats = 'https://geotargetingwp.com/data-usage';
-	protected $url_stats = 'http://timersys.local/wp-admin/admin-ajax.php?action=received_webhook';
+	protected $url_stats = 'https://geotargetingwp.com/data-usage';
 	protected $enable_stats = null;
 
+	/**
+	 * __construct
+	 */
 	public function __construct() {
 
 		add_action( 'plugins_loaded', [ $this, 'manage_task' ], 1, 0 );
@@ -34,29 +36,14 @@ class GeotWP_Stats {
 
 		add_action( 'send_geot_stats', [ $this, 'send_geot_stats' ] );
 
-		add_action( 'geotWP/deactivated', [ $this, 'deactivated'] );
-
-
-		//Temporal
-		add_action('wp_ajax_received_webhook', [ $this, 'received_webhook' ] );
-		add_action('wp_ajax_nopriv_received_webhook', [ $this, 'received_webhook' ] );
-		
+		add_action( 'geotWP/deactivated', [ $this, 'deactivated'] );	
 	}
 
-	//Temporal
-	public function received_webhook() {
-
-		update_option('galex_8', print_r($_POST,true));
-		update_option('galex_9', print_r($_REQUEST,true));
-
-		$inputJSON	= file_get_contents('php://input');
-
-		update_option('galex_10', print_r($inputJSON,true));
-
-		die();
-	}
-
-
+	/**
+	 * Let's create the periodicity
+	 * @param  ARRAY $schedules
+	 * @return ARRAY $schedules with new periodicity
+	 */
 	public function create_weekly( $schedules ) {
 		$schedules[ 'geot-weekly' ] = [
 			'interval' => WEEK_IN_SECONDS,
@@ -66,6 +53,10 @@ class GeotWP_Stats {
 		return $schedules;
 	}
 
+	/**
+	 * Let's create the task in the wpcron
+	 * @return mixed
+	 */
 	public function manage_task() {
 
 		if( wp_next_scheduled( 'send_geot_stats' ) && ! $this->enable_stats() ) {
@@ -77,7 +68,10 @@ class GeotWP_Stats {
 		}
 	}
 
-
+	/**
+	 * Let's remove the task if the plugin is deactivated
+	 * @return [type] [description]
+	 */
 	public function deactivated() {
 		if( wp_next_scheduled( 'send_geot_stats' ) ) {
 			wp_clear_scheduled_hook( 'send_geot_stats' );
@@ -86,7 +80,7 @@ class GeotWP_Stats {
 
 	/**
 	 * Verify if is enable the share info option
-	 * @return [type] [description]
+	 * @return bool
 	 */
 	protected function enable_stats() {
 
@@ -104,6 +98,10 @@ class GeotWP_Stats {
 	}
 
 
+	/**
+	 * Let's verify if the URL exists
+	 * @return mixed
+	 */
 	public function ping() {
 
 		$test          = wp_safe_remote_post( $this->url_stats );
@@ -120,7 +118,10 @@ class GeotWP_Stats {
 		}
 	}
 
-
+	/**
+	 * Task
+	 * @return mixed
+	 */
 	public function send_geot_stats() {
 
 		if( ! $this->enable_stats() ) {
@@ -157,7 +158,10 @@ class GeotWP_Stats {
 	}
 
 
-
+	/**
+	 * Get the data from the addons
+	 * @return ARRAY $output
+	 */
 	protected function get_stats_addons() {
 
 		$output = ['geot-redirect' => [], 'geot-block' => [], 'geo-link' => [] ];
@@ -174,6 +178,7 @@ class GeotWP_Stats {
 			foreach($geo_redirect as $post) {
 
 				switch($post->post_type) {
+					
 					case 'geotr_cpt' :
 						$output['geot-redirect'][] = [
 							'post_id'	=> $post->ID,
@@ -201,11 +206,6 @@ class GeotWP_Stats {
 			}
 		}
 
-		update_option('galex_1', print_r($output,true));
-
-
 		return $output;
 	}
-	
 }
-
