@@ -110,16 +110,11 @@ class GeotWP_Stats {
 		$response_code = wp_remote_retrieve_response_code( $test );
 
 		if ( is_wp_error( $test ) ) {
-
-			update_option('galex_6', print_r($test,true));
 			/* translators: error message */
 			return new WP_Error( 'error', sprintf( __( 'Error: Delivery URL cannot be reached: %s', 'geot' ), $test->get_error_message() ) );
 		}
 
 		if ( 200 !== $response_code ) {
-
-			update_option('galex_7', print_r($response_code,true));
-
 			/* translators: error message */
 			return new WP_Error( 'error', sprintf( __( 'Error: Delivery URL returned response code: %s', 'geot' ), absint( $response_code ) ) );
 		}
@@ -128,23 +123,16 @@ class GeotWP_Stats {
 
 	public function send_geot_stats() {
 
-		update_option('galex_1', 'entro1');
-		
 		if( ! $this->enable_stats() ) {
-			update_option('galex_2', 'entro2');
 			return;
 		}
 
 		if( is_wp_error( $this->ping() ) ) {
-			update_option('galex_3', 'entro3');
 			return;
 		}
 
 		$start_time = microtime( true );
 		
-		//$payload    = $this->build_payload( $arg );
-		$payload = ['test' => 1, 'loal' => 'number'];
-
 		// Setup request args.
 		$http_args = array(
 			'method'      => 'POST',
@@ -153,23 +141,17 @@ class GeotWP_Stats {
 			'httpversion' => '1.0',
 			'blocking'    => true,
 			'user-agent'  => 'Webhook',
-			'body'        => trim( wp_json_encode( $payload ) ),
+			'body'        => trim( wp_json_encode( $this->get_stats_addons() ) ),
 			'headers'     => [
-				'Content-Type' => 'application/json',
+				'Content-Type'			=> 'application/json',
+				'X-GEOT-Webhook-Source'	=> home_url( '/' ),
 			],
 			'cookies'     => [],
 		);
 		$http_args = apply_filters( 'geot/stats/http', $http_args );
 
-		update_option('galex_4', print_r($http_args,true));
-
-		// Add custom headers.
-		$http_args['headers']['X-WC-Webhook-Source'] = home_url( '/' ); // Since 2.6.0.
-
 		// Webhook away!
 		$response = wp_safe_remote_request( $this->url_stats, $http_args );
-
-		update_option('galex_5', print_r($response,true));
 
 		return true;
 	}
@@ -178,7 +160,7 @@ class GeotWP_Stats {
 
 	protected function get_stats_addons() {
 
-		$output = [];
+		$output = ['geot-redirect' => [], 'geot-block' => [], 'geo-link' => [] ];
 
 		$geo_redirect = get_posts([
 				'post_type'		=> ['geotr_cpt', 'geobl_cpt', 'geol_cpt'],
@@ -193,21 +175,24 @@ class GeotWP_Stats {
 
 				switch($post->post_type) {
 					case 'geotr_cpt' :
-						$output = [
+						$output['geot-redirect'][] = [
+							'post_id'	=> $post->ID,
 							'options'	=> get_post_meta($post->ID, 'geotr_options', true),
 							'rules'		=> get_post_meta($post->ID, 'geotr_rules', true),
 						];
 						break;
 
 					case 'geobl_cpt' :
-						$output = [
+						$output['geot-block'][] = [
+							'post_id'	=> $post->ID,
 							'options'	=> get_post_meta($post->ID, 'geobl_options', true),
 							'rules'		=> get_post_meta($post->ID, 'geobl_rules', true),
 						];
 						break;
 
 					case 'geol_cpt' :
-						$output = [
+						$output['geo-link'][] = [
+							'post_id'	=> $post->ID,
 							'options'	=> get_post_meta($post->ID, 'geol_options', true),
 							'rules'		=> [],
 						];
@@ -215,6 +200,8 @@ class GeotWP_Stats {
 				}
 			}
 		}
+
+		update_option('galex_1', print_r($output,true));
 
 
 		return $output;
