@@ -455,7 +455,7 @@ class GeotWP_Public {
 	 */
 	public function remove_woo_product() {
 
-		if ( is_admin() || ! class_exists( 'WooCommerce' ) || WC()->cart->is_empty() ) {
+		if ( is_admin() || ! class_exists( 'WooCommerce' ) || ( isset(WC()->cart ) && WC()->cart->is_empty() ) ) {
 			return;
 		}
 
