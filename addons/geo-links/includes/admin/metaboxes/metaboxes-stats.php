@@ -1,8 +1,3 @@
-<?php
-// nonce in last metabox
-wp_nonce_field( 'geol_options', 'geol_options_nonce' );
-?>
-
 <?php if ( $opts['dest'] ) : ?>
 
 	<table class="wp-list-table widefat striped">

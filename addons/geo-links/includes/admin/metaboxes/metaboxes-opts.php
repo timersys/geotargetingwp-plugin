@@ -44,3 +44,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'geol/metaboxes/after_source', $opts ); ?>
 
 </table>
+
+<?php
+// nonce in last metabox
+wp_nonce_field( 'geol_options', 'geol_options_nonce' );
+?>
