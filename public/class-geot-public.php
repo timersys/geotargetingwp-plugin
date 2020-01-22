@@ -47,6 +47,7 @@ class GeotWP_Public {
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 
+		add_action( 'wp_footer', [ $this, 'print_overlay' ], 11 );
 		add_action( 'wp_footer', [ $this, 'print_debug_info' ], 999 );
 
 		add_filter( 'posts_where', [ $this, 'handle_geotargeted_posts' ], PHP_INT_MAX );
@@ -91,6 +92,8 @@ class GeotWP_Public {
 	public function enqueue_styles() {
 
 		wp_enqueue_style( 'geot-css', plugin_dir_url( __FILE__ ) . 'css/geotarget-public.css', [], false, 'all' );
+
+		wp_enqueue_style( 'geot-location-css', plugin_dir_url( __FILE__ ) . 'css/geot-location.css', [], false, 'all' );
 	}
 
 	/**
@@ -118,6 +121,21 @@ class GeotWP_Public {
 			'dropdown_search'   => apply_filters( 'geot/dropdown_widget/disable_search', false ),
 			'dropdown_redirect' => apply_filters( 'geot/dropdown_widget/redirect_url', '' ),
 		] );
+
+
+		/* Geolocation */
+		wp_enqueue_script(
+			'geot-location-js',
+			plugin_dir_url( __FILE__ ) . 'js/geot-location.js',
+			false, false, true
+		);
+
+		wp_localize_script(
+			'geot-location-js', 'geotloc', [
+			'msg_fail'	=> esc_html__( 'Geolocation is not supported by this browser', 'geot' ),
+			'img_src'	=> plugin_dir_url( __FILE__ ) . 'images/arrow.png',
+
+		]);
 	}
 
 
@@ -477,6 +495,13 @@ class GeotWP_Public {
 				WC()->cart->remove_cart_item( $cart_item_key );
 			}
 		}
+	}
+
+
+	public function print_overlay() {
+		echo '<!-- Geotargeting GeoLocation START -->
+		<div class="geotloc_overlay" style="display: none;"></div>
+		<!-- Geotargeting GeoLocation END -->';
 	}
 
 

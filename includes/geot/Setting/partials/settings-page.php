@@ -13,6 +13,7 @@ $defaults = [
 	'ajax_mode'            => '0',
 	'debug_mode'           => '0',
 	'var_ip'               => 'REMOTE_ADDR',
+	'geocode'              => '0',
 	'maxmind'              => '0',
 	'ip2location'          => '0',
 	'geot_uninstall'       => '',
@@ -129,6 +130,15 @@ $countries = geot_countries();
 					       value="1" <?php checked( $opts['ajax_mode'], '1' ); ?>/>
 					<p class="help"><?php _e( 'In Ajax mode, after page load an extra request is made to get all data and everything is updated with javascript. That makes the plugin compatible with any cache plugin. More info on: ', 'geot' ); ?>
 						<a href="https://geotargetingwp.com/docs/geotargetingwp/ajax-mode/">Ajax mode info</a></p>
+				</td>
+			</tr>
+
+			<tr valign="top" class="">
+				<th><label for=""><?php _e( 'Geocode', 'geot' ); ?></label></th>
+				<td colspan="3">
+					<label><input type="checkbox" id="geocode" name="geot_settings[geocode]"
+					              value="1" <?php checked( $opts['geocode'], '1' ); ?>/>
+						<p class="help"><?php echo sprintf( __( 'Check this if you want to use coordinates instead of IP. More info <a href="%s">here</a>', 'geot' ), 'https://geotargetingwp.com/docs/geotargeting-pro/configuration#geocode' ); ?></p>
 				</td>
 			</tr>
 
