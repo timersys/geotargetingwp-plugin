@@ -3,6 +3,8 @@
 
     const GeotWP  = {
         uniqueID : null,
+        lat : null,
+        lng : null,
         /**
          * Start function
          */
@@ -14,6 +16,20 @@
          */
         ready: function () {
             GeotWP.initSelectize();
+            GeotWP.maybe_overlay();
+
+            /* Geolocation */
+            if( geot.geoloc_enable ) {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        GeotWP.successPosition,
+                        GeotWP.errorPosition
+                    );
+                } else {
+                    console.log(geot.geoloc_fail);
+                }
+            }
+
 
             const geot_debug = GeotWP.getUrlParameter('geot_debug'),
                 geot_debug_iso = GeotWP.getUrlParameter('geot_debug_iso'),
@@ -39,6 +55,8 @@
                     'geot_state_code': geot_state_code,
                     'geot_city': geot_city,
                     'geot_zip': geot_zip,
+                    'geot_lat': GeotWP.lat,
+                    'geot_lng': GeotWP.lng,
                 };
             $('.geot-ajax').each(function () {
                 let _this = $(this);
@@ -178,6 +196,78 @@
                 GeotWP.uniqueID = (new Date()).getTime();
             }
             return prefix + (GeotWP.uniqueID++);
+        },
+        /**
+         * When Geolocation get the coordinates successfully
+         * @return {[type]} [description]
+         */
+        successPosition: function(position) {
+            GeotWP.saveStorage('geotLocation', 'yes');
+
+            $('div.geotloc_overlay').fadeOut('fast');
+
+            GeotWP.lat = position.coords.latitude;
+            GeotWP.lng = position.coords.longitude;
+        },
+        /**
+         * When Geolocation not get the coordinates
+         * @param  OBJ error
+         * @return mixed
+         */
+        errorPosition: function(error) {
+            /*switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    x.innerHTML = "User denied the request for Geolocation."
+                break;
+                case error.POSITION_UNAVAILABLE:
+                    x.innerHTML = "Location information is unavailable."
+                break;
+                case error.TIMEOUT:
+                    x.innerHTML = "The request to get user location timed out."
+                break;
+                case error.UNKNOWN_ERROR:
+                    x.innerHTML = "An unknown error occurred."
+                break;
+            }*/
+
+            GeotWP.saveStorage('geotLocation', 'no');
+            $('div.geotloc_overlay').fadeOut('fast');
+        },
+        /**
+         * Put Shadow Overlay
+         * @return mixed
+         */
+        maybe_overlay: function() {
+            if( GeotWP.getStorage('geotLocation') == null ) {
+                $('div.geotloc_overlay').fadeIn('slow');
+                
+                setTimeout( function() {
+                    $('div.geotloc_overlay').fadeOut('fast');
+                }, 10000);
+            }
+        },
+        saveStorage: function(key = '', value = '') {
+
+            if( key.length == 0 )
+                return false;
+
+            if ( typeof(Storage) !== 'undefined' ) {
+                localStorage.setItem(key, value);
+            }
+
+            return true;
+        },
+        getStorage: function(key = '') {
+            if( key.length == 0 )
+                return false;
+
+            let info;
+
+            if ( typeof(Storage) !== 'undefined' ) {
+                info = localStorage.getItem(key);
+            }
+
+            return info;
         },
         /**
          * Create Cookies

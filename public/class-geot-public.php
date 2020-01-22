@@ -93,7 +93,6 @@ class GeotWP_Public {
 
 		wp_enqueue_style( 'geot-css', plugin_dir_url( __FILE__ ) . 'css/geotarget-public.css', [], false, 'all' );
 
-		wp_enqueue_style( 'geot-location-css', plugin_dir_url( __FILE__ ) . 'css/geot-location.css', [], false, 'all' );
 	}
 
 	/**
@@ -120,22 +119,10 @@ class GeotWP_Public {
 			'is_single'         => is_single(),
 			'dropdown_search'   => apply_filters( 'geot/dropdown_widget/disable_search', false ),
 			'dropdown_redirect' => apply_filters( 'geot/dropdown_widget/redirect_url', '' ),
+
+			'geoloc_enable'	=> isset($this->opts['geocode']) ? $this->opts['geocode'] : 0,
+			'geoloc_fail'	=> esc_html__( 'Geolocation is not supported by this browser', 'geot' ),
 		] );
-
-
-		/* Geolocation */
-		wp_enqueue_script(
-			'geot-location-js',
-			plugin_dir_url( __FILE__ ) . 'js/geot-location.js',
-			false, false, true
-		);
-
-		wp_localize_script(
-			'geot-location-js', 'geotloc', [
-			'msg_fail'	=> esc_html__( 'Geolocation is not supported by this browser', 'geot' ),
-			'img_src'	=> plugin_dir_url( __FILE__ ) . 'images/arrow.png',
-
-		]);
 	}
 
 

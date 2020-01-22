@@ -1553,3 +1553,18 @@
 .selectize-dropdown .optgroup:first-child {
     border-top: 0 none;
 }
+
+/* Geolocation */
+
+.geotloc_overlay {
+    background-color: rgba(0, 0, 0, 0.72);
+    background-image: url("../images/arrow.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+}
