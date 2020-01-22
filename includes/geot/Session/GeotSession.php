@@ -145,7 +145,11 @@ class GeotSession {
 		if ( ( isset( $_GET['page'] ) && 'geot-debug-data' == $_GET['page'] ) || ( is_admin() && ! defined( 'DOING_AJAX' ) ) ) {
 			$start_session = false;
 		}
-
+		$opts = geot_settings();
+		// if we have cache mode, load geotarget now to set session before content
+		if ( ! isset( $opts['cache_mode'] ) || ! $opts['cache_mode'] ) {
+			$start_session = false;
+		}
 		return apply_filters( 'geot/sessions/start_session', $start_session );
 	}
 

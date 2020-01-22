@@ -10,6 +10,8 @@
  * @subpackage GeoTarget/public
  */
 
+use GeotCore\Session\GeotSession;
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -38,11 +40,6 @@ class GeotWP_Public {
 
 		$this->opts      = geot_settings();
 		$this->geot_opts = geotwp_settings();
-
-		// if we have cache mode, load geotarget now to set session before content
-		if ( isset( $this->opts['cache_mode'] ) && $this->opts['cache_mode'] ) {
-			geotWP();
-		}
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
