@@ -23,7 +23,7 @@
  */
 class GeotWP_Stats {
 
-	protected $url_stats = 'https://geotargetingwp.com/data-usage';
+	protected $url_stats = 'https://geotargetingwp.com/api/v1/data-usage';
 	protected $enable_stats = null;
 
 	/**
@@ -104,7 +104,7 @@ class GeotWP_Stats {
 	 */
 	public function ping() {
 
-		$test          = wp_safe_remote_post( $this->url_stats );
+		$test          = wp_remote_post( $this->url_stats );
 		$response_code = wp_remote_retrieve_response_code( $test );
 
 		if ( is_wp_error( $test ) ) {
@@ -152,7 +152,7 @@ class GeotWP_Stats {
 		$http_args = apply_filters( 'geot/stats/http', $http_args );
 
 		// Webhook away!
-		$response = wp_safe_remote_request( $this->url_stats, $http_args );
+		$response = wp_remote_post( $this->url_stats, $http_args );
 
 		return true;
 	}
@@ -163,8 +163,8 @@ class GeotWP_Stats {
 	 * @return ARRAY $output
 	 */
 	protected function get_stats_addons() {
-
-		$output = ['geot-redirect' => [], 'geot-block' => [], 'geo-link' => [] ];
+		$host = gethostname();
+		$output = ['host' => $host, 'geo_redirect' => [], 'geo_block' => [], 'geo_link' => [] ];
 
 		$geo_redirect = get_posts([
 				'post_type'		=> ['geotr_cpt', 'geobl_cpt', 'geol_cpt'],
@@ -180,7 +180,7 @@ class GeotWP_Stats {
 				switch($post->post_type) {
 					
 					case 'geotr_cpt' :
-						$output['geot-redirect'][] = [
+						$output['geo_redirect'][] = [
 							'post_id'	=> $post->ID,
 							'options'	=> get_post_meta($post->ID, 'geotr_options', true),
 							'rules'		=> get_post_meta($post->ID, 'geotr_rules', true),
@@ -188,7 +188,7 @@ class GeotWP_Stats {
 						break;
 
 					case 'geobl_cpt' :
-						$output['geot-block'][] = [
+						$output['geo_block'][] = [
 							'post_id'	=> $post->ID,
 							'options'	=> get_post_meta($post->ID, 'geobl_options', true),
 							'rules'		=> get_post_meta($post->ID, 'geobl_rules', true),
@@ -196,7 +196,7 @@ class GeotWP_Stats {
 						break;
 
 					case 'geol_cpt' :
-						$output['geo-link'][] = [
+						$output['geo_link'][] = [
 							'post_id'	=> $post->ID,
 							'options'	=> get_post_meta($post->ID, 'geol_options', true),
 							'rules'		=> [],
