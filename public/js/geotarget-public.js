@@ -3,6 +3,7 @@
 
     const GeotWP  = {
         uniqueID : null,
+        coords : null,
         lat : null,
         lng : null,
         /**
@@ -55,6 +56,7 @@
                     'geot_state_code': geot_state_code,
                     'geot_city': geot_city,
                     'geot_zip': geot_zip,
+                    'geot_coords' : GeotWP.coords,
                     'geot_lat': GeotWP.lat,
                     'geot_lng': GeotWP.lng,
                 };
@@ -206,6 +208,7 @@
 
             $('div.geotloc_overlay').fadeOut('fast');
 
+            GeotWP.coords = true;
             GeotWP.lat = position.coords.latitude;
             GeotWP.lng = position.coords.longitude;
         },
@@ -230,6 +233,7 @@
                 break;
             }*/
 
+            GeotWP.coords = false;
             GeotWP.saveStorage('geotLocation', 'no');
             $('div.geotloc_overlay').fadeOut('fast');
         },

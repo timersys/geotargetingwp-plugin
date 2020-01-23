@@ -50,9 +50,18 @@ class GeotWP_Ajax {
 
 		$geots      = $posts = [];
 		$debug = $redirect = $blocker = "";
-		$posts      = $this->get_geotargeted_posts();
+		$settings = geot_settings();
 		$this->data = $_POST;
+		
+		if( isset($settings['geolocation']) &&
+			$settings['geolocation'] == 'by_html5' &&
+			$this->data['geot_coords']
+		) {
+			geot_set_coords($this->data['geot_lat'], $this->data['geot_lng']);
+		}
 
+		$posts = $this->get_geotargeted_posts();
+		
 		if ( isset( $this->data['geot_redirects'] ) && $this->data['geot_redirects'] == 1 ) {
 			$redirect = $this->geo_redirects();
 		}

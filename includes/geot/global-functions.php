@@ -459,6 +459,15 @@ if ( ! function_exists('geot_ips' ) ) {
 		return apply_filters( 'geot/user_ip', '' );
 	}
 }
+
+if( ! function_exists('geot_set_coords') ) {
+	function geot_set_coords($lat, $lng) {
+		$g = geotWP();
+
+		return $g->set_coords( $lat, $lng );
+	}
+}
+
 /**
  * Prints geo debug data
  * @return bool|string

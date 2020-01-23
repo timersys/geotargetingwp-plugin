@@ -134,11 +134,17 @@ $countries = geot_countries();
 			</tr>
 
 			<tr valign="top" class="">
-				<th><label for=""><?php _e( 'Geocode', 'geot' ); ?></label></th>
+				<th><label for=""><?php _e( 'Geolocation', 'geot' ); ?></label></th>
 				<td colspan="3">
-					<label><input type="checkbox" id="geocode" name="geot_settings[geocode]"
-					              value="1" <?php checked( $opts['geocode'], '1' ); ?>/>
-						<p class="help"><?php echo sprintf( __( 'Check this if you want to use coordinates instead of IP. More info <a href="%s">here</a>', 'geot' ), 'https://geotargetingwp.com/docs/geotargeting-pro/configuration#geocode' ); ?></p>
+					<select name="geot_settings[geolocation]" >
+						<option value="by_ip" <?php selected( $opts['geolocation'], 'by_ip' ); ?>>
+							<?php esc_html_e('By IP Address','geot'); ?>
+						</option>
+						<option value="by_html5" <?php selected( $opts['geolocation'], 'by_html5' ); ?>>
+							<?php esc_html_e('By HTML5 Geolocation','geot'); ?>
+						</option>
+					</select>
+					<p class="help"><?php esc_html_e( 'If you choose HTML5 Geolocation and the customer deny his coordinates, it will take IP Address to geolocation', 'geot' ); ?></p>
 				</td>
 			</tr>
 

@@ -64,6 +64,14 @@ class GeotCore {
 	private $user_data;
 
 	/**
+	 * Use to HTML5 Geolocation API
+	 * @var Mixed
+	 */
+	private $coords = false;
+	private $lat;
+	private $lng;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -132,6 +140,20 @@ class GeotCore {
 			'kinsta'             => 0,
 			'litespeed'          => 0,
 		] );
+	}
+
+	/**
+	 * Set Coords from HTML5 Geotargeting API
+	 * @param float $lat
+	 * @param float $lng
+	 */
+	public function set_coords($lat = '', $lng = '') {
+
+		if( ! empty( $lat ) && ! empty( $lng ) ) {
+			$this->coords = true;
+			$this->lat = true;
+			$this->lng = true;
+		}
 	}
 
 	/**
@@ -370,29 +392,49 @@ class GeotCore {
 	 *
 	 * @return array|bool|mixed
 	 */
-	public function getUserData( $ip = "", $force = false ) {
+	public function getUserData( $force = false ) {
 		if ( isset( $_GET['geot_backtrace'] ) || defined( 'GEOT_BACKTRACE' ) ) {
 			$this->printBacktrace();
 		}
+
+		$settings = geot_settings();
+
 		try {
 			$this->check_active_user();
 
-			if ( ! empty( $ip ) ) {
-				$this->ip = $ip;
-			}
-
-			$this->ip = apply_filters( 'geot/user_ip', $this->ip );
-
-			// it's a valid IP ?
-			if(! $this->valid_ip( $this->ip ) ) {
-				return $this->getFallbackCountry();
-			}
 
 			if ( empty( $this->opts['license'] ) ) {
 				throw new InvalidLicenseException( json_encode( [ 'error' => 'License is missing' ] ) );
 			}
 
-			$this->cache_key = md5( $this->ip );
+			if( isset( $settings['geolocation'] ) &&
+				$settings['geolocation'] == 'by_html5' &&
+				$this->coords == true ) {
+
+				$this->cache_key = md5( $this->lat.$this->lng );
+
+				$options = [
+					'geolocation' => 'by_html5',
+					'data' => [ 'lat' => $this->lat, 'lng' => $this->lng ]
+				];
+
+			} else {
+
+				$this->ip = apply_filters( 'geot/user_ip', $this->ip );
+
+				// it's a valid IP ?
+				if(! $this->valid_ip( $this->ip ) ) {
+					return $this->getFallbackCountry();
+				}
+
+				$options = [
+					'geolocation' => 'by_ip',
+					'data' => [ 'ip' => $this->ip ]
+				];
+
+				$this->cache_key = md5( $this->ip );
+			}
+
 
 			if ( ! empty ( $this->user_data[ $this->cache_key ] ) ) {
 				return $this->user_data[ $this->cache_key ];
@@ -427,35 +469,43 @@ class GeotCore {
 				return $this->setData( ! empty( $this->opts['bots_country'] ) ? $this->opts['bots_country'] : 'US' );
 			}
 
-			// WP Engine ?
-			if ( isset( $this->opts['wpengine'] ) && $this->opts['wpengine'] ) {
-				return $this->wpengine();
-			}
-			// litespeed?
-			if ( isset( $this->opts['litespeed'] ) && $this->opts['litespeed'] ) {
-				return $this->litespeed();
-			}
-			// Kingsta ?
-			if ( isset( $this->opts['kinsta'] ) && $this->opts['kinsta'] ) {
-				return $this->kinsta();
-			}
-			// maxmind ?
-			if ( isset( $this->opts['maxmind'] ) && $this->opts['maxmind'] ) {
-				$record = $this->maxmind();
-				$this->checkLocale();
 
-				return $record;
+			if( ! isset( $settings['geolocation'] ) ||
+				$settings['geolocation'] == 'by_ip' ||
+				$this->coords == false ) {
+
+				// WP Engine ?
+				if ( isset( $this->opts['wpengine'] ) && $this->opts['wpengine'] ) {
+					return $this->wpengine();
+				}
+				// litespeed?
+				if ( isset( $this->opts['litespeed'] ) && $this->opts['litespeed'] ) {
+					return $this->litespeed();
+				}
+				// Kingsta ?
+				if ( isset( $this->opts['kinsta'] ) && $this->opts['kinsta'] ) {
+					return $this->kinsta();
+				}
+				// maxmind ?
+				if ( isset( $this->opts['maxmind'] ) && $this->opts['maxmind'] ) {
+					$record = $this->maxmind();
+					$this->checkLocale();
+
+					return $record;
+				}
+				// ip2location ?
+				if ( isset( $this->opts['ip2location'] ) && $this->opts['ip2location'] ) {
+					return $this->ip2location();
+				}
 			}
-			// ip2location ?
-			if ( isset( $this->opts['ip2location'] ) && $this->opts['ip2location'] ) {
-				return $this->ip2location();
-			}
+
+
 			//last chance filter to cancel query and pass custom data
 			if ( ( $custom_data = apply_filters( 'geot/cancel_query', false ) ) ) {
 				return $this->cleanResponse( $custom_data );
 			}
 			// API
-			$record = $this->cleanResponse( $this->geotWP->getData( $this->ip ) );
+			$record = $this->cleanResponse( $this->geotWP->getData( $options ) );
 			$this->checkLocale();
 
 			return $record;
