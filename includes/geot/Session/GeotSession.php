@@ -145,7 +145,11 @@ class GeotSession {
 		if ( ( isset( $_GET['page'] ) && 'geot-debug-data' == $_GET['page'] ) || ( is_admin() && ! defined( 'DOING_AJAX' ) ) ) {
 			$start_session = false;
 		}
-
+		$opts = geot_settings();
+		// if we have cache mode, load geotarget now to set session before content
+		if ( ! $this->sessionRedirects() && ( ! isset( $opts['cache_mode'] ) || ! $opts['cache_mode'] ) ) {
+			$start_session = false;
+		}
 		return apply_filters( 'geot/sessions/start_session', $start_session );
 	}
 
@@ -266,5 +270,21 @@ class GeotSession {
 		$_SESSION[ $key ] = wp_json_encode( $value );
 
 		return $_SESSION[ $key ];
+	}
+
+	/**
+	 * Check if we have redirects with sessions
+	 */
+	private function sessionRedirects() {
+		$redirections = geotWPR_redirections();
+		if( $redirections ) {
+			foreach ( $redirections as $r ) {
+				$opts = maybe_unserialize( $r->geotr_options );
+				if ( (int) $opts['one_time_redirect'] === 2 ) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

@@ -112,7 +112,10 @@ class GeotWP_Settings {
 		}
 	}
 
-
+	/**
+	 * Lets add steps to wizard
+	 * @param ARRAY $steps
+	 */
 	function add_steps( $steps ) {
 
 		$steps['addons'] = [
@@ -121,21 +124,55 @@ class GeotWP_Settings {
 			'handler' => [ $this, 'setup_wizard_addons_save' ],
 		];
 
+		$steps['others'] = [
+			'name'    => __( 'Others', 'geot' ),
+			'view'    => [ $this, 'setup_wizard_others' ],
+			'handler' => [ $this, 'setup_wizard_others_save' ],
+		];
+
 		return $steps;
 	}
 
-
-	function setup_wizard_addons() {
-		$opts     = geotwp_addons();
+	/**
+	 * Wizard Addons
+	 * @return mixed
+	 */
+	public function setup_wizard_addons() {
+		$opts = geotwp_addons();
 
 		require_once GEOWP_PLUGIN_DIR . 'admin/partials/setup-wizard-addons.php';
 	}
 
-	function setup_wizard_addons_save() {
+	/**
+	 * Wizard Addons save
+	 * @return mixed
+	 */
+	public function setup_wizard_addons_save() {
 
 		if ( isset( $_POST['geot_addons'] ) ) {
 			$settings = isset( $_POST['geot_addons'] ) ? esc_sql( $_POST['geot_addons'] ) : '';
 			update_option( 'geot_pro_addons', $settings );
+		}
+	}
+
+	/**
+	 * Wizard Stats
+	 * @return mixed
+	 */
+	public function setup_wizard_others() {
+		$opts = geotwp_others();
+
+		require_once GEOWP_PLUGIN_DIR . 'admin/partials/setup-wizard-others.php';
+	}
+
+	/**
+	 * Wizard Stats save
+	 * @return mixed
+	 */
+	public function setup_wizard_others_save() {
+		if ( isset( $_POST['geot_others'] ) ) {
+			$settings = isset( $_POST['geot_others'] ) ? esc_sql( $_POST['geot_others'] ) : '';
+			update_option( 'geot_pro_others', $settings );
 		}
 	}
 }

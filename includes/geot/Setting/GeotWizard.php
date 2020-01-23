@@ -74,7 +74,7 @@ class GeotWizard {
 	}
 
 	/**
-	 * Wizard setip func
+	 * Wizard setup func
 	 */
 	public function setup() {
 		if ( apply_filters( 'geot/wizard/enable', true ) && current_user_can( 'manage_options' ) ) {
@@ -112,7 +112,6 @@ class GeotWizard {
 				'handler' => [ $this, 'setup_wizard_basic_save' ],
 			],
 		];
-
 
 		$this->steps = apply_filters( 'geot/wizard/steps', $default_steps );
 		$this->step  = isset( $_GET['step'] ) ? sanitize_key( $_GET['step'] ) : current( array_keys( $this->steps ) );

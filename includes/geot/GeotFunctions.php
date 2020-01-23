@@ -62,6 +62,10 @@ class GeotCore {
 	 * @var Mixed
 	 */
 	private $user_data;
+	/**
+	 * @var GeotSession
+	 */
+	private $session;
 
 	/**
 	 * Initialize the class and set its properties.
