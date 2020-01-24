@@ -3,7 +3,7 @@
 
     const GeotWP  = {
         uniqueID : null,
-        coords : null,
+        coords : false,
         lat : null,
         lng : null,
         /**

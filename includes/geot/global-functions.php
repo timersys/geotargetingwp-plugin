@@ -54,7 +54,8 @@ if ( ! function_exists( 'geot_country_by_ip' ) ) {
 	function geot_country_by_ip( $ip = '', $force = false ) {
 		$g = geotWP();
 
-		return $g->getUserData( $ip, $force )->country;
+		//return $g->getUserData( $ip, $force )->country;
+		return $g->getUserData( $force )->country;
 	}
 }
 /**

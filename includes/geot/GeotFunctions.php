@@ -17,7 +17,7 @@ use IP2Location\Database;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use MaxMind\Db\Reader;
 use function GeotWP\generateCallTrace;
-use function GeotWP\getUserIP;
+//use function GeotWP\getUserIP;
 
 /**
  * Class GeotCore
@@ -80,13 +80,9 @@ class GeotCore {
 
 		$this->set_defaults();
 
-		$this->ip = getUserIP();
-
 		$this->geotWP = new GeotargetingWP( trim( $this->opts['license'] ), trim( $this->opts['api_secret'] ) );
 
 		$this->session = GeotSession::instance();
-
-		add_action( 'geot/user_ip', [ $this, 'rewrite_ip' ], 9, 1 );
 
 		// If we have cache mode turned on, we need to calculate user location before
 		// anything gets printed
@@ -97,7 +93,6 @@ class GeotCore {
 		     && ! defined( 'DOING_AJAX' )
 		     && ! is_rest_request()
 		     && ! isset( $_GET['wc_ajax'] )
-		     && ! isset( $_GET['wc-ajax'] )
 		) {
 			add_action( 'init', [ $this, 'getUserData' ] );
 			add_action( 'init', [ $this, 'createRocketCookies' ], 15 );
@@ -197,7 +192,7 @@ class GeotCore {
 	 *
 	 * @return mixed
 	 */
-	function rewrite_ip( $ip ) {
+	public function rewrite_ip( $ip = '' ) {
 		$settings = geot_settings();
 		$ip       = $_SERVER['REMOTE_ADDR'];
 		if ( isset( $settings['var_ip'] ) && ! empty( $settings['var_ip'] ) && isset($_SERVER[ $settings['var_ip'] ] ) ) {
@@ -205,7 +200,9 @@ class GeotCore {
 		}
 
 		// if two ips provided, on use the first
-		return strstr( $ip, ',' ) === false ? $ip : strstr( $ip, ',', true );
+		$ip = strstr( $ip, ',' ) === false ? $ip : strstr( $ip, ',', true );
+
+		return apply_filters('geot/user_ip', $ip);
 	}
 
 	/**
@@ -400,27 +397,33 @@ class GeotCore {
 		$settings = geot_settings();
 
 		try {
+			// Check if user has active subscription
 			$this->check_active_user();
 
-
+			// Check if exists license
 			if ( empty( $this->opts['license'] ) ) {
 				throw new InvalidLicenseException( json_encode( [ 'error' => 'License is missing' ] ) );
 			}
 
+			// Check if the geolocation is usign the HTML5 API
 			if( isset( $settings['geolocation'] ) &&
-				$settings['geolocation'] == 'by_html5' &&
-				$this->coords == true ) {
+				$settings['geolocation'] == 'by_html5' && $this->coords
+			) {
+
+				if( !$this->valid_latitude($this->lat) || !$this->valid_longitude($this->lng) ) {
+					return $this->getFallbackCountry();
+				}
 
 				$this->cache_key = md5( $this->lat.$this->lng );
 
 				$options = [
-					'geolocation' => 'by_html5',
-					'data' => [ 'lat' => $this->lat, 'lng' => $this->lng ]
+					'geolocation'	=> 'by_html5',
+					'data'			=> [ 'lat' => $this->lat, 'lng' => $this->lng ]
 				];
 
 			} else {
 
-				$this->ip = apply_filters( 'geot/user_ip', $this->ip );
+				$this->ip = $this->rewrite_ip();
 
 				// it's a valid IP ?
 				if(! $this->valid_ip( $this->ip ) ) {
@@ -428,8 +431,8 @@ class GeotCore {
 				}
 
 				$options = [
-					'geolocation' => 'by_ip',
-					'data' => [ 'ip' => $this->ip ]
+					'geolocation'	=> 'by_ip',
+					'data' 			=> [ 'ip' => $this->ip ]
 				];
 
 				$this->cache_key = md5( $this->ip );
@@ -470,9 +473,7 @@ class GeotCore {
 			}
 
 
-			if( ! isset( $settings['geolocation'] ) ||
-				$settings['geolocation'] == 'by_ip' ||
-				$this->coords == false ) {
+			if( ! $this->coords ) {
 
 				// WP Engine ?
 				if ( isset( $this->opts['wpengine'] ) && $this->opts['wpengine'] ) {
@@ -585,7 +586,7 @@ class GeotCore {
 			return true;
 		}
 
-		return $active_user;
+		return $geot_active_user;
 	}
 
 	/**
@@ -943,6 +944,27 @@ class GeotCore {
 		if( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
 			return true;
 		}
+		return false;
+	}
+
+
+	private function valid_latitude($lat = 0) {
+
+		$regex = '/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/';
+
+		if( preg_match($regex, $lat) )
+			return true;
+
+		return false;
+	}
+
+	private function valid_longitude($lng = 0) {
+
+		$regex = '/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/';
+
+		if( preg_match($regex, $lng) )
+			return true;
+
 		return false;
 	}
 }
