@@ -67,7 +67,6 @@ class GeotCore {
 	 * Use to HTML5 Geolocation API
 	 * @var Mixed
 	 */
-	private $coords = false;
 	private $lat;
 	private $lng;
 
@@ -145,9 +144,8 @@ class GeotCore {
 	public function set_coords($lat = '', $lng = '') {
 
 		if( ! empty( $lat ) && ! empty( $lng ) ) {
-			$this->coords = true;
-			$this->lat = true;
-			$this->lng = true;
+			$this->lat = $lat;
+			$this->lng = $lng;
 		}
 	}
 
@@ -195,7 +193,9 @@ class GeotCore {
 	public function rewrite_ip( $ip = '' ) {
 		$settings = geot_settings();
 		$ip       = $_SERVER['REMOTE_ADDR'];
-		if ( isset( $settings['var_ip'] ) && ! empty( $settings['var_ip'] ) && isset($_SERVER[ $settings['var_ip'] ] ) ) {
+		if ( isset( $settings['var_ip'] ) && ! empty( $settings['var_ip'] ) &&
+			isset($_SERVER[ $settings['var_ip'] ] )
+		) {
 			$ip = $_SERVER[ $settings['var_ip'] ];
 		}
 
@@ -375,6 +375,7 @@ class GeotCore {
 			$this->getUserData();
 		}
 
+
 		if ( isset( $this->user_data[ $this->cache_key ]->$key ) ) {
 			return $this->user_data[ $this->cache_key ]->$key;
 		}
@@ -383,13 +384,15 @@ class GeotCore {
 	}
 
 	/**
-	 * @param string $ip
+	 * @param string/string $params : it is the IP or the coords
 	 *
+	 * @param string $key : ip/coords
+	 * 
 	 * @param bool $force
 	 *
 	 * @return array|bool|mixed
 	 */
-	public function getUserData( $force = false ) {
+	public function getUserData( $params = '', $key = 'ip', $force = false ) {
 		if ( isset( $_GET['geot_backtrace'] ) || defined( 'GEOT_BACKTRACE' ) ) {
 			$this->printBacktrace();
 		}
@@ -406,9 +409,16 @@ class GeotCore {
 			}
 
 			// Check if the geolocation is usign the HTML5 API
-			if( isset( $settings['geolocation'] ) &&
-				$settings['geolocation'] == 'by_html5' && $this->coords
+			if( isset( $settings['geolocation'] ) && $settings['geolocation'] == 'by_html5' &&
+				isset($_COOKIE['geotLocation']) && $_COOKIE['geotLocation'] == 'yes'
 			) {
+
+				if( $key == 'coords' && is_array( $params ) && count( $params ) == 2 ) {
+					reset($params);
+					$this->lat = current( $params );
+					$this->lng = end( $params );
+				}
+
 
 				if( !$this->valid_latitude($this->lat) || !$this->valid_longitude($this->lng) ) {
 					return $this->getFallbackCountry();
@@ -424,6 +434,11 @@ class GeotCore {
 			} else {
 
 				$this->ip = $this->rewrite_ip();
+
+				// If the IP has been sent through the params
+				if( $key == 'ip' && is_string( $params ) && ! empty( $params ) )
+					$this->ip = $params;
+				
 
 				// it's a valid IP ?
 				if(! $this->valid_ip( $this->ip ) ) {
@@ -452,7 +467,7 @@ class GeotCore {
 
 			// If user set cookie and not in debug mode. If we pass ip we are forcing to use ip instead of cookies. Eg in dropdown widget
 			if ( ! empty( $_COOKIE[ $this->opts['cookie_name'] ] ) && ! $force ) {
-				return $this->setData(  $_COOKIE[ $this->opts['cookie_name'] ] );
+				return $this->setData( $_COOKIE[ $this->opts['cookie_name'] ] );
 			}
 
 			// If we already calculated on session return (if we are not calling by IP & if cache mode (sessions) is turned on)
@@ -462,6 +477,7 @@ class GeotCore {
 
 				return $this->user_data[ $this->cache_key ];
 			}
+			
 			// check for whitelist Ips
 			if ( $this->user_whitelisted() ) {
 				return $this->getFallbackCountry();
@@ -472,8 +488,7 @@ class GeotCore {
 				return $this->setData( ! empty( $this->opts['bots_country'] ) ? $this->opts['bots_country'] : 'US' );
 			}
 
-
-			if( ! $this->coords ) {
+			if( ! isset($_COOKIE['geotLocation']) || $_COOKIE['geotLocation'] != 'yes' ) {
 
 				// WP Engine ?
 				if ( isset( $this->opts['wpengine'] ) && $this->opts['wpengine'] ) {

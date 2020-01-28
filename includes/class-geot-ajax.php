@@ -53,11 +53,10 @@ class GeotWP_Ajax {
 		$settings = geot_settings();
 		$this->data = $_POST;
 		
-		if( isset($settings['geolocation']) &&
-			$settings['geolocation'] == 'by_html5' &&
-			$this->data['geot_coords']
+		if( isset($settings['geolocation']) && $settings['geolocation'] == 'by_html5' &&
+			isset($_COOKIE['geotLocation']) && $_COOKIE['geotLocation'] == 'yes'
 		) {
-			geot_set_coords($this->data['geot_lat'], $this->data['geot_lng']);
+			geot_set_coords( $this->data['geot_lat'], $this->data['geot_lng'] );
 		}
 
 		$posts = $this->get_geotargeted_posts();

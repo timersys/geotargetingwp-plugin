@@ -63,7 +63,7 @@ class GeotWP_Widget extends WP_Widget {
 		$countries = apply_filters( 'geot/dropdown_widget/countries', $countries );
 
 		$user_country     = geot_user_country();
-		$original_country = apply_filters( 'geot/dropdown_widget/original_country', geot_country_by_ip( \GeotWP\getUserIP(), false ) );
+		$original_country = apply_filters( 'geot/dropdown_widget/original_country', geot_country(true ) );
 
 		?>
 		<div class="geot_dropdown_container">

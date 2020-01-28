@@ -51,13 +51,24 @@ if ( ! function_exists( 'geot_user_country' ) ) {
  * @return object Current user country record. Methods are $country->iso_code $country->name $country->names
  */
 if ( ! function_exists( 'geot_country_by_ip' ) ) {
-	function geot_country_by_ip( $ip = '', $force = false ) {
+	function geot_country_by_ip( $ip = '' ) {
 		$g = geotWP();
 
-		//return $g->getUserData( $ip, $force )->country;
-		return $g->getUserData( $force )->country;
+		return $g->getUserData( $ip, 'ip' )->country;
 	}
 }
+
+/**
+ * @param boolean $force to read the cookie
+ */
+if ( ! function_exists( 'geot_country' ) ) {
+	function geot_country( $force = false ) {
+		$g = geotWP();
+
+		return $g->getUserData( '', '', $force )->country;
+	}
+}
+
 /**
  * Grabs the whole result from API
  *
@@ -66,10 +77,10 @@ if ( ! function_exists( 'geot_country_by_ip' ) ) {
  * @return object
  */
 if ( ! function_exists( 'geot_data' ) ) {
-	function geot_data( $ip = '' ) {
+	function geot_data( $params = '', $key = 'ip', $force = false ) {
 		$g = geotWP();
 
-		return $g->getUserData( $ip );
+		return $g->getUserData( $params, $key, $force );
 	}
 }
 /**
@@ -233,7 +244,7 @@ if ( ! function_exists( 'geot_lng' ) ) {
  */
 if ( ! function_exists( 'geot_state_by_ip' ) ) {
 	function geot_state_by_ip( $ip = '' ) {
-		$data = geot_data( $ip );
+		$data = geot_data( $ip, 'ip' );
 
 		return $data->state;
 	}
@@ -412,7 +423,16 @@ if ( ! function_exists( 'geot_target_zip' ) ) {
  */
 if ( ! function_exists( 'geot_settings' ) ) {
 	function geot_settings() {
-		return apply_filters( 'geot/settings_page/opts', get_option( 'geot_settings' ) );
+
+		$settings = get_option( 'geot_settings' );
+
+		/* If Geolocation HTML5 API */
+		if(	( ! is_admin() || wp_doing_ajax() ) &&
+			isset($settings['geolocation']) && $settings['geolocation'] == 'by_html5' &&
+			isset($_COOKIE['geotLocation']) && $_COOKIE['geotLocation'] == 'yes'
+		) {	$settings['ajax_mode'] = 1;	}
+
+		return apply_filters( 'geot/settings_page/opts', $settings );
 	}
 }
 /**

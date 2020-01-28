@@ -3,7 +3,6 @@
 
     const GeotWP  = {
         uniqueID : null,
-        coords : false,
         lat : null,
         lng : null,
         /**
@@ -17,21 +16,27 @@
          */
         ready: function () {
             GeotWP.initSelectize();
-            GeotWP.maybe_overlay();
 
             /* Geolocation */
             if( geot.geoloc_enable ) {
                 if (navigator.geolocation) {
+
+                    GeotWP.maybe_overlay();
+
+                    // Set Geolocation
                     navigator.geolocation.getCurrentPosition(
                         GeotWP.successPosition,
                         GeotWP.errorPosition
                     );
+
                 } else {
                     console.log(geot.geoloc_fail);
                 }
+            } else {
+                GeotWP.executeAjax();
             }
-
-
+        },
+        executeAjax: function() {
             const geot_debug = GeotWP.getUrlParameter('geot_debug'),
                 geot_debug_iso = GeotWP.getUrlParameter('geot_debug_iso'),
                 geot_state = GeotWP.getUrlParameter('geot_state'),
@@ -56,10 +61,10 @@
                     'geot_state_code': geot_state_code,
                     'geot_city': geot_city,
                     'geot_zip': geot_zip,
-                    'geot_coords' : GeotWP.coords,
                     'geot_lat': GeotWP.lat,
                     'geot_lng': GeotWP.lng,
                 };
+
             $('.geot-ajax').each(function () {
                 let _this = $(this);
                 if (_this.hasClass('geot_menu_item'))
@@ -190,7 +195,7 @@
         },
         /**
          * Generate unique id
-          * @param prefix
+         * @param prefix
          * @returns {*}
          */
         getUniqueName: function (prefix) {
@@ -205,12 +210,20 @@
          */
         successPosition: function(position) {
             GeotWP.saveStorage('geotLocation', 'yes');
+            GeotWP.createCookie('geotLocation', 'yes', 999);
 
             $('div.geotloc_overlay').fadeOut('fast');
 
-            GeotWP.coords = true;
+            // If first time, refresh
+            if( GeotWP.getStorage('geotRefresh') == null ) {
+                GeotWP.saveStorage('geotRefresh', 'yes');
+                window.location.reload();
+            }
+
             GeotWP.lat = position.coords.latitude;
             GeotWP.lng = position.coords.longitude;
+
+            GeotWP.executeAjax();
         },
         /**
          * When Geolocation not get the coordinates
@@ -233,9 +246,15 @@
                 break;
             }*/
 
-            GeotWP.coords = false;
             GeotWP.saveStorage('geotLocation', 'no');
+            GeotWP.createCookie('geotLocation', 'no', 999);
             $('div.geotloc_overlay').fadeOut('fast');
+
+            // If first time, refresh
+            if( GeotWP.getStorage('geotRefresh') == null ) {
+                GeotWP.saveStorage('geotRefresh', 'yes');
+                window.location.reload();
+            }
         },
         /**
          * Put Shadow Overlay
@@ -260,6 +279,12 @@
             }
 
             return true;
+        },
+        deleteStorage: function(key = '') {
+            if( key.length == 0 )
+                return false;
+
+            localStorage.removeItem(key);
         },
         getStorage: function(key = '') {
             if( key.length == 0 )
@@ -287,6 +312,14 @@
                 expires = "; expires=" + date.toGMTString();
             }
             document.cookie = name + "=" + value + expires + "; path=/";
+        },
+        /**
+         * Delete Cookies
+         * @param name
+         * @returns {string|null}
+         */
+        deleteCookie: function(name) {
+            document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         },
         /**
          * Read Cookies
