@@ -68,6 +68,7 @@ class GeotWP_Fusion {
 		if( isset( $params['param_name'] ) && in_array( $params['param_name'], $geot_keys ) )
 			return $params;
 
+		$this->init();
 
 		$params = array_merge(
 			$params,
