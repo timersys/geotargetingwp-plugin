@@ -10,6 +10,7 @@ use EAMann\WPSession\Objects\Option;
 use EAMann\WPSession\OptionsHandler;
 use EAMann\WPSession\CacheHandler;
 use EAMann\WPSession\DatabaseHandler;
+use function GeotCore\geotWPR_redirections;
 
 /**
  * GeotSession wrapper Class

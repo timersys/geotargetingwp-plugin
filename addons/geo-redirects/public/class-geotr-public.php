@@ -10,6 +10,7 @@
  * @subpackage Geotr/public
  */
 
+use function GeotCore\geotWPR_redirections;
 use function GeotCore\get_current_url;
 use function GeotCore\is_backend;
 use function GeotCore\is_builder;
