@@ -409,25 +409,42 @@ class GeotSettings {
 	 * Redirect to Wizard
 	 */
 	public function redirect_wizard() {
-		if ( ! get_transient( 'geot_activator' ) ) {
+
+		if ( ! get_transient( 'geot_activator' ) && ! get_transient( 'geot_updater' ) ) {
 			return;
 		}
-
-		// Delete the redirect transient
-		delete_transient( 'geot_activator' );
 
 		// Bail if activating from network, or bulk
 		if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
 			return;
 		}
 
-		// Redirect to panel welcome
-		wp_safe_redirect(
-			add_query_arg(
-				[ 'page' => 'geot-setup' ],
-				admin_url( 'admin.php' )
-			)
-		);
+		if ( get_transient( 'geot_activator' ) ) {
+
+			// Delete the redirect transient
+			delete_transient( 'geot_activator' );			
+
+			// Redirect to panel welcome
+			wp_safe_redirect(
+				add_query_arg(
+					[ 'page' => 'geot-setup' ],
+					admin_url( 'admin.php' )
+				)
+			);
+
+		} elseif( get_transient( 'geot_updater' ) ) {
+			
+			// Delete the redirect transient
+			delete_transient( 'geot_updater' );
+
+			// Redirect to panel welcome
+			wp_safe_redirect(
+				add_query_arg(
+					[ 'page' => 'geot-setup', 'step' => 'others' ],
+					admin_url( 'admin.php' )
+				)
+			);
+		}
 		exit;
 	}
 }
