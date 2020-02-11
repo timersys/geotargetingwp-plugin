@@ -352,10 +352,10 @@ class GeotWP_R_ules {
 		$array_value = array_map('trim', explode( ',', $rule['value'] ) );
 
 		if ( $rule['operator'] == "==" ) {
-			return ( in_array( $ip, $array_value ) );
+			return ( in_array( $ip, $array_value ) ) || GeotWP_Helper::checkIP( $ip, $array_value )  ;
 		}
 
-		return ( ! in_array( $ip, $array_value ) );
+		return ( ! in_array( $ip, $array_value ) && ! GeotWP_Helper::checkIP( $ip, $array_value ) );
 
 	}
 
