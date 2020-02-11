@@ -962,7 +962,12 @@ class GeotCore {
 		return false;
 	}
 
-
+	/**
+	 * Check valid lat
+	 * @param int $lat
+	 *
+	 * @return bool
+	 */
 	private function valid_latitude($lat = 0) {
 
 		$regex = '/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/';
@@ -973,6 +978,12 @@ class GeotCore {
 		return false;
 	}
 
+	/**
+	 * Check if valid long
+	 * @param int $lng
+	 *
+	 * @return bool
+	 */
 	private function valid_longitude($lng = 0) {
 
 		$regex = '/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/';

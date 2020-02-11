@@ -14,6 +14,7 @@ $defaults = [
 	'debug_mode'           => '0',
 	'var_ip'               => 'REMOTE_ADDR',
 	'geocode'              => '0',
+	'geolocation'          => 'by_ip',
 	'maxmind'              => '0',
 	'ip2location'          => '0',
 	'geot_uninstall'       => '',
