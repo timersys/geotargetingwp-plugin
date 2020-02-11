@@ -266,7 +266,7 @@
                 
                 setTimeout( function() {
                     $('div.geotloc_overlay').fadeOut('fast');
-                }, 10000);
+                }, 15000);
             }
         },
         saveStorage: function(key = '', value = '') {

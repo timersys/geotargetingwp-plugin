@@ -484,7 +484,10 @@ class GeotWP_Public {
 
 	public function print_overlay() {
 		echo '<!-- Geotargeting GeoLocation START -->
-		<div class="geotloc_overlay" style="display: none;"></div>
+		<div class="geotloc_overlay" style="display: none;">
+			<img src="'.GEOWP_PLUGIN_URL . 'public/images/up.png" alt="Up" />
+			'.esc_html__( 'Please accept to continue using this website', 'geot' ).'
+		</div>
 		<!-- Geotargeting GeoLocation END -->';
 	}
 
