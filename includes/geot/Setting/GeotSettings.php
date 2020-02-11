@@ -24,8 +24,8 @@ class GeotSettings {
 		add_action( 'admin_menu', [ $this, 'add_settings_menu' ], 8 );
 		add_action( 'admin_init', [ $this, 'check_license' ], 15 );
 		add_action( 'admin_init', [ $this, 'redirect_wizard' ], 20 );
-		add_action( 'wp_ajax_geot_check_license', [ $this, 'ajax_check_license' ] );
-		add_action( 'wp_ajax_geot_cities_by_country', [ $this, 'geot_cities_by_country' ] );
+		add_action( 'wp_ajax_geot_check_license', [ $this, 'ajax_check_license' ], 1 );
+		add_action( 'wp_ajax_geot_cities_by_country', [ $this, 'geot_cities_by_country' ], 1 );
 
 		$this->plugin_url = plugin_dir_url( GEOTROOT_PLUGIN_FILE ) . 'includes/geot/Setting/';
 

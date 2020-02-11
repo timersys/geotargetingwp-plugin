@@ -6,7 +6,7 @@ class GeotWP_Links_Notices {
 	 */
 	public function __construct() {
 		add_action( 'admin_notices', [ $this, 'admin_notices' ] );
-		add_action( 'wp_ajax_dismiss_geot_notice', [ $this, 'dismiss_notices' ] );
+		add_action( 'wp_ajax_dismiss_geot_notice', [ $this, 'dismiss_notices' ], 1 );
 	}
 
 	/**
