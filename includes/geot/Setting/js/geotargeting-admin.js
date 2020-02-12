@@ -168,6 +168,7 @@
             
             new_region.insertAfter(region);
         });
+
         // Remove zip region
         $(".geot-settings").on('click', '.remove-zip-region', function (e) {
             e.preventDefault();
@@ -282,6 +283,16 @@
                     button.prop('disabled', false).removeClass('btn-spinner');
                 }
             });
+        });
+
+
+        $("#geolocation").on('change', function (e) {
+            const geo = $(this).val();
+
+            if( geo == 'by_html5' )
+                $('.force_geot_field').show();
+            else
+                $('.force_geot_field').hide();
         });
     });
 

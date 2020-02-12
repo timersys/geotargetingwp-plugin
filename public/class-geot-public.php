@@ -118,7 +118,10 @@ class GeotWP_Public {
 			'dropdown_redirect' => apply_filters( 'geot/dropdown_widget/redirect_url', '' ),
 
 			'geoloc_enable'	=> isset($this->opts['geocode']) ? $this->opts['geocode'] : 0,
+			'geoloc_force'	=> isset($this->opts['force_geot']) ? $this->opts['force_geot'] : '',
 			'geoloc_fail'	=> esc_html__( 'Geolocation is not supported by this browser', 'geot' ),
+			'geoloc_img' => '<img src="' . GEOWP_PLUGIN_URL . 'public/images/geolocation.gif" alt="Geolocation" />',
+			'geoloc_consent' => '<img src="' . GEOWP_PLUGIN_URL . 'public/images/give_consent.gif" alt="Geolocation" />',
 		] );
 	}
 
@@ -484,9 +487,9 @@ class GeotWP_Public {
 
 	public function print_overlay() {
 		echo '<!-- Geotargeting GeoLocation START -->
-		<div class="geotloc_overlay" style="display: none;">
-			<img src="'.GEOWP_PLUGIN_URL . 'public/images/up.png" alt="Up" />
-			'.esc_html__( 'Please accept to continue using this website', 'geot' ).'
+		<div class="geotloc_overlay_box" style="display: none;">
+			<div class="geotloc_overlay_remove"></div>
+			<div class="geotloc_overlay_content"></div>
 		</div>
 		<!-- Geotargeting GeoLocation END -->';
 	}

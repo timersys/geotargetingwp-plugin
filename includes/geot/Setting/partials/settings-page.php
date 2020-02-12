@@ -13,8 +13,8 @@ $defaults = [
 	'ajax_mode'            => '0',
 	'debug_mode'           => '0',
 	'var_ip'               => 'REMOTE_ADDR',
-	'geocode'              => '0',
 	'geolocation'          => 'by_ip',
+	'force_geot'		   => '0',
 	'maxmind'              => '0',
 	'ip2location'          => '0',
 	'geot_uninstall'       => '',
@@ -134,10 +134,10 @@ $countries = geot_countries();
 				</td>
 			</tr>
 
-			<tr valign="top" class="">
+			<tr valign="top" class="geolocation_field">
 				<th><label for=""><?php _e( 'Geolocation', 'geot' ); ?></label></th>
 				<td colspan="3">
-					<select name="geot_settings[geolocation]" >
+					<select name="geot_settings[geolocation]" id="geolocation">
 						<option value="by_ip" <?php selected( $opts['geolocation'], 'by_ip' ); ?>>
 							<?php esc_html_e('By IP Address','geot'); ?>
 						</option>
@@ -146,6 +146,15 @@ $countries = geot_countries();
 						</option>
 					</select>
 					<p class="help"><?php esc_html_e( 'If you choose HTML5 Geolocation and the customer deny his coordinates, it will take IP Address to geolocation', 'geot' ); ?></p>
+				</td>
+			</tr>
+
+			<tr valign="top" class="force_geot_field" style="<?php echo $opts['geolocation'] != 'by_html5' ? 'display:none;' : ''; ?>">
+				<th><label for="force_geot"><?php _e( 'Force GPS Geolocation', 'geot' ); ?></label></th>
+				<td colspan="3">
+					<input type="checkbox" id="force_geot" name="geot_settings[force_geot]"
+					       value="1" <?php checked( $opts['force_geot'], '1' ); ?>/>
+					<p class="help"><?php _e( 'If checked, it will force the users to accept consent to provide their location.', 'geot' ); ?></p>
 				</td>
 			</tr>
 

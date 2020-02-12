@@ -209,14 +209,14 @@
          * @return {[type]} [description]
          */
         successPosition: function(position) {
-            GeotWP.saveStorage('geotLocation', 'yes');
             GeotWP.createCookie('geotLocation', 'yes', 999);
 
-            $('div.geotloc_overlay').fadeOut('fast');
+            const $overlay = $('div.geotloc_overlay_box');
+            $overlay.fadeOut('fast');
 
             // If first time, refresh
-            if( GeotWP.getStorage('geotRefresh') == null ) {
-                GeotWP.saveStorage('geotRefresh', 'yes');
+            if( GeotWP.readCookie('geotRefresh') == null ) {
+                GeotWP.createCookie('geotRefresh', 'yes');
                 window.location.reload();
             }
 
@@ -231,28 +231,22 @@
          * @return mixed
          */
         errorPosition: function(error) {
-            /*switch(error.code) {
-                case error.PERMISSION_DENIED:
-                    x.innerHTML = "User denied the request for Geolocation."
-                break;
-                case error.POSITION_UNAVAILABLE:
-                    x.innerHTML = "Location information is unavailable."
-                break;
-                case error.TIMEOUT:
-                    x.innerHTML = "The request to get user location timed out."
-                break;
-                case error.UNKNOWN_ERROR:
-                    x.innerHTML = "An unknown error occurred."
-                break;
-            }*/
+            GeotWP.createCookie('geotLocation', 'no');
 
-            GeotWP.saveStorage('geotLocation', 'no');
-            GeotWP.createCookie('geotLocation', 'no', 999);
-            $('div.geotloc_overlay').fadeOut('fast');
+            const $overlay = $('div.geotloc_overlay_box');
+
+            if( geot.geoloc_force ) {
+                $overlay.find('.geotloc_overlay_content').html(geot.geoloc_consent);
+
+                if( ! $overlay.is(':visible') )
+                    GeotWP.show_overlay();
+            } else {
+                $overlay.fadeOut('fast');
+            }
 
             // If first time, refresh
-            if( GeotWP.getStorage('geotRefresh') == null ) {
-                GeotWP.saveStorage('geotRefresh', 'yes');
+            if(  GeotWP.readCookie('geotRefresh') == null && ! geot.geoloc_force ) {
+                GeotWP.createCookie('geotRefresh', 'yes');
                 window.location.reload();
             }
         },
@@ -261,42 +255,32 @@
          * @return mixed
          */
         maybe_overlay: function() {
-            if( GeotWP.getStorage('geotLocation') == null ) {
-                $('div.geotloc_overlay').fadeIn('slow');
-                
-                setTimeout( function() {
-                    $('div.geotloc_overlay').fadeOut('fast');
-                }, 15000);
-            }
-        },
-        saveStorage: function(key = '', value = '') {
 
-            if( key.length == 0 )
-                return false;
+            const $overlay = $('div.geotloc_overlay_box');
 
-            if ( typeof(Storage) !== 'undefined' ) {
-                localStorage.setItem(key, value);
+            if( GeotWP.readCookie('geotLocation') == null ) {
+
+                $overlay.find('div.geotloc_overlay_content').html(geot.geoloc_img);
+                GeotWP.show_overlay();
             }
 
-            return true;
+            $overlay.find('.geotloc_overlay_remove').on('click', function() {
+                $overlay.fadeOut('fast');
+            });
         },
-        deleteStorage: function(key = '') {
-            if( key.length == 0 )
-                return false;
+        /**
+         * Show Overlay
+         * @return mixed
+         */
+        show_overlay: function() {
+            const $overlay = $('div.geotloc_overlay_box');
 
-            localStorage.removeItem(key);
-        },
-        getStorage: function(key = '') {
-            if( key.length == 0 )
-                return false;
-
-            let info;
-
-            if ( typeof(Storage) !== 'undefined' ) {
-                info = localStorage.getItem(key);
-            }
-
-            return info;
+            if( geot.geoloc_force )
+                $overlay.find('div.geotloc_overlay_remove').hide();
+            else
+                $overlay.find('div.geotloc_overlay_remove').show();
+            
+            $overlay.fadeIn('slow');
         },
         /**
          * Create Cookies
