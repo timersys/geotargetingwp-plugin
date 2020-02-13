@@ -90,6 +90,20 @@ class Geot {
 	 * @var GeoTarget_Gutenberg
 	 */
 	public $divi;
+	/**
+	 * @var GeotWP_Metaboxes
+	 */
+	public $metaboxes;
+
+	/*
+	 * @var GeoTarget_Fusion
+	 */
+	public $fusion;
+
+	/*
+	 * @var GeotWP_Stats
+	 */
+	public $stats;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -146,11 +160,14 @@ class Geot {
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-wpbeaver.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-gutenberg.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-elementor.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-fusion.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-rules.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-helper.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-updater.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-taxonomies.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-rocket.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-stats.php';
+
 
 		require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-menus.php';
 		require_once GEOWP_PLUGIN_DIR . 'public/class-geot-public.php';
@@ -195,11 +212,13 @@ class Geot {
 		$this->gutenberg 	= new GeotWP_Gutenberg();
 		$this->elementor 	= new GeotWP_Elementor();
 		$this->divi 		= new GeotWP_Divi();
+		$this->divi 		= new GeotWP_Fusion();
 		$this->beaver 		= new GeotWP_WPBeaver();
 		$this->taxs 		= new GeotWP_Taxonomies();
 		$this->menus 		= new GeotWP_Menus();
 		$this->widget 		= new GeotWP_Widgets();
 		$this->rocket 		= new GeotWP_Rocket();
+		$this->stats 		= new GeotWP_Stats();
 	}
 
 	/**

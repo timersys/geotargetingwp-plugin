@@ -10,10 +10,12 @@
  * @subpackage Geotr/public
  */
 
+use function GeotCore\geotWPR_redirections;
 use function GeotCore\get_current_url;
 use function GeotCore\is_backend;
 use function GeotCore\is_builder;
 use GeotCore\Session\GeotSession;
+use function GeotCore\is_rest_request;
 use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
 use function GeotWP\is_session_started;
@@ -56,7 +58,7 @@ public static function ajax_placeholder(){
 	<div>
 		<?php do_action( 'geotr/ajax_placeholder' ); ?>
 		<img src="<?php echo plugin_dir_url( __FILE__ ); ?>img/loading.svg" alt="loading"/>
-		<p><?php _e( 'Please wait while you are redirected to the right page...', 'geotr' ); ?></p>
+		<p><?php apply_filters( 'geotr/ajax_message', _e( 'Please wait while you are redirected to the right page...', 'geotr' ) ); ?></p>
 	</div>
 </div>
 <style>
@@ -100,34 +102,13 @@ public function init_geotWP() {
 public function handle_redirects() {
 
 	GeotWP_R_ules::init();
-	$this->redirections = $this->get_redirections();
+	$this->redirections = geotWPR_redirections();
 	$opts_geot          = geot_settings();
 	if ( ! empty( $opts_geot['ajax_mode'] ) ) {
 		add_action( 'wp_footer', [ $this, 'ajax_placeholder' ] );
 	} else {
 		$this->check_for_rules();
 	}
-}
-
-/**
- * Grab geotr settings
- * @return mixed|void
- */
-function get_redirections() {
-	global $wpdb;
-
-	$sql = "SELECT ID, 
-	MAX(CASE WHEN pm1.meta_key = 'geotr_rules' then pm1.meta_value ELSE NULL END) as geotr_rules,
-	MAX(CASE WHEN pm1.meta_key = 'geotr_options' then pm1.meta_value ELSE NULL END) as geotr_options
-    FROM $wpdb->posts p LEFT JOIN $wpdb->postmeta pm1 ON ( pm1.post_id = p.ID)  WHERE post_type='geotr_cpt' AND post_status='publish' GROUP BY p.ID";
-
-	$redirections = wp_cache_get( md5( $sql ), 'geotr_posts' );
-	if ( $redirections === false ) {
-		$redirections = $wpdb->get_results( $sql, OBJECT );
-		wp_cache_add( md5( $sql ), $redirections, 'geotr_posts' );
-	}
-
-	return $redirections;
 }
 
 /**
@@ -180,6 +161,11 @@ private function pass_basic_rules( $redirection ) {
 		if ( $detect->isCrawler() ) {
 			return false;
 		}
+	}
+
+	// dont redirect on rest
+	if( is_rest_request() ) {
+		return false;
 	}
 
 	// check user IP
@@ -318,7 +304,7 @@ public function fixRedirect( $redirect ) {
 public function handle_ajax_redirects() {
 	GeotWP_R_ules::init();
 	$this->ajax_call    = true;
-	$this->redirections = $this->get_redirections();
+	$this->redirections = geotWPR_redirections();
 
 	return $this->check_for_rules();
 	die();

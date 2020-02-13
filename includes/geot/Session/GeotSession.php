@@ -10,6 +10,7 @@ use EAMann\WPSession\Objects\Option;
 use EAMann\WPSession\OptionsHandler;
 use EAMann\WPSession\CacheHandler;
 use EAMann\WPSession\DatabaseHandler;
+use function GeotCore\geotWPR_redirections;
 
 /**
  * GeotSession wrapper Class
@@ -48,7 +49,9 @@ class GeotSession {
 	 * @since 1.5
 	 */
 	public function __construct() {
-
+		if ( ! $this->should_start_session() ) {
+			return;
+		}
 		if ( session_status() !== PHP_SESSION_DISABLED && ( ! defined( 'WP_CLI' ) || false === WP_CLI ) ) {
 			add_action( 'plugins_loaded', [ $this, 'wp_session_manager_initialize' ], 1, 0 );
 
@@ -64,11 +67,7 @@ class GeotSession {
 	 * Initialize the plugin, bootstrap autoloading, and register default hooks
 	 */
 	public function wp_session_manager_initialize() {
-
-		if ( ! $this->should_start_session() ) {
-			return;
-		}
-
+		
 		if ( ! isset( $_SESSION ) ) {
 
 			// Queue up the session stack
@@ -147,7 +146,11 @@ class GeotSession {
 		if ( ( isset( $_GET['page'] ) && 'geot-debug-data' == $_GET['page'] ) || ( is_admin() && ! defined( 'DOING_AJAX' ) ) ) {
 			$start_session = false;
 		}
-
+		$opts = geot_settings();
+		// if we have cache mode, load geotarget now to set session before content
+		if ( ! $this->sessionRedirects() && ( ! isset( $opts['cache_mode'] ) || ! $opts['cache_mode'] ) ) {
+			$start_session = false;
+		}
 		return apply_filters( 'geot/sessions/start_session', $start_session );
 	}
 
@@ -268,5 +271,21 @@ class GeotSession {
 		$_SESSION[ $key ] = wp_json_encode( $value );
 
 		return $_SESSION[ $key ];
+	}
+
+	/**
+	 * Check if we have redirects with sessions
+	 */
+	private function sessionRedirects() {
+		$redirections = geotWPR_redirections();
+		if( $redirections ) {
+			foreach ( $redirections as $r ) {
+				$opts = maybe_unserialize( $r->geotr_options );
+				if ( (int) $opts['one_time_redirect'] === 2 ) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

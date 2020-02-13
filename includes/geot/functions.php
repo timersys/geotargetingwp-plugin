@@ -92,6 +92,25 @@ function get_current_url() {
 }
 
 /**
+ * Check if a rest request
+ * @return bool
+ */
+function is_rest_request() {
+	$prefix = rest_get_url_prefix( );
+	if (defined('REST_REQUEST') && REST_REQUEST // (#1)
+	    || isset($_GET['rest_route']) // (#2)
+	       && strpos( trim( $_GET['rest_route'], '\\/' ), $prefix , 0 ) === 0)
+		return true;
+	// (#3)
+	global $wp_rewrite;
+	if ($wp_rewrite === null) $wp_rewrite = new \WP_Rewrite();
+
+	// (#4)
+	$rest_url = wp_parse_url( trailingslashit( rest_url( ) ) );
+	$current_url = wp_parse_url( add_query_arg( array( ) ) );
+	return strpos( rtrim($current_url['path'],'/'), rtrim($rest_url['path'],'/'), 0 ) === 0;
+}
+/**
  * Return maxmind db path
  * @return mixed
  */
@@ -195,7 +214,7 @@ function uninstall( $posts = [], $taxonomies = [] ) {
  * @param array $taxonomies
  */
 function geot_activate() {
-	$settings = get_option( 'geot_settings' );
+	$settings = get_option( 'geot_settings', false );
 
 	if ( ! $settings ) {
 		set_transient( 'geot_activator', true, 30 );
@@ -313,4 +332,26 @@ function is_backend() {
 	$ABSPATH_MY = str_replace( [ '\\', '/' ], DIRECTORY_SEPARATOR, ABSPATH );
 
 	return ( ( in_array( $ABSPATH_MY . 'wp-login.php', get_included_files() ) || in_array( $ABSPATH_MY . 'wp-register.php', get_included_files() ) ) || $GLOBALS['pagenow'] === 'wp-login.php' || $_SERVER['PHP_SELF'] == '/wp-login.php' );
+}
+
+
+/**
+ * Grab geotr settings
+ * @return mixed|void
+ */
+function geotWPR_redirections() {
+	global $wpdb;
+
+	$sql = "SELECT ID, 
+	MAX(CASE WHEN pm1.meta_key = 'geotr_rules' then pm1.meta_value ELSE NULL END) as geotr_rules,
+	MAX(CASE WHEN pm1.meta_key = 'geotr_options' then pm1.meta_value ELSE NULL END) as geotr_options
+    FROM $wpdb->posts p LEFT JOIN $wpdb->postmeta pm1 ON ( pm1.post_id = p.ID)  WHERE post_type='geotr_cpt' AND post_status='publish' GROUP BY p.ID";
+
+	$redirections = wp_cache_get( md5( $sql ), 'geotr_posts' );
+	if ( $redirections === false ) {
+		$redirections = $wpdb->get_results( $sql, OBJECT );
+		wp_cache_add( md5( $sql ), $redirections, 'geotr_posts' );
+	}
+
+	return $redirections;
 }

@@ -3700,7 +3700,7 @@
                 if (mode == 'include') {
                     str += 'zip="';
                 } else {
-                    str += 'exclude_city="';
+                    str += 'exclude_zip="';
                 }
 
                 str += $.find('#geot_zip').val();

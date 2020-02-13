@@ -8,6 +8,10 @@ function geotwp_settings() {
 	return apply_filters( 'geot_pro/settings_page/opts', get_option( 'geot_pro_settings' ) );
 }
 
+/**
+ * Get Geot Addons
+ * @return ARRAY $opts
+ */
 function geotwp_addons() {
 	$defaults = apply_filters( 'geot/addons/defaults', [
 		'geo-flags'     => '0',
@@ -18,6 +22,19 @@ function geotwp_addons() {
 	$opts = get_option( 'geot_pro_addons' );
 	$opts = geotwp_parse_args( $opts, $defaults );
 	return apply_filters( 'geot_pro/settings_page/addons', $opts );
+}
+
+/**
+ * Get Geot Stats
+ * @return ARRAY $opts
+ */
+function geotwp_others() {
+	$defaults = apply_filters( 'geot/others/defaults', [
+		'geo-stats'     => 'no',
+	] );
+	$opts = get_option( 'geot_pro_others' );
+	$opts = geotwp_parse_args( $opts, $defaults );
+	return apply_filters( 'geot_pro/settings_page/others', $opts );
 }
 
 
