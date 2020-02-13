@@ -139,13 +139,13 @@ $countries = geot_countries();
 				<td colspan="3">
 					<select name="geot_settings[geolocation]" >
 						<option value="by_ip" <?php selected( $opts['geolocation'], 'by_ip' ); ?>>
-							<?php esc_html_e('By IP Address','geot'); ?>
+							<?php esc_html_e('IP Geolocation','geot'); ?>
 						</option>
 						<option value="by_html5" <?php selected( $opts['geolocation'], 'by_html5' ); ?>>
-							<?php esc_html_e('By HTML5 Geolocation','geot'); ?>
+							<?php esc_html_e('GPS HTML5 Geolocation (ajax mode only)','geot'); ?>
 						</option>
 					</select>
-					<p class="help"><?php esc_html_e( 'If you choose HTML5 Geolocation and the customer deny his coordinates, it will take IP Address to geolocation', 'geot' ); ?></p>
+					<p class="help"><?php esc_html_e( 'If you choose HTML5 Geolocation and the user doesn\'t give consent, it will fallback to IP geolocation.', 'geot' ); ?></p>
 				</td>
 			</tr>
 
