@@ -324,6 +324,7 @@ class GeotSettings {
 				'litespeed',
 				'cache_mode',
 				'ajax_mode',
+				'force_geot',
 				'license',
 				'api_secret',
 				'fallback_country_ips',

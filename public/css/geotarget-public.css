@@ -1556,12 +1556,8 @@
 
 /* Geolocation */
 
-.geotloc_overlay {
+.geotloc_overlay_box {
     background-color: rgba(0, 0, 0, 0.72);
-    /*background-image: url("../images/arrow.png");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 150px 150px;*/
     position: fixed;
     width: 100%;
     height: 100%;
@@ -1575,6 +1571,49 @@
     align-items: center;
 }
 
-.geotloc_overlay img {
-    margin: 0 15px;
+.geotloc_overlay_box .geotloc_overlay_content {
+    width: 50%;
 }
+
+.geotloc_overlay_box .geotloc_overlay_remove {
+    position: absolute;
+    right: 40px;
+    top: 45px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.geotloc_overlay_box .geotloc_overlay_remove:before,
+.geotloc_overlay_box .geotloc_overlay_remove:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #FFFFFF;
+}
+
+.geotloc_overlay_box .geotloc_overlay_remove:before {
+    transform: rotate(45deg);
+}
+
+.geotloc_overlay_box .geotloc_overlay_remove:after {
+    transform: rotate(-45deg);
+}
+
+.geotloc_overlay_box .geotloc_overlay_remove:hover {
+    opacity: 1;
+}
+
+/*.geotloc_overlay_box .geotloc_overlay_remove a {
+    font-size: 18px;
+    color: #FFFFFF;
+    text-decoration: none;
+    opacity: 0.3;
+}
+
+.geotloc_overlay_box .geotloc_overlay_remove a:hover {
+    
+}*/
