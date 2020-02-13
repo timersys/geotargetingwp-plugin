@@ -33,6 +33,15 @@ class GeotWP_Rocket {
 	}
 
 	/**
+	 * Get all the variables
+	 * @return ARRAY
+	 */
+	public function get_vars_geot() {
+		
+		return apply_filters('geotWP/wprocket/vars', [ 'country', 'state', 'city' ] );
+	}
+
+	/**
 	 * Create enviroment variable
 	 * @param  STRING $early
 	 * @return STRING
@@ -40,10 +49,12 @@ class GeotWP_Rocket {
 	public function update_htaccess($early) {
 
 		$output = '<IfModule mod_setenvif.c>' . PHP_EOL;
-		$output .= 'SetEnvIfNoCase Cookie geot_rocket_country=([^;]+) geot_country=$1' . PHP_EOL;
-		$output .= 'SetEnvIfNoCase Cookie geot_rocket_state=([^;]+) geot_state=$1' . PHP_EOL;
-		$output .= 'SetEnvIfNoCase Cookie geot_rocket_city=([^;]+) geot_city=$1' . PHP_EOL;
-		  $output .='</IfModule>' . PHP_EOL;
+
+		foreach( $this->get_vars_geot() as $var_geot ) {
+			$output .= 'SetEnvIfNoCase Cookie geot_rocket_'.$var_geot.'=([^;]+) geot_'.$var_geot.'=$1' . PHP_EOL;
+		}
+
+		$output .='</IfModule>' . PHP_EOL;
 
 		return $output . $early;
 	}
@@ -54,7 +65,15 @@ class GeotWP_Rocket {
 	 * @return STRING
 	 */
 	public function update_mod_rewrite($rules) {
-		$replaceWith = '}-%{ENV:geot_country}-%{ENV:geot_state}-%{ENV:geot_city}.html';
+
+		$setenv = $setcond = '';
+		foreach( $this->get_vars_geot() as $var_geot ) {
+			$setenv .= '-%{ENV:geot_'.$var_geot.'}';
+			$setcond .= 'RewriteCond %{ENV:geot_'.$var_geot.'} .+' . PHP_EOL ;
+		}
+
+		$replaceWith = '}'.$setenv.'.html';
+
 
 		$suf_pos = strrpos($rules, 'RewriteCond');
 		if ($suf_pos === false) return $rules;
@@ -62,9 +81,7 @@ class GeotWP_Rocket {
 		$prefix = substr ( $rules, 0, $suf_pos);
 		$suffix = substr ( $rules, $suf_pos );
 		$suffix = str_replace('}.html', $replaceWith, $suffix);
-		$suffix = 'RewriteCond %{ENV:geot_country} .+' . PHP_EOL .
-					'RewriteCond %{ENV:geot_state} .+' . PHP_EOL .
-					'RewriteCond %{ENV:geot_city} .+' . PHP_EOL . $suffix;
+		$suffix = $setcond . $suffix;
 
 		return $prefix . $suffix;
 	}
@@ -123,9 +140,9 @@ class GeotWP_Rocket {
 	 */
 	public function add_cookies($geot = []) {
 
-		$geot[] = 'country';
-		$geot[] = 'state';
-		$geot[] = 'city';
+		foreach( $this->get_vars_geot() as $var_geot ) {
+			$geot[] = $var_geot;
+		}
 
 		return $geot;
 	}
