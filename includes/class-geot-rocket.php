@@ -20,8 +20,6 @@ class GeotWP_Rocket {
 		add_filter( 'geot_rocket_country', 'geotwp_spaces_by_hyphen', 10, 1);
 		add_filter( 'geot_rocket_state', 'geotwp_spaces_by_hyphen', 10, 1);
 		add_filter( 'geot_rocket_city', 'geotwp_spaces_by_hyphen', 10, 1);
-
-		add_filter( 'rocket_geotargetingwp_enabled_cookies', [$this, 'add_cookies']);
 	}
 
 	/**
@@ -37,8 +35,13 @@ class GeotWP_Rocket {
 	 * @return ARRAY
 	 */
 	public function get_vars_geot() {
+
+		$enable = apply_filters(
+			'rocket_geotargetingwp_enabled_cookies',
+			[ 'country' ]
+		);
 		
-		return apply_filters('geotWP/wprocket/vars', [ 'country', 'state', 'city' ] );
+		return $enable;
 	}
 
 	/**
@@ -132,18 +135,5 @@ class GeotWP_Rocket {
 			// Clear WP Rocket cache
 			rocket_clean_domain();
 		}
-	}
-
-	/**
-	 * Lets add Geot cookies
-	 * @param array $geot
-	 */
-	public function add_cookies($geot = []) {
-
-		foreach( $this->get_vars_geot() as $var_geot ) {
-			$geot[] = $var_geot;
-		}
-
-		return $geot;
 	}
 }
