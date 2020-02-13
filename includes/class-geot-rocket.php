@@ -51,7 +51,7 @@ class GeotWP_Rocket {
 	 */
 	public function update_htaccess($early) {
 
-		if( count($this->get_vars_geot()) ) == 0
+		if( count( $this->get_vars_geot() ) == 0 )
 			return $early;
 
 		$output = '<IfModule mod_setenvif.c>' . PHP_EOL;
@@ -72,9 +72,9 @@ class GeotWP_Rocket {
 	 */
 	public function update_mod_rewrite($rules) {
 
-		if( count($this->get_vars_geot()) ) == 0
+		if( count( $this->get_vars_geot() ) == 0 )
 			return $rules;
-		
+
 
 		$setenv = $setcond = '';
 		foreach( $this->get_vars_geot() as $var_geot ) {
