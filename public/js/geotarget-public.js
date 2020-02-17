@@ -15,31 +15,32 @@
         ready: function () {
             GeotWP.initSelectize();
 
-            const geot_debug = GeotWP.getUrlParameter('geot_debug'),
-                geot_debug_iso = GeotWP.getUrlParameter('geot_debug_iso'),
-                geot_state = GeotWP.getUrlParameter('geot_state'),
+            const geot_debug    = GeotWP.getUrlParameter('geot_debug'),
+                geot_debug_iso  = GeotWP.getUrlParameter('geot_debug_iso'),
+                geot_state      = GeotWP.getUrlParameter('geot_state'),
                 geot_state_code = GeotWP.getUrlParameter('geot_state_code'),
-                geot_city = GeotWP.getUrlParameter('geot_city'),
-                geot_zip = GeotWP.getUrlParameter('geot_zip');
+                geot_city       = GeotWP.getUrlParameter('geot_city'),
+                geot_zip        = GeotWP.getUrlParameter('geot_zip');
+
             let data = {
-                    'action': 'geot_ajax',
-                    'geots': {},
-                    'vars': geot,
-                    'pid': geot.pid,
-                    'referrer': document.referrer,
-                    'url': window.location.href,
-                    'query_string': document.location.search,
-                    'is_category': geot.is_category,
-                    'is_archive': geot.is_archive,
-                    'is_front_page': geot.is_front_page,
-                    'is_search': geot.is_search,
-                    'geot_debug': geot_debug,
-                    'geot_debug_iso': geot_debug_iso,
-                    'geot_state': geot_state,
-                    'geot_state_code': geot_state_code,
-                    'geot_city': geot_city,
-                    'geot_zip': geot_zip,
-                };
+                'geots': {},
+                'vars': geot,
+                'pid': geot.pid,
+                'referrer': document.referrer,
+                'url': window.location.href,
+                'query_string': document.location.search,
+                'is_category': geot.is_category,
+                'is_archive': geot.is_archive,
+                'is_front_page': geot.is_front_page,
+                'is_search': geot.is_search,
+                'geot_debug': geot_debug,
+                'geot_debug_iso': geot_debug_iso,
+                'geot_state': geot_state,
+                'geot_state_code': geot_state_code,
+                'geot_city': geot_city,
+                'geot_zip': geot_zip,
+            };
+
             $('.geot-ajax').each(function () {
                 let _this = $(this);
                 if (_this.hasClass('geot_menu_item'))
@@ -67,6 +68,9 @@
 
 
             const onSuccess = function (response) {
+
+                console.log(response);
+
                 if (response.success) {
                     let results = response.data,
                         i,
@@ -86,7 +90,7 @@
                     if( blocker && blocker.length ) {
                         $('html').html(blocker);
                     }
-                    console.log(response);
+                    
                     if (results && results.length) {
                         for (i = 0; i < results.length; ++i) {
                             if (results[i].action == 'menu_filter') {
@@ -122,11 +126,11 @@
                 }
             }
 
-            const error_cb = function (data, error, errorThrown) {
-                console.log('Geot Ajax error: ' + error + ' - ' + errorThrown);
+            const onError = function (jqxhr, textStatus, error) {
+                console.log('Geot Ajax error: ' + textStatus + ' - ' + error);
             }
-            if (geot && geot.ajax)
-                GeotWP.request(data, onSuccess, error_cb);
+            if (geot && geot.rest_url)
+                GeotWP.request(data, onSuccess, onError);
         },
         /**
          * Start the geot dropdown widget
@@ -214,39 +218,28 @@
          * @param data
          * @param success_cb
          * @param error_cb
-         * @param dataType
          */
-        request:  function (data, success_cb, error_cb, dataType) {
+        request:  function (data, success_cb, error_cb) {
             // Prepare variables.
-            let ajax = {
-                    url: geot.ajax_url,
-                    data: data,
-                    cache: false,
-                    type: 'POST',
-                    dataType: 'json',
-                    timeout: 30000
+            let json = {
+                    url: geot.rest_url,
+                    data: data
                 },
-                data_type = dataType || false,
                 success = success_cb || false,
                 error = error_cb || false;
 
             // Set success callback if supplied.
             if (success) {
-                ajax.success = success;
+                json.success = success;
             }
 
             // Set error callback if supplied.
             if (error) {
-                ajax.error = error;
+                json.error = error;
             }
 
-            // Change dataType if supplied.
-            if (data_type) {
-                ajax.dataType = data_type;
-            }
-            // Make the ajax request.
-            $.ajax(ajax);
-
+            // Make the Json request.
+            $.getJSON(json);
         },
         /**
          * Get parameter from url

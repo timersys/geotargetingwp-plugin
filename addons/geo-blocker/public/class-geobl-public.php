@@ -127,9 +127,9 @@ class GeotWP_Bl_Public {
 		}
 
 		// dont block on rest
-		if( is_rest_request() ) {
+		/*if( is_rest_request() ) {
 			return false;
-		}
+		}*/
 
 		return true;
 	}
@@ -176,8 +176,8 @@ class GeotWP_Bl_Public {
 	 * Handle Ajax call for blocks, Basically
 	 * we call normal block logic but cancel it and print results
 	 */
-	public function handle_ajax_blockers() {
-		GeotWP_R_ules::init();
+	public function handle_ajax_blockers( $input ) {
+		GeotWP_R_ules::init( $input );
 		$this->ajax_call = true;
 		$this->blocks    = $this->get_blocks();
 

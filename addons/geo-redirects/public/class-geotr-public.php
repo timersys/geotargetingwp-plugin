@@ -164,9 +164,9 @@ private function pass_basic_rules( $redirection ) {
 	}
 
 	// dont redirect on rest
-	if( is_rest_request() ) {
+	/*if( is_rest_request() ) {
 		return false;
-	}
+	}*/
 
 	// check user IP
 	if ( ! empty( $opts['whitelist'] ) && $this->user_is_whitelisted( $opts['whitelist'] ) ) {
@@ -301,8 +301,8 @@ public function fixRedirect( $redirect ) {
  * Handle Ajax call for redirections, Basically
  * we call normal redirect logic but cancel it and print results
  */
-public function handle_ajax_redirects() {
-	GeotWP_R_ules::init();
+public function handle_ajax_redirects( $input ) {
+	GeotWP_R_ules::init( $input );
 	$this->ajax_call    = true;
 	$this->redirections = geotWPR_redirections();
 

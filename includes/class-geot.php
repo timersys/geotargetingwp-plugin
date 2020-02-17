@@ -125,6 +125,7 @@ class Geot {
 		$this->register_shortcodes();
 		$this->set_objects_admin();
 		$this->register_ajax_calls();
+		$this->register_apirest_calls();
 		$this->set_addons();
 	}
 
@@ -155,6 +156,7 @@ class Geot {
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-shortcodes.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-ajax-shortcodes.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-ajax.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-restapi.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-vc.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-divi.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-wpbeaver.php';
@@ -253,6 +255,14 @@ class Geot {
 	 */
 	private function register_ajax_calls() {
 		$this->ajax = new GeotWP_Ajax();
+	}
+
+	/**
+	 * Register RestApi Calls
+	 * @access   private
+	 */
+	private function register_apirest_calls() {
+		$this->restapi = new GeotWP_RestApi();
 	}
 
 	public function set_addons() {

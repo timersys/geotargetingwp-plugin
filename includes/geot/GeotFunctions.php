@@ -427,7 +427,8 @@ class GeotCore {
 			}
 			// check for crawlers and if rest
 			$CD = new CrawlerDetect();
-			if ( $CD->isCrawler() || $this->treatAsBot() || is_rest_request() ) {
+			//if ( $CD->isCrawler() || $this->treatAsBot() || is_rest_request() ) {
+			if ( $CD->isCrawler() || $this->treatAsBot() || wp_doing_ajax() ) {
 				return $this->setData( ! empty( $this->opts['bots_country'] ) ? $this->opts['bots_country'] : 'US' );
 			}
 

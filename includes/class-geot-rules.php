@@ -1,6 +1,7 @@
 <?php
 
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
+use function GeotCore\is_rest_request;
 
 /**
  * Main Rules class
@@ -19,7 +20,7 @@ class GeotWP_R_ules {
 	private static $is_search;
 	private static $current_url;
 
-	public static function init() {
+	public static function init( $input = [] ) {
 
 		self::$post_id      = \GeotCore\grab_post_id();
 		self::$detect       = new Mobile_Detect;
@@ -27,28 +28,28 @@ class GeotWP_R_ules {
 		self::$query_string = isset( $_SERVER['QUERY_STRING'] ) ? $_SERVER['QUERY_STRING'] : '';
 		self::$current_url  = \GeotCore\get_current_url();
 
-		if ( defined( 'DOING_AJAX' ) ) {
+		if ( is_rest_request() ) {
 
-			if ( isset( $_REQUEST['pid'] ) ) {
-				self::$post_id = $_REQUEST['pid'];
+			if ( isset( $input['pid'] ) ) {
+				self::$post_id = $input['pid'];
 			}
-			if ( ! empty( $_REQUEST['referrer'] ) ) {
-				self::$referrer = $_REQUEST['referrer'];
+			if ( ! empty( $input['referrer'] ) ) {
+				self::$referrer = $input['referrer'];
 			}
-			if ( ! empty( $_REQUEST['query_string'] ) ) {
-				self::$query_string = $_REQUEST['query_string'];
+			if ( ! empty( $input['query_string'] ) ) {
+				self::$query_string = $input['query_string'];
 			}
-			if ( ! empty( $_REQUEST['is_category'] ) ) {
+			if ( ! empty( $input['is_category'] ) ) {
 				self::$is_category = true;
 			}
-			if ( ! empty( $_REQUEST['is_archive'] ) ) {
+			if ( ! empty( $input['is_archive'] ) ) {
 				self::$is_archive = true;
 			}
-			if ( ! empty( $_REQUEST['is_search'] ) ) {
+			if ( ! empty( $input['is_search'] ) ) {
 				self::$is_search = true;
 			}
-			if ( ! empty( $_REQUEST['url'] ) ) {
-				self::$current_url = $_REQUEST['url'];
+			if ( ! empty( $input['url'] ) ) {
+				self::$current_url = $input['url'];
 			}
 		}
 		// Geotargeting
