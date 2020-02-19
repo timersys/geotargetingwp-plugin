@@ -12,6 +12,7 @@
 
 use function GeotCore\is_backend;
 use function GeotCore\is_builder;
+use function GeotCore\is_rest_request;
 use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
 use function GeotWP\is_session_started;

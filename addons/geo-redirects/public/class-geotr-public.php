@@ -14,6 +14,7 @@ use function GeotCore\geotWPR_redirections;
 use function GeotCore\get_current_url;
 use function GeotCore\is_backend;
 use function GeotCore\is_builder;
+use function GeotCore\is_rest_request;
 use GeotCore\Session\GeotSession;
 use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
