@@ -12,7 +12,6 @@
 
 use function GeotCore\is_backend;
 use function GeotCore\is_builder;
-use function GeotCore\is_rest_request;
 use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
 use function GeotWP\is_session_started;
@@ -40,7 +39,7 @@ class GeotWP_Bl_Public {
 		$action_hook = defined( 'WP_CACHE' ) ? 'init' : 'wp';
 
 		if ( ! is_admin() && ! is_backend() && ! is_builder() &&
-		     ! defined( 'DOING_AJAX' ) && ! defined( 'DOING_CRON' )
+		     ! is_rest_request() && ! defined( 'DOING_CRON' )
 		) {
 			add_action( $action_hook, [ $this, 'handle_blockers' ] );
 		}
@@ -125,11 +124,6 @@ class GeotWP_Bl_Public {
 		if ( ! empty( $opts['whitelist'] ) && $this->user_is_whitelisted( $opts['whitelist'] ) ) {
 			return false;
 		}
-
-		// dont block on rest
-		/*if( is_rest_request() ) {
-			return false;
-		}*/
 
 		return true;
 	}

@@ -15,7 +15,6 @@ use function GeotCore\get_current_url;
 use function GeotCore\is_backend;
 use function GeotCore\is_builder;
 use GeotCore\Session\GeotSession;
-use function GeotCore\is_rest_request;
 use function GeotCore\textarea_to_array;
 use function GeotWP\getUserIP;
 use function GeotWP\is_session_started;
@@ -41,7 +40,7 @@ public function __construct() {
 
 	$action_hook = defined( 'WP_CACHE' ) ? 'init' : 'wp';
 
-	if ( ! is_admin() && ! is_backend() && ! defined( 'DOING_AJAX' ) && ! defined( 'DOING_CRON' ) && ! is_builder() ) {
+	if ( ! is_admin() && ! is_backend() && ! is_rest_request() && ! defined( 'DOING_CRON' ) && ! is_builder() ) {
 		add_action( apply_filters( 'geotr/action_hook', $action_hook ), [ $this, 'handle_redirects' ] );
 	}
 }
@@ -162,11 +161,6 @@ private function pass_basic_rules( $redirection ) {
 			return false;
 		}
 	}
-
-	// dont redirect on rest
-	/*if( is_rest_request() ) {
-		return false;
-	}*/
 
 	// check user IP
 	if ( ! empty( $opts['whitelist'] ) && $this->user_is_whitelisted( $opts['whitelist'] ) ) {
