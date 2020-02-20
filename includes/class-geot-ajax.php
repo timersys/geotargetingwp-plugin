@@ -34,8 +34,8 @@ class GeotWP_Ajax {
 	 * @var      string $version The version of this plugin.
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_geot_ajax', [ $this, 'geot_ajax' ] );
-		add_action( 'wp_ajax_nopriv_geot_ajax', [ $this, 'geot_ajax' ] );
+		add_action( 'wp_ajax_geot_ajax', [ $this, 'geot_ajax' ], 1 );
+		add_action( 'wp_ajax_nopriv_geot_ajax', [ $this, 'geot_ajax' ], 1 );
 
 		add_action( 'wp_ajax_geot/field_group/render_rules', [ 'GeotWP_Helper', 'ajax_render_rules' ] );
 		add_action( 'wp_ajax_geot/field_group/render_operator', [ 'GeotWP_Helper', 'ajax_render_operator' ] );
