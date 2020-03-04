@@ -90,17 +90,17 @@ class GeotWP_WPBeaver {
 
 		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
 
-			$output = WPBeaver_GeoZipcode::ajax_render( $module->settings, $output );
-			$output = WPBeaver_GeoState::ajax_render( $module->settings, $output );
-			$output = WPBeaver_GeoCity::ajax_render( $module->settings, $output );
+			$output = WPBeaver_GeoZipcode::ajax_render( $data->settings, $output );
+			$output = WPBeaver_GeoState::ajax_render( $data->settings, $output );
+			$output = WPBeaver_GeoCity::ajax_render( $data->settings, $output );
 			$output = WPBeaver_GeoCountry::ajax_render( $data->settings, $output );
 
 		} else {
 
 			if ( ! WPBeaver_GeoCountry::is_render( $data->settings ) ||
-			     ! WPBeaver_GeoCity::is_render( $module->settings ) ||
-			     ! WPBeaver_GeoState::is_render( $module->settings ) ||
-			     ! WPBeaver_GeoZipcode::is_render( $module->settings )
+			     ! WPBeaver_GeoCity::is_render( $data->settings ) ||
+			     ! WPBeaver_GeoState::is_render( $data->settings ) ||
+			     ! WPBeaver_GeoZipcode::is_render( $data->settings )
 			) {
 				return '';
 			}
