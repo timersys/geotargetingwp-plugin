@@ -61,15 +61,18 @@ class WPBeaver_GeoCountry {
 	/**
 	 * Conditional if render
 	 *
-	 * @return array
+	 * @param $settings
+	 *
+	 * @return bool
 	 */
 	static function is_render( $settings ) {
 
 		extract((array)$settings);
-
+		$in_region_countries = !empty( $settings['in_region_countries'] ) ? (array) $settings['in_region_countries']  : '';
+		$ex_region_countries = !empty( $settings['ex_region_countries'] ) ? (array) $settings['ex_region_countries']  : '';
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
-		     count( (array)$in_region_countries ) == 0 && count( (array)$ex_region_countries ) == 0
+		     count( $in_region_countries ) == 0 && count( $ex_region_countries ) == 0
 		) {
 			return true;
 		}

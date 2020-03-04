@@ -66,10 +66,11 @@ class WPBeaver_GeoCity {
 	static function is_render( $settings ) {
 
 		extract((array)$settings);
-
+		$in_region_cities = !empty( $settings['in_region_cities'] ) ? (array) $settings['in_region_cities']  : '';
+		$ex_region_cities = !empty( $settings['ex_region_cities'] ) ? (array) $settings['ex_region_cities']  : '';
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
-		     count( (array)$in_region_cities ) == 0 && count( (array)$ex_region_cities ) == 0
+		     count( $in_region_cities ) == 0 && count( $ex_region_cities ) == 0
 		) {
 			return true;
 		}
