@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 3.6
 Tested up to: 5.3
-Stable tag: 3.0.3.1
+Stable tag: 3.0.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,11 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.0.3.2 - March 5 2020=
+* Performance: Added WPRocket htaccess compatibility for countries
+* Performance: Improved ajax mode speed 30%
+* Fix: Wpbeaver undefined errors
+
 = 3.0.3.1 - Feb 1 2020=
 * Feature: rules now support IP Blocks
 * Feature: Anonymous data usage
