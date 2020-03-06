@@ -66,8 +66,8 @@ class WPBeaver_GeoZipcode {
 	static function is_render( $settings ) {
 
 		extract((array)$settings);
-		$in_region_zips = !empty( $settings['in_region_zips'] ) ? (array) $settings['in_region_zips']  : '';
-		$ex_region_zips = !empty( $settings['ex_region_zips'] ) ? (array) $settings['ex_region_zips']  : '';
+		$in_region_zips = !empty((array) $settings['in_region_zips'] ) ? (array) $settings['in_region_zips']  : '';
+		$ex_region_zips = !empty( (array)$settings['ex_region_zips'] ) ? (array) $settings['ex_region_zips']  : '';
 
 
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
