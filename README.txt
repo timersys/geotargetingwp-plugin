@@ -40,6 +40,7 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 = 3.0.3.3 - March 9 2020=
 * Fix: issue where sessions cookies where not being created
 * Fix: Wpbeaver errors
+* Fix: Guzzle library giving errors on certain PHP + 7.2
 
 = 3.0.3.2 - March 5 2020=
 * Performance: Added WPRocket htaccess compatibility for countries
