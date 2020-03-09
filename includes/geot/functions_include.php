@@ -12,3 +12,6 @@ if ( ! function_exists( 'GeotCore\toArray' ) ) {
 
 // Upgrades
 GeoUpgrades::init();
+
+// We now supress the session in the session file, so load core functions files on load
+\GeotCore\GeotCore::instance();
