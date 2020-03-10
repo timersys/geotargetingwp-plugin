@@ -65,13 +65,17 @@ class WPBeaver_GeoZipcode {
 	 */
 	static function is_render( $settings ) {
 
-		extract((array)$settings);
-		$in_region_zips = !empty((array) $settings['in_region_zips'] ) ? (array) $settings['in_region_zips']  : '';
-		$ex_region_zips = !empty( (array)$settings['ex_region_zips'] ) ? (array) $settings['ex_region_zips']  : '';
+		if( is_object( $settings ) )
+			$settings = get_object_vars($settings);
+
+		extract($settings);
+		
+		$in_region_zips = !empty( $in_region_zips ) ? $in_region_zips  : [];
+		$ex_region_zips = !empty( $ex_region_zips ) ? $ex_region_zips  : [];
 
 
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
-			count( (array)$in_region_zips ) == 0 && count( (array)$ex_region_zips ) == 0
+			count( $in_region_zips ) == 0 && count( $ex_region_zips ) == 0
 		) {
 			return true;
 		}
@@ -94,21 +98,27 @@ class WPBeaver_GeoZipcode {
 
 		$in_regions_commas = $ex_regions_commas = '';
 
-		extract( (array)$settings );
+		if( is_object( $settings ) )
+			$settings = get_object_vars($settings);
+
+		extract( $settings );
+
+		$in_region_zips = !empty( $in_region_zips ) ? $in_region_zips  : [];
+		$ex_region_zips = !empty( $ex_region_zips ) ? $ex_region_zips  : [];
 
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
-			count( (array)$in_region_cities ) == 0 && count( (array)$ex_region_cities ) == 0
+			count( $in_region_zips ) == 0 && count( $ex_region_zips ) == 0
 		) {
 			return $output;
 		}
 
 
-		if ( count( (array)$in_region_cities ) > 0 ) {
-			$in_regions_commas = implode( ',', (array)$in_region_cities );
+		if ( count( $in_region_zips ) > 0 ) {
+			$in_regions_commas = implode( ',', $in_region_zips );
 		}
 
-		if ( count( (array)$ex_region_cities ) > 0 ) {
-			$ex_regions_commas = implode( ',', (array)$ex_region_cities );
+		if ( count( $ex_region_zips ) > 0 ) {
+			$ex_regions_commas = implode( ',', $ex_region_zips );
 		}
 
 

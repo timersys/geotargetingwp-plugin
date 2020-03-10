@@ -51,8 +51,10 @@ class WPBeaver_GeoState {
 	 */
 	static function is_render( $settings ) {
 
-		extract((array)$settings);
+		if( is_object( $settings ) )
+			$settings = get_object_vars($settings);
 
+		extract($settings);
 
 		if ( empty( $in_states ) && empty( $ex_states ) ) {
 			return true;
@@ -74,7 +76,10 @@ class WPBeaver_GeoState {
 	 */
 	static function ajax_render( $settings, $output ) {
 
-		extract( (array)$settings );
+		if( is_object( $settings ) )
+			$settings = get_object_vars($settings);
+
+		extract( $settings );
 
 		if ( empty( $in_states ) && empty( $ex_states ) ) {
 			return $output;

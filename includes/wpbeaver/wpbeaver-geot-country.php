@@ -67,9 +67,13 @@ class WPBeaver_GeoCountry {
 	 */
 	static function is_render( $settings ) {
 
-		extract((array)$settings);
-		$in_region_countries = !empty( (array)$settings['in_region_countries'] ) ? (array) $settings['in_region_countries']  : '';
-		$ex_region_countries = !empty( (array)$settings['ex_region_countries'] ) ? (array) $settings['ex_region_countries']  : '';
+		if( is_object( $settings ) )
+			$settings = get_object_vars($settings);
+
+		extract($settings);
+
+		$in_region_countries = !empty( $in_region_countries ) ? $in_region_countries  : [];
+		$ex_region_countries = !empty( $ex_region_countries ) ? $ex_region_countries  : [];
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
 		     count( $in_region_countries ) == 0 && count( $ex_region_countries ) == 0
@@ -95,21 +99,27 @@ class WPBeaver_GeoCountry {
 
 		$in_regions_commas = $ex_regions_commas = '';
 
-		extract( (array)$settings );
+		if( is_object( $settings ) )
+			$settings = get_object_vars($settings);
+
+		extract( $settings );
+
+		$in_region_countries = !empty( $in_region_countries ) ? $in_region_countries  : [];
+		$ex_region_countries = !empty( $ex_region_countries ) ? $ex_region_countries  : [];
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
-		     count( (array)$in_region_countries ) == 0 && count( (array)$ex_region_countries ) == 0
+		     count( $in_region_countries ) == 0 && count( $ex_region_countries ) == 0
 		) {
 			return $output;
 		}
 
 
-		if ( count( (array)$in_region_countries ) > 0 ) {
-			$in_regions_commas = implode( ',', (array)$in_region_countries );
+		if ( count( $in_region_countries ) > 0 ) {
+			$in_regions_commas = implode( ',', $in_region_countries );
 		}
 
-		if ( count( (array)$ex_region_countries ) > 0 ) {
-			$ex_regions_commas = implode( ',', (array)$ex_region_countries );
+		if ( count( $ex_region_countries ) > 0 ) {
+			$ex_regions_commas = implode( ',', $ex_region_countries );
 		}
 
 
