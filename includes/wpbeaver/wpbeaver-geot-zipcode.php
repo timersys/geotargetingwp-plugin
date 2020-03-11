@@ -27,7 +27,7 @@ class WPBeaver_GeoZipcode {
 			'title' => esc_html__( 'Geo ZipCodes', 'geot' ),
 			'fields' => [
 
-				'in_states' => [
+				'in_zipcodes' => [
 					'type' => 'text',
 					'label' => __( 'Include ZipCodes', 'Geot' ),
 					'help' => esc_html__( 'Type zip codes separated by commas.', 'geot' ),
@@ -39,7 +39,7 @@ class WPBeaver_GeoZipcode {
 					'options' => GeotWP_WPBeaver::get_regions( 'zip' ),
 					'help' => esc_html__( 'Choose region name to show content to.', 'geot' ),
 				],
-				'ex_states' => [
+				'ex_zipcodes' => [
 					'type' => 'text',
 					'label' => __( 'Exclude ZipCodes', 'Geot' ),
 					'help' => esc_html__( 'Type zip codes separated by commas.', 'geot' ),
