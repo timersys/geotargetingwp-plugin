@@ -119,6 +119,7 @@
                         $('#geot-debug-info').html(debug);
                         $('.geot-debug-data').html(debug.replace(/<!--|-->/gi, ''));
                     }
+                    $(document).trigger('geotwp_ajax_success');
                 }
             }
 
