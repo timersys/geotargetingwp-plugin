@@ -61,7 +61,7 @@ class GeotCore {
 	 * User calculated data
 	 * @var Mixed
 	 */
-	private $user_data;
+	private $user_data = [];
 	/**
 	 * @var GeotSession
 	 */
@@ -318,7 +318,7 @@ class GeotCore {
 	 * @param null $force_locale
 	 */
 	private function checkLocale( $force_locale = null ) {
-		if ( ! $this->user_data[ $this->cache_key ] instanceof GeotRecord || apply_filters( 'geot/cancel_locale_check', false ) ) {
+		if ( ! isset($this->user_data[ $this->cache_key ]) || ! $this->user_data[ $this->cache_key ] instanceof GeotRecord || apply_filters( 'geot/cancel_locale_check', false ) ) {
 			return;
 		}
 
@@ -356,7 +356,7 @@ class GeotCore {
 			return 'Invalid GeotRecord classname provided. Valids ones are: ' . implode( ',', GeotRecord::getValidRecords() );
 		}
 
-		if ( $this->user_data[ $this->cache_key ] === null ) {
+		if ( ! isset($this->user_data[ $this->cache_key ] ) || $this->user_data[ $this->cache_key ] === null ) {
 			$this->getUserData();
 		}
 
