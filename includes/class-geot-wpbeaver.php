@@ -87,7 +87,6 @@ class GeotWP_WPBeaver {
 
 		$opts = geot_settings();
 
-
 		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
 
 			$output = WPBeaver_GeoZipcode::ajax_render( $data->settings, $output );
@@ -146,7 +145,9 @@ class GeotWP_WPBeaver {
 			'ex_cities',
 			'ex_region_cities',
 			'in_zipcodes',
+			'in_region_zips',
 			'ex_zipcodes',
+			'ex_region_zips',
 		];
 
 		// check if any of the valid key has a value
