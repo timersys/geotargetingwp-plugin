@@ -39,39 +39,41 @@ class GeotWP_Activator {
 				'<p>' . __( 'Geotargeting PRO requires at least PHP 5.6 and you are running PHP ' ) . PHP_VERSION . '</p>'
 			);
 		}
-		// deactivate old plugins
-		$addons = [];
-		// GeotargetingPro
-		if ( is_plugin_active( 'geotargeting-pro/geotargeting-pro.php' ) ) {
-			deactivate_plugins( 'geotargeting-pro/geotargeting-pro.php', true );
+		// deactivate old plugins in old versions.
+		$addons = get_option('geot_pro_addons');
+		if( ! $addons ) {
+			$addons = [];
+			// GeotargetingPro
+			if ( is_plugin_active( 'geotargeting-pro/geotargeting-pro.php' ) ) {
+				deactivate_plugins( 'geotargeting-pro/geotargeting-pro.php', true );
+			}
+
+			// Geo Redirect
+			if ( is_plugin_active( 'geo-redirects/geo-redirects.php' ) ) {
+				deactivate_plugins( 'geo-redirects/geo-redirects.php', true );
+				$addons['geo-redirects'] = 1;
+			}
+
+			// Geo Blocker
+			if ( is_plugin_active( 'geo-blocker/geo-blocker.php' ) ) {
+				deactivate_plugins( 'geo-blocker/geo-blocker.php', true );
+				$addons['geo-blocker'] = 1;
+			}
+
+			// Geo Links
+			if ( is_plugin_active( 'geo-links/geo-links.php' ) ) {
+				deactivate_plugins( 'geo-links/geo-links.php', true );
+				$addons['geo-links'] = 1;
+			}
+
+			// Geo Flags
+			if ( is_plugin_active( 'geo-flags/geo-flags.php' ) ) {
+				deactivate_plugins( 'geo-flags/geo-flags.php', true );
+				$addons['geo-flags'] = 1;
+			}
+
+			update_option( 'geot_pro_addons', $addons );
 		}
-
-		// Geo Redirect
-		if ( is_plugin_active( 'geo-redirects/geo-redirects.php' ) ) {
-			deactivate_plugins( 'geo-redirects/geo-redirects.php', true );
-			$addons['geo-redirects'] = 1;
-		}
-
-		// Geo Blocker
-		if ( is_plugin_active( 'geo-blocker/geo-blocker.php' ) ) {
-			deactivate_plugins( 'geo-blocker/geo-blocker.php', true );
-			$addons['geo-blocker'] = 1;
-		}
-
-		// Geo Links
-		if ( is_plugin_active( 'geo-links/geo-links.php' ) ) {
-			deactivate_plugins( 'geo-links/geo-links.php', true );
-			$addons['geo-links'] = 1;
-		}
-
-		// Geo Flags
-		if ( is_plugin_active( 'geo-flags/geo-flags.php' ) ) {
-			deactivate_plugins( 'geo-flags/geo-flags.php', true );
-			$addons['geo-flags'] = 1;
-		}
-
-		update_option( 'geot_pro_addons', $addons );
-
 		// Check ajax mode
 		if( ! get_option('geot_wp_ajax_checked') ) {
 			$opts   = get_option( 'geot_pro_settings' );
