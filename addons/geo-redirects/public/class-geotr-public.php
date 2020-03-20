@@ -201,10 +201,18 @@ private function replaceShortcodes( $opts, $basic_rules = false ) {
 		$replaces['{{country_code}}'] = geot_country_code();
 		$replaces['{{state_code}}']   = geot_state_code();
 		$replaces['{{zip}}']          = geot_zip();
+		// remove country codes from urls automatically
+		if( apply_filters( 'geotr/placeholders_remove_country_code', true ) && strpos($opts['url'], '{{country_code}}') !== false ){
+			$path = explode('/', $replaces['{{requested_path}}']);
+			if( strlen($path[0]) === 2 ){
+				$replaces['{{requested_path}}'] = substr($replaces['{{requested_path}}'], 3);
+			}
+		}
 	}
 
 	// do the replaces
 	$replaces  = apply_filters( 'geotr/placeholders', array_map( 'strtolower', $replaces ) );
+
 	$final_url = str_replace( array_keys( $replaces ), array_values( $replaces ), $opts['url'] );
 	// add back query string
 	if ( isset( $opts['pass_query_string'] ) && $opts['pass_query_string'] == 1 && ! empty( $query_string ) ) {
@@ -215,7 +223,6 @@ private function replaceShortcodes( $opts, $basic_rules = false ) {
 			return $final_url . '?' . $query_string;
 		}
 	}
-
 	return apply_filters( 'geotr/shortcodes_url', $final_url, $opts, $url );
 }
 
