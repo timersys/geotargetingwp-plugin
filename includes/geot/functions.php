@@ -321,6 +321,11 @@ function is_builder() {
 		return true;
 	}
 
+	// flat some
+	if ( isset( $_GET['uxb_iframe'] ) && $_GET['uxb_iframe'] == '1' ) {
+		return true;
+	}
+
 	return false;
 }
 
