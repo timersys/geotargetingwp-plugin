@@ -135,6 +135,7 @@ class GeotCore {
 			'wpengine'           => 0,
 			'kinsta'             => 0,
 			'litespeed'          => 0,
+			'hosting_db'          => 0,
 		] );
 	}
 
@@ -431,18 +432,16 @@ class GeotCore {
 				return $this->setData( ! empty( $this->opts['bots_country'] ) ? $this->opts['bots_country'] : 'US' );
 			}
 
-			// WP Engine ?
-			if ( isset( $this->opts['wpengine'] ) && $this->opts['wpengine'] ) {
-				return $this->wpengine();
+			// Hosting DB ?
+			if (
+				( ! isset($this->opts['hosting_db']) && isset( $this->opts['wpengine'] ) && $this->opts['wpengine'] ) ||
+				( ! isset($this->opts['hosting_db']) && isset( $this->opts['litespeed'] ) && $this->opts['litespeed'] ) ||
+				( ! isset($this->opts['hosting_db']) && isset( $this->opts['kinsta'] ) && $this->opts['kinsta'] ) ||
+				isset($this->opts['hosting_db']) && $this->opts['hosting_db']
+			){
+				return $this->hosting_db();
 			}
-			// litespeed?
-			if ( isset( $this->opts['litespeed'] ) && $this->opts['litespeed'] ) {
-				return $this->litespeed();
-			}
-			// Kingsta ?
-			if ( isset( $this->opts['kinsta'] ) && $this->opts['kinsta'] ) {
-				return $this->kinsta();
-			}
+
 			// maxmind ?
 			if ( isset( $this->opts['maxmind'] ) && $this->opts['maxmind'] ) {
 				$record = $this->maxmind();
@@ -513,11 +512,12 @@ class GeotCore {
 	private function check_active_user() {
 
 		if (
-			( ! isset( $this->opts['wpengine'] ) || $this->opts['wpengine'] != '1' || getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) === false )
-			&& ( ! isset( $this->opts['maxmind'] ) || $this->opts['maxmind'] != '1' || ! file_exists( maxmind_db() ) )
-			&& ( ! isset( $this->opts['ip2location'] ) || $this->opts['ip2location'] != '1' || ! file_exists( ip2location_db() ) )
-			&& ( ! isset( $this->opts['kinsta'] ) || $this->opts['kinsta'] != '1' || empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) )
-			&& ( ! isset( $this->opts['litespeed'] ) || $this->opts['litespeed'] != '1' || empty( $_SERVER['GEOIP_COUNTRY_CODE'] ) )
+			( ! isset( $this->opts['wpengine'] ) || $this->opts['wpengine'] != '1'  )
+			&& ( ! isset( $this->opts['maxmind'] ) || $this->opts['maxmind'] != '1'  )
+			&& ( ! isset( $this->opts['ip2location'] ) || $this->opts['ip2location'] != '1' )
+			&& ( ! isset( $this->opts['kinsta'] ) || $this->opts['kinsta'] != '1'  )
+			&& ( ! isset( $this->opts['litespeed'] ) || $this->opts['litespeed'] != '1' )
+			&& ( ! isset( $this->opts['hosting_db'] ) || $this->opts['hosting_db'] != '1' )
 		) {
 			return true;
 		}
@@ -724,18 +724,6 @@ class GeotCore {
 		return apply_filters( 'geot/treat_request_as_bot', $ret );
 	}
 
-	/**
-	 * Use WpEngine variables (enterprise plans only)
-	 * @return GeotRecord
-	 * @throws GeotException
-	 */
-	private function wpengine() {
-		try {
-			return $this->cleanResponse( RecordConverter::wpEngine() );
-		} catch ( \Exception $e ) {
-			throw new GeotException( $e->getMessage() );
-		}
-	}
 
 	/**
 	 * Save user data, save to session and create record
@@ -757,26 +745,13 @@ class GeotCore {
 	}
 
 	/**
-	 * Use Litespped variables (users must add variables)
+	 * Use hosting variables (users must add variables)
 	 * @return GeotRecord
 	 * @throws GeotException
 	 */
-	private function litespeed() {
+	private function hosting_db() {
 		try {
-			return $this->cleanResponse( RecordConverter::litespeed() );
-		} catch ( \Exception $e ) {
-			throw new GeotException( $e->getMessage() );
-		}
-	}
-
-	/**
-	 * Use Kinsta variables (enterprise plans only)
-	 * @return GeotRecord
-	 * @throws GeotException
-	 */
-	private function kinsta() {
-		try {
-			return $this->cleanResponse( RecordConverter::kinsta() );
+			return $this->cleanResponse( RecordConverter::hosting_db() );
 		} catch ( \Exception $e ) {
 			throw new GeotException( $e->getMessage() );
 		}

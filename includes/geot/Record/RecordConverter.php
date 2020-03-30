@@ -74,66 +74,115 @@ class RecordConverter {
 		return json_decode( json_encode( self::$geot_record ) );
 	}
 
-	public static function wpEngine() {
-		if ( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) === false ) {
-			throw new \Exception( 'WPEngine failed to return record' );
+	/**
+	 * Find most common variables used by hostings such as Kinsta/WPEngine or litespeed
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	public static function hosting_db() {
+		if ( empty( $_SERVER['GEOIP_COUNTRY_CODE'] ) && empty( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ) && empty( $_SERVER( 'HTTP_GEOIP_COUNTRY_CODE' ) ) ) {
+			throw new \Exception( 'Your hosting db failed to return record' );
+		}
+		$city_name = '';
+		if(  isset( $_SERVER['GEOIP_CITY'] ) ){
+			$city_name = [ 'en' => $_SERVER['GEOIP_CITY'] ];
+		} elseif( isset( $_SERVER['HTTP_GEOIP_CITY'] ) ) {
+			$city_name = [ 'en' => $_SERVER['HTTP_GEOIP_CITY'] ];
+		} elseif( getenv( 'HTTP_GEOIP_CITY' ) ) {
+			$city_name = [ 'en' => getenv( 'HTTP_GEOIP_CITY' ) ];
 		}
 
+		$city_zip = '';
+		if(  isset( $_SERVER['HTTP_GEOIP_POSTAL_CODE'] ) ){
+			$city_zip = $_SERVER['HTTP_GEOIP_POSTAL_CODE'];
+		} elseif( isset( $_SERVER['GEOIP_POSTAL_CODE'] ) ) {
+			$city_zip = $_SERVER['GEOIP_POSTAL_CODE'];
+		} elseif( getenv( 'HTTP_GEOIP_POSTAL_CODE' ) ) {
+			$city_zip = getenv( 'HTTP_GEOIP_POSTAL_CODE' );
+		}
+
+		$continent = '';
+		if(  isset( $_SERVER['GEOIP_CONTINENT_NAME'] ) ){
+			$continent = [ 'en' => $_SERVER['GEOIP_CONTINENT_NAME'] ];
+		} elseif( isset( $_SERVER['HTTP_GEOIP_CITY_CONTINENT_CODE'] ) ) {
+			$continent = [ 'en' => $_SERVER['HTTP_GEOIP_CITY_CONTINENT_CODE'] ];
+		} elseif( getenv( 'HTTP_GEOIP_CITY_CONTINENT_CODE' ) ) {
+			$continent = [ 'en' => getenv( 'HTTP_GEOIP_CITY_CONTINENT_CODE' ) ];
+		}
+
+		$continent_code = '';
+		if(  isset( $_SERVER['GEOIP_CONTINENT_CODE'] ) ){
+			$continent_code = $_SERVER['GEOIP_CONTINENT_CODE'];
+		} elseif( isset( $_SERVER['HTTP_GEOIP_CITY_CONTINENT_CODE'] ) ) {
+			$continent_code = $_SERVER['HTTP_GEOIP_CITY_CONTINENT_CODE'];
+		} elseif( getenv( 'HTTP_GEOIP_CITY_CONTINENT_CODE' ) ) {
+			$continent_code = getenv( 'HTTP_GEOIP_CITY_CONTINENT_CODE' );
+		}
+
+		$country_code = '';
+		if(  isset( $_SERVER['GEOIP_COUNTRY_CODE'] ) ){
+			$country_code = $_SERVER['GEOIP_COUNTRY_CODE'];
+		} elseif( isset( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_CODE'] ) ) {
+			$country_code = $_SERVER['HTTP_GEOIP_CITY_COUNTRY_CODE'];
+		} elseif( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ) {
+			$country_code = getenv( 'HTTP_GEOIP_COUNTRY_CODE' );
+		}
+
+		$country_name = '';
+		if(  isset( $_SERVER['GEOIP_COUNTRY_NAME'] ) ){
+			$country_name = [ 'en' => $_SERVER['GEOIP_COUNTRY_NAME'] ];
+		} elseif( isset( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) ) {
+			$country_name = [ 'en' => $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ];
+		} elseif( getenv( 'HTTP_GEOIP_COUNTRY_NAME' ) ) {
+			$country_name = [ 'en' => getenv( 'HTTP_GEOIP_COUNTRY_NAME' ) ];
+		}
+
+		$state_code = '';
+		if(  isset( $_SERVER['GEOIP_REGION'] ) ){
+			$state_code = $_SERVER['GEOIP_REGION'];
+		} elseif( isset( $_SERVER['HTTP_GEOIP_REGION'] ) ) {
+			$state_code = $_SERVER['HTTP_GEOIP_REGION'];
+		} elseif( getenv( 'HTTP_GEOIP_AREA_CODE' ) ) {
+			$state_code = getenv( 'HTTP_GEOIP_AREA_CODE' );
+		}
+
+		$state_name = '';
+		if(  isset( $_SERVER['GEOIP_REGION_NAME'] ) ){
+			$state_name = [ 'en' => $_SERVER['GEOIP_REGION_NAME'] ];
+		} elseif( isset( $_SERVER['HTTP_GEOIP_REGION_NAME'] ) ) {
+			$state_name = [ 'en' => $_SERVER['HTTP_GEOIP_REGION_NAME'] ];
+		} elseif( getenv( 'HTTP_GEOIP_REGION' ) ) {
+			$state_name = [ 'en' => getenv( 'HTTP_GEOIP_REGION' ) ];
+		}
+
+		$lat = '';
+		if(  isset( $_SERVER['GEOIP_LATITUDE'] ) ){
+			$lat = $_SERVER['GEOIP_LATITUDE'];
+		} elseif( isset( $_SERVER['HTTP_GEOIP_LATITUDE'] ) ) {
+			$lat = $_SERVER['HTTP_GEOIP_LATITUDE'];
+		} elseif( getenv( 'HTTP_GEOIP_LATITUDE' ) ) {
+			$lat = getenv( 'HTTP_GEOIP_LATITUDE' );
+		}
+
+		$lng = '';
+		if(  isset( $_SERVER['GEOIP_LONGITUDE'] ) ){
+			$lng = $_SERVER['GEOIP_LONGITUDE'];
+		} elseif( isset( $_SERVER['HTTP_GEOIP_LONGITUDE'] ) ) {
+			$lng = $_SERVER['HTTP_GEOIP_LONGITUDE'];
+		} elseif( getenv( 'HTTP_GEOIP_LONGITUDE' ) ) {
+			$lng = getenv( 'HTTP_GEOIP_LONGITUDE' );
+		}
 		self::$geot_record                                   = [];
-		self::$geot_record['city']['names']                  = getenv( 'HTTP_GEOIP_CITY' ) ? [ 'en' => getenv( 'HTTP_GEOIP_CITY' ) ] : '';
-		self::$geot_record['city']['zip']                    = getenv( 'HTTP_GEOIP_POSTAL_CODE' ) ?: '';
-		self::$geot_record['continent']['names']             = '';
-		self::$geot_record['continent']['iso_code']          = '';
-		self::$geot_record['country']['iso_code']            = getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ?: '';
-		self::$geot_record['country']['names']               = getenv( 'HTTP_GEOIP_COUNTRY_NAME' ) ? [ 'en' => getenv( 'HTTP_GEOIP_COUNTRY_NAME' ) ] : '';
-		self::$geot_record['state']['iso_code']              = getenv( 'HTTP_GEOIP_AREA_CODE' ) ?: '';
-		self::$geot_record['state']['names']                 = getenv( 'HTTP_GEOIP_REGION' ) ? [ 'en' => getenv( 'HTTP_GEOIP_REGION' ) ] : '';
-		self::$geot_record['geolocation']['latitude']        = getenv( 'HTTP_GEOIP_LATITUDE' ) ?: '';
-		self::$geot_record['geolocation']['longitude']       = getenv( 'HTTP_GEOIP_LONGITUDE' ) ?: '';
-		self::$geot_record['geolocation']['accuracy_radius'] = '';
-		self::$geot_record['geolocation']['time_zone']       = '';
-
-		return json_decode( json_encode( self::$geot_record ) );
-	}
-
-	public static function kinsta() {
-		if ( empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) ) {
-			throw new \Exception( 'Kinsta failed to return record' );
-		}
-
-		self::$geot_record                                   = [];
-		self::$geot_record['city']['names']                  = isset( $_SERVER['HTTP_GEOIP_CITY'] ) ? [ 'en' => $_SERVER['HTTP_GEOIP_CITY'] ] : '';
-		self::$geot_record['city']['zip']                    = isset( $_SERVER['HTTP_GEOIP_POSTAL_CODE'] ) ? $_SERVER['HTTP_GEOIP_POSTAL_CODE'] : '';
-		self::$geot_record['continent']['names']             = '';
-		self::$geot_record['continent']['iso_code']          = isset( $_SERVER['HTTP_GEOIP_CITY_CONTINENT_CODE'] ) ? $_SERVER['HTTP_GEOIP_CITY_CONTINENT_CODE'] : '';
-		self::$geot_record['country']['iso_code']            = isset( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_CODE'] ) ? $_SERVER['HTTP_GEOIP_CITY_COUNTRY_CODE'] : '';
-		self::$geot_record['country']['names']               = isset( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) ? [ 'en' => $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ] : '';
-		self::$geot_record['state']['iso_code']              = isset( $_SERVER['HTTP_GEOIP_REGION'] ) ? $_SERVER['HTTP_GEOIP_REGION'] : '';
-		self::$geot_record['state']['names']                 = isset( $_SERVER['HTTP_GEOIP_REGION_NAME'] ) ? [ 'en' => $_SERVER['HTTP_GEOIP_REGION_NAME'] ] : '';
-		self::$geot_record['geolocation']['latitude']        = isset( $_SERVER['HTTP_GEOIP_LATITUDE'] ) ? $_SERVER['HTTP_GEOIP_LATITUDE'] : '';
-		self::$geot_record['geolocation']['longitude']       = isset( $_SERVER['HTTP_GEOIP_LONGITUDE'] ) ? $_SERVER['HTTP_GEOIP_LONGITUDE'] : '';
-		self::$geot_record['geolocation']['accuracy_radius'] = '';
-		self::$geot_record['geolocation']['time_zone']       = '';
-
-		return json_decode( json_encode( self::$geot_record ) );
-	}
-
-	public static function litespeed() {
-		if ( empty( $_SERVER['GEOIP_COUNTRY_CODE'] ) ) {
-			throw new \Exception( 'Litespeed failed to return record' );
-		}
-
-		self::$geot_record                       = [];
-		self::$geot_record['city']['names']      = isset( $_SERVER['GEOIP_CITY'] ) ? [ 'en' => $_SERVER['GEOIP_CITY'] ] : '';
-		self::$geot_record['city']['zip']        = isset( $_SERVER['GEOIP_POSTAL_CODE'] ) ? $_SERVER['GEOIP_POSTAL_CODE'] : '';
-		self::$geot_record['continent']['names'] = isset( $_SERVER['GEOIP_CONTINENT_NAME'] ) ? $_SERVER['GEOIP_CONTINENT_NAME'] : '';;
-		self::$geot_record['continent']['iso_code']          = isset( $_SERVER['GEOIP_CONTINENT_CODE'] ) ? $_SERVER['GEOIP_CONTINENT_CODE'] : '';
-		self::$geot_record['country']['iso_code']            = isset( $_SERVER['GEOIP_COUNTRY_CODE'] ) ? $_SERVER['GEOIP_COUNTRY_CODE'] : '';
-		self::$geot_record['country']['names']               = isset( $_SERVER['GEOIP_COUNTRY_NAME'] ) ? [ 'en' => $_SERVER['GEOIP_COUNTRY_NAME'] ] : '';
-		self::$geot_record['state']['iso_code']              = isset( $_SERVER['GEOIP_REGION'] ) ? $_SERVER['GEOIP_REGION'] : '';
-		self::$geot_record['state']['names']                 = isset( $_SERVER['GEOIP_REGION_NAME'] ) ? [ 'en' => $_SERVER['GEOIP_REGION_NAME'] ] : '';
-		self::$geot_record['geolocation']['latitude']        = isset( $_SERVER['GEOIP_LATITUDE'] ) ? $_SERVER['GEOIP_LATITUDE'] : '';
-		self::$geot_record['geolocation']['longitude']       = isset( $_SERVER['GEOIP_LONGITUDE'] ) ? $_SERVER['GEOIP_LONGITUDE'] : '';
+		self::$geot_record['city']['names']                  = $city_name;
+		self::$geot_record['city']['zip']                    = $city_zip;
+		self::$geot_record['continent']['names']             = $continent;
+		self::$geot_record['continent']['iso_code']          = $continent_code;
+		self::$geot_record['country']['iso_code']            = $country_code;
+		self::$geot_record['country']['names']               = $country_name;
+		self::$geot_record['state']['iso_code']              = $state_code;
+		self::$geot_record['state']['names']                 = $state_name;
+		self::$geot_record['geolocation']['latitude']        = $lat;
+		self::$geot_record['geolocation']['longitude']       = $lng;
 		self::$geot_record['geolocation']['accuracy_radius'] = '';
 		self::$geot_record['geolocation']['time_zone']       = '';
 
