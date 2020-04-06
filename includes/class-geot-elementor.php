@@ -29,6 +29,7 @@ class GeotWP_Elementor {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_controls' ], 10, 3 );
 		add_action( 'elementor/frontend/section/should_render', [ $this, 'is_render' ], 10, 2 );
 		add_action( 'elementor/frontend/widget/should_render', [ $this, 'is_render' ], 10, 2 );
+		add_action( 'elementor/frontend/column/should_render', [ $this, 'is_render' ], 10, 2 );
 		add_action( 'elementor/frontend/before_render', [ $this, 'ajax_before_render' ], 10, 1 );
 		add_action( 'elementor/frontend/after_render', [ $this, 'ajax_after_render' ], 10, 1 );
 	}
