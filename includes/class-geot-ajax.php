@@ -54,7 +54,7 @@ class GeotWP_Ajax {
 		$this->data = $_POST;
 		
 		if( isset($settings['geolocation']) && $settings['geolocation'] == 'by_html5' &&
-			isset($_COOKIE['geotLocation']) && $_COOKIE['geotLocation'] == 'yes'
+			isset($_COOKIE['geot-gps']) && $_COOKIE['geot-gps'] == 'yes'
 		) {
 			geot_set_coords( $this->data['geot_lat'], $this->data['geot_lng'] );
 		}

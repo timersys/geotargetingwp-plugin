@@ -165,7 +165,9 @@ class Geot {
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-helper.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-updater.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-taxonomies.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-rocket.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-stats.php';
+
 
 		require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-menus.php';
 		require_once GEOWP_PLUGIN_DIR . 'public/class-geot-public.php';
@@ -215,6 +217,7 @@ class Geot {
 		$this->taxs 		= new GeotWP_Taxonomies();
 		$this->menus 		= new GeotWP_Menus();
 		$this->widget 		= new GeotWP_Widgets();
+		$this->rocket 		= new GeotWP_Rocket();
 		$this->stats 		= new GeotWP_Stats();
 	}
 

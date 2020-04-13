@@ -87,20 +87,19 @@ class GeotWP_WPBeaver {
 
 		$opts = geot_settings();
 
-
 		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
 
-			$output = WPBeaver_GeoZipcode::ajax_render( $module->settings, $output );
-			$output = WPBeaver_GeoState::ajax_render( $module->settings, $output );
-			$output = WPBeaver_GeoCity::ajax_render( $module->settings, $output );
+			$output = WPBeaver_GeoZipcode::ajax_render( $data->settings, $output );
+			$output = WPBeaver_GeoState::ajax_render( $data->settings, $output );
+			$output = WPBeaver_GeoCity::ajax_render( $data->settings, $output );
 			$output = WPBeaver_GeoCountry::ajax_render( $data->settings, $output );
 
 		} else {
 
 			if ( ! WPBeaver_GeoCountry::is_render( $data->settings ) ||
-			     ! WPBeaver_GeoCity::is_render( $module->settings ) ||
-			     ! WPBeaver_GeoState::is_render( $module->settings ) ||
-			     ! WPBeaver_GeoZipcode::is_render( $module->settings )
+			     ! WPBeaver_GeoCity::is_render( $data->settings ) ||
+			     ! WPBeaver_GeoState::is_render( $data->settings ) ||
+			     ! WPBeaver_GeoZipcode::is_render( $data->settings )
 			) {
 				return '';
 			}
@@ -146,7 +145,9 @@ class GeotWP_WPBeaver {
 			'ex_cities',
 			'ex_region_cities',
 			'in_zipcodes',
+			'in_region_zips',
 			'ex_zipcodes',
+			'ex_region_zips',
 		];
 
 		// check if any of the valid key has a value

@@ -27,7 +27,7 @@ class WPBeaver_GeoZipcode {
 			'title' => esc_html__( 'Geo ZipCodes', 'geot' ),
 			'fields' => [
 
-				'in_states' => [
+				'in_zipcodes' => [
 					'type' => 'text',
 					'label' => __( 'Include ZipCodes', 'Geot' ),
 					'help' => esc_html__( 'Type zip codes separated by commas.', 'geot' ),
@@ -39,7 +39,7 @@ class WPBeaver_GeoZipcode {
 					'options' => GeotWP_WPBeaver::get_regions( 'zip' ),
 					'help' => esc_html__( 'Choose region name to show content to.', 'geot' ),
 				],
-				'ex_states' => [
+				'ex_zipcodes' => [
 					'type' => 'text',
 					'label' => __( 'Exclude ZipCodes', 'Geot' ),
 					'help' => esc_html__( 'Type zip codes separated by commas.', 'geot' ),
@@ -65,11 +65,17 @@ class WPBeaver_GeoZipcode {
 	 */
 	static function is_render( $settings ) {
 
-		extract((array)$settings);
+		if( is_object( $settings ) )
+			$settings = get_object_vars($settings);
+
+		extract($settings);
+		
+		$in_region_zips = !empty( $in_region_zips ) ? $in_region_zips  : [];
+		$ex_region_zips = !empty( $ex_region_zips ) ? $ex_region_zips  : [];
 
 
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
-			count( (array)$in_region_zips ) == 0 && count( (array)$ex_region_zips ) == 0
+			count( $in_region_zips ) == 0 && count( $ex_region_zips ) == 0
 		) {
 			return true;
 		}
@@ -92,21 +98,27 @@ class WPBeaver_GeoZipcode {
 
 		$in_regions_commas = $ex_regions_commas = '';
 
-		extract( (array)$settings );
+		if( is_object( $settings ) )
+			$settings = get_object_vars($settings);
+
+		extract( $settings );
+
+		$in_region_zips = !empty( $in_region_zips ) ? $in_region_zips  : [];
+		$ex_region_zips = !empty( $ex_region_zips ) ? $ex_region_zips  : [];
 
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
-			count( (array)$in_region_cities ) == 0 && count( (array)$ex_region_cities ) == 0
+			count( $in_region_zips ) == 0 && count( $ex_region_zips ) == 0
 		) {
 			return $output;
 		}
 
 
-		if ( count( (array)$in_region_cities ) > 0 ) {
-			$in_regions_commas = implode( ',', (array)$in_region_cities );
+		if ( count( $in_region_zips ) > 0 ) {
+			$in_regions_commas = implode( ',', $in_region_zips );
 		}
 
-		if ( count( (array)$ex_region_cities ) > 0 ) {
-			$ex_regions_commas = implode( ',', (array)$ex_region_cities );
+		if ( count( $ex_region_zips ) > 0 ) {
+			$ex_regions_commas = implode( ',', $ex_region_zips );
 		}
 
 

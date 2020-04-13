@@ -83,34 +83,30 @@ $countries = geot_countries();
 				</tr>
 			<?php endif; ?>
 
-			<?php if ( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) !== false ): ?>
+			<?php if ( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) !== false
+			           || getenv( 'GEOIP_COUNTRY_CODE' ) !== false
+			           || ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] )
+			           || ! empty( $_SERVER['HTTP_GEOIP_COUNTRY_CODE'] )
+			): ?>
 				<tr valign="top" class="">
-					<th><label for=""><?php _e( 'Enable WPEngine Geolocation', 'geot' ); ?></label></th>
+					<th><label for=""><?php _e( 'Enable Hosting Database', 'geot' ); ?></label></th>
 					<td colspan="3">
-						<label><input type="checkbox" id="wpengine" name="geot_settings[wpengine]"
-						              value="1" <?php checked( $opts['wpengine'], '1' ); ?>/>
-							<p class="help"><?php _e( 'Check this if you want to use WPEngine database', 'geot' ); ?></p>
-					</td>
-				</tr>
-			<?php endif; ?>
-			<?php if ( getenv( 'GEOIP_COUNTRY_CODE' ) !== false ): ?>
-				<tr valign="top" class="">
-					<th><label for=""><?php _e( 'Enable Litespeed Geolocation', 'geot' ); ?></label></th>
-					<td colspan="3">
-						<label><input type="checkbox" id="litespeed" name="geot_settings[litespeed]"
-						              value="1" <?php checked( $opts['litespeed'], '1' ); ?>/>
-							<p class="help"><?php _e( 'Check this if you want to use Litespeed local database', 'geot' ); ?></p>
-					</td>
-				</tr>
-			<?php endif; ?>
-
-			<?php if ( ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) ): ?>
-				<tr valign="top" class="">
-					<th><label for=""><?php _e( 'Enable Kinsta Geolocation', 'geot' ); ?></label></th>
-					<td colspan="3">
-						<label><input type="checkbox" id="kinsta" name="geot_settings[kinsta]"
-						              value="1" <?php checked( $opts['kinsta'], '1' ); ?>/>
-							<p class="help"><?php _e( 'Check this if you want to use Kinsta database', 'geot' ); ?></p>
+						<?php
+						// we use to have wpengine,litespeed and kinsta, but because they keep changing variables we are going to check everything
+						// in a whole and rename it to hosting_db . But we need to keep it working for old install
+						if(! isset($opts['hosting_db']) && isset($opts['wpengine']) && '1' == $opts['wpengine'] ) {
+							$opts['hosting_db'] = 1;
+						}
+						if( ! isset($opts['hosting_db']) && isset($opts['kinsta']) && '1' == $opts['kinsta'] ) {
+							$opts['hosting_db'] = 1;
+						}
+						if( ! isset($opts['hosting_db']) && isset($opts['litespeed']) && '1' == $opts['litespeed'] ) {
+							$opts['hosting_db'] = 1;
+						}
+						?>
+						<label><input type="checkbox" id="hosting_db" name="geot_settings[hosting_db]"
+						              value="1" <?php checked( @$opts['hosting_db'], '1' ); ?>/>
+							<p class="help"><?php _e( 'Check this if you want to use your hosting database', 'geot' ); ?></p>
 					</td>
 				</tr>
 			<?php endif; ?>

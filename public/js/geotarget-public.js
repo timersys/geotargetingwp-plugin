@@ -144,6 +144,7 @@
                         $('#geot-debug-info').html(debug);
                         $('.geot-debug-data').html(debug.replace(/<!--|-->/gi, ''));
                     }
+                    $(document).trigger('geotwp_ajax_success');
                 }
             }
 
@@ -209,7 +210,7 @@
          * @return {[type]} [description]
          */
         successPosition: function(position) {
-            GeotWP.createCookie('geotLocation', 'yes', 999);
+            GeotWP.createCookie('geot-gps', 'yes', 999);
 
             const $overlay = $('div.geotloc_overlay_box');
             $overlay.fadeOut('fast');
@@ -231,7 +232,7 @@
          * @return mixed
          */
         errorPosition: function(error) {
-            GeotWP.createCookie('geotLocation', 'no');
+            GeotWP.createCookie('geot-gps', 'no');
 
             const $overlay = $('div.geotloc_overlay_box');
 
@@ -258,7 +259,7 @@
 
             const $overlay = $('div.geotloc_overlay_box');
 
-            if( GeotWP.readCookie('geotLocation') == null ) {
+            if( GeotWP.readCookie('geot-gps') == null ) {
 
                 $overlay.find('div.geotloc_overlay_content').html(geot.geoloc_img);
                 GeotWP.show_overlay();

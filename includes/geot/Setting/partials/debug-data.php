@@ -50,7 +50,7 @@ Clouways:                 <?php
 	?>
 
 	<?php echo PHP_EOL; ?>
-Wp Engine: <?php
+Hosting DB #1: <?php
 echo getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ? 'Yes' : 'No'; ?><?php echo PHP_EOL; ?><?php
 if ( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ) {
 	echo "getenv( 'HTTP_GEOIP_CITY' )         :";
@@ -71,7 +71,7 @@ if ( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ) {
 	echo getenv( 'HTTP_GEOIP_LONGITUDE' ) . PHP_EOL;
 }
 ?>
-Kinsta: <?php
+Hosting DB #2: <?php
 echo ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) ? 'Yes' : 'No'; ?><?php echo PHP_EOL; ?>
 <?php
 if ( ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) ) {
@@ -93,7 +93,7 @@ if ( ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) ) {
 	echo $_SERVER['HTTP_GEOIP_LONGITUDE'] . PHP_EOL;
 }
 ?>
-Litespeed: <?php
+Hosting DB #3: <?php
 echo ! empty( $_SERVER['GEOIP_COUNTRY_CODE'] ) ? 'Yes' : 'No'; ?><?php echo PHP_EOL; ?>
 <?php
 if ( ! empty( $_SERVER['GEOIP_COUNTRY_CODE'] ) ) {
@@ -115,19 +115,17 @@ if ( ! empty( $_SERVER['GEOIP_COUNTRY_CODE'] ) ) {
 	echo $_SERVER['GEOIP_LONGITUDE'] . PHP_EOL;
 }
 ?>
-Maxmind Local database: <?php echo isset( $opts['maxmind'] ) && $opts['maxmind'] ? 'Yes' : 'No'; ?>
-Ip2location: <?php echo isset( $opts['ip2location'] ) && $opts['ip2location'] ? 'Yes' : 'No'; ?>
+WPEngine: <?php echo isset( $opts['wpengine'] ) && $opts['wpengine'] ? 'Yes' : 'No'; ?><?php echo PHP_EOL; ?>
+Maxmind Local database: <?php echo isset( $opts['maxmind'] ) && $opts['maxmind'] ? 'Yes' : 'No'; ?><?php echo PHP_EOL; ?>
+Ip2location: <?php echo isset( $opts['ip2location'] ) && $opts['ip2location'] ? 'Yes' : 'No'; ?><?php echo PHP_EOL; ?>
+Litespeed: <?php echo isset( $opts['litespeed'] ) && $opts['litespeed'] ? 'Yes' : 'No'; ?><?php echo PHP_EOL; ?>
+Hosting database: <?php echo isset( $opts['hosting_db'] ) && $opts['hosting_db'] ? 'Yes' : 'No'; ?><?php echo PHP_EOL; ?>
 
 
 ##Settings page##
 
 Cache mode:               <?php echo isset( $opts['cache_mode'] ) && $opts['cache_mode'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
 Ajax mode:                <?php echo isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
-WpEngine mode:            <?php echo getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
-Kinsta mode:              <?php echo ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
-Maxmind mode:             <?php echo isset( $opts['maxmind'] ) && $opts['maxmind'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>
-Ip2Location mode:         <?php echo isset( $opts['ip2location'] ) && $opts['ip2location'] ? 'On' : 'Off'; ?>
-
 
 ##Addons##
 Redirects:               <?php echo isset( $addons['geo-redirects'] ) && $addons['geo-redirects'] ? 'On' : 'Off'; ?><?php echo PHP_EOL; ?>

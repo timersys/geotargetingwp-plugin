@@ -322,6 +322,7 @@ class GeotSettings {
 				'wpengine',
 				'kinsta',
 				'litespeed',
+				'hosting_db',
 				'cache_mode',
 				'ajax_mode',
 				'force_geot',
