@@ -3,8 +3,8 @@ Contributors: timersys
 Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 3.6
-Tested up to: 5.3
-Stable tag: 3.0.3.4
+Tested up to: 5.4
+Stable tag: 3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,16 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.0.4 - April 14 2020 =
+* Feature: Woocommerce geolocate it's done in GeotargetingWP now.
+* Fix: Zip regions slugs
+* Fix: Geo Redirects - We now remove country code from dynamic urls automatically to avoid redirect loops
+* Fix: Addons got deactivated on plugin deactivation
+* Fix: Flatsometheme builder compatibility
+* Fix: Elementor columns geotargeting fix
+* Fix: Removed Kinsta/WpEngine/Litespeed settings for a generic Hosting db setting
+
+
 = 3.0.3.4 - March 16 2020=
 * Fix: Guzzle Host must be a string error introduced with last update
 * Fix: More Wpbeaver fixes
