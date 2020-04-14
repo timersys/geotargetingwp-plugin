@@ -404,6 +404,8 @@ class GeotCore {
 
 		$settings = geot_settings();
 
+		$this->ip = $this->rewrite_ip();
+
 		try {
 			// Check if user has active subscription
 			$this->check_active_user();
@@ -433,17 +435,18 @@ class GeotCore {
 
 				$options = [
 					'geolocation'	=> 'by_html5',
-					'data'			=> [ 'lat' => $this->lat, 'lng' => $this->lng ]
+					'data'			=> [
+						'lat' => $this->lat,
+						'lng' => $this->lng,
+						'ip' => $this->ip,
+					]
 				];
 
 			} else {
 
-				$this->ip = $this->rewrite_ip();
-
 				// If the IP has been sent through the params
 				if( $key == 'ip' && is_string( $params ) && ! empty( $params ) )
 					$this->ip = $params;
-				
 
 				// it's a valid IP ?
 				if(! $this->valid_ip( $this->ip ) ) {
@@ -525,6 +528,7 @@ class GeotCore {
 			if ( ( $custom_data = apply_filters( 'geot/cancel_query', false ) ) ) {
 				return $this->cleanResponse( $custom_data );
 			}
+
 			// API
 			$record = $this->cleanResponse( $this->geotWP->getData( $options ) );
 			$this->checkLocale();
