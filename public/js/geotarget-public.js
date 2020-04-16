@@ -19,18 +19,25 @@
 
             /* Geolocation */
             if( geot.geoloc_enable ) {
-                if (navigator.geolocation) {
-
-                    GeotWP.maybe_overlay();
-
-                    // Set Geolocation
-                    navigator.geolocation.getCurrentPosition(
-                        GeotWP.successPosition,
-                        GeotWP.errorPosition
-                    );
-
+                const cords = JSON.parse( sessionStorage.getItem('geot_cords') );
+                if( cords ) {
+                    GeotWP.lat = cords.lat;
+                    GeotWP.lng = cords.lng;
+                    GeotWP.executeAjax();
                 } else {
-                    console.log(geot.geoloc_fail);
+                    if (navigator.geolocation) {
+                        GeotWP.maybe_overlay();
+
+                        // Set Geolocation
+                        navigator.geolocation.getCurrentPosition(
+                            GeotWP.successPosition,
+                            GeotWP.errorPosition,
+                            {maximumAge:10000, timeout:5000, enableHighAccuracy: true}
+                        );
+
+                    } else {
+                        console.log(geot.geoloc_fail);
+                    }
                 }
             } else {
                 GeotWP.executeAjax();
@@ -223,6 +230,7 @@
 
             GeotWP.lat = position.coords.latitude;
             GeotWP.lng = position.coords.longitude;
+            sessionStorage.setItem('geot_cords', JSON.stringify({ lat: GeotWP.lat, lng: GeotWP.lng } ) );
 
             GeotWP.executeAjax();
         },
