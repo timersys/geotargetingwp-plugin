@@ -5,6 +5,8 @@
         uniqueID : null,
         lat : null,
         lng : null,
+        img_geoloc : null,
+        img_consent : null,
         /**
          * Start function
          */
@@ -16,6 +18,7 @@
          */
         ready: function () {
             GeotWP.initSelectize();
+            GeotWP.initBrowser();
 
             /* Geolocation */
             if( geot.geoloc_enable ) {
@@ -202,6 +205,48 @@
             }
         },
         /**
+         * Detected Browser
+         * Source : https://jsfiddle.net/6spj1059/
+         * @returns
+         */
+        initBrowser: function() {
+            // Opera 8.0+
+            const isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+            // Firefox 1.0+
+            const isFirefox = typeof InstallTrigger !== 'undefined';
+
+            // Safari 3.0+ "[object HTMLElementConstructor]" 
+            const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+
+            // Internet Explorer 6-11
+            const isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+            // Edge 20+
+            const isEdge = !isIE && !!window.StyleMedia;
+
+            // Chrome 1 - 79
+            const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+
+
+            if( isOpera ) {
+                GeotWP.img_geoloc = geot.geoloc_img_opera;
+                GeotWP.img_consent = geot.geoloc_consent_opera;
+            } else if( isFirefox ) {
+                GeotWP.img_geoloc = geot.geoloc_img_firefox;
+                GeotWP.img_consent = geot.geoloc_consent_firefox;
+            } else if( isSafari ) {
+                GeotWP.img_geoloc = geot.geoloc_img_safari;
+                GeotWP.img_consent = geot.geoloc_consent_safari;
+            } else if( isEdge || isIE ) {
+                GeotWP.img_geoloc = geot.geoloc_img_edge;
+                GeotWP.img_consent = geot.geoloc_consent_edge;
+            } else {
+                GeotWP.img_geoloc = geot.geoloc_img_chrome;
+                GeotWP.img_consent = geot.geoloc_consent_chrome;
+            }  
+        },
+        /**
          * Generate unique id
          * @param prefix
          * @returns {*}
@@ -245,7 +290,7 @@
             const $overlay = $('div.geotloc_overlay_box');
 
             if( geot.geoloc_force ) {
-                $overlay.find('.geotloc_overlay_content').html(geot.geoloc_consent);
+                $overlay.find('.geotloc_overlay_content').html(GeotWP.img_consent);
 
                 if( ! $overlay.is(':visible') )
                     GeotWP.show_overlay();
@@ -269,7 +314,7 @@
 
             if( GeotWP.readCookie('geot-gps') == null ) {
 
-                $overlay.find('div.geotloc_overlay_content').html(geot.geoloc_img);
+                $overlay.find('div.geotloc_overlay_content').html(GeotWP.img_geoloc);
                 GeotWP.show_overlay();
             }
 
