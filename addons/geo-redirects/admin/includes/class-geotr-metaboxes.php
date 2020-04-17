@@ -98,6 +98,8 @@ class GeotWP_R_Metaboxes {
 		$opts['whitelist']         = $opts['whitelist']; // if we sanitize break lines are broken, we sanitize later
 		$opts['url']               = sanitize_text_field( $opts['url'] );
 		$opts['exclude_se']        = absint( sanitize_text_field( $opts['exclude_se'] ) );
+		$opts['exclude_child']     = absint( sanitize_text_field( $opts['exclude_child'] ) );
+		$opts['remove_iso']        = absint( sanitize_text_field( $opts['remove_iso'] ) );
 		$opts['one_time_redirect'] = absint( sanitize_text_field( $opts['one_time_redirect'] ) );
 		$opts['status']            = absint( sanitize_text_field( $opts['status'] ) );
 

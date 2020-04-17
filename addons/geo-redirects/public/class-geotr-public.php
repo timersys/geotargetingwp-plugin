@@ -150,13 +150,20 @@ private function pass_basic_rules( $redirection ) {
 	$current_url = \GeotCore\get_current_url();
 
 	// check for destination url
-	if ( empty( $opts['url'] ) || $current_url == $this->replaceShortcodes( $opts, true ) ) {
+	if ( empty( $opts['url'] ) || rtrim( $current_url, '/' ) == rtrim( $this->replaceShortcodes( $opts, true ), '/' ) ) {
 		return false;
 	}
 
+	// check for child page
+	if ( isset( $opts['exclude_child'] )  && 1 === absint( $opts['exclude_child'] ) ) {
+		// if destination url it's included in the current, means we are in a child. Add / to be sure its child
+		if( strpos( $current_url, $this->replaceShortcodes( $opts, true ) . '/' ) !== false ) {
+			return false;
+		}
+	}
+
 	// check for crawlers
-	//if( isset($opts['exclude_se']) && '1' === $opts['exclude_se'] ) {
-	if ( isset( $opts['exclude_se'] ) && '1' === absint( $opts['exclude_se'] ) ) {
+	if ( isset( $opts['exclude_se'] ) && 1 === absint( $opts['exclude_se'] ) ) {
 		$detect = new CrawlerDetect();
 		if ( $detect->isCrawler() ) {
 			return false;
@@ -201,14 +208,19 @@ private function replaceShortcodes( $opts, $basic_rules = false ) {
 		$replaces['{{country_code}}'] = geot_country_code();
 		$replaces['{{state_code}}']   = geot_state_code();
 		$replaces['{{zip}}']          = geot_zip();
-		// remove country codes from urls automatically
-		if( apply_filters( 'geotr/placeholders_remove_country_code', true ) && strpos($opts['url'], '{{country_code}}') !== false ){
-			$path = explode('/', $replaces['{{requested_path}}']);
-			if( strlen($path[0]) === 2 ){
-				$replaces['{{requested_path}}'] = substr($replaces['{{requested_path}}'], 3);
-			}
+	}
+
+	// remove country codes from urls automatically to avoid /au/au
+	if( isset( $opts['remove_iso'] ) && 1 === absint( $opts['remove_iso'] ) ){
+		$path = explode('/', $replaces['{{requested_path}}']);
+		if( strlen($path[0]) === 2 ){
+			$replaces['{{requested_path}}'] = substr($replaces['{{requested_path}}'], 3);
 		}
 	}
+	if( ! empty( apply_filters('geotr/remove_from_path', [] ) ) ) {
+		$replaces['{{requested_path}}'] = str_replace(apply_filters('geotr/remove_from_path', [] ), '', $replaces['{{requested_path}}'] );
+	}
+
 
 	// do the replaces
 	$replaces  = apply_filters( 'geotr/placeholders', array_map( 'strtolower', $replaces ) );
