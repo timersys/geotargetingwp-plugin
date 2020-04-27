@@ -69,6 +69,7 @@ class Elementor_GeoZipcode {
 				'multiple' => true,
 				'default'  => '',
 				'options'  => GeotWP_Elementor::get_regions( 'zips' ),
+				'label_block'	=> true,
 			]
 		);
 
@@ -107,6 +108,7 @@ class Elementor_GeoZipcode {
 				'multiple' => true,
 				'default'  => '',
 				'options'  => GeotWP_Elementor::get_regions( 'zips' ),
+				'label_block'	=> true,
 			]
 		);
 

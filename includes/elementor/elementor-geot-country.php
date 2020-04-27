@@ -72,6 +72,7 @@ class Elementor_GeoCountry {
 				'multiple' => true,
 				'default'  => '',
 				'options'  => GeotWP_Elementor::get_regions( 'countries' ),
+				'label_block'	=> true,
 			]
 		);
 
@@ -110,6 +111,7 @@ class Elementor_GeoCountry {
 				'multiple' => true,
 				'default'  => '',
 				'options'  => GeotWP_Elementor::get_regions( 'countries' ),
+				'label_block'	=> true,
 			]
 		);
 
