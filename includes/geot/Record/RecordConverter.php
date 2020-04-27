@@ -80,7 +80,10 @@ class RecordConverter {
 	 * @throws \Exception
 	 */
 	public static function hosting_db() {
-		if ( empty( $_SERVER['GEOIP_COUNTRY_CODE'] ) && empty( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) ) && empty( $_SERVER( 'HTTP_GEOIP_COUNTRY_CODE' ) ) ) {
+		if ( empty( $_SERVER['GEOIP_COUNTRY_CODE'] )
+		     && empty( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) )
+		     && empty( $_SERVER['HTTP_GEOIP_COUNTRY_CODE'] )
+		     && empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_CODE'] ) ) {
 			throw new \Exception( 'Your hosting db failed to return record' );
 		}
 		$city_name = '';
