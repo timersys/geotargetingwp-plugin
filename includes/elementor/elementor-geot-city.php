@@ -72,6 +72,7 @@ class Elementor_GeoCity {
 				'multiple' => true,
 				'default'  => '',
 				'options'  => GeotWP_Elementor::get_regions( 'cities' ),
+				'label_block'	=> true,
 			]
 		);
 
@@ -110,6 +111,7 @@ class Elementor_GeoCity {
 				'multiple' => true,
 				'default'  => '',
 				'options'  => GeotWP_Elementor::get_regions( 'cities' ),
+				'label_block'	=> true,
 			]
 		);
 
