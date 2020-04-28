@@ -1,4 +1,5 @@
 .elementor-panel .elementor-tab-control-geot a:before {
-    font-family: FontAwesome !important;
-    content: '\f0ac';
+    font-family: 'Font Awesome 5 Free' !important;
+    content: '\f57d';
+    font-weight: 900;
 }

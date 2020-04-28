@@ -21,6 +21,8 @@ class GeotWP_Bl_Helper {
 
 			'block_message' => '<h3>' . __( 'Sorry but your access to this area is restricted', 'geobl' ) . '</h3>',
 			'exclude_se'    => '1',
+			'remove_iso'    => '0',
+			'exclude_child' => '1',
 			'whitelist'     => '',
 		];
 

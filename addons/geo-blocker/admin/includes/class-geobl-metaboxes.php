@@ -92,6 +92,8 @@ class GeotWP_Bl_Metaboxes {
 		// sanitize settings
 		$opts['whitelist']     = $opts['whitelist']; // if we sanitize break lines are broken, we sanitize later
 		$opts['exclude_se']    = absint( sanitize_text_field( $opts['exclude_se'] ) );
+		$opts['exclude_child']    = absint( sanitize_text_field( $opts['exclude_child'] ) );
+		$opts['remove_iso']    = absint( sanitize_text_field( $opts['remove_iso'] ) );
 		$opts['block_message'] = $opts['block_message'];
 
 		// save box settings

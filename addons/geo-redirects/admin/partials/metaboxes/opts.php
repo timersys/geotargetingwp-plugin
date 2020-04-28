@@ -24,7 +24,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</ul>
 		</td>
 	</tr>
-
+	<tr valign="top">
+		<th><label for="geotr_trigger"><?php _e( 'Exclude child pages from redirect ?', 'geotr' ); ?></label></th>
+		<td>
+			<select id="exclude_child" name="geotr[exclude_child]" class="widefat">
+				<option value="1" <?php selected( $opts['exclude_child'], '1' ); ?> > <?php _e( 'Yes', 'geotr' ); ?></option>
+				<option value="0" <?php selected( $opts['exclude_child'], '0' ); ?> > <?php _e( 'No', 'geotr' ); ?></option>
+			</select>
+			<p class="help"><?php _e( 'If your final destination it\'s /es/ for spanish users, this option will prevent /es/page-slug to be redirected', 'geotr' ); ?></p>
+		</td>
+	</tr>
 	<tr valign="top">
 		<th><label for="geotr_trigger"><?php _e( 'One time redirect ?', 'geotr' ); ?></label></th>
 		<td>
@@ -36,7 +45,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p class="help"><?php _e( 'Select if user will be redirected every time, once per browser session or only once in total', 'geotr' ); ?></p>
 		</td>
 	</tr>
-
+	<tr valign="top">
+		<th><label for="geotr_trigger"><?php _e( 'Remove two letter codes from this redirect ?', 'geotr' ); ?></label></th>
+		<td>
+			<select id="exclude_se" name="geotr[remove_iso]" class="widefat">
+				<option value="0" <?php selected( $opts['remove_iso'], '0' ); ?> > <?php _e( 'No', 'geotr' ); ?></option>
+				<option value="1" <?php selected( $opts['remove_iso'], '1' ); ?> > <?php _e( 'Yes', 'geotr' ); ?></option>
+			</select>
+			<p class="help"><?php _e( 'Enable if you are using two letter codes in your redirects to remove them from request path', 'geotr' ); ?></p>
+		</td>
+	</tr>
 	<tr valign="top">
 		<th><label for="geotr_trigger"><?php _e( 'Exclude Search Engines ?', 'geotr' ); ?></label></th>
 		<td>
