@@ -47,7 +47,10 @@ class Geolinks_Cpt {
 			'show_in_menu'        => 'geot-settings',
 			'query_var'           => true,
 			'exclude_from_search' => true,
-			'rewrite'             => [ 'slug' => $settings['goto_page'] ],
+			'rewrite'             => [
+				'slug'       => $settings['goto_page'],
+				'with_front' => false
+			],
 			'capability_type'     => 'post',
 			'capabilities'        => [
 				'publish_posts'       => apply_filters( 'geol/settings_page/roles', 'manage_options' ),
