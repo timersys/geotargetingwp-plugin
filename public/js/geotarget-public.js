@@ -40,25 +40,31 @@
                     'geot_city': geot_city,
                     'geot_zip': geot_zip,
                 };
-            $('.geot-ajax').each(function () {
-                let _this = $(this);
-                if (_this.hasClass('geot_menu_item'))
-                    _this = $(this).find('a').first();
 
-                if( _this.data('action') && _this.data('action').length ) {
-                    const uniqid = GeotWP.getUniqueName('geot');
-                    _this.attr('id', uniqid);
-                    data.geots[uniqid] = {
-                        'action': _this.data('action') || '',
-                        'filter': _this.data('filter') || '',
-                        'region': _this.data('region') || '',
-                        'ex_filter': _this.data('ex_filter') || '',
-                        'ex_region': _this.data('ex_region') || '',
-                        'default': _this.data('default') || '',
-                        'locale': _this.data('locale') || 'en',
+            if( $('.geot-ajax').length > 0 ) {
+                $('.geot-placeholder').show();
+
+                $('.geot-ajax').each(function () {
+                    let _this = $(this);
+                    if (_this.hasClass('geot_menu_item'))
+                        _this = $(this).find('a').first();
+
+                    if( _this.data('action') && _this.data('action').length ) {
+                        const uniqid = GeotWP.getUniqueName('geot');
+                        _this.attr('id', uniqid);
+                        data.geots[uniqid] = {
+                            'action': _this.data('action') || '',
+                            'filter': _this.data('filter') || '',
+                            'region': _this.data('region') || '',
+                            'ex_filter': _this.data('ex_filter') || '',
+                            'ex_region': _this.data('ex_region') || '',
+                            'default': _this.data('default') || '',
+                            'locale': _this.data('locale') || 'en',
+                        }
                     }
-                }
-            });
+                });
+            }
+
             if( $('.geotr-ajax').length )
                 data.geot_redirects = 1;
 
@@ -68,6 +74,9 @@
 
             const onSuccess = function (response) {
                 if (response.success) {
+
+                    $('.geot-placeholder').hide();
+
                     let results = response.data,
                         i,
                         redirect = response.redirect,

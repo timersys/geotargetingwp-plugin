@@ -65,6 +65,8 @@ class GeotWP_Ajax_Shortcodes {
 		add_shortcode( 'geot_time_zone', [ $this, 'geot_show_time_zone' ] );
 		add_shortcode( 'geot_lat', [ $this, 'geot_show_lat' ] );
 		add_shortcode( 'geot_lng', [ $this, 'geot_show_lng' ] );
+
+		add_shortcode( 'geot_placeholder', [ $this, 'geot_placeholder' ] );
 	}
 
 	/**
@@ -321,6 +323,17 @@ class GeotWP_Ajax_Shortcodes {
 
 		return '<' . $html_tag . ' class="geot-ajax" data-action="longitude" data-default="' . do_shortcode( $default ) . '"></' . $html_tag . '>';
 	}
+
+	/**
+	 * Display placeholder when the ajax is executing
+	 * [geot_placeholder]
+	 * @return string
+	 */
+	function geot_placeholder( $atts = [], $content = '' ) {
+
+		return '<div class="geot-ajax geot-placeholder" style="display:none;">' . do_shortcode( $content ) . '</div>';
+	}
+
 
 	function geot_debug_data() {
 		return '<div class="geot-ajax geot-debug-data"></div>';
