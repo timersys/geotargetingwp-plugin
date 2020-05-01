@@ -75,7 +75,7 @@
             const onSuccess = function (response) {
                 if (response.success) {
 
-                    $('.geot-placeholder').hide();
+                    $('.geot-placeholder').remove();
 
                     let results = response.data,
                         i,
