@@ -27,17 +27,28 @@ class GeotWP_Taxonomies {
 
 		// Categories only if ajax mode is disabled
 		if ( empty( $this->opts['ajax_mode'] ) ) {
-			add_action( 'edit_category_form_fields', [ $this, 'edit_category_fields' ], 10, 1 );
-			add_action( 'edited_category', [ $this, 'save_category_fields' ], 10, 1 );
-			add_action( 'pre_get_posts', [ $this, 'pre_get_posts' ], 10, 1 );
-			add_action( 'pre_get_posts', [ $this, 'pre_get_categories' ], 10, 1 );
-			add_action( 'get_terms', [ $this, 'get_terms' ], 10, 4 );
-
-			// Woocommerce - Categories Products
-			add_action( 'product_cat_edit_form_fields', [ $this, 'woo_edit_category_fields' ], 20 );
-			add_action( 'edited_product_cat', [ $this, 'woo_save_category_fields' ], 10, 1 );
-			add_action( 'woocommerce_product_query', [ $this, 'woo_pre_get_posts' ], 10, 1 );
+			add_action( 'init', [ $this, 'init' ], 50 );
 		}
+	}
+
+	public function init() {
+		$taxonomies = get_taxonomies( [ 'public' => true, '_builtin' => false, ] );
+
+		update_option('lolo_1', print_r($taxonomies,true));
+
+		foreach( $taxonomies as $taxonomy ) {
+			add_action( $taxonomy.'_edit_form_fields', [ $this, 'edit_tax_fields' ], 10, 2 );
+			add_action( 'edited_'.$taxonomy, [ $this, 'save_tax_fields' ], 10, 2 );
+		}
+		
+		add_action( 'pre_get_posts', [ $this, 'pre_get_posts' ], 10, 1 );
+		add_action( 'pre_get_posts', [ $this, 'pre_get_categories' ], 10, 1 );
+		add_action( 'get_terms', [ $this, 'get_terms' ], 10, 4 );
+
+		// Woocommerce - Categories Products
+		//add_action( 'product_cat_edit_form_fields', [ $this, 'woo_edit_category_fields' ], 20 );
+		//add_action( 'edited_product_cat', [ $this, 'woo_save_category_fields' ], 10, 1 );
+		//add_action( 'woocommerce_product_query', [ $this, 'woo_pre_get_posts' ], 10, 1 );
 	}
 
 	/**
@@ -45,7 +56,7 @@ class GeotWP_Taxonomies {
 	 * @since    1.0.0
 	 * @param OBJECT $tag
 	 */
-	public function edit_category_fields( $tag ) {
+	public function edit_tax_fields( $tag, $tax ) {
 
 		$extra = get_term_meta( $tag->term_id, 'geot', true );
 		$geot  = geotwp_format( $extra );
@@ -64,7 +75,7 @@ class GeotWP_Taxonomies {
 	 * @since    1.0.0
 	 * @param INT $term_id
 	 */
-	public function save_category_fields( $term_id ) {
+	public function save_tax_fields( $term_id, $tax_id ) {
 		if ( isset( $_POST['geot'] ) ) {
 
 			$array_geot = geotwp_format( $_POST['geot'] );

@@ -25,6 +25,25 @@
 				</td>
 			</tr>
 
+			<tr valign="top" class="">
+				<th><label for="taxonomy_integration"><?php _e( 'Enable on taxonomies', 'geot' ); ?></label></th>
+				<td colspan="3">
+
+					<?php foreach($taxs as $tax_key => $tax_value) : ?>
+						<input
+							type="checkbox"
+							id="widget_integration"
+							name="geot_settings[enable_taxonomies][]"
+							value="<?php echo $tax_key; ?>"
+							<?php selected( true, in_array( $tax_key, $opts['enable_taxonomies'] ) ); ?>
+						/> <span><?php echo $tax_value; ?></span>
+						<br />
+					<?php endforeach; ?>
+
+					
+				</td>
+			</tr>
+
 			<?php do_action( 'geot/settings_partial/after', $opts ); ?>
 
 			<tr>
