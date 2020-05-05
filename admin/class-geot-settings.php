@@ -101,7 +101,7 @@ class GeotWP_Settings {
 			if ( isset( $_POST['geot_settings'] ) ) {
 				$settings = isset( $_POST['geot_settings'] ) ? esc_sql( $_POST['geot_settings'] ) : '';
 				if( is_array($settings) ) {
-					$settings == array_map('trim', $settings );
+					$settings = array_map('trim', $settings );
 				}
 				update_option( 'geot_pro_settings', $settings );
 			}
