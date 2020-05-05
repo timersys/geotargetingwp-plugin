@@ -35,7 +35,7 @@
 							id="widget_integration"
 							name="geot_settings[enable_taxonomies][]"
 							value="<?php echo $tax_key; ?>"
-							<?php selected( true, in_array( $tax_key, $opts['enable_taxonomies'] ) ); ?>
+							<?php checked( true, in_array( $tax_key, $opts['enable_taxonomies'] ) ); ?>
 						/> <span><?php echo $tax_value; ?></span>
 						<br />
 					<?php endforeach; ?>

@@ -22,8 +22,11 @@ class GeotWP_Taxonomies {
 	 */
 	public function __construct() {
 
-		$this->opts      = geot_settings();
-		$this->geot_opts = geotwp_settings();
+		$defaults = [ 'enable_taxonomies' => [ 'category', 'product_cat'] ];
+
+		$this->geot_opts = wp_parse_args(geotwp_settings(), $defaults);
+		$this->opts = geot_settings();
+
 
 		// Categories only if ajax mode is disabled
 		if ( empty( $this->opts['ajax_mode'] ) ) {
@@ -32,23 +35,31 @@ class GeotWP_Taxonomies {
 	}
 
 	public function init() {
-		$taxonomies = get_taxonomies( [ 'public' => true, '_builtin' => false, ] );
 
-		update_option('lolo_1', print_r($taxonomies,true));
+		if( empty( $this->geot_opts['enable_taxonomies'] ) )
+			return;
 
-		foreach( $taxonomies as $taxonomy ) {
-			add_action( $taxonomy.'_edit_form_fields', [ $this, 'edit_tax_fields' ], 10, 2 );
-			add_action( 'edited_'.$taxonomy, [ $this, 'save_tax_fields' ], 10, 2 );
+
+		foreach( $this->geot_opts['enable_taxonomies'] as $tax_slug ) {
+
+			if( $tax_slug == 'product_cat' )
+				continue;
+
+			add_action( $tax_slug.'_edit_form_fields', [ $this, 'edit_tax_fields' ], 10, 2 );
+			add_action( 'edited_'.$tax_slug, [ $this, 'save_tax_fields' ], 10, 2 );
 		}
 		
 		add_action( 'pre_get_posts', [ $this, 'pre_get_posts' ], 10, 1 );
 		add_action( 'pre_get_posts', [ $this, 'pre_get_categories' ], 10, 1 );
 		add_action( 'get_terms', [ $this, 'get_terms' ], 10, 4 );
 
+		
 		// Woocommerce - Categories Products
-		//add_action( 'product_cat_edit_form_fields', [ $this, 'woo_edit_category_fields' ], 20 );
-		//add_action( 'edited_product_cat', [ $this, 'woo_save_category_fields' ], 10, 1 );
-		//add_action( 'woocommerce_product_query', [ $this, 'woo_pre_get_posts' ], 10, 1 );
+		if( in_array( 'product_cat', $this->geot_opts['enable_taxonomies'] ) ) {
+			add_action( 'product_cat_edit_form_fields', [ $this, 'woo_edit_category_fields' ], 20 );
+			add_action( 'edited_product_cat', [ $this, 'woo_save_category_fields' ], 10, 1 );
+			add_action( 'woocommerce_product_query', [ $this, 'woo_pre_get_posts' ], 10, 1 );
+		}
 	}
 
 	/**
@@ -101,38 +112,51 @@ class GeotWP_Taxonomies {
 		if ( is_admin() || ! $q->is_main_query() || ! $q->is_single )
 			return;
 
-		if( isset( $q->query['post_type'] ) && $q->query['post_type'] == 'product' ){
-			$post = get_page_by_path( $q->query['name'], OBJECT, 'product' );
-			$taxonomy = 'product_cat';
-		} else {
-			$post = get_page_by_path( $q->query['name'], OBJECT, 'post' );
-			$taxonomy = 'category';
-		}
-
-		if( ! $post )
+		if( empty( $this->geot_opts['enable_taxonomies'] ) )
 			return;
 
+		$object	= isset( $q->query['post_type'] ) ? $q->query['post_type'] : 'post';
+
+		// Get Post object
+		$post = get_page_by_path( $q->query['name'], OBJECT, $object );
 		$post_exclude = $q->get( 'post__not_in' );
 
-		if( in_array($post->ID, $post_exclude) )
+		if( ! $post || in_array( $post->ID, $post_exclude ) ) {
+			return;
+		}
+
+		// Get Taxonomies
+		$a_taxs = get_object_taxonomies( $object, 'names' );
+		$taxonomies = array_intersect( $a_taxs, $this->geot_opts['enable_taxonomies'] );
+
+		if( empty( $taxonomies ) )
 			return;
 
-		$cats_ids = wp_get_object_terms($post->ID, $taxonomy, ['fields' => 'ids', 'geot' => true] );
 
-		foreach ( $cats_ids as $term_id ) {
-			$geot = get_term_meta( $term_id, 'geot', true );
+		foreach( $taxonomies as $tax_slug ) {
+	
+			// Get terms by taxonomy
+			$term_ids = wp_get_object_terms(
+				$post->ID,
+				$tax_slug,
+				[ 'fields' => 'ids', 'geot' => true ]
+			);
 
-			if ( ! $geot ) {
-				continue;
-			}
+			// Bucle terms
+			foreach ( $term_ids as $term_id ) {
+				$geot = get_term_meta( $term_id, 'geot', true );
 
-			if( ! $this->verify_geot($geot) ) {
-				$post_exclude[] = $post->ID;
-				break;
+				if ( ! $geot ) continue;
+
+				if( ! $this->verify_geot( $geot ) ) {
+					$post_exclude[] = $post->ID;
+					break;
+				}
 			}
 		}
 
-
+		
+		// Verify if there is posts exclude
 		if ( count( $post_exclude ) > 0 ) {
 			$q->set( 'post__not_in', $post_exclude );
 		}
@@ -146,29 +170,44 @@ class GeotWP_Taxonomies {
 	 */
 	public function pre_get_categories( $q ) {
 
-		if ( is_admin() || ! $q->is_main_query() || ! $q->is_category )
+		if ( is_admin() || ! $q->is_main_query() || ( ! $q->is_tax && ! $q->is_category ) )
 			return;
 
-		if( ! isset( $q->query['category_name'] ) || empty( $q->query['category_name'] ) )
+		if( empty( $this->geot_opts['enable_taxonomies'] ) )
 			return;
-		
-		$cat_exclude = [];
-		$cats_ids    = get_categories( [ 'fields' => 'ids', 'geot' => true ] );
 
-		foreach ( $cats_ids as $term_id ) {
-			$geot = get_term_meta( $term_id, 'geot', true );
 
-			if ( ! $geot )
-				continue;
+		$tax_exclude = [];
 
-			if( ! $this->verify_geot($geot) )
-				$cat_exclude[] = $term_id * ( - 1 );
+		foreach( $this->geot_opts['enable_taxonomies'] as $tag_slug ) {
+			
+			$tax_term_exclude = [];
+			$taxs_ids = get_terms( [ 'taxonomy' => $tag_slug, 'fields' => 'ids', 'geot' => true ] );
+
+			foreach ( $taxs_ids as $term_id ) {
+				$geot = get_term_meta( $term_id, 'geot', true );
+
+				if ( ! $geot )
+					continue;
+
+				if( ! $this->verify_geot($geot) )
+					$tax_term_exclude[] = $term_id;
+			}
+
+			// 
+			if( count( $tax_term_exclude ) > 0 ) {
+				$tax_exclude[] = [
+					'taxonomy'	=> $tag_slug,
+					'field'		=> 'id',
+					'operator'	=> 'NOT IN',
+					'terms'		=> $tax_term_exclude,
+				];
+			}
 		}
 
-		if ( count( $cat_exclude ) > 0 ) {
-			$q->set( 'cat', implode( ',', $cat_exclude ) );
+		if( count( $tax_exclude ) > 0 ) {
+			$q->set( 'tax_query', $tax_exclude );
 		}
-
 	}
 
 
@@ -183,23 +222,35 @@ class GeotWP_Taxonomies {
 	 */
 	public function get_terms( $terms, $taxonomies, $args, $term_query ) {
 
-		if ( ! is_admin() && ! isset( $args['geot'] ) && is_array( $taxonomies ) &&
-		     ( in_array( 'category', $taxonomies ) || in_array( 'product_cat', $taxonomies ) )
-		) {
-			foreach ( $terms as $id => $term ) {
-				if ( ! isset( $term->term_id ) ) {
-					continue;
-				}
+		// If is admin or if geot param is set
+		if( is_admin() || isset( $args['geot'] ) || ! is_array( $taxonomies ) )
+			return $terms;
 
-				$geot = get_term_meta( $term->term_id, 'geot', true );
+		// If there isnt taxonomies from settings
+		if( empty( $this->geot_opts['enable_taxonomies'] ) )
+			return $terms;
 
-				if ( ! $geot ) {
-					continue;
-				}
+		$a_taxs = array_intersect( $taxonomies, $this->geot_opts['enable_taxonomies'] );
 
-				if( ! $this->verify_geot($geot) )
-					unset( $terms[ $id ] );
+		// If there isnt intersection
+		if( empty( $a_taxs ) )
+			return $terms;
+
+
+		// bucle from terms
+		foreach ( $terms as $id => $term ) {
+			if ( ! isset( $term->term_id ) ) {
+				continue;
 			}
+
+			$geot = get_term_meta( $term->term_id, 'geot', true );
+
+			if ( ! $geot ) {
+				continue;
+			}
+
+			if( ! $this->verify_geot($geot) )
+				unset( $terms[ $id ] );
 		}
 
 		return $terms;

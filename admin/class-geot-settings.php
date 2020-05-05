@@ -58,7 +58,7 @@ class GeotWP_Settings {
 			'ajax_mode'						=> '0',
 			'disable_menu_integration'		=> '0',
 			'disable_widget_integration'	=> '0',
-			'enable_taxonomies'				=> [ 'categories', 'product_cat'],
+			'enable_taxonomies'				=> [ 'category', 'product_cat'],
 		];
 		$opts     = geotwp_settings();
 		$opts     = wp_parse_args( $opts, $defaults );
@@ -66,7 +66,7 @@ class GeotWP_Settings {
 		$taxonomies = get_taxonomies( [ 'public' => true, '_builtin' => false, ], 'objects' );
 
 		$taxs = [
-			'categories'	=> esc_html__( 'Categories', 'geot' ),
+			'category'		=> esc_html__( 'Categories', 'geot' ),
 			'product_cat'	=> esc_html__( 'Product Categories', 'geot' ),
 		];
 
