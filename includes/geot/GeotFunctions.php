@@ -720,6 +720,20 @@ class GeotCore {
 		if ( isset( $settings['bots_country_ips'] ) && GeotWP_Helper::checkIP( $this->ip, textarea_to_array( $settings['bots_country_ips'] ) ) ) {
 			$ret = true;
 		}
+		// hardcoded IPS
+		include_once GEOWP_PLUGIN_DIR . '/includes/ip-lists.php';
+		if ( GeotWP_Helper::checkIP( $this->ip, $bots_ips ) ) {
+			$ret = true;
+		}
+		// Own server IP
+		if ( false === ( $geot_server_ip = get_transient( 'geot_server_ip' ) ) ) {
+			$host = gethostname();
+			$geot_server_ip = gethostbyname($host);
+			set_transient( 'special_query_results', $geot_server_ip, 30 * DAY_IN_SECONDS );
+		}
+		if( $geot_server_ip == $this->ip ) {
+			$ret = true;
+		}
 
 		return apply_filters( 'geot/treat_request_as_bot', $ret );
 	}
