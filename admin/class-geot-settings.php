@@ -55,12 +55,25 @@ class GeotWP_Settings {
 	 */
 	function settings_page() {
 		$defaults = [
-			'ajax_mode'                  => '0',
-			'disable_menu_integration'   => '0',
-			'disable_widget_integration' => '0',
+			'ajax_mode'						=> '0',
+			'disable_menu_integration'		=> '0',
+			'disable_widget_integration'	=> '0',
+			'enable_taxonomies'				=> [ 'category', 'product_cat'],
 		];
 		$opts     = geotwp_settings();
 		$opts     = wp_parse_args( $opts, $defaults );
+
+		$taxonomies = get_taxonomies( [ 'public' => true, '_builtin' => false, ], 'objects' );
+
+		$taxs = [
+			'category'		=> esc_html__( 'Categories', 'geot' ),
+			'product_cat'	=> esc_html__( 'Product Categories', 'geot' ),
+		];
+
+		foreach( $taxonomies as $taxonomy ) {
+			$taxs[ $taxonomy->name ] = $taxonomy->label;
+		}
+		
 
 		$return = esc_url( add_query_arg( $_GET, admin_url( 'admin.php' ) ) );
 
@@ -88,7 +101,7 @@ class GeotWP_Settings {
 			if ( isset( $_POST['geot_settings'] ) ) {
 				$settings = isset( $_POST['geot_settings'] ) ? esc_sql( $_POST['geot_settings'] ) : '';
 				if( is_array($settings) ) {
-					$settings == array_map('trim', $settings );
+					$settings = array_map('trim', $settings );
 				}
 				update_option( 'geot_pro_settings', $settings );
 			}
