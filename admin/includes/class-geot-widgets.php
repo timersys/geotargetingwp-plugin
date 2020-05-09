@@ -26,14 +26,21 @@ class GeotWP_Widgets {
 		$this->opts = geot_settings();
 
 		// give users a way to disable widgets targeting
-		if ( empty( $this->geot_opts['disable_widget_integration'] ) &&
-		     empty( $this->opts['ajax_mode'] )
-		) {
-			// add geot to all widgets
+		if ( empty( $this->geot_opts['disable_widget_integration'] ) ) {
+
+			// Admin Settings
 			add_action( 'in_widget_form', [ $this, 'add_geot_to_widgets' ], 5, 3 );
-			add_action( 'widget_display_callback', [ $this, 'target_widgets' ] );
-			add_action( 'siteorigin_panels_widget_object', [ $this, 'target_widgets_site_origin' ], 10, 3 );
 			add_action( 'widget_update_callback', [ $this, 'save_widgets_data' ], 5, 3 );
+
+			if( empty( $this->opts['ajax_mode'] ) ) {
+				
+				// Validation Display
+				add_action( 'widget_display_callback', [ $this, 'target_widgets' ] );
+				add_action( 'siteorigin_panels_widget_object', [ $this, 'target_widgets_site_origin' ], 10, 3 );
+
+			} else {
+				add_action( 'dynamic_sidebar', [ $this, 'ajax_widget' ] );
+			}
 		}
 	}
 
@@ -266,6 +273,31 @@ class GeotWP_Widgets {
 		}
 
 		return $the_widget;
+	}
+
+
+	public function ajax_widget( $widget ) {
+
+		if( is_admin() || ! isset( $widget['callback'][0] ) )
+			return;
+
+		$WidgetObj = $widget['callback'][0];
+		$instances = $WidgetObj->get_settings();
+
+		if ( ! array_key_exists( $WidgetObj->number, $instances ) )
+			return;
+		
+		$instance = $instances[ $WidgetObj->number ];
+
+		if( empty( $instance['geot']['region'] ) && empty( $instance['geot']['country_code'] ) &&
+		    empty( $instance['geot_cities'] ) && empty( $instance['geot_states'] ) &&
+		    empty( $instance['geot_zipcodes'] )
+		) return;
+
+
+		$filter = base64_encode( serialize( $instance ) );
+
+		echo '<div class="geot-ajax geot-widget" data-action="widget_filter" data-filter="' . $filter . '"  data-ex_filter="' . $widget['id'] . '" data-widget="'.$widget['id'].'"></div>';
 	}
 
 } // class GeotWP_Widgets

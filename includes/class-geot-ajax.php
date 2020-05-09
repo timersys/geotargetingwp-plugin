@@ -440,6 +440,35 @@ class GeotWP_Ajax {
 	}
 
 	/**
+	 * Filter function for Widgets
+	 *
+	 * @param $geot
+	 *
+	 * @return boolean
+	 */
+	private function widget_filter( $geot ) {
+
+		$filter = unserialize( base64_decode( $geot['filter'] ) );
+
+		$target = [
+			'geot_include_mode' => $filter['geot_include_mode'],
+			'country_code'		=> !empty( $filter['geot']['country_code'] ) ? $filter['geot']['country_code'] : [],
+			'region'			=> !empty( $filter['geot']['region'] ) ? $filter['geot']['region'] : [],
+			'cities'			=> !empty( $filter['geot_cities'] ) ? $filter['geot_cities'] : '',
+			'city_region'		=> !empty( $filter['geot_cities'] ) ? $filter['geot_cities'] : '',
+			'states'			=> !empty( $filter['geot_states'] ) ? $filter['geot_states'] : '',
+			'zipcodes'			=> !empty( $filter['geot_zipcodes'] ) ? $filter['geot_zipcodes'] : '',
+			'zip_region'		=> !empty( $filter['geot_zipcodes'] ) ? $filter['geot_zipcodes'] : '',
+		];
+
+		if ( GeotWP_Helper::user_is_targeted( $target, $geot['ex_filter'] ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Print geot flag
 	 *
 	 * @param $geot
