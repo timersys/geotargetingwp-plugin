@@ -96,13 +96,19 @@
                         $('html').html(blocker);
                     }
                     console.log(response);
-                    if (results && results.length) {
-                        for (i = 0; i < results.length; ++i) {
-                            if (results[i].action == 'menu_filter') {
+                    if ( results && results.length ) {
+                        for ( i = 0; i < results.length; ++i ) {
+                            if ( results[i].action == 'menu_filter' ) {
                                 if (results[i].value == true)
                                     $('#' + results[i].id).parent('.menu-item').remove();
-                            } else if (results[i].action.indexOf('filter') > -1) {
-                                if (results[i].value == true) {
+                            } else if ( results[i].action == 'widget_filter' ) {
+                                if ( results[i].value == true ) {
+                                    var widget_id = $('#' + results[i].id).data('widget');
+                                    $('#' + widget_id).remove();
+                                }
+                                $('#' + results[i].id).remove();
+                            } else if ( results[i].action.indexOf('filter' ) > -1) {
+                                if ( results[i].value == true ) {
                                     var html = $('#' + results[i].id).html();
                                     $('#' + results[i].id).replaceWith(html);
                                 }
