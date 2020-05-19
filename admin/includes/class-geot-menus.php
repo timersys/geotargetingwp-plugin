@@ -27,7 +27,7 @@ class GeotWP_Menus {
 
 		if ( empty( $this->geot_opts['disable_menu_integration'] ) ) {
 
-			if ( version_compare( $wp_version, '4.0', '>=' ) )
+			if ( version_compare( $wp_version, '5.4', '>=' ) )
 				add_action( 'wp_nav_menu_item_custom_fields', [ $this, 'custom_fields' ], 10, 2 );
 			else
 				add_filter( 'wp_edit_nav_menu_walker', [ $this, 'admin_menu_walker' ], 150, 2 );
