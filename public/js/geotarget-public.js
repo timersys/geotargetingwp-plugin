@@ -99,11 +99,16 @@
                     if ( results && results.length ) {
                         for ( i = 0; i < results.length; ++i ) {
                             if ( results[i].action == 'menu_filter' ) {
-                                if (results[i].value == true)
+                                if (results[i].value != true) {
+                                    $('#' + results[i].id).parent('.menu-item').removeClass('geot_menu_item');
+                                } else {
                                     $('#' + results[i].id).parent('.menu-item').remove();
+                                }
                             } else if ( results[i].action == 'widget_filter' ) {
-                                if ( results[i].value == true ) {
-                                    var widget_id = $('#' + results[i].id).data('widget');
+                                const widget_id = $('#' + results[i].id).data('widget');
+                                if ( results[i].value != true ) {
+                                    $('#css-' + widget_id).remove();
+                                } else {
                                     $('#' + widget_id).remove();
                                 }
                                 $('#' + results[i].id).remove();

@@ -107,17 +107,20 @@ class GeotWP_Menus {
 		}
 
 		foreach ( $sorted_menu_items as $k => $menu_item ) {
-			$g = $menu_item->geot;
-			if ( empty( $menu_item->ID ) ) {
+
+			if ( empty( $menu_item->ID ) || empty( $menu_item->geot ) ) {
 				continue;
 			}
-			// check at least one condition is filled
-			if ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) {
-				$menu_item->classes[] = 'geot-ajax geot_menu_item';
-				add_filter( 'nav_menu_link_attributes', [ $this, 'add_geot_info' ], 10, 2 );
-			} else {
-				if ( GeotWP_Helper::user_is_targeted( $g, $menu_item->ID ) ) {
-					unset( $sorted_menu_items[ $k ] );
+			$g = $menu_item->geot;
+			if( $this->menu_has_geot_settings($g) ) {
+				// check at least one condition is filled
+				if ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) {
+					$menu_item->classes[] = 'geot-ajax geot_menu_item';
+					add_filter( 'nav_menu_link_attributes', [ $this, 'add_geot_info' ], 10, 2 );
+				} else {
+					if ( GeotWP_Helper::user_is_targeted( $g, $menu_item->ID ) ) {
+						unset( $sorted_menu_items[ $k ] );
+					}
 				}
 			}
 
@@ -136,11 +139,9 @@ class GeotWP_Menus {
 	 */
 	public function add_geot_info( $atts, $item ) {
 
-		if ( ! empty( $item->geot ) ) {
-			$atts['data-action']    = 'menu_filter';
-			$atts['data-filter']    = base64_encode( serialize( $item->geot ) );
-			$atts['data-ex_filter'] = $item->ID;
-		}
+		$atts['data-action']    = 'menu_filter';
+		$atts['data-filter']    = base64_encode( serialize( $item->geot ) );
+		$atts['data-ex_filter'] = $item->ID;
 
 		return $atts;
 	}
@@ -222,5 +223,23 @@ class GeotWP_Menus {
 			</label>
 		</p>
 		<?php
+	}
+
+	/**
+	 * Checks if any of the menu settings has values
+	 * @param $menu
+	 *
+	 * @return bool
+	 */
+	private function menu_has_geot_settings($menu) {
+		if( ! isset( $menu['geot_include_mode'] ) ) {
+			return false;
+		}
+
+		if( empty( $menu['region'] ) && empty( $menu['country_code'] ) && empty( $menu['cities'] ) && empty( $menu['states'] ) && empty( $menu['zipcodes'] ) ) {
+			return false;
+		}
+
+		return true;
 	}
 }

@@ -275,7 +275,10 @@ class GeotWP_Widgets {
 		return $the_widget;
 	}
 
-
+	/**
+	 * Render a placeholder for ajax calls
+	 * @param $widget
+	 */
 	public function ajax_widget( $widget ) {
 
 		if( is_admin() || ! isset( $widget['callback'][0] ) )
@@ -296,7 +299,7 @@ class GeotWP_Widgets {
 
 
 		$filter = base64_encode( serialize( $instance ) );
-
+		echo '<style type="text/css" id="css-'.$widget['id'].'">#'.$widget['id'].'{ display:none;}</style>';
 		echo '<div class="geot-ajax geot-widget" data-action="widget_filter" data-filter="' . $filter . '"  data-ex_filter="' . $widget['id'] . '" data-widget="'.$widget['id'].'"></div>';
 	}
 
