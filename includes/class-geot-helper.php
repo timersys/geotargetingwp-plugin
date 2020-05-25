@@ -61,8 +61,8 @@ class GeotWP_Helper {
 		$_user_is_targeted = false;
 
 		$mode           = ! empty( $opts['geot_include_mode'] ) ? $opts['geot_include_mode'] : 'include';
-		$country_remove = $state_remove = $city_remove = $zipcode_remove = false;
-		$country_target = $state_target = $city_target = $zipcode_target = null;
+		$country_remove = $state_remove = $city_remove = $zipcode_remove = $radius_remove = false;
+		$country_target = $state_target = $city_target = $zipcode_target = $radius_target = null;
 		if ( ! empty( $opts['country_code'] ) || ! empty( $opts['region'] ) ) {
 			$countries      = ! empty( $opts['country_code'] ) ? $opts['country_code'] : '';
 			$regions        = ! empty( $opts['region'] ) ? $opts['region'] : '';
@@ -100,16 +100,25 @@ class GeotWP_Helper {
 			}
 		}
 
+		if ( ! empty( $opts['radius_lat'] ) && ! empty( $opts['radius_lng'] ) && (int) $opts['radius_km'] > 0 ) {
+
+			$radius_target = geot_target_radius( $opts['radius_lat'], $opts['radius_lng'], (int) $opts['radius_km'] );
+
+			if ( $mode == 'exclude' && $radius_target ) {
+				$radius_remove = true;
+			}
+		}
+
 		if ( $mode == 'include' ) {
 			$_user_is_targeted = true;
-			if ( ( $country_target || $state_target || $city_target || $zipcode_target ) ||
-			     ( $country_target === null && $state_target === null && $city_target === null && $zipcode_target === null )
+			if ( ( $country_target || $state_target || $city_target || $zipcode_target || $radius_target ) ||
+			     ( $country_target === null && $state_target === null && $city_target === null && $zipcode_target === null && $radius_target === null )
 			) {
 				$_user_is_targeted = false;
 			}
 		}
 
-		if ( $mode == 'exclude' && ( $country_remove || $state_remove || $city_remove || $zipcode_remove ) ) {
+		if ( $mode == 'exclude' && ( $country_remove || $state_remove || $city_remove || $zipcode_remove || $radius_remove ) ) {
 			$_user_is_targeted = true;
 		}
 

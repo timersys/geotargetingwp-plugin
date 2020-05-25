@@ -182,6 +182,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<td colspan="2"></td>
 	</tr>
 	<tr valign="top">
+		<th><label for="gstates"><?php _e( 'Given Radius:', 'geot' ); ?></label></th>
+		<td>
+
+			<input type="text" id="radius_km" class="" name="geot[radius_km]"
+			       value="<?php echo ! empty( $opts['radius_km'] ) ? $opts['radius_km'] : '100'; ?>"
+			       placeholder="<?php _e( '100', 'geot' ); ?>"/> km within
+			<input type="text" id="radius_lat" class="" name="geot[radius_lat]"
+			       value="<?php echo ! empty( $opts['radius_lat'] ) ? $opts['radius_lat'] : ''; ?>"
+			       placeholder="<?php _e( 'Enter latitude', 'geot' ); ?>"/>
+			<input type="text" id="radius_lng" class="" name="geot[radius_lng]"
+			       value="<?php echo ! empty( $opts['radius_lng'] ) ? $opts['radius_lng'] : ''; ?>"
+			       placeholder="<?php _e( 'Enter longitude', 'geot' ); ?>"/>
+
+		</td>
+		<td colspan="2"></td>
+	</tr>
+	<tr valign="top">
 		<th><label for="geot_position"><?php _e( 'Remove post from loop:', 'geot' ); ?></label></th>
 		<td>
 

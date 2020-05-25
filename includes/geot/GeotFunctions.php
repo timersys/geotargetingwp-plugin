@@ -889,4 +889,47 @@ class GeotCore {
 		}
 		return false;
 	}
+
+	/**
+	 * Target by radius
+	 *
+	 * @param $radius_lat
+	 * @param $radius_lng
+	 * @param $radius_km
+	 *
+	 * @return bool
+	 */
+	public function targetRadius( $radius_lat, $radius_lng, $radius_km ) {
+		$user_geo = $this->get( 'geolocation' );
+
+		$distance = $this->getDistance($user_geo->latitude, $user_geo->longitude, $radius_lat, $radius_lng );
+
+		if( $distance <= $radius_km ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Get distance between two coordinates
+	 * @param $latitude1
+	 * @param $longitude1
+	 * @param $latitude2
+	 * @param $longitude2
+	 *
+	 * @return float|int
+	 */
+	private function getDistance($latitude1, $longitude1, $latitude2, $longitude2) {
+		$earth_radius = 6371;
+
+		$dLat = deg2rad($latitude2 - $latitude1);
+		$dLon = deg2rad($longitude2 - $longitude1);
+
+		$a = sin($dLat/2) * sin($dLat/2) + cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * sin($dLon/2) * sin($dLon/2);
+		$c = 2 * asin(sqrt($a));
+		$d = $earth_radius * $c;
+
+		return $d;
+	}
+
 }

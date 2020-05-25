@@ -405,6 +405,14 @@ if ( ! function_exists( 'geot_target_zip' ) ) {
 		return geot_target( $zip, $zip_region, $exclude, $exclude_region, 'zip' );
 	}
 }
+
+if ( ! function_exists( 'geot_target_radius' ) ) {
+	function geot_target_radius( $radius_lat = '', $radius_lng = '', $radius_km = 100 ) {
+		$g    = geotWP();
+		return $g->targetRadius($radius_lat, $radius_lng, $radius_km);
+	}
+}
+
 /**
  * Grab geot settings
  * @return mixed|void
