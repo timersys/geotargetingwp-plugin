@@ -94,6 +94,7 @@ class GeotCore {
 		     && ! is_rest_request()
 		     && ! isset( $_GET['wc_ajax'] )
 		     && ! isset( $_GET['wc-ajax'] )
+			 && (  apply_filters( 'geot/disable_in_rest', true ) || ! defined( 'REST_REQUEST' ) || ! REST_REQUEST )
 		) {
 			add_action( 'init', [ $this, 'getUserData' ] );
 			add_action( 'init', [ $this, 'createRocketCookies' ], 15 );

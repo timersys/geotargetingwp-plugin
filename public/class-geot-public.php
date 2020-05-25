@@ -46,14 +46,17 @@ class GeotWP_Public {
 
 		add_action( 'wp_footer', [ $this, 'print_debug_info' ], 999 );
 
-		add_filter( 'posts_where', [ $this, 'handle_geotargeted_posts' ], PHP_INT_MAX );
-		add_filter( 'the_content', [ $this, 'check_if_geotargeted_content' ], 99 );
+		// disable in rest
+		if( apply_filters( 'geot/disable_in_rest', true ) || ! defined( 'REST_REQUEST' ) || ! REST_REQUEST  ) {
+			add_filter( 'posts_where', [ $this, 'handle_geotargeted_posts' ], PHP_INT_MAX );
+			add_filter( 'the_content', [ $this, 'check_if_geotargeted_content' ], 99 );
+			//woocommerce
+			add_filter( 'woocommerce_product_related_posts_query', [ $this, 'woocommerce_related_products' ], 99 );
 
-		//woocommerce
-		add_filter( 'woocommerce_product_related_posts_query', [ $this, 'woocommerce_related_products' ], 99 );
+			add_action( 'wp', [ $this, 'remove_woo_product' ] );
+			add_filter( 'wp', [ $this, 'disable_woo_product' ] );
+		}
 
-		add_action( 'wp', [ $this, 'remove_woo_product' ] );
-		add_filter( 'wp', [ $this, 'disable_woo_product' ] );
 
 
 		add_filter( 'spu/metaboxes/rule_types', [ $this, 'add_popups_rules' ] );
