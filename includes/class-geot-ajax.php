@@ -420,6 +420,21 @@ class GeotWP_Ajax {
 
 		return false;
 	}
+	/**
+	 * Filter function for radius
+	 * region = lat, exfilter =lng, filter =radius_km
+	 * @param $geot
+	 *
+	 * @return boolean
+	 */
+	private function radius_filter( $geot ) {
+
+		if ( geot_target_radius( $geot['region'], $geot['ex_filter'], $geot['filter'] ) ) {
+			return true;
+		}
+
+		return false;
+	}
 
 	/**
 	 * Filter function for menus

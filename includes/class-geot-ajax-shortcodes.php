@@ -52,6 +52,7 @@ class GeotWP_Ajax_Shortcodes {
 		add_shortcode( 'geot_filter_city', [ $this, 'geot_filter_cities' ] );
 		add_shortcode( 'geot_filter_state', [ $this, 'geot_filter_states' ] );
 		add_shortcode( 'geot_filter_zip', [ $this, 'geot_filter_zips' ] );
+		add_shortcode( 'geot_filter_radius', [ $this, 'geot_filter_radius' ] );
 
 		add_shortcode( 'geot_country_code', [ $this, 'geot_show_country_code' ] );
 		add_shortcode( 'geot_country_name', [ $this, 'geot_show_country_name' ] );
@@ -158,6 +159,27 @@ class GeotWP_Ajax_Shortcodes {
 		], $atts ) );
 
 		return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $zip . '" data-region="' . $region . '" data-ex_filter="' . $exclude_zip . '" data-ex_region="' . $exclude_region . '">' . do_shortcode( $content ) . '</' . $html_tag . '>';
+
+	}
+	/**
+	 * Shows provided content only if the location
+	 * criteria are met.
+	 * [geot_filter_radius radius_km="100" lat="" lng=""]content[/geot_zip]
+	 *
+	 * @param $atts
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	function geot_filter_radius( $atts, $content ) {
+		extract( shortcode_atts( [
+			'radius_km'			=> '100',
+			'lat'			    => '',
+			'lng'		        => '',
+			'html_tag'			=> 'div',
+		], $atts ) );
+
+		return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="radius_filter" data-filter="' . $radius_km . '" data-region="' . $lat . '" data-ex_filter="' . $lng . '" >' . do_shortcode( $content ) . '</' . $html_tag . '>';
 
 	}
 
