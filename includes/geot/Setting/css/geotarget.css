@@ -171,7 +171,6 @@ input.api-keys {
 }
 
 .selectize-control {
-    max-width: 80%;
     margin: 20px 0;
 }
 
@@ -190,6 +189,30 @@ input.api-keys {
     margin: -8px 0 0 0;
     background: url(../img/wpspin_light.gif);
     background-size: 16px 16px;
+}
+div#geot_widget .selectize-control,
+div#geot_widget .geot_text{
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 10px;
+}
+span.radius_km {
+    padding: 10px;
+    border: 1px solid #ccc;
+    display: block;
+}
+textarea.geot_text,
+input.geot_text {
+    border: 1px solid #d0d0d0;
+    padding: 8px 8px;
+    height: 36px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+div#geot_widget {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #faf6f6;
+    margin: 20px 0;
 }
 
 /**

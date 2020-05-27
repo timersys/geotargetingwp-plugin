@@ -474,6 +474,9 @@ class GeotWP_Ajax {
 			'states'			=> !empty( $filter['geot_states'] ) ? $filter['geot_states'] : '',
 			'zipcodes'			=> !empty( $filter['geot_zipcodes'] ) ? $filter['geot_zipcodes'] : '',
 			'zip_region'		=> !empty( $filter['geot_zipcodes'] ) ? $filter['geot_zipcodes'] : '',
+			'radius_km'		    => !empty( $filter['radius_km'] ) ? $filter['radius_km'] : '',
+			'radius_lat'		=> !empty( $filter['radius_lat'] ) ? $filter['radius_lat'] : '',
+			'radius_lng'		=> !empty( $filter['radius_lng'] ) ? $filter['radius_lng'] : '',
 		];
 
 		if ( GeotWP_Helper::user_is_targeted( $target, $geot['ex_filter'] ) ) {

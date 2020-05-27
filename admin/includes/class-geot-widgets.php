@@ -70,11 +70,19 @@ class GeotWP_Widgets {
 		if ( empty( $instance['geot']['country_code'] ) ) {
 			$instance['geot']['country_code'] = [];
 		}
-
+		if ( empty( $instance['radius_km'] ) ) {
+			$instance['radius_km'] = '';
+		}
+		if ( empty( $instance['radius_lat'] ) ) {
+			$instance['radius_lat'] = '';
+		}
+		if ( empty( $instance['radius_lng'] ) ) {
+			$instance['radius_lng'] = '';
+		}
 		?>
 
 		<div id="geot_widget" class="widget-content">
-			<strong>Geotargeting</strong>
+			<h3>Geotargeting WP</h3>
 			<p>
 				<label for="geot_what"><?php _e( 'Choose:', 'geot' ); ?></label><br/>
 				<input type="radio" class="geot_include_mode"
@@ -92,7 +100,7 @@ class GeotWP_Widgets {
 				if ( is_array( $regions ) ) { ?>
 					<select name="<?php echo $t->get_field_name( 'geot' ); ?>[region][]" multiple
 					        class="geot-chosen-select-multiple"
-					        data-placeholder="<?php _e( 'Type or choose region name...', 'geot' ); ?>">
+					        data-placeholder="<?php _e( 'Choose region name...', 'geot' ); ?>">
 						<?php
 						if ( is_array( $regions ) ) {
 							foreach ( $regions as $r ) {
@@ -117,7 +125,7 @@ class GeotWP_Widgets {
 
 				<select name="<?php echo $t->get_field_name( 'geot' ); ?>[country_code][]" multiple
 				        class="geot-chosen-select-multiple"
-				        data-placeholder="<?php _e( 'Type or choose country name...', 'geot' ); ?>">
+				        data-placeholder="<?php _e( 'Choose country name...', 'geot' ); ?>">
 					<?php
 					if ( is_array( $countries ) ) {
 						foreach ( $countries as $c ) {
@@ -145,6 +153,21 @@ class GeotWP_Widgets {
 				<input type="text" class="geot_text" name="<?php echo $t->get_field_name( 'geot_zipcodes' ); ?>"
 				       value="<?php echo esc_attr( $instance['geot_zipcodes'] ); ?>"/>
 			</p>
+			<p>
+				<label for="gstates"><?php _e( 'Given Radius:', 'geot' ); ?></label>
+				<span class="radius_km">
+						<input type="text" id="radius_km" class="geot_text" name="<?php echo $t->get_field_name('radius_km'); ?>"
+						       value="<?php echo esc_attr( $instance['radius_km'] ); ?>"
+						       placeholder="<?php _e( '100', 'geot' ); ?>"/> Km within
+						<input type="text" id="radius_lat" class="geot_text" name="<?php echo $t->get_field_name('radius_lat'); ?>"
+						       value="<?php echo esc_attr( $instance['radius_lat'] ); ?>"
+						       placeholder="<?php _e( 'Enter latitude', 'geot' ); ?>"/>
+						<input type="text" id="radius_lng" class="geot_text" name="<?php echo $t->get_field_name('radius_lng'); ?>"
+						       value="<?php echo esc_attr( $instance['radius_lng'] ); ?>"
+						       placeholder="<?php _e( 'Enter longitude', 'geot' ); ?>"/>
+				</span>
+
+			</p>
 		</div>
 
 		<?php
@@ -167,6 +190,9 @@ class GeotWP_Widgets {
 		$instance['geot_cities']       = isset( $new_instance['geot_cities'] ) ? $new_instance['geot_cities'] : '';
 		$instance['geot_states']       = isset( $new_instance['geot_states'] ) ? $new_instance['geot_states'] : '';
 		$instance['geot_zipcodes']     = isset( $new_instance['geot_zipcodes'] ) ? $new_instance['geot_zipcodes'] : '';
+		$instance['radius_lat']        = isset( $new_instance['radius_lat'] ) ? $new_instance['radius_lat'] : '';
+		$instance['radius_lng']        = isset( $new_instance['radius_lng'] ) ? $new_instance['radius_lng'] : '';
+		$instance['radius_km']         = isset( $new_instance['radius_km'] ) ? $new_instance['radius_km'] : '';
 
 		return $instance;
 	}
@@ -203,47 +229,32 @@ class GeotWP_Widgets {
 		     ! empty( $widget_data['geot']['country_code'] ) ||
 		     ! empty( $widget_data['geot_cities'] ) ||
 		     ! empty( $widget_data['geot_states'] ) ||
-		     ! empty( $widget_data['geot_zipcodes'] )
+		     ! empty( $widget_data['geot_zipcodes'] ) ||
+		     ( ! empty( $widget_data['radius_km'] ) && ! empty( $widget_data['radius_lng'] ) && ! empty( $widget_data['radius_lat'] ) )
 		) {
-
-			if ( 'include' == @$widget_data['geot_include_mode'] ) {
 
 				if ( ! empty( $widget_data['geot_zipcodes'] ) ) {
 					if ( ! geot_target_zip( @$widget_data['geot_zipcodes'], @$widget_data['geot_zipcodes'] ) ) {
-						return false;
+						return @$widget_data['geot_include_mode'] == 'include' ?  false : true;
 					}
 				} elseif ( ! empty( $widget_data['geot_cities'] ) ) {
 					if ( ! geot_target_city( @$widget_data['geot_cities'], @$widget_data['geot_cities'] ) ) {
-						return false;
+						return @$widget_data['geot_include_mode'] == 'include' ?  false : true;
 					}
 				} elseif ( ! empty( $widget_data['geot_states'] ) ) {
 					if ( ! geot_target_state( @$widget_data['geot_states'] ) ) {
-						return false;
+						return @$widget_data['geot_include_mode'] == 'include' ?  false : true;
+					}
+				} elseif ( ! empty( $widget_data['radius_km'] ) && ! empty( $widget_data['radius_lng'] ) && ! empty( $widget_data['radius_lat'] ) ) {
+					if ( ! geot_target_radius( @$widget_data['radius_lat'], @$widget_data['radius_lng'], @$widget_data['radius_km'] ) ) {
+						return @$widget_data['geot_include_mode'] == 'include' ?  false : true;
 					}
 				} else {
 					if ( ! geot_target( @$widget_data['geot']['country_code'], @$widget_data['geot']['region'] ) ) {
-						return false;
+						return @$widget_data['geot_include_mode'] == 'include' ?  false : true;
 					}
 				}
-			} else {
-				if ( ! empty( $widget_data['geot_cities'] ) ) {
-					if ( ! geot_target_city( [], [], @$widget_data['geot_cities'], @$widget_data['geot_cities'] ) ) {
-						return false;
-					}
-				} elseif ( ! empty( $widget_data['geot_states'] ) ) {
-					if ( ! geot_target_state( [], @$widget_data['geot_states'] ) ) {
-						return false;
-					}
-				} elseif ( ! empty( $widget_data['geot_zipcodes'] ) ) {
-					if ( ! geot_target_zip( [], [], @$widget_data['geot_zipcodes'], @$widget_data['geot_zipcodes'] ) ) {
-						return false;
-					}
-				} else {
-					if ( ! geot_target( [], [], @$widget_data['geot']['country_code'], @$widget_data['geot']['region'] ) ) {
-						return false;
-					}
-				}
-			}
+
 		}
 
 		return true;
@@ -294,7 +305,7 @@ class GeotWP_Widgets {
 
 		if( empty( $instance['geot']['region'] ) && empty( $instance['geot']['country_code'] ) &&
 		    empty( $instance['geot_cities'] ) && empty( $instance['geot_states'] ) &&
-		    empty( $instance['geot_zipcodes'] )
+		    empty( $instance['geot_zipcodes'] ) && (  empty( $instance['radius_km'] ) ||  empty( $instance['radius_lng'] ) || empty( $instance['radius_lat'] ) )
 		) return;
 
 

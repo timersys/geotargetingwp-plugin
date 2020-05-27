@@ -26,7 +26,7 @@ $zip_regions 	= geot_zip_regions();
 					<?php
 					if ( is_array( $regions ) ) { ?>
 						<select name="geot[region][]" id="geot_region" multiple class="geot-chosen-select-multiple"
-						        data-placeholder="<?php _e( 'Type or choose region name...', 'geot' ); ?>">
+						        data-placeholder="<?php _e( 'Choose region name...', 'geot' ); ?>">
 							<?php
 							if ( is_array( $regions ) ) {
 								foreach ( $regions as $r ) {
@@ -51,7 +51,7 @@ $zip_regions 	= geot_zip_regions();
 				<th><label for="geot_position"><?php _e( 'Or choose countries:', 'geot' ); ?></label></th>
 				<td>
 					<select name="geot[country_code][]" id="geot_country" multiple class="geot-chosen-select-multiple"
-					        data-placeholder="<?php _e( 'Type or choose country name...', 'geot' ); ?>">
+					        data-placeholder="<?php _e( 'Choose country name...', 'geot' ); ?>">
 						<?php
 						if ( is_array( $countries ) ) {
 							foreach ( $countries as $c ) {
@@ -78,7 +78,7 @@ $zip_regions 	= geot_zip_regions();
 				<td>
 					<select name="geot[city_region][]" id="geot_city_region" multiple
 					        class="geot-chosen-select-multiple"
-					        data-placeholder="<?php _e( 'Type or choose cities region name...', 'geot' ); ?>">
+					        data-placeholder="<?php _e( 'Choose cities region name...', 'geot' ); ?>">
 						<?php
 						if ( is_array( $city_regions ) ) {
 							foreach ( $city_regions as $cr ) {
@@ -114,7 +114,7 @@ $zip_regions 	= geot_zip_regions();
 				<td>
 					<select name="geot[zip_region][]" id="geot_zip_region" multiple
 					        class="geot-chosen-select-multiple"
-					        data-placeholder="<?php _e( 'Type or choose zips region name...', 'geot' ); ?>">
+					        data-placeholder="<?php _e( 'Choose zips region name...', 'geot' ); ?>">
 						<?php
 						if ( is_array( $zip_regions ) ) {
 							foreach ( $zip_regions as $cr ) {
