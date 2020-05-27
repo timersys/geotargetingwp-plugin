@@ -1,5 +1,7 @@
 <?php
 
+use function GeotCore\geot_dropdown;
+
 /**
  * Shortcodes  functions
  *
@@ -67,8 +69,7 @@ class GeotWP_Shortcodes {
 		add_shortcode( 'geot_time_zone', [ $this, 'geot_show_time_zone' ] );
 		add_shortcode( 'geot_lat', [ $this, 'geot_show_lat' ] );
 		add_shortcode( 'geot_lng', [ $this, 'geot_show_lng' ] );
-
-		add_shortcode( 'geot_dropdown', [ $this, 'geot_dropdown' ] );
+		add_shortcode( 'geot_dropdown', 'geot_dropdown' );
 	}
 
 	/**
@@ -426,62 +427,4 @@ class GeotWP_Shortcodes {
 		return $country_name;
 	}
 
-	/**
-	 * Display Widget with flags
-	 * @return string
-	 */
-	public function geot_dropdown( $atts ) {
-
-		extract( shortcode_atts( [
-			'regions' => '',
-			'flags'   => 1,
-		], $atts ) );
-
-		$region_ids    = [];
-		$flags_id      = 1;
-		$saved_regions = geot_country_regions();
-		$regions       = ! empty( $regions ) ? explode( ',', $regions ) : [];
-
-
-		if ( ! empty( $flags ) ) {
-			switch ( $flags ) {
-				case 'yes' :
-					$flags_id = 1;
-					break;
-				case 'no' :
-					$flags_id = 2;
-					break;
-				default:
-					$flags_id = 1;
-			}
-		}
-
-		if ( ! empty( $regions ) && ! empty( $saved_regions ) ) {
-
-			$all_regions = wp_list_pluck( $saved_regions, 'name' );
-
-			foreach ( $regions as $nregion ) {
-
-				if ( is_numeric( $nregion ) ) {
-					$region_ids[] = (int) $nregion;
-				} else {
-					$region_ids[] = (int) array_search( $nregion, $all_regions );
-				}
-			}
-		}
-
-		$instance = [
-			'flags'   => $flags_id,
-			'regions' => $region_ids,
-		];
-
-		$args = [ 'before_widget' => '', 'after_widget' => '' ];
-
-
-		ob_start();
-		the_widget( 'GeotWP_Widget', $instance, $args );
-		$output = ob_get_clean();
-
-		return $output;
-	}
 }

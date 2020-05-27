@@ -66,6 +66,7 @@ class GeotWP_Ajax_Shortcodes {
 		add_shortcode( 'geot_time_zone', [ $this, 'geot_show_time_zone' ] );
 		add_shortcode( 'geot_lat', [ $this, 'geot_show_lat' ] );
 		add_shortcode( 'geot_lng', [ $this, 'geot_show_lng' ] );
+		add_shortcode( 'geot_dropdown',  'geot_dropdown' );
 
 		add_shortcode( 'geot_placeholder', [ $this, 'geot_placeholder' ] );
 	}
@@ -360,4 +361,5 @@ class GeotWP_Ajax_Shortcodes {
 	function geot_debug_data() {
 		return '<div class="geot-ajax geot-debug-data"></div>';
 	}
+
 }	
