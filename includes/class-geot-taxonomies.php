@@ -339,7 +339,7 @@ class GeotWP_Taxonomies {
 	 * @return boolean
 	 */
 	protected function verify_geot($geot) {
-		$geot_country = $geot_city = $geot_state = $geot_zipcode = false;
+		$geot_country = $geot_city = $geot_state = $geot_zipcode = $geot_radius = false;
 
 		// Country
 		if( ! empty( $geot['in_countries'] ) || ! empty( $geot['ex_countries'] ) ||
@@ -360,11 +360,14 @@ class GeotWP_Taxonomies {
 			! empty( $geot['in_zips_regions'] ) || ! empty( $geot['ex_zips_regions'] )
 		) $geot_zipcode = GeotWP_Helper::is_targeted_zipcode( $geot );
 
+		// Radius
+		if( ! empty( $geot['radius_km'] ) && ! empty( $geot['radius_lat'] ) && ! empty( $geot['radius_lng'] ) )
+			$geot_radius =  geot_target_radius( $geot['radius_lat'], $geot['radius_km'], $geot['radius_lng'] );
+
 		// Verify
-		if( $geot_country || $geot_city || $geot_state || $geot_zipcode )
+		if( $geot_country || $geot_city || $geot_state || $geot_zipcode || $geot_radius )
 			return true;
 
 		return false;
 	}
 }
-?>
