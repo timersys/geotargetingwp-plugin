@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 3.6
 Tested up to: 5.4
-Stable tag: 3.0.5
+Stable tag: 3.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,15 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.0.6 - April 28 2020 =
+* New Feature: Radius filtering for posts and shortcodes
+* New Feature: Widgets now supported in AJAX mode
+* New Feature: Added IPs to be blocked automatically and save requests
+* Fix: Dropdown shortcodes with ajax mode
+* Fix: Menu geotargeting in old WP versions
+* Fix: Menu and widget in ajax mode hides by default now
+* Fix: Regions fields display issue in Elementor
+
 = 3.0.5 - April 28 2020 =
 * WooCommerce geolocation is optional now and not forced like previous version
 * Fix Geolinks, slug will remail always at root level
