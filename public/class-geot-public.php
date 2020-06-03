@@ -330,7 +330,7 @@ class GeotWP_Public {
 			return $where;
 		}
 
-		if ( ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) ) {
+		if ( defined( 'DOING_GEOT_AJAX' ) ) {
 			return $where;
 		}
 
