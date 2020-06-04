@@ -85,6 +85,12 @@ function grab_post_id() {
  * @return string
  */
 function get_current_url() {
+	$opts          = geot_settings();
+
+	if( ! empty( $opts['ajax_mode'] ) && isset( $_POST['url'] ) ) {
+		return $_POST['url'];
+	}
+	
 	if( class_exists( 'Context_Weglot' ) ) {
 		return \Context_Weglot::weglot_get_context()->get_service('Request_Url_Service_Weglot')->get_weglot_url()->getForLanguage(weglot_get_current_language());
 	}
