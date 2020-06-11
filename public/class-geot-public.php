@@ -334,7 +334,7 @@ class GeotWP_Public {
 			return $where;
 		}
 
-		if ( ! is_admin() ) {
+		if ( ! is_admin() || ( defined('DOING_AJAX') && DOING_AJAX ) ) {
 			// Get all posts that are being geotargeted
 			$post_to_exclude = $this->get_geotargeted_posts();
 			$key             = "{$wpdb->posts}.ID";
