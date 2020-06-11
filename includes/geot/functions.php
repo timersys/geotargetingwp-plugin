@@ -366,3 +366,18 @@ function geotWPR_redirections() {
 
 	return $redirections;
 }
+
+/**
+ * Check if any hosting variable is active
+ * @return bool
+ */
+function hosting_has_db(){
+	if ( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) !== false
+	     || getenv( 'GEOIP_COUNTRY_CODE' ) !== false
+	     || ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] )
+	     || ! empty( $_SERVER['HTTP_GEOIP_COUNTRY_CODE'] )
+	){
+		return true;
+	}
+	return false;
+}
