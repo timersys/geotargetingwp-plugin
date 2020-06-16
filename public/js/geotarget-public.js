@@ -41,7 +41,7 @@
                     'geot_zip': geot_zip,
                 };
 
-            if( $('.geot-ajax').length > 0 ) {
+            if( $('.geot-ajax').length > 0 && geot.is_builder != '1' ) {
                 $('.geot-placeholder').show();
 
                 $('.geot-ajax').each(function () {

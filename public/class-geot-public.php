@@ -11,6 +11,7 @@
  */
 
 use GeotCore\Session\GeotSession;
+use function GeotCore\is_builder;
 
 /**
  * The public-facing functionality of the plugin.
@@ -115,6 +116,7 @@ class GeotWP_Public {
 			'is_category'       => is_category(),
 			'is_page'           => is_page(),
 			'is_single'         => is_single(),
+			'is_builder'        => is_builder(),
 			'dropdown_search'   => apply_filters( 'geot/dropdown_widget/disable_search', false ),
 			'dropdown_redirect' => apply_filters( 'geot/dropdown_widget/redirect_url', '' ),
 		] );

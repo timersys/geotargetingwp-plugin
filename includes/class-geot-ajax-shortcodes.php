@@ -1,5 +1,7 @@
 <?php
 
+use function GeotCore\is_builder;
+
 /**
  * Shortcodes  functions for AJAX mode
  *
@@ -40,7 +42,7 @@ class GeotWP_Ajax_Shortcodes {
 	 */
 	public function register_shortcodes() {
 
-		if ( ! isset( $this->opts['ajax_mode'] ) || $this->opts['ajax_mode'] != '1' ) {
+		if ( ! isset( $this->opts['ajax_mode'] ) || $this->opts['ajax_mode'] != '1' || is_builder() ) {
 			return;
 		}
 

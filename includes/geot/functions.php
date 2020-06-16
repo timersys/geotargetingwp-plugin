@@ -321,6 +321,15 @@ function is_builder() {
 	if ( isset( $_GET['et_fb'] ) && is_numeric( $_GET['et_fb'] ) ) {
 		return true;
 	}
+	// is fusion builder
+	if ( isset( $_GET['fb-edit'] ) && is_numeric( $_GET['fb-edit'] ) ) {
+		return true;
+	}
+
+	// Beaver builder
+	if ( isset( $_GET['fl_builder'] ) ) {
+		return true;
+	}
 
 	// is Gutemberg
 	if ( isset( $_GET['_locale'] ) && $_GET['_locale'] == 'user' ) {

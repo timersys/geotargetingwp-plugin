@@ -44,7 +44,7 @@ class GeotWP_Shortcodes {
 
 		add_filter( 'geot/shortcodes/country_name', [ $this, 'the_english_country_names' ] );
 
-		if ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) {
+		if ( \GeotCore\is_builder() || ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) ) {
 			return;
 		}
 		// leave for backward compatibility
