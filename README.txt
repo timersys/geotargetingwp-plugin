@@ -3,8 +3,8 @@ Contributors: timersys
 Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 3.6
-Tested up to: 5.4
-Stable tag: 3.0.6
+Tested up to: 5.4.1
+Stable tag: 3.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,7 +37,14 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
-= 3.0.6 - April 28 2020 =
+= 3.0.7 - June 16 2020 =
+* Fix bug where ipv6 were being flagged as bots
+* Fix: Ajax mode won't execute shortcodes or spend requests in visual builders
+* Fix bug with taxonomies settings not saving
+* Fix bug with Fusion builder and ajax
+* Fix bug show with ajax mode on certain widgets
+
+= 3.0.6 - June 2 2020 =
 * New Feature: Radius filtering for posts and shortcodes
 * New Feature: Widgets now supported in AJAX mode
 * New Feature: Added IPs to be blocked automatically and save requests
