@@ -160,7 +160,7 @@ class GeotWP_Fusion {
 
 		$this->init();
 
-
+		$opts = geot_settings();
 		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
 
 			$output = Fusion_GeoCountry::ajax_render( $attrs, $output );
