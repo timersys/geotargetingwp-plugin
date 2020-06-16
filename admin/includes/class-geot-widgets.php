@@ -292,7 +292,7 @@ class GeotWP_Widgets {
 	 */
 	public function ajax_widget( $widget ) {
 
-		if( is_admin() || ! isset( $widget['callback'][0] ) )
+		if( is_admin() || ! isset( $widget['callback'][0] ) || ! method_exists( $widget['callback'][0], 'get_settings' ) )
 			return;
 
 		$WidgetObj = $widget['callback'][0];

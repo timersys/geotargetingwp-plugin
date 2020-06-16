@@ -10,6 +10,8 @@
  * @subpackage GeoTarget/admin
  */
 
+use function GeotCore\array_map_recursive;
+
 
 /**
  * The dashboard-specific functionality of the plugin.
@@ -101,8 +103,12 @@ class GeotWP_Settings {
 			if ( isset( $_POST['geot_settings'] ) ) {
 				$settings = isset( $_POST['geot_settings'] ) ? esc_sql( $_POST['geot_settings'] ) : '';
 				if( is_array($settings) ) {
-					$settings = array_map('trim', $settings );
+					$settings = array_map_recursive('trim', $settings );
+					if( empty( $settings['enable_taxonomies'] ) ) {
+						$settings['enable_taxonomies'] = [];
+					}
 				}
+
 				update_option( 'geot_pro_settings', $settings );
 			}
 
@@ -110,7 +116,7 @@ class GeotWP_Settings {
 			if ( isset( $_POST['geot_addons'] ) ) {
 				$settings = isset( $_POST['geot_addons'] ) ? esc_sql( $_POST['geot_addons'] ) : '';
 				if( is_array($settings) ) {
-					$settings == array_map('trim', $settings );
+					$settings == array_map_recursive('trim', $settings );
 				}
 				update_option( 'geot_pro_addons', $settings );
 			}
