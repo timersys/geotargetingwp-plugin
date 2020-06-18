@@ -68,8 +68,8 @@ input.api-keys {
 tr.region-title{
     background: #cbcbcb;
 }
-.region-title th{
-    padding: 20px;
+.geot-settings .region-title th{
+    padding: 0 20px;
 }
 .geot-settings th {
     padding: 20px;
