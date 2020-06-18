@@ -65,7 +65,18 @@ input.api-keys {
     width: 42%;
     margin-right: 5px;
 }
-
+tr.region-title{
+    background: #cbcbcb;
+}
+.region-title th{
+    padding: 20px;
+}
+.geot-settings th {
+    padding: 20px;
+}
+tr.geot-settings-title th {
+    padding: 20px 10px 20px 0;
+}
 .geot-settings .region-group,
 .geot-settings .redirection-group,
 .geot-settings .zip-region-group,

@@ -1099,6 +1099,15 @@
 {
     display: none;
 }
+.geot-ajax.geot-filter.show-by-default,
+.geot-ajax.geot_menu_item.show-by-default,
+.geot-ajax.geot-filter .show-by-default,
+.geot-ajax.geot_menu_item .show-by-default,
+.show-by-default .geot-ajax.geot-filter,
+.show-by-default .geot-ajax.geot_menu_item
+{
+    display: block;
+}
 
 /**
  * selectize.default.css (v0.12.2) - Default Theme
