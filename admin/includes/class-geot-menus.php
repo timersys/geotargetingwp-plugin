@@ -138,9 +138,13 @@ class GeotWP_Menus {
 	 * @return mixed
 	 */
 	public function add_geot_info( $atts, $item ) {
-
+		global $wp_version;
+		$geo_info = $item->geot;
+		if ( version_compare( $wp_version, '5.4', '>=' ) ) {
+			$geo_info = get_post_meta( $item->ID, '_menu_item_geot', true );
+		}
 		$atts['data-action']    = 'menu_filter';
-		$atts['data-filter']    = base64_encode( serialize( $item->geot ) );
+		$atts['data-filter']    = base64_encode( serialize( $geo_info ) );
 		$atts['data-ex_filter'] = $item->ID;
 
 		return $atts;

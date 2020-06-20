@@ -945,11 +945,10 @@ class GeotWP_Helper {
 	private static function get_ipv6_full( $ip ) {
 		$pieces      = explode( "/", $ip, 2 );
 		$left_piece  = $pieces[0];
-		$right_piece = $pieces[1];
 		// Extract out the main IP pieces
 		$ip_pieces     = explode( "::", $left_piece, 2 );
-		$main_ip_piece = $ip_pieces[0];
-		$last_ip_piece = $ip_pieces[1];
+		$main_ip_piece = isset($ip_pieces[0]) ? $ip_pieces[0] : '';
+		$last_ip_piece = isset($ip_pieces[1]) ? $ip_pieces[1] : '';
 		// Pad out the shorthand entries.
 		$main_ip_pieces = explode( ":", $main_ip_piece );
 		foreach ( $main_ip_pieces as $key => $val ) {
@@ -985,11 +984,10 @@ class GeotWP_Helper {
 	private static function ipv6_in_range( $ip, $range_ip ) {
 		$pieces      = explode( "/", $range_ip, 2 );
 		$left_piece  = $pieces[0];
-		$right_piece = $pieces[1];
 		// Extract out the main IP pieces
 		$ip_pieces     = explode( "::", $left_piece, 2 );
-		$main_ip_piece = $ip_pieces[0];
-		$last_ip_piece = $ip_pieces[1];
+		$main_ip_piece = isset($ip_pieces[0]) ? $ip_pieces[0] : '';
+		$last_ip_piece = isset($ip_pieces[1]) ? $ip_pieces[1] : '';
 		// Pad out the shorthand entries.
 		$main_ip_pieces = explode( ":", $main_ip_piece );
 		foreach ( $main_ip_pieces as $key => $val ) {
