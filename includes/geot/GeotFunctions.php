@@ -17,7 +17,7 @@ use IP2Location\Database;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use MaxMind\Db\Reader;
 use function GeotWP\generateCallTrace;
-//use function GeotWP\getUserIP;
+use function GeotWP\getUserIP;
 
 /**
  * Class GeotCore
@@ -68,13 +68,6 @@ class GeotCore {
 	private $session;
 
 	/**
-	 * Use to HTML5 Geolocation API
-	 * @var Mixed
-	 */
-	private $lat;
-	private $lng;
-
-	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -83,9 +76,13 @@ class GeotCore {
 
 		$this->set_defaults();
 
+		$this->ip = getUserIP();
+
 		$this->geotWP = new GeotargetingWP( trim( $this->opts['license'] ), trim( $this->opts['api_secret'] ) );
 
 		$this->session = GeotSession::instance();
+
+		add_action( 'geot/user_ip', [ $this, 'rewrite_ip' ], 9, 1 );
 
 		// If we have cache mode turned on, we need to calculate user location before
 		// anything gets printed
@@ -96,6 +93,8 @@ class GeotCore {
 		     && ! defined( 'DOING_AJAX' )
 		     && ! is_rest_request()
 		     && ! isset( $_GET['wc_ajax'] )
+		     && ! isset( $_GET['wc-ajax'] )
+			 && (  apply_filters( 'geot/disable_in_rest', true ) || ! defined( 'REST_REQUEST' ) || ! REST_REQUEST )
 		) {
 			add_action( 'init', [ $this, 'getUserData' ] );
 			add_action( 'init', [ $this, 'createRocketCookies' ], 15 );
@@ -142,19 +141,6 @@ class GeotCore {
 	}
 
 	/**
-	 * Set Coords from HTML5 Geotargeting API
-	 * @param float $lat
-	 * @param float $lng
-	 */
-	public function set_coords($lat = '', $lng = '') {
-
-		if( ! empty( $lat ) && ! empty( $lng ) ) {
-			$this->lat = $lat;
-			$this->lng = $lng;
-		}
-	}
-
-	/**
 	 * Main Geot Instance
 	 *
 	 * Ensures only one instance is loaded or can be loaded.
@@ -195,19 +181,15 @@ class GeotCore {
 	 *
 	 * @return mixed
 	 */
-	public function rewrite_ip( $ip = '' ) {
+	function rewrite_ip( $ip ) {
 		$settings = geot_settings();
 		$ip       = $_SERVER['REMOTE_ADDR'];
-		if ( isset( $settings['var_ip'] ) && ! empty( $settings['var_ip'] ) &&
-			isset($_SERVER[ $settings['var_ip'] ] )
-		) {
+		if ( isset( $settings['var_ip'] ) && ! empty( $settings['var_ip'] ) && isset($_SERVER[ $settings['var_ip'] ] ) ) {
 			$ip = $_SERVER[ $settings['var_ip'] ];
 		}
 
 		// if two ips provided, on use the first
-		$ip = strstr( $ip, ',' ) === false ? $ip : strstr( $ip, ',', true );
-
-		return apply_filters('geot/user_ip', $ip);
+		return strstr( $ip, ',' ) === false ? $ip : strstr( $ip, ',', true );
 	}
 
 	/**
@@ -380,7 +362,6 @@ class GeotCore {
 			$this->getUserData();
 		}
 
-
 		if ( isset( $this->user_data[ $this->cache_key ]->$key ) ) {
 			return $this->user_data[ $this->cache_key ]->$key;
 		}
@@ -389,78 +370,35 @@ class GeotCore {
 	}
 
 	/**
-	 * @param string/string $params : it is the IP or the coords
+	 * @param string $ip
 	 *
-	 * @param string $key : ip/coords
-	 * 
 	 * @param bool $force
 	 *
 	 * @return array|bool|mixed
 	 */
-	public function getUserData( $params = '', $key = 'ip', $force = false ) {
+	public function getUserData( $ip = "", $force = false ) {
 		if ( isset( $_GET['geot_backtrace'] ) || defined( 'GEOT_BACKTRACE' ) ) {
 			$this->printBacktrace();
 		}
-
-		$settings = geot_settings();
-
-		$this->ip = $this->rewrite_ip();
-
 		try {
-			// Check if user has active subscription
 			$this->check_active_user();
 
-			// Check if exists license
+			if ( ! empty( $ip ) ) {
+				$this->ip = $ip;
+			}
+
+			$this->ip = apply_filters( 'geot/user_ip', $this->ip );
+
+			// it's a valid IP ?
+			if(! $this->valid_ip( $this->ip ) ) {
+				return $this->getFallbackCountry();
+			}
+
 			if ( empty( $this->opts['license'] ) ) {
 				throw new InvalidLicenseException( json_encode( [ 'error' => 'License is missing' ] ) );
 			}
 
-			// Check if the geolocation is usign the HTML5 API
-			if( isset( $settings['geolocation'] ) && $settings['geolocation'] == 'by_html5' &&
-				isset($_COOKIE['geot-gps']) && $_COOKIE['geot-gps'] == 'yes'
-			) {
-
-				if( $key == 'coords' && is_array( $params ) && count( $params ) == 2 ) {
-					reset($params);
-					$this->lat = current( $params );
-					$this->lng = end( $params );
-				}
-
-
-				if( !$this->valid_latitude($this->lat) || !$this->valid_longitude($this->lng) ) {
-					return $this->getFallbackCountry();
-				}
-
-				$this->cache_key = md5( $this->lat.$this->lng );
-
-				$options = [
-					'geolocation'	=> 'by_html5',
-					'data'			=> [
-						'lat' => $this->lat,
-						'lng' => $this->lng,
-						'ip' => $this->ip,
-					]
-				];
-
-			} else {
-
-				// If the IP has been sent through the params
-				if( $key == 'ip' && is_string( $params ) && ! empty( $params ) )
-					$this->ip = $params;
-
-				// it's a valid IP ?
-				if(! $this->valid_ip( $this->ip ) ) {
-					return $this->getFallbackCountry();
-				}
-
-				$options = [
-					'geolocation'	=> 'by_ip',
-					'data' 			=> [ 'ip' => $this->ip ]
-				];
-
-				$this->cache_key = md5( $this->ip );
-			}
-
+			$this->cache_key = md5( $this->ip );
 
 			if ( ! empty ( $this->user_data[ $this->cache_key ] ) ) {
 				return $this->user_data[ $this->cache_key ];
@@ -475,7 +413,7 @@ class GeotCore {
 
 			// If user set cookie and not in debug mode. If we pass ip we are forcing to use ip instead of cookies. Eg in dropdown widget
 			if ( ! empty( $_COOKIE[ $this->opts['cookie_name'] ] ) && ! $force ) {
-				return $this->setData( $_COOKIE[ $this->opts['cookie_name'] ] );
+				return $this->setData(  $_COOKIE[ $this->opts['cookie_name'] ] );
 			}
 
 			// If we already calculated on session return (if we are not calling by IP & if cache mode (sessions) is turned on)
@@ -485,7 +423,6 @@ class GeotCore {
 
 				return $this->user_data[ $this->cache_key ];
 			}
-			
 			// check for whitelist Ips
 			if ( $this->user_whitelisted() ) {
 				return $this->getFallbackCountry();
@@ -496,41 +433,33 @@ class GeotCore {
 				return $this->setData( ! empty( $this->opts['bots_country'] ) ? $this->opts['bots_country'] : 'US' );
 			}
 
-
-			if( ! isset($_COOKIE['geot-gps']) || $_COOKIE['geot-gps'] != 'yes' ) {
-
-				// Hosting DB ?
-				if (
-					( ! isset($this->opts['hosting_db']) && isset( $this->opts['wpengine'] ) && $this->opts['wpengine'] ) ||
-					( ! isset($this->opts['hosting_db']) && isset( $this->opts['litespeed'] ) && $this->opts['litespeed'] ) ||
-					( ! isset($this->opts['hosting_db']) && isset( $this->opts['kinsta'] ) && $this->opts['kinsta'] ) ||
-					isset($this->opts['hosting_db']) && $this->opts['hosting_db']
-				){
-					return $this->hosting_db();
-				}
-
-				// maxmind ?
-				if ( isset( $this->opts['maxmind'] ) && $this->opts['maxmind'] ) {
-					$record = $this->maxmind();
-					$this->checkLocale();
-
-
-						return $record;
-				}
-				// ip2location ?
-				if ( isset( $this->opts['ip2location'] ) && $this->opts['ip2location'] ) {
-					return $this->ip2location();
-				}
+			// Hosting DB ?
+			if (
+				( ! isset($this->opts['hosting_db']) && isset( $this->opts['wpengine'] ) && $this->opts['wpengine'] ) ||
+				( ! isset($this->opts['hosting_db']) && isset( $this->opts['litespeed'] ) && $this->opts['litespeed'] ) ||
+				( ! isset($this->opts['hosting_db']) && isset( $this->opts['kinsta'] ) && $this->opts['kinsta'] ) ||
+				isset($this->opts['hosting_db']) && $this->opts['hosting_db']
+			){
+				return $this->hosting_db();
 			}
 
+			// maxmind ?
+			if ( isset( $this->opts['maxmind'] ) && $this->opts['maxmind'] ) {
+				$record = $this->maxmind();
+				$this->checkLocale();
 
+				return $record;
+			}
+			// ip2location ?
+			if ( isset( $this->opts['ip2location'] ) && $this->opts['ip2location'] ) {
+				return $this->ip2location();
+			}
 			//last chance filter to cancel query and pass custom data
 			if ( ( $custom_data = apply_filters( 'geot/cancel_query', false ) ) ) {
 				return $this->cleanResponse( $custom_data );
 			}
-
 			// API
-			$record = $this->cleanResponse( $this->geotWP->getData( $options ) );
+			$record = $this->cleanResponse( $this->geotWP->getData( $this->ip ) );
 			$this->checkLocale();
 
 			return $record;
@@ -611,7 +540,7 @@ class GeotCore {
 			return true;
 		}
 
-		return $geot_active_user;
+		return $active_user;
 	}
 
 	/**
@@ -792,6 +721,20 @@ class GeotCore {
 		if ( isset( $settings['bots_country_ips'] ) && GeotWP_Helper::checkIP( $this->ip, textarea_to_array( $settings['bots_country_ips'] ) ) ) {
 			$ret = true;
 		}
+		// hardcoded IPS
+		include_once GEOWP_PLUGIN_DIR . '/includes/ip-lists.php';
+		if ( GeotWP_Helper::checkIP( $this->ip, $bots_ips ) ) {
+			$ret = true;
+		}
+		// Own server IP
+		if ( false === ( $geot_server_ip = get_transient( 'geot_server_ip' ) ) ) {
+			$host = gethostname();
+			$geot_server_ip = gethostbyname($host);
+			set_transient( 'special_query_results', $geot_server_ip, 30 * DAY_IN_SECONDS );
+		}
+		if( $geot_server_ip == $this->ip ) {
+			$ret = true;
+		}
 
 		return apply_filters( 'geot/treat_request_as_bot', $ret );
 	}
@@ -948,34 +891,45 @@ class GeotCore {
 	}
 
 	/**
-	 * Check valid lat
-	 * @param int $lat
+	 * Target by radius
+	 *
+	 * @param $radius_lat
+	 * @param $radius_lng
+	 * @param $radius_km
 	 *
 	 * @return bool
 	 */
-	private function valid_latitude($lat = 0) {
+	public function targetRadius( $radius_lat, $radius_lng, $radius_km ) {
+		$user_geo = $this->get( 'geolocation' );
 
-		$regex = '/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/';
+		$distance = $this->getDistance($user_geo->latitude, $user_geo->longitude, $radius_lat, $radius_lng );
 
-		if( preg_match($regex, $lat) )
+		if( $distance <= $radius_km ) {
 			return true;
-
+		}
 		return false;
 	}
 
 	/**
-	 * Check if valid long
-	 * @param int $lng
+	 * Get distance between two coordinates
+	 * @param $latitude1
+	 * @param $longitude1
+	 * @param $latitude2
+	 * @param $longitude2
 	 *
-	 * @return bool
+	 * @return float|int
 	 */
-	private function valid_longitude($lng = 0) {
+	private function getDistance($latitude1, $longitude1, $latitude2, $longitude2) {
+		$earth_radius = 6371;
 
-		$regex = '/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/';
+		$dLat = deg2rad($latitude2 - $latitude1);
+		$dLon = deg2rad($longitude2 - $longitude1);
 
-		if( preg_match($regex, $lng) )
-			return true;
+		$a = sin($dLat/2) * sin($dLat/2) + cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * sin($dLon/2) * sin($dLon/2);
+		$c = 2 * asin(sqrt($a));
+		$d = $earth_radius * $c;
 
-		return false;
+		return $d;
 	}
+
 }

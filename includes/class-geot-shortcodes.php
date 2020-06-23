@@ -1,5 +1,7 @@
 <?php
 
+use function GeotCore\geot_dropdown;
+
 /**
  * Shortcodes  functions
  *
@@ -42,7 +44,7 @@ class GeotWP_Shortcodes {
 
 		add_filter( 'geot/shortcodes/country_name', [ $this, 'the_english_country_names' ] );
 
-		if ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) {
+		if ( \GeotCore\is_builder() || ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) ) {
 			return;
 		}
 		// leave for backward compatibility
@@ -54,6 +56,7 @@ class GeotWP_Shortcodes {
 		add_shortcode( 'geot_filter_city', [ $this, 'geot_filter_cities' ] );
 		add_shortcode( 'geot_filter_state', [ $this, 'geot_filter_states' ] );
 		add_shortcode( 'geot_filter_zip', [ $this, 'geot_filter_zips' ] );
+		add_shortcode( 'geot_filter_radius', [ $this, 'geot_filter_radius' ] );
 		add_shortcode( 'geot_country_code', [ $this, 'geot_show_country_code' ] );
 		add_shortcode( 'geot_country_name', [ $this, 'geot_show_country_name' ] );
 		add_shortcode( 'geot_city_name', [ $this, 'geot_show_city_name' ] );
@@ -66,8 +69,7 @@ class GeotWP_Shortcodes {
 		add_shortcode( 'geot_time_zone', [ $this, 'geot_show_time_zone' ] );
 		add_shortcode( 'geot_lat', [ $this, 'geot_show_lat' ] );
 		add_shortcode( 'geot_lng', [ $this, 'geot_show_lng' ] );
-
-		add_shortcode( 'geot_dropdown', [ $this, 'geot_dropdown' ] );
+		add_shortcode( 'geot_dropdown', 'geot_dropdown' );
 	}
 
 	/**
@@ -168,6 +170,31 @@ class GeotWP_Shortcodes {
 
 
 		if ( geot_target_zip( $zip, $region, $exclude_zip, $exclude_region ) ) {
+			return do_shortcode( $content );
+		}
+
+		return '';
+	}
+
+	/**
+	 * Shows provided content only if the location
+	 * criteria are met.
+	 * [geot_filter_radius radius_km="100" lat="" lng=""]content[/geot_filter_radius]
+	 *
+	 * @param $atts
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	function geot_filter_radius( $atts, $content ) {
+		extract( shortcode_atts( [
+			'radius_km'   => '',
+			'lat'         => '',
+			'lng'         => '',
+		], $atts ) );
+
+
+		if ( geot_target_radius( $lat, $lng, $radius_km ) ) {
 			return do_shortcode( $content );
 		}
 
@@ -400,62 +427,4 @@ class GeotWP_Shortcodes {
 		return $country_name;
 	}
 
-	/**
-	 * Display Widget with flags
-	 * @return string
-	 */
-	public function geot_dropdown( $atts ) {
-
-		extract( shortcode_atts( [
-			'regions' => '',
-			'flags'   => 1,
-		], $atts ) );
-
-		$region_ids    = [];
-		$flags_id      = 1;
-		$saved_regions = geot_country_regions();
-		$regions       = ! empty( $regions ) ? explode( ',', $regions ) : [];
-
-
-		if ( ! empty( $flags ) ) {
-			switch ( $flags ) {
-				case 'yes' :
-					$flags_id = 1;
-					break;
-				case 'no' :
-					$flags_id = 2;
-					break;
-				default:
-					$flags_id = 1;
-			}
-		}
-
-		if ( ! empty( $regions ) && ! empty( $saved_regions ) ) {
-
-			$all_regions = wp_list_pluck( $saved_regions, 'name' );
-
-			foreach ( $regions as $nregion ) {
-
-				if ( is_numeric( $nregion ) ) {
-					$region_ids[] = (int) $nregion;
-				} else {
-					$region_ids[] = (int) array_search( $nregion, $all_regions );
-				}
-			}
-		}
-
-		$instance = [
-			'flags'   => $flags_id,
-			'regions' => $region_ids,
-		];
-
-		$args = [ 'before_widget' => '', 'after_widget' => '' ];
-
-
-		ob_start();
-		the_widget( 'GeotWP_Widget', $instance, $args );
-		$output = ob_get_clean();
-
-		return $output;
-	}
 }

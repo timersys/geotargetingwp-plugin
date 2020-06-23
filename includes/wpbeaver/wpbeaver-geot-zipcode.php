@@ -70,8 +70,8 @@ class WPBeaver_GeoZipcode {
 
 		extract($settings);
 		
-		$in_region_zips = !empty( $in_region_zips ) ? $in_region_zips  : [];
-		$ex_region_zips = !empty( $ex_region_zips ) ? $ex_region_zips  : [];
+		$in_region_zips = !empty( $in_region_zips ) &&  !empty( $in_region_zips[0] ) ? $in_region_zips  : [];
+		$ex_region_zips = !empty( $ex_region_zips ) &&  !empty( $ex_region_zips[0] ) ? $ex_region_zips  : [];
 
 
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
@@ -103,8 +103,8 @@ class WPBeaver_GeoZipcode {
 
 		extract( $settings );
 
-		$in_region_zips = !empty( $in_region_zips ) ? $in_region_zips  : [];
-		$ex_region_zips = !empty( $ex_region_zips ) ? $ex_region_zips  : [];
+		$in_region_zips = !empty( $in_region_zips ) &&  !empty( $in_region_zips[0] ) ? $in_region_zips  : [];
+		$ex_region_zips = !empty( $ex_region_zips ) &&  !empty( $ex_region_zips[0] ) ? $ex_region_zips  : [];
 
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
 			count( $in_region_zips ) == 0 && count( $ex_region_zips ) == 0

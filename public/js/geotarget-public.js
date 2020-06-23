@@ -47,6 +47,9 @@
             }
         },
         executeAjax: function() {
+            if(! $('.geot-ajax').length || geot.is_builder == '1' ) {
+                return;
+            }
             const geot_debug = GeotWP.getUrlParameter('geot_debug'),
                 geot_debug_iso = GeotWP.getUrlParameter('geot_debug_iso'),
                 geot_state = GeotWP.getUrlParameter('geot_state'),
@@ -75,25 +78,30 @@
                     'geot_lng': GeotWP.lng,
                 };
 
-            $('.geot-ajax').each(function () {
-                let _this = $(this);
-                if (_this.hasClass('geot_menu_item'))
-                    _this = $(this).find('a').first();
 
-                if( _this.data('action') && _this.data('action').length ) {
-                    const uniqid = GeotWP.getUniqueName('geot');
-                    _this.attr('id', uniqid);
-                    data.geots[uniqid] = {
-                        'action': _this.data('action') || '',
-                        'filter': _this.data('filter') || '',
-                        'region': _this.data('region') || '',
-                        'ex_filter': _this.data('ex_filter') || '',
-                        'ex_region': _this.data('ex_region') || '',
-                        'default': _this.data('default') || '',
-                        'locale': _this.data('locale') || 'en',
+                $('.geot-placeholder').show();
+
+                $('.geot-ajax').each(function () {
+                    let _this = $(this);
+                    if (_this.hasClass('geot_menu_item'))
+                        _this = $(this).find('a').first();
+
+                    if( _this.data('action') && _this.data('action').length ) {
+                        const uniqid = GeotWP.getUniqueName('geot');
+                        _this.attr('id', uniqid);
+                        data.geots[uniqid] = {
+                            'action': _this.data('action') || '',
+                            'filter': _this.data('filter') || '',
+                            'region': _this.data('region') || '',
+                            'ex_filter': _this.data('ex_filter') || '',
+                            'ex_region': _this.data('ex_region') || '',
+                            'default': _this.data('default') || '',
+                            'locale': _this.data('locale') || 'en',
+                        }
                     }
-                }
-            });
+                });
+
+
             if( $('.geotr-ajax').length )
                 data.geot_redirects = 1;
 
@@ -103,6 +111,9 @@
 
             const onSuccess = function (response) {
                 if (response.success) {
+
+                    $('.geot-placeholder').remove();
+
                     let results = response.data,
                         i,
                         redirect = response.redirect,
@@ -122,13 +133,24 @@
                         $('html').html(blocker);
                     }
                     console.log(response);
-                    if (results && results.length) {
-                        for (i = 0; i < results.length; ++i) {
-                            if (results[i].action == 'menu_filter') {
-                                if (results[i].value == true)
+                    if ( results && results.length ) {
+                        for ( i = 0; i < results.length; ++i ) {
+                            if ( results[i].action == 'menu_filter' ) {
+                                if (results[i].value != true) {
+                                    $('#' + results[i].id).parent('.menu-item').removeClass('geot_menu_item');
+                                } else {
                                     $('#' + results[i].id).parent('.menu-item').remove();
-                            } else if (results[i].action.indexOf('filter') > -1) {
-                                if (results[i].value == true) {
+                                }
+                            } else if ( results[i].action == 'widget_filter' ) {
+                                const widget_id = $('#' + results[i].id).data('widget');
+                                if ( results[i].value != true ) {
+                                    $('#css-' + widget_id).remove();
+                                } else {
+                                    $('#' + widget_id).remove();
+                                }
+                                $('#' + results[i].id).remove();
+                            } else if ( results[i].action.indexOf('filter' ) > -1) {
+                                if ( results[i].value == true ) {
                                     var html = $('#' + results[i].id).html();
                                     $('#' + results[i].id).replaceWith(html);
                                 }

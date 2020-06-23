@@ -216,9 +216,9 @@
             );
         }
 
-        $(document).on('widget-updated', function () {
+        $(document).on('widget-updated', function ( e, $widget ) {
 
-            $(".geot-chosen-select-multiple").selectize({plugins: ['remove_button'],});
+            $(".geot-chosen-select-multiple", $widget).selectize({plugins: ['remove_button'],});
 
         });
 

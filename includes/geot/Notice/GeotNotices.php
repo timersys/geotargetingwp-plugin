@@ -2,6 +2,8 @@
 
 namespace GeotCore\Notice;
 
+use function GeotCore\hosting_has_db;
+
 class GeotNotices {
 
 
@@ -16,36 +18,22 @@ class GeotNotices {
 			update_option( 'geot_' . esc_attr( $_GET['geot_notice'] ), true );
 		}
 
-		if ( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) !== false && ! get_option( 'geot_wpengine_dismiss' ) ) {
-			add_action( 'admin_notices', [ self::class, 'wpengine' ] );
+		if ( hosting_has_db() && ! get_option( 'geot_hostingdb_dismiss' ) ) {
+			add_action( 'admin_notices', [ self::class, 'hostingdb' ] );
 		}
 
-		if ( ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] ) && ! get_option( 'geot_kinsta_dismiss' ) ) {
-			add_action( 'admin_notices', [ self::class, 'kinsta' ] );
-		}
 	}
 
-	public static function wpengine() {
+	public static function hostingdb() {
 		?>
 		<div class="notice-info error">
-		<h3><i class=" dashicons-before dashicons-admin-site"></i> GeotargetingWP WPEngine</h3>
-		<p>We detected that your have WPEngine Geolocation enabled on your hosting.</p>
+		<h3><i class=" dashicons-before dashicons-admin-site"></i> GeotargetingWP Hosting Database</h3>
+		<p>We detected that your Hosting enabled a local database.</p>
 		<p>Please go to the <a href="<?php echo admin_url( 'admin.php?page=geot-settings' ); ?>">settings page</a> and
-			enable it for using it with the GeotargetingWP plugins.</p>
-		<p><a href="<?= admin_url( '?geot_notice=wpengine_dismiss' ); ?>"
+			enable it for using it with the GeotargetingWP plugin.</p>
+		<p><a href="<?= admin_url( '?geot_notice=hostingdb_dismiss' ); ?>"
 		      class="button-primary"><?php _e( 'Dismiss', 'geot' ); ?></a></p>
 		</div><?php
 	}
 
-	public static function kinsta() {
-		?>
-		<div class="notice-info error">
-		<h3><i class=" dashicons-before dashicons-admin-site"></i> GeotargetingWP Kinsta</h3>
-		<p>We detected that your have Kinsta Geolocation enabled on your hosting.</p>
-		<p>Please go to the <a href="<?php echo admin_url( 'admin.php?page=geot-settings' ); ?>">settings page</a> and
-			enable it for using it with the GeotargetingWP plugins.</p>
-		<p><a href="<?= admin_url( '?geot_notice=kinsta_dismiss' ); ?>"
-		      class="button-primary"><?php _e( 'Dismiss', 'geot' ); ?></a></p>
-		</div><?php
-	}
 }

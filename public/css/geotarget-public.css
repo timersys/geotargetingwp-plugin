@@ -1094,8 +1094,19 @@
     margin-top: 0;
 }
 
-.geot-ajax.geot-filter {
+.geot-ajax.geot-filter,
+.geot-ajax.geot_menu_item
+{
     display: none;
+}
+.geot-ajax.geot-filter.show-by-default,
+.geot-ajax.geot_menu_item.show-by-default,
+.geot-ajax.geot-filter .show-by-default,
+.geot-ajax.geot_menu_item .show-by-default,
+.show-by-default .geot-ajax.geot-filter,
+.show-by-default .geot-ajax.geot_menu_item
+{
+    display: block;
 }
 
 /**

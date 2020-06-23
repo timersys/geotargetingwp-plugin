@@ -3,3 +3,12 @@
     content: '\f57d';
     font-weight: 900;
 }
+
+.elementor-control-in_regions .elementor-control-input-wrapper,
+.elementor-control-ex_regions .elementor-control-input-wrapper,
+.elementor-control-in_regions_cities .elementor-control-input-wrapper,
+.elementor-control-ex_regions_cities .elementor-control-input-wrapper,
+.elementor-control-in_regions_zips .elementor-control-input-wrapper,
+.elementor-control-ex_regions_zips .elementor-control-input-wrapper {
+	width: 135px;
+}

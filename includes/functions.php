@@ -75,8 +75,11 @@ function geotwp_default() {
 		'ex_states'            => '',
 		'in_zipcodes'          => '',
 		'ex_zipcodes'          => '',
-		'in_zips_regions'    => [],
-		'ex_zips_regions'    => [],
+		'in_zips_regions'      => [],
+		'ex_zips_regions'      => [],
+		'radius_km'            => '100',
+		'radius_lat'           => '',
+		'radius_lng'           => '',
 	];
 
 	return apply_filters( 'geot_pro/global/default', $default );
@@ -144,4 +147,69 @@ function geotwp_update_like($args = []) {
 function geotwp_spaces_by_hyphen($string) {
 
 	return str_replace(' ', '-', $string);
+}
+
+
+if( ! function_exists('geot_dropdown') ) {
+	/**
+	 * Display Widget with flags
+	 *
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+	function geot_dropdown( $atts ) {
+
+		extract( shortcode_atts( [
+			'regions' => '',
+			'flags'   => 1,
+		], $atts ) );
+
+		$region_ids    = [];
+		$flags_id      = 1;
+		$saved_regions = geot_country_regions();
+		$regions       = ! empty( $regions ) ? explode( ',', $regions ) : [];
+
+
+		if ( ! empty( $flags ) ) {
+			switch ( $flags ) {
+				case 'yes' :
+					$flags_id = 1;
+					break;
+				case 'no' :
+					$flags_id = 2;
+					break;
+				default:
+					$flags_id = 1;
+			}
+		}
+
+		if ( ! empty( $regions ) && ! empty( $saved_regions ) ) {
+
+			$all_regions = wp_list_pluck( $saved_regions, 'name' );
+
+			foreach ( $regions as $nregion ) {
+
+				if ( is_numeric( $nregion ) ) {
+					$region_ids[] = (int) $nregion;
+				} else {
+					$region_ids[] = (int) array_search( $nregion, $all_regions );
+				}
+			}
+		}
+
+		$instance = [
+			'flags'   => $flags_id,
+			'regions' => $region_ids,
+		];
+
+		$args = [ 'before_widget' => '', 'after_widget' => '' ];
+
+
+		ob_start();
+		the_widget( 'GeotWP_Widget', $instance, $args );
+		$output = ob_get_clean();
+
+		return $output;
+	}
 }

@@ -85,6 +85,12 @@ function grab_post_id() {
  * @return string
  */
 function get_current_url() {
+	$opts          = geot_settings();
+
+	if( ! empty( $opts['ajax_mode'] ) && isset( $_POST['url'] ) ) {
+		return $_POST['url'];
+	}
+	
 	if( class_exists( 'Context_Weglot' ) ) {
 		return \Context_Weglot::weglot_get_context()->get_service('Request_Url_Service_Weglot')->get_weglot_url()->getForLanguage(weglot_get_current_language());
 	}
@@ -315,6 +321,15 @@ function is_builder() {
 	if ( isset( $_GET['et_fb'] ) && is_numeric( $_GET['et_fb'] ) ) {
 		return true;
 	}
+	// is fusion builder
+	if ( isset( $_GET['fb-edit'] ) && is_numeric( $_GET['fb-edit'] ) ) {
+		return true;
+	}
+
+	// Beaver builder
+	if ( isset( $_GET['fl_builder'] ) ) {
+		return true;
+	}
 
 	// is Gutemberg
 	if ( isset( $_GET['_locale'] ) && $_GET['_locale'] == 'user' ) {
@@ -359,4 +374,34 @@ function geotWPR_redirections() {
 	}
 
 	return $redirections;
+}
+
+/**
+ * Check if any hosting variable is active
+ * @return bool
+ */
+function hosting_has_db(){
+	if ( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) !== false
+	     || getenv( 'GEOIP_COUNTRY_CODE' ) !== false
+	     || ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] )
+	     || ! empty( $_SERVER['HTTP_GEOIP_COUNTRY_CODE'] )
+	){
+		return true;
+	}
+	return false;
+}
+
+/**
+ * Array map recursive
+ * @param $callback
+ * @param $array
+ *
+ * @return array
+ */
+function array_map_recursive($callback, $array) {
+	$func = function ($item) use (&$func, &$callback) {
+		return is_array($item) ? array_map($func, $item) : call_user_func($callback, $item);
+	};
+
+	return array_map($func, $array);
 }

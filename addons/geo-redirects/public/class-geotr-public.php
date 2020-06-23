@@ -156,8 +156,10 @@ private function pass_basic_rules( $redirection ) {
 
 	// check for child page
 	if ( isset( $opts['exclude_child'] )  && 1 === absint( $opts['exclude_child'] ) ) {
+		$temp_opts = $opts;
+		$temp_opts['url'] = rtrim( str_replace('{{requested_path}}', '', $temp_opts['url'] ), '/');
 		// if destination url it's included in the current, means we are in a child. Add / to be sure its child
-		if( strpos( $current_url, $this->replaceShortcodes( $opts, true ) . '/' ) !== false ) {
+		if( strpos( $current_url, $this->replaceShortcodes( $temp_opts, true ) . '/' ) !== false ) {
 			return false;
 		}
 	}

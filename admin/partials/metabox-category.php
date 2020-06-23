@@ -6,8 +6,8 @@
 		<label for="geot-in-countries"><?php _e( 'Include Countries' ); ?></label>
 	</th>
 	<td>
-		<input type="text" name="geot[in_countries]" id="geot-in-countries" class="selectize-input"
-		       value="<?php echo $geot['in_countries']; ?>" style="width:80%;">
+		<input type="text" name="geot[in_countries]" id="geot-in-countries" class="geot_text selectize-input"
+		       value="<?php echo $geot['in_countries']; ?>" style="width:100%;">
 		<br/>
 		<span class="description"><?php _e( 'Type country names or ISO codes separated by commas.', 'geot' ); ?></span>
 	</td>
@@ -32,8 +32,8 @@
 		<label for="geot-ex-countries"><?php _e( 'Exclude Countries' ); ?></label>
 	</th>
 	<td>
-		<input type="text" name="geot[ex_countries]" id="geot-ex-countries" class="selectize-input"
-		       value="<?php echo $geot['ex_countries']; ?>" style="width:80%;"><br/>
+		<input type="text" name="geot[ex_countries]" id="geot-ex-countries" class="geot_text selectize-input"
+		       value="<?php echo $geot['ex_countries']; ?>" style="width:100%;"><br/>
 		<span class="description"><?php _e( 'Type country names or ISO codes separated by commas.', 'geot' ); ?></span>
 	</td>
 </tr>
@@ -63,8 +63,8 @@
 		<label for="geot-in-cities"><?php _e( 'Include Cities' ); ?></label>
 	</th>
 	<td>
-		<input type="text" name="geot[in_cities]" id="geot-in-cities" class="selectize-input"
-		       value="<?php echo $geot['in_cities']; ?>" style="width:80%;"><br/>
+		<input type="text" name="geot[in_cities]" id="geot-in-cities" class="geot_text selectize-input"
+		       value="<?php echo $geot['in_cities']; ?>" style="width:100%;"><br/>
 		<span class="description"><?php _e( 'Type city names separated by commas.', 'geot' ); ?></span>
 	</td>
 </tr>
@@ -88,8 +88,8 @@
 		<label for="geot-ex-cities-regions"><?php _e( 'Exclude Cities' ); ?></label>
 	</th>
 	<td>
-		<input type="text" name="geot[ex_cities]" id="geot-ex-cities-regions" class="selectize-input"
-		       value="<?php echo $geot['ex_cities']; ?>" style="width:80%;"><br/>
+		<input type="text" name="geot[ex_cities]" id="geot-ex-cities-regions" class="geot_text selectize-input"
+		       value="<?php echo $geot['ex_cities']; ?>" style="width:100%;"><br/>
 		<span class="description"><?php _e( 'Type city names separated by commas.', 'geot' ); ?></span>
 	</td>
 </tr>
@@ -118,8 +118,8 @@
 		<label for="geot-in-states"><?php _e( 'Include States' ); ?></label>
 	</th>
 	<td>
-		<input type="text" name="geot[in_states]" id="geot-in-states" class="selectize-input"
-		       value="<?php echo $geot['in_states']; ?>" style="width:80%;"><br/>
+		<input type="text" name="geot[in_states]" id="geot-in-states" class="geot_text selectize-input"
+		       value="<?php echo $geot['in_states']; ?>" style="width:100%;"><br/>
 		<span class="description"><?php _e( 'Type state names or ISO codes separated by commas.', 'geot' ); ?></span>
 	</td>
 </tr>
@@ -128,8 +128,8 @@
 		<label for="geot-ex-states"><?php _e( 'Exclude States' ); ?></label>
 	</th>
 	<td>
-		<input type="text" name="geot[ex_states]" id="geot-ex-states" class="selectize-input"
-		       value="<?php echo $geot['ex_states']; ?>" style="width:80%;"><br/>
+		<input type="text" name="geot[ex_states]" id="geot-ex-states" class="geot_text selectize-input"
+		       value="<?php echo $geot['ex_states']; ?>" style="width:100%;"><br/>
 		<span class="description"><?php _e( 'Type state names or ISO codes separated by commas.', 'geot' ); ?></span>
 	</td>
 </tr>
@@ -144,8 +144,8 @@
 		<label for="geot-in-zipcodes"><?php _e( 'Include Zipcodes' ); ?></label>
 	</th>
 	<td>
-		<input type="text" name="geot[in_zipcodes]" id="geot-in-zipcodes" class="selectize-input"
-		       value="<?php echo $geot['in_zipcodes']; ?>" style="width:80%;"><br/>
+		<input type="text" name="geot[in_zipcodes]" id="geot-in-zipcodes" class="geot_text selectize-input"
+		       value="<?php echo $geot['in_zipcodes']; ?>" style="width:100%;"><br/>
 		<span class="description"><?php _e( 'Type zip codes separated by commas.', 'geot' ); ?></span>
 	</td>
 </tr>
@@ -169,8 +169,8 @@
 		<label for="geot-ex-zipcodes"><?php _e( 'Exclude Zipcodes' ); ?></label>
 	</th>
 	<td>
-		<input type="text" name="geot[ex_zipcodes]" id="geot-ex-zipcodes" class="selectize-input"
-		       value="<?php echo $geot['ex_zipcodes']; ?>" style="width:80%;"><br/>
+		<input type="text" name="geot[ex_zipcodes]" id="geot-ex-zipcodes" class=" geot_text selectize-input"
+		       value="<?php echo $geot['ex_zipcodes']; ?>" style="width:100%;"><br/>
 		<span class="description"><?php _e( 'Type zip codes separated by commas.', 'geot' ); ?></span>
 	</td>
 </tr>
@@ -186,5 +186,24 @@
 				<option value="<?php echo $region; ?>" <?php selected( in_array( $region, $geot['ex_zips_regions'] ), true, true ); ?>><?php echo $region; ?></option>
 			<?php endforeach; ?>
 		</select>
+	</td>
+</tr>
+<tr class="form-field">
+	<th colspan="2"><h2><?php _e( 'Geotargeting by Radius', 'geot' ); ?></h2></th>
+</tr>
+<tr valign="top">
+	<th><label for="gstates"><?php _e( 'Given Radius:', 'geot' ); ?></label></th>
+	<td>
+
+		<input type="text" id="radius_km" class="geot_text" name="geot[radius_km]"
+		       value="<?php echo ! empty( $geot['radius_km'] ) ? $geot['radius_km'] : '100'; ?>"
+		       placeholder="<?php _e( '100', 'geot' ); ?>" style="width: 60px;"/> km within
+		<input type="text" id="radius_lat" class="geot_text" name="geot[radius_lat]"
+		       value="<?php echo ! empty( $geot['radius_lat'] ) ? $geot['radius_lat'] : ''; ?>"
+		       placeholder="<?php _e( 'Enter latitude', 'geot' ); ?>"/>
+		<input type="text" id="radius_lng" class="geot_text" name="geot[radius_lng]"
+		       value="<?php echo ! empty( $geot['radius_lng'] ) ? $geot['radius_lng'] : ''; ?>"
+		       placeholder="<?php _e( 'Enter longitude', 'geot' ); ?>"/>
+
 	</td>
 </tr>

@@ -34,7 +34,7 @@ class GeotWP_WC {
 					'id'       => 'woocommerce_geot_geolocate',
 					'default'  => 'no',
 					'type'     => 'checkbox',
-					'desc_tip' => esc_html__( 'If you checked this option, to geolocate customer location will use GeotargetingWP.', 'geot' ),
+					'desc_tip' => esc_html__( 'If you check this option, GeotargetingWP will be used for geolocation.', 'geot' ),
 				];
 			}
 

@@ -24,7 +24,8 @@ $defaults = [
 $opts     = wp_parse_args( $opts, apply_filters( 'geot/default_settings', $defaults ) );
 
 $countries = geot_countries();
-?>
+
+use function GeotCore\hosting_has_db; ?>
 <script>
     var geot_countries = <?php echo json_encode( array_map( function ( $a ) {
 		return [ 'text' => $a->country, 'value' => $a->iso_code ];
@@ -83,11 +84,7 @@ $countries = geot_countries();
 				</tr>
 			<?php endif; ?>
 
-			<?php if ( getenv( 'HTTP_GEOIP_COUNTRY_CODE' ) !== false
-			           || getenv( 'GEOIP_COUNTRY_CODE' ) !== false
-			           || ! empty( $_SERVER['HTTP_GEOIP_CITY_COUNTRY_NAME'] )
-			           || ! empty( $_SERVER['HTTP_GEOIP_COUNTRY_CODE'] )
-			): ?>
+			<?php if ( hosting_has_db() ): ?>
 				<tr valign="top" class="">
 					<th><label for=""><?php _e( 'Enable Hosting Database', 'geot' ); ?></label></th>
 					<td colspan="3">

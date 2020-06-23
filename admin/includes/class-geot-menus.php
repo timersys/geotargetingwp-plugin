@@ -20,14 +20,21 @@ class GeotWP_Menus {
 	 * @var      string $version The version of this plugin.
 	 */
 	public function __construct() {
+		global $wp_version;
+
 		$this->opts = geot_settings();
 		$this->geot_opts = geotwp_settings();
 
 		if ( empty( $this->geot_opts['disable_menu_integration'] ) ) {
+
+			if ( version_compare( $wp_version, '5.4', '>=' ) )
+				add_action( 'wp_nav_menu_item_custom_fields', [ $this, 'custom_fields' ], 10, 2 );
+			else
+				add_filter( 'wp_edit_nav_menu_walker', [ $this, 'admin_menu_walker' ], 150, 2 );
+
 			add_filter( 'wp_setup_nav_menu_item', [ $this, 'add_custom_fields' ] );
-			add_filter( 'wp_edit_nav_menu_walker', [ $this, 'admin_menu_walker' ], 150, 2 );
-			add_action( 'wp_update_nav_menu_item', [ $this, 'save_custom_fields' ], 10, 3 );
 			add_filter( 'wp_nav_menu_objects', [ $this, 'geotarget_menus' ], 10, 2 );
+			add_action( 'wp_update_nav_menu_item', [ $this, 'save_custom_fields' ], 10, 3 );
 		}
 	}
 
@@ -100,17 +107,20 @@ class GeotWP_Menus {
 		}
 
 		foreach ( $sorted_menu_items as $k => $menu_item ) {
-			$g = $menu_item->geot;
-			if ( empty( $menu_item->ID ) ) {
+
+			if ( empty( $menu_item->ID ) || empty( $menu_item->geot ) ) {
 				continue;
 			}
-			// check at least one condition is filled
-			if ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) {
-				$menu_item->classes[] = 'geot-ajax geot_menu_item';
-				add_filter( 'nav_menu_link_attributes', [ $this, 'add_geot_info' ], 10, 2 );
-			} else {
-				if ( GeotWP_Helper::user_is_targeted( $g, $menu_item->ID ) ) {
-					unset( $sorted_menu_items[ $k ] );
+			$g = $menu_item->geot;
+			if( $this->menu_has_geot_settings($g) ) {
+				// check at least one condition is filled
+				if ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) {
+					$menu_item->classes[] = 'geot-ajax geot_menu_item';
+					add_filter( 'nav_menu_link_attributes', [ $this, 'add_geot_info' ], 10, 2 );
+				} else {
+					if ( GeotWP_Helper::user_is_targeted( $g, $menu_item->ID ) ) {
+						unset( $sorted_menu_items[ $k ] );
+					}
 				}
 			}
 
@@ -128,13 +138,112 @@ class GeotWP_Menus {
 	 * @return mixed
 	 */
 	public function add_geot_info( $atts, $item ) {
-
-		if ( ! empty( $item->geot ) ) {
-			$atts['data-action']    = 'menu_filter';
-			$atts['data-filter']    = base64_encode( serialize( $item->geot ) );
-			$atts['data-ex_filter'] = $item->ID;
+		global $wp_version;
+		$geo_info = $item->geot;
+		if ( version_compare( $wp_version, '5.4', '>=' ) ) {
+			$geo_info = get_post_meta( $item->ID, '_menu_item_geot', true );
 		}
+		$atts['data-action']    = 'menu_filter';
+		$atts['data-filter']    = base64_encode( serialize( $geo_info ) );
+		$atts['data-ex_filter'] = $item->ID;
 
 		return $atts;
+	}
+
+
+	/**
+	 * Function to custom field to menu
+	 * New functionality from WP 4.0
+	 *
+	 * @param $item_id
+	 * @param $item
+	 *
+	 * @return mixed
+	 */
+	public function custom_fields($item_id, $item) {
+		wp_nonce_field( 'geot_menu_meta_nonce', '_geot_menu_meta_nonce_name' );
+		$geot = get_post_meta( $item_id, '_menu_item_geot', true );
+
+		$geot['geot_include_mode'] = isset( $geot['geot_include_mode'] ) ? $geot['geot_include_mode'] : '';
+		$geot['region']            = isset( $geot['region'] ) ? $geot['region'] : '';
+		$geot['country_code']      = isset( $geot['country_code'] ) ? $geot['country_code'] : '';
+		$geot['cities']            = isset( $geot['cities'] ) ? $geot['cities'] : '';
+		$geot['states']            = isset( $geot['states'] ) ? $geot['states'] : '';
+		$geot['zipcodes']          = isset( $geot['zipcodes'] ) ? $geot['zipcodes'] : '';
+
+		?>
+
+		<input type="hidden" name="custom-menu-meta-nonce" value="<?php echo wp_create_nonce( 'custom-menu-meta-name' ); ?>" />
+
+		<p class="field-geot_country description description-wide">
+			<input type="hidden" class="nav-menu-id" value="<?php echo $item_id ;?>" />
+
+			<label for="edit-menu-item-geot_country-<?php echo $item_id; ?>">
+				<div style="text-align: center;"><?php esc_html_e( 'Geotargeting', 'geot' ); ?></div>
+				<label for="geot_what"><?php esc_html_e( 'Choose:', 'geot' ); ?></label><br/>
+				<input type="radio" class="geot_include_mode"
+				       name="menu-item-geot[<?php echo $item_id; ?>][geot_include_mode]"
+				       value="include" <?php checked( $geot['geot_include_mode'], 'include', true ); ?>>
+				<strong>Only show menu item in</strong><br/>
+				<input type="radio" class="geot_include_mode"
+				       name="menu-item-geot[<?php echo $item_id; ?>][geot_include_mode]"
+				       value="exclude" <?php checked( $geot['geot_include_mode'], 'exclude', true ); ?>>
+				<strong>Never show menu item in</strong><br/>
+				<br>
+
+				<label
+						for="geot_position"><?php _e( 'Type regions (comma separated):', 'geot' ); ?></label><br/>
+				<input type="text" class="geot_text widefat"
+				       name="menu-item-geot[<?php echo $item_id; ?>][region]"
+				       value="<?php echo esc_attr( $geot['region'] ); ?>"/>
+				<br>
+
+				<label
+						for="geot_position"><?php _e( 'Or type countries or country codes (comma separated):', 'geot' ); ?></label><br/>
+				<input type="text" class="geot_text widefat"
+				       name="menu-item-geot[<?php echo $item_id; ?>][country_code]"
+				       value="<?php echo esc_attr( $geot['country_code'] ); ?>"/>
+				<br>
+
+				<label
+						for="geot_position"><?php _e( 'Or type cities or city regions (comma separated):', 'geot' ); ?></label><br/>
+				<input type="text" class="geot_text widefat"
+				       name="menu-item-geot[<?php echo $item_id; ?>][cities]"
+				       value="<?php echo esc_attr( $geot['cities'] ); ?>"/>
+				<br>
+
+				<label
+						for="geot_position"><?php _e( 'Or type states (comma separated):', 'geot' ); ?></label><br/>
+				<input type="text" class="geot_text widefat"
+				       name="menu-item-geot[<?php echo $item_id; ?>][states]"
+				       value="<?php echo esc_attr( $geot['states'] ); ?>"/>
+
+				<br>
+				<label
+						for="geot_position"><?php _e( 'Or type zipcodes or zip regions (comma separated):', 'geot' ); ?></label><br/>
+				<input type="text" class="geot_text widefat"
+				       name="menu-item-geot[<?php echo $item_id; ?>][zipcodes]"
+				       value="<?php echo esc_attr( $geot['zipcodes'] ); ?>"/>
+			</label>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Checks if any of the menu settings has values
+	 * @param $menu
+	 *
+	 * @return bool
+	 */
+	private function menu_has_geot_settings($menu) {
+		if( ! isset( $menu['geot_include_mode'] ) ) {
+			return false;
+		}
+
+		if( empty( $menu['region'] ) && empty( $menu['country_code'] ) && empty( $menu['cities'] ) && empty( $menu['states'] ) && empty( $menu['zipcodes'] ) ) {
+			return false;
+		}
+
+		return true;
 	}
 }

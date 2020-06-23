@@ -11,6 +11,7 @@
  */
 
 use GeotCore\Session\GeotSession;
+use function GeotCore\is_builder;
 
 /**
  * The public-facing functionality of the plugin.
@@ -47,14 +48,17 @@ class GeotWP_Public {
 		add_action( 'wp_footer', [ $this, 'print_overlay' ], 11 );
 		add_action( 'wp_footer', [ $this, 'print_debug_info' ], 999 );
 
-		add_filter( 'posts_where', [ $this, 'handle_geotargeted_posts' ], PHP_INT_MAX );
-		add_filter( 'the_content', [ $this, 'check_if_geotargeted_content' ], 99 );
+		// disable in rest
+		if( apply_filters( 'geot/disable_in_rest', true ) || ! defined( 'REST_REQUEST' ) || ! REST_REQUEST  ) {
+			add_filter( 'posts_where', [ $this, 'handle_geotargeted_posts' ], PHP_INT_MAX );
+			add_filter( 'the_content', [ $this, 'check_if_geotargeted_content' ], 99 );
+			//woocommerce
+			add_filter( 'woocommerce_product_related_posts_query', [ $this, 'woocommerce_related_products' ], 99 );
 
-		//woocommerce
-		add_filter( 'woocommerce_product_related_posts_query', [ $this, 'woocommerce_related_products' ], 99 );
+			add_action( 'wp', [ $this, 'remove_woo_product' ] );
+			add_filter( 'wp', [ $this, 'disable_woo_product' ] );
+		}
 
-		add_action( 'wp', [ $this, 'remove_woo_product' ] );
-		add_filter( 'wp', [ $this, 'disable_woo_product' ] );
 
 
 		add_filter( 'spu/metaboxes/rule_types', [ $this, 'add_popups_rules' ] );
@@ -114,6 +118,7 @@ class GeotWP_Public {
 			'is_category'       => is_category(),
 			'is_page'           => is_page(),
 			'is_single'         => is_single(),
+			'is_builder'        => is_builder(),
 			'dropdown_search'   => apply_filters( 'geot/dropdown_widget/disable_search', false ),
 			'dropdown_redirect' => apply_filters( 'geot/dropdown_widget/redirect_url', '' ),
 
@@ -344,11 +349,11 @@ class GeotWP_Public {
 			return $where;
 		}
 
-		if ( ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) ) {
+		if ( defined( 'DOING_GEOT_AJAX' ) ) {
 			return $where;
 		}
 
-		if ( ! is_admin() ) {
+		if ( ! is_admin() || ( defined('DOING_AJAX') && DOING_AJAX ) ) {
 			// Get all posts that are being geotargeted
 			$post_to_exclude = $this->get_geotargeted_posts();
 			$key             = "{$wpdb->posts}.ID";

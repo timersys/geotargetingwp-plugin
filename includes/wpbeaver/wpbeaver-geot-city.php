@@ -70,8 +70,8 @@ class WPBeaver_GeoCity {
 
 		extract($settings);
 
-		$in_region_cities = !empty( $in_region_cities ) ? $in_region_cities  : [];
-		$ex_region_cities = !empty( $ex_region_cities ) ? $ex_region_cities  : [];
+		$in_region_cities = !empty( $in_region_cities ) && !empty( $in_region_cities[0] ) ? $in_region_cities  : [];
+		$ex_region_cities = !empty( $ex_region_cities ) && !empty( $ex_region_cities[0] ) ? $ex_region_cities  : [];
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
 		     count( $in_region_cities ) == 0 && count( $ex_region_cities ) == 0
@@ -102,8 +102,8 @@ class WPBeaver_GeoCity {
 
 		extract( $settings );
 
-		$in_region_cities = !empty( $in_region_cities ) ? $in_region_cities  : [];
-		$ex_region_cities = !empty( $ex_region_cities ) ? $ex_region_cities  : [];
+		$in_region_cities = !empty( $in_region_cities ) && !empty( $in_region_cities[0] ) ? $in_region_cities  : [];
+		$ex_region_cities = !empty( $ex_region_cities ) && !empty( $ex_region_cities[0] ) ? $ex_region_cities  : [];
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
 		     count( $in_region_cities ) == 0 && count( $ex_region_cities ) == 0

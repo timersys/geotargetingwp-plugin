@@ -1,5 +1,7 @@
 <?php
 
+use function GeotCore\is_builder;
+
 /**
  * Shortcodes  functions for AJAX mode
  *
@@ -40,7 +42,7 @@ class GeotWP_Ajax_Shortcodes {
 	 */
 	public function register_shortcodes() {
 
-		if ( ! isset( $this->opts['ajax_mode'] ) || $this->opts['ajax_mode'] != '1' ) {
+		if ( ! isset( $this->opts['ajax_mode'] ) || $this->opts['ajax_mode'] != '1' || is_builder() ) {
 			return;
 		}
 
@@ -52,6 +54,7 @@ class GeotWP_Ajax_Shortcodes {
 		add_shortcode( 'geot_filter_city', [ $this, 'geot_filter_cities' ] );
 		add_shortcode( 'geot_filter_state', [ $this, 'geot_filter_states' ] );
 		add_shortcode( 'geot_filter_zip', [ $this, 'geot_filter_zips' ] );
+		add_shortcode( 'geot_filter_radius', [ $this, 'geot_filter_radius' ] );
 
 		add_shortcode( 'geot_country_code', [ $this, 'geot_show_country_code' ] );
 		add_shortcode( 'geot_country_name', [ $this, 'geot_show_country_name' ] );
@@ -65,6 +68,9 @@ class GeotWP_Ajax_Shortcodes {
 		add_shortcode( 'geot_time_zone', [ $this, 'geot_show_time_zone' ] );
 		add_shortcode( 'geot_lat', [ $this, 'geot_show_lat' ] );
 		add_shortcode( 'geot_lng', [ $this, 'geot_show_lng' ] );
+		add_shortcode( 'geot_dropdown',  'geot_dropdown' );
+
+		add_shortcode( 'geot_placeholder', [ $this, 'geot_placeholder' ] );
 	}
 
 	/**
@@ -156,6 +162,27 @@ class GeotWP_Ajax_Shortcodes {
 		], $atts ) );
 
 		return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $zip . '" data-region="' . $region . '" data-ex_filter="' . $exclude_zip . '" data-ex_region="' . $exclude_region . '">' . do_shortcode( $content ) . '</' . $html_tag . '>';
+
+	}
+	/**
+	 * Shows provided content only if the location
+	 * criteria are met.
+	 * [geot_filter_radius radius_km="100" lat="" lng=""]content[/geot_zip]
+	 *
+	 * @param $atts
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	function geot_filter_radius( $atts, $content ) {
+		extract( shortcode_atts( [
+			'radius_km'			=> '100',
+			'lat'			    => '',
+			'lng'		        => '',
+			'html_tag'			=> 'div',
+		], $atts ) );
+
+		return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="radius_filter" data-filter="' . $radius_km . '" data-region="' . $lat . '" data-ex_filter="' . $lng . '" >' . do_shortcode( $content ) . '</' . $html_tag . '>';
 
 	}
 
@@ -322,7 +349,19 @@ class GeotWP_Ajax_Shortcodes {
 		return '<' . $html_tag . ' class="geot-ajax" data-action="longitude" data-default="' . do_shortcode( $default ) . '"></' . $html_tag . '>';
 	}
 
+	/**
+	 * Display placeholder when the ajax is executing
+	 * [geot_placeholder]
+	 * @return string
+	 */
+	function geot_placeholder( $atts = [], $content = '' ) {
+
+		return '<div class="geot-ajax geot-placeholder" style="display:none;">' . do_shortcode( $content ) . '</div>';
+	}
+
+
 	function geot_debug_data() {
 		return '<div class="geot-ajax geot-debug-data"></div>';
 	}
+
 }	

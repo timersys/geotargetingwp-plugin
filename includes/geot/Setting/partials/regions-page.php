@@ -34,9 +34,12 @@ $countries = geot_countries();
 			</tr>
 
 			<?php if ( apply_filters( 'geot/enable_predefined_regions', true ) ) : ?>
+				<tr valign="top" class="region-title">
+					<th colspan="3"><h3><?php _e( 'Continents:', 'geot' ); ?></h3></th>
 
+				</tr>
 				<tr valign="top" class="">
-					<th><h3><?php _e( 'Continents:', 'geot' ); ?></h3></th>
+					<th><label for="region"><?php _e( 'Continents:', 'geot' ); ?></label></th>
 					<td colspan="3">
 						<p class="help"><?php _e( 'We have created some predefined regions in case you need them:', 'geot' ); ?></p>
 						<ul class="help">
@@ -53,10 +56,8 @@ $countries = geot_countries();
 
 			<?php endif; ?>
 
-			<tr valign="top" class="">
-				<th><h3><?php _e( 'Countries:', 'geot' ); ?></h3></th>
-				<td colspan="3">
-				</td>
+			<tr valign="top" class="region-title">
+				<th  colspan="3"><h3><?php _e( 'Countries:', 'geot' ); ?></h3></th>
 			</tr>
 			<tr valign="top" class="">
 				<th><label for="region"><?php _e( 'Create new region', 'geot' ); ?></label></th>
@@ -94,10 +95,8 @@ $countries = geot_countries();
 				</td>
 
 			</tr>
-			<tr valign="top" class="">
-				<th><h3><?php _e( 'Cities:', 'geot' ); ?></h3></th>
-				<td colspan="3">
-				</td>
+			<tr valign="top" class="region-title">
+				<th colspan="3"><h3><?php _e( 'Cities:', 'geot' ); ?></h3></th>
 			</tr>
 			<tr valign="top" class="">
 				<th><label for="region"><?php _e( 'Create new region', 'geot' ); ?></label></th>
@@ -199,10 +198,9 @@ $countries = geot_countries();
 				</td>
 
 			</tr>
-			<tr valign="top" class="">
-				<th><h3><?php _e( 'Zip Codes:', 'geot' ); ?></h3></th>
-				<td colspan="3">
-				</td>
+			<tr valign="top" class="region-title">
+				<th colspan="3"><h3><?php _e( 'Zip Codes:', 'geot' ); ?></h3></th>
+
 			</tr>
 			<tr valign="top" class="">
 				<th><label for="region"><?php _e( 'Create new region', 'geot' ); ?></label></th>
