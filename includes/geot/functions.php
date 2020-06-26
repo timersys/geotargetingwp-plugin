@@ -261,6 +261,12 @@ function geot_ips_available() {
 		$ips['X-Real-IP'] = sprintf( __( 'X-Real-IP : %s', 'geot' ), $_SERVER['X-Real-IP'] );
 	}
 
+	// Reblase$_SERVER['HTTP_X_REAL_IP']
+	if ( isset( $_SERVER['HTTP_X_REAL_IP'] ) && ! empty( $_SERVER['HTTP_X_REAL_IP'] ) &&
+	     ! in_array( $_SERVER['HTTP_X_REAL_IP'], $ips ) ) {
+		$ips['HTTP_X_REAL_IP'] = sprintf( __( 'HTTP_X_REAL_IP : %s', 'geot' ), $_SERVER['HTTP_X_REAL_IP'] );
+	}
+
 
 	// Sucuri
 	if ( isset( $_SERVER['HTTP_X_SUCURI_CLIENTIP'] ) && ! empty( $_SERVER['HTTP_X_SUCURI_CLIENTIP'] ) &&
