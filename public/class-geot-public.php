@@ -122,7 +122,7 @@ class GeotWP_Public {
 			'dropdown_search'   => apply_filters( 'geot/dropdown_widget/disable_search', false ),
 			'dropdown_redirect' => apply_filters( 'geot/dropdown_widget/redirect_url', '' ),
 
-			'geoloc_enable'		=> isset($this->opts['geocode']) ? $this->opts['geocode'] : 0,
+			'geoloc_enable'		=> isset($this->opts['geolocation']) ? $this->opts['geolocation'] : 0,
 			'geoloc_force'		=> isset($this->opts['force_geot']) ? $this->opts['force_geot'] : '',
 			'geoloc_fail'		=> esc_html__( 'Geolocation is not supported by this browser', 'geot' ),
 			'geoloc_img_opera'		=> '<img src="' . GEOWP_PLUGIN_URL . 'public/images/geolocation_opera.gif" alt="Geolocation Opera" />',

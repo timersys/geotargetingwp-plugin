@@ -420,8 +420,9 @@ if ( ! function_exists( 'geot_target_zip' ) ) {
 
 if ( ! function_exists( 'geot_target_radius' ) ) {
 	function geot_target_radius( $radius_lat = '', $radius_lng = '', $radius_km = 100 ) {
-		$g    = geotWP();
-		return $g->targetRadius($radius_lat, $radius_lng, $radius_km);
+		$g = geotWP();
+
+		return $g->targetRadius( $radius_lat, $radius_lng, $radius_km );
 	}
 }
 
@@ -435,10 +436,14 @@ if ( ! function_exists( 'geot_settings' ) ) {
 		$settings = get_option( 'geot_settings' );
 
 		/* If Geolocation HTML5 API */
-		if(	( ! is_admin() || wp_doing_ajax() ) &&
-			isset($settings['geolocation']) && $settings['geolocation'] == 'by_html5' &&
-			isset($_COOKIE['geot-gps']) && $_COOKIE['geot-gps'] == 'yes'
-		) {	$settings['ajax_mode'] = 1;	}
+		if (
+			( ! is_admin() || wp_doing_ajax() ) &&
+			isset( $settings['geolocation'] ) &&
+			( $settings['geolocation'] == 'by_html5' || $settings['geolocation'] == 'by_html5_mobile' ) &&
+			isset( $_COOKIE['geot-gps'] ) && $_COOKIE['geot-gps'] == 'yes'
+		) {
+			$settings['ajax_mode'] = 1;
+		}
 
 		return apply_filters( 'geot/settings_page/opts', $settings );
 	}
@@ -483,14 +488,14 @@ if ( ! function_exists( 'geot_countries' ) ) {
  * Grab user IP from different possible sources
  * @return string
  */
-if ( ! function_exists('geot_ips' ) ) {
+if ( ! function_exists( 'geot_ips' ) ) {
 	function geot_ips() {
 		return apply_filters( 'geot/user_ip', '' );
 	}
 }
 
-if( ! function_exists('geot_set_coords') ) {
-	function geot_set_coords($lat, $lng) {
+if ( ! function_exists( 'geot_set_coords' ) ) {
+	function geot_set_coords( $lat, $lng ) {
 		$g = geotWP();
 
 		return $g->set_coords( $lat, $lng );
@@ -504,6 +509,7 @@ if( ! function_exists('geot_set_coords') ) {
 if ( ! function_exists( 'geot_debug_data' ) ) {
 	function geot_debug_data() {
 		$user_data = geot_data();
+		$opts = geot_settings();
 		if ( empty( $user_data->country ) ) {
 			return false;
 		}
@@ -525,7 +531,8 @@ if ( ! function_exists( 'geot_debug_data' ) ) {
 		Default IP: <?php echo GeotWP\getUserIP() . PHP_EOL . '<br>'; ?>
 		Ip being used: <?php echo apply_filters( 'geot/user_ip', GeotWP\getUserIP() ) . PHP_EOL . '<br>'; ?>
 		Geot Version: <?php echo defined( 'GEOT_VERSION' ) ? GEOT_VERSION . PHP_EOL . '<br>' : ''; ?>
-		PHP Version: <?php echo phpversion() . PHP_EOL; ?>
+		PHP Version: <?php echo phpversion() . PHP_EOL. '<br>' ; ?>
+		Geo Method: <?php echo $opts['geolocation'] . PHP_EOL. '<br>' ; ?>
 		Host:   <?= $_SERVER['HTTP_HOST'] ?: 'no set' . PHP_EOL . '<br>' ?>
 		<?php
 		$html = ob_get_contents();

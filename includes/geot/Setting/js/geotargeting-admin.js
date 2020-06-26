@@ -289,7 +289,7 @@
         $("#geolocation").on('change', function (e) {
             const geo = $(this).val();
 
-            if( geo == 'by_html5' )
+            if( geo == 'by_html5' || geo == 'by_html_mobile' )
                 $('.force_geot_field').show();
             else
                 $('.force_geot_field').hide();

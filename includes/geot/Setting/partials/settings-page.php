@@ -134,15 +134,18 @@ use function GeotCore\hosting_has_db; ?>
 						<option value="by_ip" <?php selected( $opts['geolocation'], 'by_ip' ); ?>>
 							<?php esc_html_e('IP Geolocation','geot'); ?>
 						</option>
+						<option value="by_html5_mobile" <?php selected( $opts['geolocation'], 'by_html5_mobile' ); ?>>
+							<?php esc_html_e('GPS HTML5 Geolocation for Mobile + Ip Geolocation for desktop (ajax mode only)','geot'); ?>
+						</option>
 						<option value="by_html5" <?php selected( $opts['geolocation'], 'by_html5' ); ?>>
-							<?php esc_html_e('GPS HTML5 Geolocation (ajax mode only)','geot'); ?>
+							<?php esc_html_e('GPS HTML5 Geolocation for Mobile and Desktop (ajax mode only)','geot'); ?>
 						</option>
 					</select>
 					<p class="help"><?php esc_html_e( 'If you choose HTML5 Geolocation and the user doesn\'t give consent, it will fallback to IP geolocation.', 'geot' ); ?></p>
 				</td>
 			</tr>
 
-			<tr valign="top" class="force_geot_field" style="<?php echo $opts['geolocation'] != 'by_html5' ? 'display:none;' : ''; ?>">
+			<tr valign="top" class="force_geot_field" style="<?php echo ! isset( $opts['geolocation'] ) || ( $opts['geolocation'] != 'by_html5_mobile' && $opts['geolocation'] != 'by_html5') ? 'display:none;' : ''; ?>">
 				<th><label for="force_geot"><?php _e( 'Force GPS Geolocation', 'geot' ); ?></label></th>
 				<td colspan="3">
 					<input type="checkbox" id="force_geot" name="geot_settings[force_geot]"

@@ -26,25 +26,28 @@ echo PHP_EOL; ?>
 
 ##Ip Resolved##
 
-Server:                   <?php
+<?php
 	echo '$_SERVER[REMOTE_ADDR]            = ';
-	echo isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : 'not resolved'; ?><?php echo PHP_EOL; ?>
-Cloudflare:               <?php
+	echo isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : 'not resolved'; ?><?php echo PHP_EOL;
+
 	echo '$_SERVER[HTTP_CF_CONNECTING_IP]  = ';
-	echo isset( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ? $_SERVER['HTTP_CF_CONNECTING_IP'] : 'not resolved'; ?><?php echo PHP_EOL; ?>
-Reblaze:                  <?php
+	echo isset( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ? $_SERVER['HTTP_CF_CONNECTING_IP'] : 'not resolved'; ?><?php echo PHP_EOL;
+
 	echo '$_SERVER[X-Real-IP]              = ';
-	echo isset( $_SERVER['X-Real-IP'] ) ? $_SERVER['X-Real-IP'] : 'not resolved'; ?><?php echo PHP_EOL; ?>
-Sucuri:                   <?php
+	echo isset( $_SERVER['X-Real-IP'] ) ? $_SERVER['X-Real-IP'] : 'not resolved'; ?><?php echo PHP_EOL;
+
+	echo '$_SERVER[HTTP_X_REAL_IP]         = ';
+	echo isset( $_SERVER['HTTP_X_REAL_IP'] ) ? $_SERVER['HTTP_X_REAL_IP'] : 'not resolved'; ?><?php echo PHP_EOL;
+
 	echo '$_SERVER[HTTP_X_SUCURI_CLIENTIP] = ';
-	echo isset( $_SERVER['HTTP_X_SUCURI_CLIENTIP'] ) ? $_SERVER['HTTP_X_SUCURI_CLIENTIP'] : 'not resolved'; ?><?php echo PHP_EOL; ?>
-Ezoic:                    <?php
+	echo isset( $_SERVER['HTTP_X_SUCURI_CLIENTIP'] ) ? $_SERVER['HTTP_X_SUCURI_CLIENTIP'] : 'not resolved'; ?><?php echo PHP_EOL;
+
 	echo '$_SERVER[X-FORWARDED-FOR]        = ';
-	echo isset( $_SERVER['X-FORWARDED-FOR'] ) ? $_SERVER['X-FORWARDED-FOR'] : 'not resolved'; ?><?php echo PHP_EOL; ?>
-Akamai:                   <?php
+	echo isset( $_SERVER['X-FORWARDED-FOR'] ) ? $_SERVER['X-FORWARDED-FOR'] : 'not resolved'; ?><?php echo PHP_EOL;
+
 	echo '$_SERVER[True-Client-IP]         = ';
-	echo isset( $_SERVER['True-Client-IP'] ) ? $_SERVER['True-Client-IP'] : 'not resolved'; ?><?php echo PHP_EOL; ?>
-Clouways:                 <?php
+	echo isset( $_SERVER['True-Client-IP'] ) ? $_SERVER['True-Client-IP'] : 'not resolved'; ?><?php echo PHP_EOL;
+
 	echo '$_SERVER[HTTP_X_FORWARDED_FOR]   = ';
 	echo isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : 'not resolved';
 	?>

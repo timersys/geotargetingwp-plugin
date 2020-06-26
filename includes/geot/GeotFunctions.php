@@ -68,6 +68,14 @@ class GeotCore {
 	private $session;
 
 	/**
+	 * Use to HTML5 Geolocation API
+	 * @var Mixed
+	 */
+	private $lat;
+	private $lng;
+
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -94,7 +102,7 @@ class GeotCore {
 		     && ! is_rest_request()
 		     && ! isset( $_GET['wc_ajax'] )
 		     && ! isset( $_GET['wc-ajax'] )
-			 && (  apply_filters( 'geot/disable_in_rest', true ) || ! defined( 'REST_REQUEST' ) || ! REST_REQUEST )
+		     && ( apply_filters( 'geot/disable_in_rest', true ) || ! defined( 'REST_REQUEST' ) || ! REST_REQUEST )
 		) {
 			add_action( 'init', [ $this, 'getUserData' ] );
 			add_action( 'init', [ $this, 'createRocketCookies' ], 15 );
@@ -136,7 +144,7 @@ class GeotCore {
 			'wpengine'           => 0,
 			'kinsta'             => 0,
 			'litespeed'          => 0,
-			'hosting_db'          => 0,
+			'hosting_db'         => 0,
 		] );
 	}
 
@@ -175,6 +183,20 @@ class GeotCore {
 	}
 
 	/**
+	 * Set Coords from HTML5 Geotargeting API
+	 *
+	 * @param float $lat
+	 * @param float $lng
+	 */
+	public function set_coords( $lat = '', $lng = '' ) {
+
+		if ( ! empty( $lat ) && ! empty( $lng ) ) {
+			$this->lat = $lat;
+			$this->lng = $lng;
+		}
+	}
+
+	/**
 	 * Use user's setting for showing IP
 	 *
 	 * @param $ip
@@ -184,7 +206,7 @@ class GeotCore {
 	function rewrite_ip( $ip ) {
 		$settings = geot_settings();
 		$ip       = $_SERVER['REMOTE_ADDR'];
-		if ( isset( $settings['var_ip'] ) && ! empty( $settings['var_ip'] ) && isset($_SERVER[ $settings['var_ip'] ] ) ) {
+		if ( isset( $settings['var_ip'] ) && ! empty( $settings['var_ip'] ) && isset( $_SERVER[ $settings['var_ip'] ] ) ) {
 			$ip = $_SERVER[ $settings['var_ip'] ];
 		}
 
@@ -202,12 +224,12 @@ class GeotCore {
 	 */
 	public function target( $key, $args = [] ) {
 		//Push places list into array
-		$places         = toArray( $args['include'] );
-		$exclude_places = toArray( $args['exclude'] );
-		$saved_regions  = apply_filters( 'geot/get_' . $key . '_regions', [] );
-		$plural_key     = toPlural( $key );
+		$places             = toArray( $args['include'] );
+		$exclude_places     = toArray( $args['exclude'] );
+		$saved_regions      = apply_filters( 'geot/get_' . $key . '_regions', [] );
+		$plural_key         = toPlural( $key );
 		$predefined_regions = geot_predefined_regions();
-		$continents = wp_list_pluck( geot_predefined_regions(), 'name' );
+		$continents         = wp_list_pluck( geot_predefined_regions(), 'name' );
 
 		$user_state           = new \StdClass();
 		$user_state->iso_code = '';
@@ -220,7 +242,7 @@ class GeotCore {
 			$region = toArray( $args['region'] );
 			foreach ( $region as $region_name ) {
 				// user saved regions
-				if( ! empty( $saved_regions ) ) {
+				if ( ! empty( $saved_regions ) ) {
 					foreach ( $saved_regions as $sr_key => $saved_region ) {
 						if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) ) {
 							$places = array_merge( (array) $places, toArray( $saved_region[ $plural_key ] ) );
@@ -228,7 +250,7 @@ class GeotCore {
 					}
 				}
 				// predefined regions
-				if( $plural_key == 'countries' && in_array( $region_name, $continents ) ) {
+				if ( $plural_key == 'countries' && in_array( $region_name, $continents ) ) {
 					$places = array_merge( (array) $places, get_countries_from_predefined_regions( $region_name ) );
 				}
 			}
@@ -242,7 +264,7 @@ class GeotCore {
 			$exclude_region = toArray( $args['exclude_region'] );
 			foreach ( $exclude_region as $region_name ) {
 				// user saved regions
-				if( ! empty( $saved_regions ) ) {
+				if ( ! empty( $saved_regions ) ) {
 					foreach ( $saved_regions as $sr_key => $saved_region ) {
 						if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) ) {
 							$exclude_places = array_merge( (array) $exclude_places, toArray( $saved_region[ $plural_key ] ) );
@@ -250,7 +272,7 @@ class GeotCore {
 					}
 				}
 				// predefined regions
-				if( $plural_key == 'countries' && in_array( $region_name, $continents ) ) {
+				if ( $plural_key == 'countries' && in_array( $region_name, $continents ) ) {
 					$exclude_places = array_merge( (array) $exclude_places, get_countries_from_predefined_regions( $region_name ) );
 				}
 			}
@@ -320,7 +342,7 @@ class GeotCore {
 	 * @param null $force_locale
 	 */
 	private function checkLocale( $force_locale = null ) {
-		if ( ! isset($this->user_data[ $this->cache_key ]) || ! $this->user_data[ $this->cache_key ] instanceof GeotRecord || apply_filters( 'geot/cancel_locale_check', false ) ) {
+		if ( ! isset( $this->user_data[ $this->cache_key ] ) || ! $this->user_data[ $this->cache_key ] instanceof GeotRecord || apply_filters( 'geot/cancel_locale_check', false ) ) {
 			return;
 		}
 
@@ -358,7 +380,7 @@ class GeotCore {
 			return 'Invalid GeotRecord classname provided. Valids ones are: ' . implode( ',', GeotRecord::getValidRecords() );
 		}
 
-		if ( ! isset($this->user_data[ $this->cache_key ] ) || $this->user_data[ $this->cache_key ] === null ) {
+		if ( ! isset( $this->user_data[ $this->cache_key ] ) || $this->user_data[ $this->cache_key ] === null ) {
 			$this->getUserData();
 		}
 
@@ -370,13 +392,15 @@ class GeotCore {
 	}
 
 	/**
-	 * @param string $ip
+	 * @param string/string $params : it is the IP or the coords
+	 * @param string $key : ip/coords
 	 *
 	 * @param bool $force
 	 *
 	 * @return array|bool|mixed
 	 */
-	public function getUserData( $ip = "", $force = false ) {
+	public function getUserData( $params = '', $key = 'ip', $force = false ) {
+
 		if ( isset( $_GET['geot_backtrace'] ) || defined( 'GEOT_BACKTRACE' ) ) {
 			$this->printBacktrace();
 		}
@@ -389,16 +413,54 @@ class GeotCore {
 
 			$this->ip = apply_filters( 'geot/user_ip', $this->ip );
 
-			// it's a valid IP ?
-			if(! $this->valid_ip( $this->ip ) ) {
-				return $this->getFallbackCountry();
+			// Check if the geolocation is usign the HTML5 API
+			if ( isset( $this->opts['geolocation'] ) &&
+			     ( $this->opts['geolocation'] == 'by_html5' || $this->opts['geolocation'] == 'by_html5_mobile' ) &&
+			     isset( $_COOKIE['geot-gps'] ) && $_COOKIE['geot-gps'] == 'yes'
+			) {
+
+				if ( $key == 'coords' && is_array( $params ) && count( $params ) == 2 ) {
+					reset( $params );
+					$this->lat = current( $params );
+					$this->lng = end( $params );
+				}
+				if ( ! $this->valid_latitude( $this->lat ) || ! $this->valid_longitude( $this->lng ) ) {
+					return $this->getFallbackCountry();
+				}
+
+				$this->cache_key = md5( $this->lat . $this->lng );
+
+				$options = [
+					'geolocation' => 'by_html5',
+					'data'        => [
+						'lat' => $this->lat,
+						'lng' => $this->lng,
+						'ip'  => $this->ip,
+					],
+				];
+			} else {
+
+				// If the IP has been sent through the params
+				if ( $key == 'ip' && is_string( $params ) && ! empty( $params ) ) {
+					$this->ip = $params;
+				}
+
+				// it's a valid IP ?
+				if ( ! $this->valid_ip( $this->ip ) ) {
+					return $this->getFallbackCountry();
+				}
+
+				$options = [
+					'geolocation' => 'by_ip',
+					'data'        => [ 'ip' => $this->ip ],
+				];
+
+				$this->cache_key = md5( $this->ip );
 			}
 
 			if ( empty( $this->opts['license'] ) ) {
 				throw new InvalidLicenseException( json_encode( [ 'error' => 'License is missing' ] ) );
 			}
-
-			$this->cache_key = md5( $this->ip );
 
 			if ( ! empty ( $this->user_data[ $this->cache_key ] ) ) {
 				return $this->user_data[ $this->cache_key ];
@@ -413,7 +475,7 @@ class GeotCore {
 
 			// If user set cookie and not in debug mode. If we pass ip we are forcing to use ip instead of cookies. Eg in dropdown widget
 			if ( ! empty( $_COOKIE[ $this->opts['cookie_name'] ] ) && ! $force ) {
-				return $this->setData(  $_COOKIE[ $this->opts['cookie_name'] ] );
+				return $this->setData( $_COOKIE[ $this->opts['cookie_name'] ] );
 			}
 
 			// If we already calculated on session return (if we are not calling by IP & if cache mode (sessions) is turned on)
@@ -435,11 +497,11 @@ class GeotCore {
 
 			// Hosting DB ?
 			if (
-				( ! isset($this->opts['hosting_db']) && isset( $this->opts['wpengine'] ) && $this->opts['wpengine'] ) ||
-				( ! isset($this->opts['hosting_db']) && isset( $this->opts['litespeed'] ) && $this->opts['litespeed'] ) ||
-				( ! isset($this->opts['hosting_db']) && isset( $this->opts['kinsta'] ) && $this->opts['kinsta'] ) ||
-				isset($this->opts['hosting_db']) && $this->opts['hosting_db']
-			){
+				( ! isset( $this->opts['hosting_db'] ) && isset( $this->opts['wpengine'] ) && $this->opts['wpengine'] ) ||
+				( ! isset( $this->opts['hosting_db'] ) && isset( $this->opts['litespeed'] ) && $this->opts['litespeed'] ) ||
+				( ! isset( $this->opts['hosting_db'] ) && isset( $this->opts['kinsta'] ) && $this->opts['kinsta'] ) ||
+				isset( $this->opts['hosting_db'] ) && $this->opts['hosting_db']
+			) {
 				return $this->hosting_db();
 			}
 
@@ -513,10 +575,10 @@ class GeotCore {
 	private function check_active_user() {
 
 		if (
-			( ! isset( $this->opts['wpengine'] ) || $this->opts['wpengine'] != '1'  )
-			&& ( ! isset( $this->opts['maxmind'] ) || $this->opts['maxmind'] != '1'  )
+			( ! isset( $this->opts['wpengine'] ) || $this->opts['wpengine'] != '1' )
+			&& ( ! isset( $this->opts['maxmind'] ) || $this->opts['maxmind'] != '1' )
 			&& ( ! isset( $this->opts['ip2location'] ) || $this->opts['ip2location'] != '1' )
-			&& ( ! isset( $this->opts['kinsta'] ) || $this->opts['kinsta'] != '1'  )
+			&& ( ! isset( $this->opts['kinsta'] ) || $this->opts['kinsta'] != '1' )
 			&& ( ! isset( $this->opts['litespeed'] ) || $this->opts['litespeed'] != '1' )
 			&& ( ! isset( $this->opts['hosting_db'] ) || $this->opts['hosting_db'] != '1' )
 		) {
@@ -603,7 +665,7 @@ class GeotCore {
 	 */
 	public function setData( $iso_code ) {
 
-		$record = (object) [
+		$record          = (object) [
 			'continent'   => new \StdClass(),
 			'country'     => new \StdClass(),
 			'state'       => new \StdClass(),
@@ -728,11 +790,11 @@ class GeotCore {
 		}
 		// Own server IP
 		if ( false === ( $geot_server_ip = get_transient( 'geot_server_ip' ) ) ) {
-			$host = gethostname();
-			$geot_server_ip = gethostbyname($host);
+			$host           = gethostname();
+			$geot_server_ip = gethostbyname( $host );
 			set_transient( 'special_query_results', $geot_server_ip, 30 * DAY_IN_SECONDS );
 		}
-		if( $geot_server_ip == $this->ip ) {
+		if ( $geot_server_ip == $this->ip ) {
 			$ret = true;
 		}
 
@@ -884,9 +946,10 @@ class GeotCore {
 	 * @return bool
 	 */
 	private function valid_ip( $ip ) {
-		if( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
+		if ( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -902,16 +965,18 @@ class GeotCore {
 	public function targetRadius( $radius_lat, $radius_lng, $radius_km ) {
 		$user_geo = $this->get( 'geolocation' );
 
-		$distance = $this->getDistance($user_geo->latitude, $user_geo->longitude, $radius_lat, $radius_lng );
+		$distance = $this->getDistance( $user_geo->latitude, $user_geo->longitude, $radius_lat, $radius_lng );
 
-		if( $distance <= $radius_km ) {
+		if ( $distance <= $radius_km ) {
 			return true;
 		}
+
 		return false;
 	}
 
 	/**
 	 * Get distance between two coordinates
+	 *
 	 * @param $latitude1
 	 * @param $longitude1
 	 * @param $latitude2
@@ -919,17 +984,47 @@ class GeotCore {
 	 *
 	 * @return float|int
 	 */
-	private function getDistance($latitude1, $longitude1, $latitude2, $longitude2) {
+	private function getDistance( $latitude1, $longitude1, $latitude2, $longitude2 ) {
 		$earth_radius = 6371;
 
-		$dLat = deg2rad($latitude2 - $latitude1);
-		$dLon = deg2rad($longitude2 - $longitude1);
+		$dLat = deg2rad( $latitude2 - $latitude1 );
+		$dLon = deg2rad( $longitude2 - $longitude1 );
 
-		$a = sin($dLat/2) * sin($dLat/2) + cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * sin($dLon/2) * sin($dLon/2);
-		$c = 2 * asin(sqrt($a));
+		$a = sin( $dLat / 2 ) * sin( $dLat / 2 ) + cos( deg2rad( $latitude1 ) ) * cos( deg2rad( $latitude2 ) ) * sin( $dLon / 2 ) * sin( $dLon / 2 );
+		$c = 2 * asin( sqrt( $a ) );
 		$d = $earth_radius * $c;
 
 		return $d;
+	}
+
+	/**
+	 * @param int $lat
+	 *
+	 * @return bool
+	 */
+	private function valid_latitude( $lat = 0 ) {
+		$regex = '/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/';
+		if ( preg_match( $regex, $lat ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param int $lng
+	 *
+	 * @return bool
+	 */
+	private function valid_longitude( $lng = 0 ) {
+
+		$regex = '/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/';
+
+		if ( preg_match( $regex, $lng ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
