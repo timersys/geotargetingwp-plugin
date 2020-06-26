@@ -163,7 +163,9 @@ class GeotWP_Menus {
 	public function custom_fields($item_id, $item) {
 		wp_nonce_field( 'geot_menu_meta_nonce', '_geot_menu_meta_nonce_name' );
 		$geot = get_post_meta( $item_id, '_menu_item_geot', true );
-
+		if( empty( $geot ) ) {
+			$geot = [];
+		}
 		$geot['geot_include_mode'] = isset( $geot['geot_include_mode'] ) ? $geot['geot_include_mode'] : '';
 		$geot['region']            = isset( $geot['region'] ) ? $geot['region'] : '';
 		$geot['country_code']      = isset( $geot['country_code'] ) ? $geot['country_code'] : '';
