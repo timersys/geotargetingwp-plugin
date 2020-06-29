@@ -707,10 +707,6 @@ class GeotCore {
 			$ret = true;
 		}
 
-		if ( is_feed() ) {
-			$ret = true;
-		}
-
 		// same fo rCLI
 		if ( PHP_SAPI == 'cli' || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 			$ret = true;
