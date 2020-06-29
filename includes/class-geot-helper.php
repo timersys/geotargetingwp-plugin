@@ -192,11 +192,8 @@ class GeotWP_Helper {
 			return true;
 		}
 
-		if ( geot_target( $in_countries, $in_countries_regions, $ex_countries, $ex_countries_regions ) ) {
-			return true;
-		}
+		return geot_target( $in_countries, $in_countries_regions, $ex_countries, $ex_countries_regions );
 
-		return false;
 	}
 
 
@@ -217,12 +214,8 @@ class GeotWP_Helper {
 			return true;
 		}
 
+		return geot_target_city( $in_cities, $in_cities_regions, $ex_cities, $ex_cities_regions );
 
-		if ( geot_target_city( $in_cities, $in_cities_regions, $ex_cities, $ex_cities_regions ) ) {
-			return true;
-		}
-
-		return false;
 	}
 
 
@@ -242,11 +235,7 @@ class GeotWP_Helper {
 		}
 
 
-		if ( geot_target_state( $in_states, $ex_states ) ) {
-			return true;
-		}
-
-		return false;
+		return geot_target_state( $in_states, $ex_states );
 	}
 
 
@@ -268,11 +257,7 @@ class GeotWP_Helper {
 		}
 
 
-		if ( geot_target_zip( $in_zipcodes, $in_zips_regions, $ex_zipcodes, $ex_zips_regions ) ) {
-			return true;
-		}
-
-		return false;
+		return geot_target_zip( $in_zipcodes, $in_zips_regions, $ex_zipcodes, $ex_zips_regions );
 	}
 
 
