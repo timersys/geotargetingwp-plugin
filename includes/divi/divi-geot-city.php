@@ -78,12 +78,7 @@ class Divi_GeoCity {
 			return true;
 		}
 
-
-		if ( geot_target_city( $in_cities, $in_regions, $ex_cities, $ex_regions ) ) {
-			return true;
-		}
-
-		return false;
+		return geot_target_city( $in_cities, $in_regions, $ex_cities, $ex_regions );
 	}
 
 

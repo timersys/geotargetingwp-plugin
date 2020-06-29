@@ -82,11 +82,7 @@ class WPBeaver_GeoCountry {
 		}
 
 
-		if ( geot_target( $in_countries, $in_region_countries, $ex_countries, $ex_region_countries ) ) {
-			return true;
-		}
-
-		return false;
+		return geot_target( $in_countries, $in_region_countries, $ex_countries, $ex_region_countries );
 	}
 
 

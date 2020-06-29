@@ -81,11 +81,7 @@ class WPBeaver_GeoZipcode {
 		}
 
 
-		if ( geot_target_zip( $in_zipcodes, $in_region_zips, $ex_zipcodes, $ex_region_zips ) ) {
-			return true;
-		}
-
-		return false;
+		return geot_target_zip( $in_zipcodes, $in_region_zips, $ex_zipcodes, $ex_region_zips );
 	}
 
 

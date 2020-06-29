@@ -137,12 +137,7 @@ class Elementor_GeoCity {
 			return true;
 		}
 
-
-		if ( geot_target_city( $in_cities, $in_regions_cities, $ex_cities, $ex_regions_cities ) ) {
-			return true;
-		}
-
-		return false;
+		return geot_target_city( $in_cities, $in_regions_cities, $ex_cities, $ex_regions_cities );
 	}
 
 
