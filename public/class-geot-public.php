@@ -461,7 +461,7 @@ class GeotWP_Public {
 			return;
 		}
 
-		if ( ! is_cart() || ! is_checkout() ) {
+		if ( ! is_cart() && ! is_checkout() ) {
 			return;
 		}
 
