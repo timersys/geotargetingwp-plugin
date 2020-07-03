@@ -49,7 +49,7 @@ class GeotWP_Ajax {
 	public function geot_ajax() {
 		define( 'DOING_GEOT_AJAX', true );
 		$geots      = $posts = [];
-		$debug = $redirect = $blocker = "";
+		$debug = $redirect = $blocker = $geo = "";
 		$posts      = $this->get_geotargeted_posts();
 		$this->data = $_POST;
 
@@ -72,17 +72,29 @@ class GeotWP_Ajax {
 					];
 				}
 			}
-			// only call debug info if we ran any geo action before to save requests
-			$debug = $this->getDebugInfo();
-		}
 
-		echo json_encode( [ 'success'  => 1,
-		                    'data'     => $geots,
-		                    'posts'    => $posts,
-		                    'redirect' => $redirect,
-		                    'blocker'  => $blocker,
-		                    'debug'    => $debug,
-		] );
+
+		}
+		// only call debug info if we ran any geo action before to save requests
+		if( count( $posts['remove'] ) > 0
+		    || count( $posts['hide'] ) > 0
+			|| ! empty( $geots )
+			|| ! empty( $blocker )
+			|| ! empty( $redirect )
+		) {
+			$debug = $this->getDebugInfo();
+			$geo = geot_data();
+		}
+		$result = [
+			'success'  => 1,
+            'data'     => $geots,
+            'posts'    => $posts,
+            'redirect' => $redirect,
+            'blocker'  => $blocker,
+            'debug'    => $debug,
+            'geo'      => $geo,
+		];
+		echo json_encode( $result );
 		die();
 	}
 

@@ -139,14 +139,14 @@
                         $('#geot-debug-info').html(debug);
                         $('.geot-debug-data').html(debug.replace(/<!--|-->/gi, ''));
                     }
-                    $(document).trigger('geotwp_ajax_success');
+                    $(document).trigger('geotwp_ajax_success', response);
                 }
             }
 
             const error_cb = function (data, error, errorThrown) {
                 console.log('Geot Ajax error: ' + error + ' - ' + errorThrown);
             }
-            if (geot && geot.ajax)
+            if ( geot && geot.ajax )
                 GeotWP.request(data, onSuccess, error_cb);
         },
         /**

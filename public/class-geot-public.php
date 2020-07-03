@@ -103,8 +103,8 @@ class GeotWP_Public {
 
 		$src = 'js/geotarget-public.js';
 
-		wp_enqueue_script( 'geot-js', plugin_dir_url( __FILE__ ) . $src, [ 'jquery' ], false, true );
-		wp_enqueue_script( 'geot-slick', plugin_dir_url( __FILE__ ) . 'js/min/selectize.min.js', [ 'jquery' ], false, true );
+		wp_enqueue_script( 'geot-js', plugin_dir_url( __FILE__ ) . $src, [ 'jquery' ], GEOWP_VERSION, true );
+		wp_enqueue_script( 'geot-slick', plugin_dir_url( __FILE__ ) . 'js/min/selectize.min.js', [ 'jquery' ], GEOWP_VERSION, true );
 		wp_localize_script( 'geot-js', 'geot', [
 			'ajax_url'          => admin_url( 'admin-ajax.php' ),
 			'ajax'              => isset( $this->opts['ajax_mode'] ) ?  $this->opts['ajax_mode'] : '',
