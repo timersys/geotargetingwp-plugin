@@ -78,12 +78,8 @@ class Divi_GeoZipcode {
 			return true;
 		}
 
+		return geot_target_zip( $in_zipcodes, $in_regions, $ex_zipcodes, $ex_regions );
 
-		if ( geot_target_zip( $in_zipcodes, $in_regions, $ex_zipcodes, $ex_regions ) ) {
-			return true;
-		}
-
-		return false;
 	}
 
 

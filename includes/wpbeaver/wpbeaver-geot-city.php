@@ -80,11 +80,7 @@ class WPBeaver_GeoCity {
 		}
 
 
-		if ( geot_target_city( $in_cities, $in_region_cities, $ex_cities, $ex_region_cities ) ) {
-			return true;
-		}
-
-		return false;
+		return geot_target_city( $in_cities, $in_region_cities, $ex_cities, $ex_region_cities );
 	}
 
 

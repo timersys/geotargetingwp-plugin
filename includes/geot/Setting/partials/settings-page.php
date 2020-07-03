@@ -45,7 +45,7 @@ use function GeotCore\hosting_has_db; ?>
 					<label><input type="text" id="license" name="geot_settings[license]"
 					              value="<?php echo $opts['license']; ?>" class="api-keys <?php echo 'geot_license_';
 						echo ! empty( $opts['license'] ) && get_option( 'geot_license_active' ) ? get_option( 'geot_license_active' ) : ''; ?>"/>
-						<button class="button-primary check-license">Check Credits/Subscription</button>
+
 						<p class="help"><?php _e( 'Enter your api key in order to connect with the API and also get automatic updates', 'geot' ); ?></p>
 						<?php if ( isset( $_GET['geot_message'] ) ) {
 							echo '<p style="color:red;">' . esc_attr( $_GET['geot_message'] ) . '</p>';

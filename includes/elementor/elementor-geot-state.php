@@ -111,11 +111,7 @@ class Elementor_GeoState {
 			return true;
 		}
 
-		if ( geot_target_state( $in_states, $ex_states ) ) {
-			return true;
-		}
-
-		return false;
+		return geot_target_state( $in_states, $ex_states );
 	}
 
 

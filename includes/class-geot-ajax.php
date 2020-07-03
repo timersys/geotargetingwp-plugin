@@ -48,19 +48,21 @@ class GeotWP_Ajax {
 	 */
 	public function geot_ajax() {
 		define( 'DOING_GEOT_AJAX', true );
-		$geots      = $posts = [];
-		$debug = $redirect = $blocker = "";
+		$geots    = $posts = [];
 		$settings = geot_settings();
+
+		$debug = $redirect = $blocker = $geo = "";
+		$posts = $this->get_geotargeted_posts();
+
 		$this->data = $_POST;
-		
-		if( isset($settings['geolocation']) && ( $settings['geolocation'] == 'by_html5' || $settings['geolocation'] == 'by_html5_mobile' ) &&
-			isset($_COOKIE['geot-gps']) && $_COOKIE['geot-gps'] == 'yes'
+
+		if ( isset( $settings['geolocation'] ) && ( $settings['geolocation'] == 'by_html5' || $settings['geolocation'] == 'by_html5_mobile' ) &&
+		     isset( $_COOKIE['geot-gps'] ) && $_COOKIE['geot-gps'] == 'yes'
 		) {
 			geot_set_coords( $this->data['geot_lat'], $this->data['geot_lng'] );
 		}
 
-		$posts = $this->get_geotargeted_posts();
-		
+
 		if ( isset( $this->data['geot_redirects'] ) && $this->data['geot_redirects'] == 1 ) {
 			$redirect = $this->geo_redirects();
 		}
@@ -80,17 +82,29 @@ class GeotWP_Ajax {
 					];
 				}
 			}
-			// only call debug info if we ran any geo action before to save requests
-			$debug = $this->getDebugInfo();
-		}
 
-		echo json_encode( [ 'success'  => 1,
-		                    'data'     => $geots,
-		                    'posts'    => $posts,
-		                    'redirect' => $redirect,
-		                    'blocker'  => $blocker,
-		                    'debug'    => $debug,
-		] );
+
+		}
+		// only call debug info if we ran any geo action before to save requests
+		if ( count( $posts['remove'] ) > 0
+		     || count( $posts['hide'] ) > 0
+		     || ! empty( $geots )
+		     || ! empty( $blocker )
+		     || ! empty( $redirect )
+		) {
+			$debug = $this->getDebugInfo();
+			$geo   = geot_data();
+		}
+		$result = [
+			'success'  => 1,
+			'data'     => $geots,
+			'posts'    => $posts,
+			'redirect' => $redirect,
+			'blocker'  => $blocker,
+			'debug'    => $debug,
+			'geo'      => $geo,
+		];
+		echo json_encode( $result );
 		die();
 	}
 
@@ -428,9 +442,11 @@ class GeotWP_Ajax {
 
 		return false;
 	}
+
 	/**
 	 * Filter function for radius
 	 * region = lat, exfilter =lng, filter =radius_km
+	 *
 	 * @param $geot
 	 *
 	 * @return boolean
@@ -475,16 +491,16 @@ class GeotWP_Ajax {
 
 		$target = [
 			'geot_include_mode' => $filter['geot_include_mode'],
-			'country_code'		=> !empty( $filter['geot']['country_code'] ) ? $filter['geot']['country_code'] : [],
-			'region'			=> !empty( $filter['geot']['region'] ) ? $filter['geot']['region'] : [],
-			'cities'			=> !empty( $filter['geot_cities'] ) ? $filter['geot_cities'] : '',
-			'city_region'		=> !empty( $filter['geot_cities'] ) ? $filter['geot_cities'] : '',
-			'states'			=> !empty( $filter['geot_states'] ) ? $filter['geot_states'] : '',
-			'zipcodes'			=> !empty( $filter['geot_zipcodes'] ) ? $filter['geot_zipcodes'] : '',
-			'zip_region'		=> !empty( $filter['geot_zipcodes'] ) ? $filter['geot_zipcodes'] : '',
-			'radius_km'		    => !empty( $filter['radius_km'] ) ? $filter['radius_km'] : '',
-			'radius_lat'		=> !empty( $filter['radius_lat'] ) ? $filter['radius_lat'] : '',
-			'radius_lng'		=> !empty( $filter['radius_lng'] ) ? $filter['radius_lng'] : '',
+			'country_code'      => ! empty( $filter['geot']['country_code'] ) ? $filter['geot']['country_code'] : [],
+			'region'            => ! empty( $filter['geot']['region'] ) ? $filter['geot']['region'] : [],
+			'cities'            => ! empty( $filter['geot_cities'] ) ? $filter['geot_cities'] : '',
+			'city_region'       => ! empty( $filter['geot_cities'] ) ? $filter['geot_cities'] : '',
+			'states'            => ! empty( $filter['geot_states'] ) ? $filter['geot_states'] : '',
+			'zipcodes'          => ! empty( $filter['geot_zipcodes'] ) ? $filter['geot_zipcodes'] : '',
+			'zip_region'        => ! empty( $filter['geot_zipcodes'] ) ? $filter['geot_zipcodes'] : '',
+			'radius_km'         => ! empty( $filter['radius_km'] ) ? $filter['radius_km'] : '',
+			'radius_lat'        => ! empty( $filter['radius_lat'] ) ? $filter['radius_lat'] : '',
+			'radius_lng'        => ! empty( $filter['radius_lng'] ) ? $filter['radius_lng'] : '',
 		];
 
 		if ( GeotWP_Helper::user_is_targeted( $target, $geot['ex_filter'] ) ) {

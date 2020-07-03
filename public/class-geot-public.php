@@ -105,8 +105,8 @@ class GeotWP_Public {
 
 		$src = 'js/geotarget-public.js';
 
-		wp_enqueue_script( 'geot-js', plugin_dir_url( __FILE__ ) . $src, [ 'jquery' ], false, true );
-		wp_enqueue_script( 'geot-slick', plugin_dir_url( __FILE__ ) . 'js/min/selectize.min.js', [ 'jquery' ], false, true );
+		wp_enqueue_script( 'geot-js', plugin_dir_url( __FILE__ ) . $src, [ 'jquery' ], GEOWP_VERSION, true );
+		wp_enqueue_script( 'geot-slick', plugin_dir_url( __FILE__ ) . 'js/min/selectize.min.js', [ 'jquery' ], GEOWP_VERSION, true );
 		wp_localize_script( 'geot-js', 'geot', [
 			'ajax_url'          => admin_url( 'admin-ajax.php' ),
 			'ajax'              => isset( $this->opts['ajax_mode'] ) ?  $this->opts['ajax_mode'] : '',
@@ -348,11 +348,16 @@ class GeotWP_Public {
 		if ( apply_filters( 'geot/cancel_posts_where', false, $where ) ) {
 			return $where;
 		}
-
+		// If we have ajax mode we can't filter results before they are printed to avoid caching issues
+		// but we need to allow further processing in case a custom ajax call it's done
+		if ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' && ! apply_filters('geot/allow_custom_ajax_call', false ) ) {
+			return $where;
+		}
+		// If we allow custom ajax, be sure we are not doing our ajax call.
 		if ( defined( 'DOING_GEOT_AJAX' ) ) {
 			return $where;
 		}
-
+		// Only in front or ajax calls
 		if ( ! is_admin() || ( defined('DOING_AJAX') && DOING_AJAX ) ) {
 			// Get all posts that are being geotargeted
 			$post_to_exclude = $this->get_geotargeted_posts();
@@ -478,7 +483,7 @@ class GeotWP_Public {
 			return;
 		}
 
-		if ( ! is_cart() || ! is_checkout() ) {
+		if ( ! is_cart() && ! is_checkout() ) {
 			return;
 		}
 

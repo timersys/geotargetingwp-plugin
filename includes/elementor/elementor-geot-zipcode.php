@@ -132,11 +132,7 @@ class Elementor_GeoZipcode {
 			return true;
 		}
 
-		if ( geot_target_zip( $in_zipcodes, $in_regions_zips, $ex_zipcodes, $ex_regions_zips ) ) {
-			return true;
-		}
-
-		return false;
+		return geot_target_zip( $in_zipcodes, $in_regions_zips, $ex_zipcodes, $ex_regions_zips );
 	}
 
 

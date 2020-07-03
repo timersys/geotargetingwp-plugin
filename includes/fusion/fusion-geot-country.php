@@ -83,11 +83,7 @@ class Fusion_GeoCountry {
 			return true;
 		}
 
-		if ( geot_target( $in_countries, $in_regions, $ex_countries, $ex_regions ) ) {
-			return true;
-		}
-
-		return false;
+		return geot_target( $in_countries, $in_regions, $ex_countries, $ex_regions );
 	}
 
 

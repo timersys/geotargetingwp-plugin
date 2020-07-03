@@ -27,7 +27,6 @@ class GeotWP_Taxonomies {
 		$this->geot_opts = wp_parse_args(geotwp_settings(), $defaults);
 		$this->opts = geot_settings();
 
-
 		// Categories only if ajax mode is disabled
 		if ( empty( $this->opts['ajax_mode'] ) ) {
 			add_action( 'init', [ $this, 'init' ], 50 );
@@ -148,7 +147,7 @@ class GeotWP_Taxonomies {
 
 				if ( ! $geot ) continue;
 
-				if( ! $this->verify_geot( $geot ) ) {
+				if( ! $this->verify_geot($geot) ) {
 					$post_exclude[] = $post->ID;
 					break;
 				}
@@ -331,7 +330,6 @@ class GeotWP_Taxonomies {
 		}
 	}
 
-
 	/**
 	 * Verify if geotargeting
 	 * @since    1.0.0
@@ -339,7 +337,7 @@ class GeotWP_Taxonomies {
 	 * @return boolean
 	 */
 	protected function verify_geot($geot) {
-		$geot_country = $geot_city = $geot_state = $geot_zipcode = $geot_radius = false;
+		$geot_country = $geot_city = $geot_state = $geot_zipcode = $geot_radius = true;
 
 		// Country
 		if( ! empty( $geot['in_countries'] ) || ! empty( $geot['ex_countries'] ) ||
@@ -365,9 +363,9 @@ class GeotWP_Taxonomies {
 			$geot_radius =  geot_target_radius( $geot['radius_lat'], $geot['radius_km'], $geot['radius_lng'] );
 
 		// Verify
-		if( $geot_country || $geot_city || $geot_state || $geot_zipcode || $geot_radius )
-			return true;
+		if( ! $geot_country || ! $geot_city || ! $geot_state || ! $geot_zipcode || ! $geot_radius )
+			return false;
 
-		return false;
+		return true;
 	}
 }

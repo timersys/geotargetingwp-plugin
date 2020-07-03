@@ -83,11 +83,7 @@ class Fusion_GeoZip {
 			return true;
 		}
 
-		if ( geot_target_zip( $in_zips, $in_regions, $ex_zips, $ex_regions ) ) {
-			return true;
-		}
-
-		return false;
+		return geot_target_zip( $in_zips, $in_regions, $ex_zips, $ex_regions );
 	}
 
 
