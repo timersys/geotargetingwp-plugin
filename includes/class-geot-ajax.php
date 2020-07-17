@@ -50,10 +50,6 @@ class GeotWP_Ajax {
 		define( 'DOING_GEOT_AJAX', true );
 		$geots    = $posts = [];
 		$settings = geot_settings();
-
-		$debug = $redirect = $blocker = $geo = "";
-		$posts = $this->get_geotargeted_posts();
-
 		$this->data = $_POST;
 
 		if ( isset( $settings['geolocation'] ) && ( $settings['geolocation'] == 'by_html5' || $settings['geolocation'] == 'by_html5_mobile' ) &&
@@ -61,6 +57,9 @@ class GeotWP_Ajax {
 		) {
 			geot_set_coords( $this->data['geot_lat'], $this->data['geot_lng'] );
 		}
+
+		$debug = $redirect = $blocker = $geo = "";
+		$posts = $this->get_geotargeted_posts();
 
 
 		if ( isset( $this->data['geot_redirects'] ) && $this->data['geot_redirects'] == 1 ) {
