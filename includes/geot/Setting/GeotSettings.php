@@ -308,6 +308,12 @@ class GeotSettings {
 					return $a;
 				} );
 			}
+			/* If Geolocation HTML5 API */
+			if (
+				isset( $settings['geolocation'] ) && ( $settings['geolocation'] == 'by_html5' || $settings['geolocation'] == 'by_html5_mobile' )
+			) {
+				$settings['ajax_mode'] = 1;
+			}
 			// update license field
 			if ( ! empty( $settings['license'] ) ) {
 				$license = esc_attr( $settings['license'] );

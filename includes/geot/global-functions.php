@@ -435,16 +435,6 @@ if ( ! function_exists( 'geot_settings' ) ) {
 
 		$settings = get_option( 'geot_settings' );
 
-		/* If Geolocation HTML5 API */
-		if (
-			( ! is_admin() || wp_doing_ajax() ) &&
-			isset( $settings['geolocation'] ) &&
-			( $settings['geolocation'] == 'by_html5' || $settings['geolocation'] == 'by_html5_mobile' ) &&
-			isset( $_COOKIE['geot-gps'] ) && $_COOKIE['geot-gps'] == 'yes'
-		) {
-			$settings['ajax_mode'] = 1;
-		}
-
 		return apply_filters( 'geot/settings_page/opts', $settings );
 	}
 }

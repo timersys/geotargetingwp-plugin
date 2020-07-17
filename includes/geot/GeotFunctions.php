@@ -413,24 +413,28 @@ class GeotCore {
 
 			$this->ip = apply_filters( 'geot/user_ip', $this->ip );
 
+			if ( $key == 'coords' && is_array( $params ) && count( $params ) == 2 ) {
+				reset( $params );
+				$this->lat = current( $params );
+				$this->lng = end( $params );
+			}
 			// Check if the geolocation is usign the HTML5 API
-			if ( isset( $this->opts['geolocation'] ) &&
-			     ( $this->opts['geolocation'] == 'by_html5' || $this->opts['geolocation'] == 'by_html5_mobile' ) &&
-			     isset( $_COOKIE['geot-gps'] ) && $_COOKIE['geot-gps'] == 'yes'
+			if ( isset( $this->opts['geolocation'] )
+			     && ( $this->opts['geolocation'] == 'by_html5' || $this->opts['geolocation'] == 'by_html5_mobile' )
+			     && isset( $_COOKIE['geot-gps'] )
+			     && $_COOKIE['geot-gps'] == 'yes'
+				 && ! empty( $this->lat ) && ! empty( $this->lng )
 			) {
 
-				if ( $key == 'coords' && is_array( $params ) && count( $params ) == 2 ) {
-					reset( $params );
-					$this->lat = current( $params );
-					$this->lng = end( $params );
-				}
+
+
 				if ( ! $this->valid_latitude( $this->lat ) || ! $this->valid_longitude( $this->lng ) ) {
 					return $this->getFallbackCountry();
 				}
 
 				$this->cache_key = md5( $this->lat . $this->lng );
 
-				$options = [
+				$api_args = [
 					'geolocation' => 'by_html5',
 					'data'        => [
 						'lat' => $this->lat,
@@ -450,9 +454,13 @@ class GeotCore {
 					return $this->getFallbackCountry();
 				}
 
-				$options = [
+				$api_args = [
 					'geolocation' => 'by_ip',
-					'data'        => [ 'ip' => $this->ip ],
+					'data'        => [
+						'lat' => '',
+						'lng' => '',
+						'ip' => $this->ip
+					],
 				];
 
 				$this->cache_key = md5( $this->ip );
@@ -521,7 +529,7 @@ class GeotCore {
 				return $this->cleanResponse( $custom_data );
 			}
 			// API
-			$record = $this->cleanResponse( $this->geotWP->getData( $this->ip ) );
+			$record = $this->cleanResponse( $this->geotWP->getData( $api_args ) );
 			$this->checkLocale();
 
 			return $record;
