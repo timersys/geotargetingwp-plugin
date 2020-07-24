@@ -508,7 +508,9 @@ class GeotWP_Public {
 		echo '<!-- Geotargeting GeoLocation START -->
 		<div class="geotloc_overlay_box" style="display: none;">
 			<div class="geotloc_overlay_remove"></div>
-			<div class="geotloc_overlay_content"></div>
+			<div class="geotloc_overlay_content">
+			<h3>'. __('Please share your location to continue', 'geot') . '</h3>
+			</div>
 		</div>
 		<!-- Geotargeting GeoLocation END -->';
 	}

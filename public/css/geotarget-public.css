@@ -1582,8 +1582,11 @@
     align-items: center;
 }
 
+.geotloc_overlay_content img {
+    margin: 0 auto;
+}
 .geotloc_overlay_box .geotloc_overlay_content {
-    width: 50%;
+    max-width: 50%;
 }
 
 .geotloc_overlay_box .geotloc_overlay_remove {
@@ -1618,13 +1621,3 @@
     opacity: 1;
 }
 
-/*.geotloc_overlay_box .geotloc_overlay_remove a {
-    font-size: 18px;
-    color: #FFFFFF;
-    text-decoration: none;
-    opacity: 0.3;
-}
-
-.geotloc_overlay_box .geotloc_overlay_remove a:hover {
-    
-}*/
