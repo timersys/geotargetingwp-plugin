@@ -34,10 +34,21 @@ class Geol_Redirects {
 	public function __construct() {
 		self::$detect = new Mobile_Detect;
 
+		add_action( 'wp_enqueue_scripts', [ $this, 'public_scripts' ] );
 		add_action( 'template_redirect', [ $this, 'redirect_link' ] );
 		add_shortcode( 'geo-link', [ $this, 'add_shortcode' ], 10, 2 );
 	}
 
+	/**
+	 * Visual editors run on front, so this bar needs to go here
+	 */
+	public function public_scripts(){
+		wp_localize_script( 'jquery', 'geol_tinymce',
+			[
+				'icon' => GEOTWP_L_PLUGIN_URL . 'includes/admin/img/geol_link.png',
+			]
+		);
+	}
 	/**
 	 * Apply redirect
 	 *

@@ -59,7 +59,7 @@ jQuery(document).ready(function ($) {
 
             //Add Button to Visual Editor Toolbar and launch the above command when it is clicked.
             ed.addButton('geo_link', {
-                title: 'Insert shortcode',
+                title: 'Geolinks shortcode',
                 cmd: 'geo_link_insert_shortcode',
                 image: geol_tinymce.icon
             });
