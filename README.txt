@@ -3,8 +3,8 @@ Contributors: timersys
 Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 3.6
-Tested up to: 5.4.1
-Stable tag: 3.0.7.2
+Tested up to: 5.4.2
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,9 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.1 - August 4 2020 =
+* Added GPS geolocation based on HTML5
+* Fix Divi builder city regions
 = 3.0.7.2 - July 1 2020 =
 * Fixed bug with shortcodes that will consume requests in backend
 * Fixed bug for custom ajax calls and geotargeting, that could lead in caching issues
