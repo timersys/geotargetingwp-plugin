@@ -116,17 +116,6 @@ use function GeotCore\hosting_has_db; ?>
 						<p class="help"><?php echo sprintf( __( 'Check this if you want to save the user location into PHP Sessions. More info <a href="%s">here</a>', 'geot' ), 'https://geotargetingwp.com/docs/geotargeting-pro/configuration#cache' ); ?></p>
 				</td>
 			</tr>
-
-			<tr valign="top" class="">
-				<th><label for="ajax_mode"><?php _e( 'Ajax Mode', 'geot' ); ?></label></th>
-				<td colspan="3">
-					<input type="checkbox" id="ajax_mode" name="geot_settings[ajax_mode]"
-					       value="1" <?php checked( $opts['ajax_mode'], '1' ); ?>/>
-					<p class="help"><?php _e( 'In Ajax mode, after page load an extra request is made to get all data and everything is updated with javascript. That makes the plugin compatible with any cache plugin. More info on: ', 'geot' ); ?>
-						<a href="https://geotargetingwp.com/docs/geotargetingwp/ajax-mode/">Ajax mode info</a></p>
-				</td>
-			</tr>
-
 			<tr valign="top" class="geolocation_field">
 				<th><label for=""><?php _e( 'Geolocation', 'geot' ); ?></label></th>
 				<td colspan="3">
@@ -144,6 +133,17 @@ use function GeotCore\hosting_has_db; ?>
 					<p class="help"><?php esc_html_e( 'If you choose HTML5 Geolocation and the user doesn\'t give consent, it will fallback to IP geolocation.', 'geot' ); ?></p>
 				</td>
 			</tr>
+			<tr valign="top" class="">
+				<th><label for="ajax_mode"><?php _e( 'Ajax Mode', 'geot' ); ?></label></th>
+				<td colspan="3">
+					<input type="checkbox" id="ajax_mode" name="geot_settings[ajax_mode]"
+					       value="1" <?php checked( $opts['ajax_mode'], '1' ); ?>/>
+					<p class="help"><?php _e( 'In Ajax mode, after page load an extra request is made to get all data and everything is updated with javascript. That makes the plugin compatible with any cache plugin. More info on: ', 'geot' ); ?>
+						<a href="https://geotargetingwp.com/docs/geotargetingwp/ajax-mode/">Ajax mode info</a></p>
+				</td>
+			</tr>
+
+
 
 			<tr valign="top" class="force_geot_field" style="<?php echo ! isset( $opts['geolocation'] ) || ( $opts['geolocation'] != 'by_html5_mobile' && $opts['geolocation'] != 'by_html5') ? 'display:none;' : ''; ?>">
 				<th><label for="force_geot"><?php _e( 'Force GPS Geolocation', 'geot' ); ?></label></th>

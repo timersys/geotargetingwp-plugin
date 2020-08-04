@@ -199,7 +199,7 @@ class GeotWP_Divi {
 
 			$output = Divi_GeoZipcode::ajax_render( $module->props, $output );
 			$output = Divi_GeoState::ajax_render( $module->props, $output );
-			$output = Divi_GeoCity::ajax_render( $module->props, $reg_countries, $output );
+			$output = Divi_GeoCity::ajax_render( $module->props, $reg_cities, $output );
 			$output = Divi_GeoCountry::ajax_render( $module->props, $reg_countries, $output );
 
 		} else {
