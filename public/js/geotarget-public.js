@@ -52,7 +52,10 @@
             }
         },
         executeAjax: function() {
-            if(! $('.geot-ajax').length || geot.is_builder == '1' ) {
+            if( ( ! $('.geot-ajax').length &&
+                ! $('.geotr-ajax').length &&
+                ! $('.geobl-ajax').length )||
+                geot.is_builder == '1' ) {
                 return;
             }
             const geot_debug = GeotWP.getUrlParameter('geot_debug'),

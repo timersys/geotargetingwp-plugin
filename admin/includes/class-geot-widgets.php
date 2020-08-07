@@ -35,11 +35,11 @@ class GeotWP_Widgets {
 			if( empty( $this->opts['ajax_mode'] ) ) {
 				
 				// Validation Display
-				add_action( 'widget_display_callback', [ $this, 'target_widgets' ] );
+				add_action( 'widget_display_callback', [ $this, 'target_widgets' ], 10, 3 );
 				add_action( 'siteorigin_panels_widget_object', [ $this, 'target_widgets_site_origin' ], 10, 3 );
 
 			} else {
-				add_action( 'dynamic_sidebar', [ $this, 'ajax_widget' ] );
+				add_action( 'widget_display_callback', [ $this, 'ajax_widget' ], 10, 3 );
 			}
 		}
 	}
@@ -200,21 +200,21 @@ class GeotWP_Widgets {
 	/**
 	 * Check if widgets is being targeted and show it if needed
 	 *
-	 * @param $widget_data
+	 * @param $instance
 	 *
 	 * @return bool [type] [description]
 	 */
-	public function target_widgets( $widget_data ) {
+	public function target_widgets( $instance, $widget, $args ) {
 
 		if ( ! empty( $this->opts['ajax_mode'] ) ) {
-			return $widget_data;
+			return $instance;
 		}
 
-		if ( ! $this->target( $widget_data ) ) {
+		if ( ! $this->target( $instance ) ) {
 			return false;
 		}
 
-		return $widget_data;
+		return $instance;
 	}
 
 	/**
@@ -225,6 +225,8 @@ class GeotWP_Widgets {
 	 * @return bool
 	 */
 	private function target( $widget_data ) {
+
+
 		if ( ! empty( $widget_data['geot']['region'] ) ||
 		     ! empty( $widget_data['geot']['country_code'] ) ||
 		     ! empty( $widget_data['geot_cities'] ) ||
@@ -254,7 +256,7 @@ class GeotWP_Widgets {
 						return @$widget_data['geot_include_mode'] == 'include' ?  false : true;
 					}
 				}
-
+				return @$widget_data['geot_include_mode'] == 'include' ?  true : false;
 		}
 
 		return true;
@@ -290,28 +292,38 @@ class GeotWP_Widgets {
 	 * Render a placeholder for ajax calls
 	 * @param $widget
 	 */
-	public function ajax_widget( $widget ) {
+	public function ajax_widget( $instance, $widget, $args ) {
 
-		if( is_admin() || ! isset( $widget['callback'][0] ) || ! method_exists( $widget['callback'][0], 'get_settings' ) )
-			return;
 
-		$WidgetObj = $widget['callback'][0];
-		$instances = $WidgetObj->get_settings();
-
-		if ( ! array_key_exists( $WidgetObj->number, $instances ) )
-			return;
-		
-		$instance = $instances[ $WidgetObj->number ];
+		if( is_admin()  )
+			return ;
 
 		if( empty( $instance['geot']['region'] ) && empty( $instance['geot']['country_code'] ) &&
 		    empty( $instance['geot_cities'] ) && empty( $instance['geot_states'] ) &&
 		    empty( $instance['geot_zipcodes'] ) && (  empty( $instance['radius_km'] ) ||  empty( $instance['radius_lng'] ) || empty( $instance['radius_lat'] ) )
 		) return;
 
+		$target = [
+			'geot_include_mode' => $instance['geot_include_mode'],
+			'country_code'      => ! empty( $instance['geot']['country_code'] ) ? $instance['geot']['country_code'] : [],
+			'region'            => ! empty( $instance['geot']['region'] ) ? $instance['geot']['region'] : [],
+			'cities'            => ! empty( $instance['geot_cities'] ) ? $instance['geot_cities'] : '',
+			'city_region'       => ! empty( $instance['geot_cities'] ) ? $instance['geot_cities'] : '',
+			'states'            => ! empty( $instance['geot_states'] ) ? $instance['geot_states'] : '',
+			'zipcodes'          => ! empty( $instance['geot_zipcodes'] ) ? $instance['geot_zipcodes'] : '',
+			'zip_region'        => ! empty( $instance['geot_zipcodes'] ) ? $instance['geot_zipcodes'] : '',
+			'radius_km'         => ! empty( $instance['radius_km'] ) ? $instance['radius_km'] : '',
+			'radius_lat'        => ! empty( $instance['radius_lat'] ) ? $instance['radius_lat'] : '',
+			'radius_lng'        => ! empty( $instance['radius_lng'] ) ? $instance['radius_lng'] : '',
+		];
 
-		$filter = base64_encode( serialize( $instance ) );
-		echo '<style type="text/css" id="css-'.$widget['id'].'">#'.$widget['id'].'{ display:none;}</style>';
-		echo '<div class="geot-ajax geot-widget" data-action="widget_filter" data-filter="' . $filter . '"  data-ex_filter="' . $widget['id'] . '" data-widget="'.$widget['id'].'"></div>';
+
+		if( isset( $widget->id ) ) {
+			$filter = base64_encode( serialize( $target ) );
+			echo '<style type="text/css" id="css-' . $widget->id . '">#' . $widget->id . '{ display:none;}</style>';
+			echo '<div class="geot-ajax geot-widget" data-action="widget_filter" data-filter="' . $filter . '"  data-ex_filter="' . $widget->id . '" data-widget="' . $widget->id . '"></div>';
+		}
+		return $instance;
 	}
 
 } // class GeotWP_Widgets
