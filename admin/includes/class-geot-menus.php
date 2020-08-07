@@ -115,7 +115,7 @@ class GeotWP_Menus {
 			if( $this->menu_has_geot_settings($g) ) {
 				// check at least one condition is filled
 				if ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) {
-					$menu_item->classes[] = 'geot-ajax geot_menu_item';
+					$menu_item->classes[] = ' geot-ajax geot_menu_item ';
 					add_filter( 'nav_menu_link_attributes', [ $this, 'add_geot_info' ], 10, 2 );
 				} else {
 					if ( GeotWP_Helper::user_is_targeted( $g, $menu_item->ID ) ) {

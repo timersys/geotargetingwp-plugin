@@ -145,9 +145,9 @@
                         for ( i = 0; i < results.length; ++i ) {
                             if ( results[i].action == 'menu_filter' ) {
                                 if (results[i].value != true) {
-                                    $('#' + results[i].id).parent('.menu-item').removeClass('geot_menu_item');
+                                    $('#' + results[i].id).parent('.geot_menu_item').removeClass('geot_menu_item');
                                 } else {
-                                    $('#' + results[i].id).parent('.menu-item').remove();
+                                    $('#' + results[i].id).parent('.geot_menu_item').remove();
                                 }
                             } else if ( results[i].action == 'widget_filter' ) {
                                 const widget_id = $('#' + results[i].id).data('widget');
