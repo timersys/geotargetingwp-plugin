@@ -290,18 +290,24 @@ class GeotWP_Widgets {
 
 	/**
 	 * Render a placeholder for ajax calls
+	 *
+	 * @param $instance
 	 * @param $widget
+	 *
+	 * @param $args
+	 *
+	 * @return mixed
 	 */
 	public function ajax_widget( $instance, $widget, $args ) {
 
 
 		if( is_admin()  )
-			return ;
+			return $instance;
 
 		if( empty( $instance['geot']['region'] ) && empty( $instance['geot']['country_code'] ) &&
 		    empty( $instance['geot_cities'] ) && empty( $instance['geot_states'] ) &&
 		    empty( $instance['geot_zipcodes'] ) && (  empty( $instance['radius_km'] ) ||  empty( $instance['radius_lng'] ) || empty( $instance['radius_lat'] ) )
-		) return;
+		) return $instance;
 
 		$target = [
 			'geot_include_mode' => $instance['geot_include_mode'],
