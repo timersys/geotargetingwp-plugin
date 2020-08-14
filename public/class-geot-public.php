@@ -107,8 +107,13 @@ class GeotWP_Public {
 
 		wp_enqueue_script( 'geot-js', plugin_dir_url( __FILE__ ) . $src, [ 'jquery' ], GEOWP_VERSION, true );
 		wp_enqueue_script( 'geot-slick', plugin_dir_url( __FILE__ ) . 'js/min/selectize.min.js', [ 'jquery' ], GEOWP_VERSION, true );
+		$wpml_lang = defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : '';
+		$ajax_url = admin_url( 'admin-ajax.php' );
+		if ( ! empty( $wpml_lang ) ) {
+			$ajax_url = add_query_arg( 'lang', $wpml_lang, $ajax_url );
+		}
 		wp_localize_script( 'geot-js', 'geot', [
-			'ajax_url'          => admin_url( 'admin-ajax.php' ),
+			'ajax_url'          => $ajax_url,
 			'ajax'              => isset( $this->opts['ajax_mode'] ) ?  $this->opts['ajax_mode'] : '',
 			'pid'               => get_queried_object_id(),
 			'is_archive'        => is_archive(),
