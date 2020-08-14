@@ -219,7 +219,7 @@ class GeotWP_Taxonomies {
 	 * @param OBJECT $term_query
 	 * @return ARRAY $terms
 	 */
-	public function get_terms( $terms, $taxonomies, $args, $term_query ) {
+	public function get_terms( $terms, $taxonomies, $args, $term_query = null ) {
 
 		// If is admin or if geot param is set
 		if( is_admin() || isset( $args['geot'] ) || ! is_array( $taxonomies ) )
