@@ -92,6 +92,7 @@ class GeotWP_R_ules {
 		add_filter( 'geot/rules/rule_match/referrer', [ self::class, 'rule_match_referrer' ] );
 		add_filter( 'geot/rules/rule_match/crawlers', [ self::class, 'rule_match_crawlers' ] );
 		add_filter( 'geot/rules/rule_match/query_string', [ self::class, 'rule_match_query_string' ] );
+		add_filter( 'geot/rules/rule_match/language', [ self::class, 'rule_match_language' ] );
 	}
 
 	/*
@@ -173,6 +174,7 @@ class GeotWP_R_ules {
 		add_action( 'geot/rules/print_referrer_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 		add_action( 'geot/rules/print_query_string_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 		add_action( 'geot/rules/print_cookie_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_language_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 	}
 
 	/**
@@ -224,7 +226,10 @@ class GeotWP_R_ules {
 				'crawlers'     => __( "Bots/Crawlers", 'geot' ),
 			],
 		];
-
+		// WPML or Polylang
+		if ( function_exists( 'icl_object_id' ) || function_exists( 'pll_current_language' ) ) {
+			$choices[ __( 'Other', 'wp-popups-lite' ) ]['language'] = __( 'Language', 'wp-popups-lite' );
+		}
 		// allow custom rules rules
 		return apply_filters( 'geot/metaboxes/rule_types', $choices );
 	}
@@ -579,6 +584,31 @@ class GeotWP_R_ules {
 
 		return ! $found;
 
+	}
+
+	/**
+	 * Check for language WPML or Polylang
+	 *
+	 * @param $rule
+	 *
+	 * @return bool
+	 */
+	public static function rule_match_language( $rule ) {
+		$lang = '';
+		// polylang
+		if ( function_exists( 'pll_current_language' ) ) {
+			$lang = pll_current_language();
+		}
+		// wpml
+		if ( function_exists( 'icl_object_id' ) ) {
+			$lang = isset( $_GET['lang'] ) ? $_GET['lang'] : ICL_LANGUAGE_CODE;
+		}
+		// match
+		if ( '==' === $rule['operator'] ) {
+			return ( $lang === $rule['value'] );
+		}
+
+		return ( $lang !== $rule['value'] );
 	}
 
 	/**
