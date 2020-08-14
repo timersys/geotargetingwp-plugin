@@ -96,7 +96,7 @@
 
                     if( _this.data('action') && _this.data('action').length ) {
                         const uniqid = GeotWP.getUniqueName('geot');
-                        _this.attr('id', uniqid);
+                        _this.addClass(uniqid);
                         data.geots[uniqid] = {
                             'action': _this.data('action') || '',
                             'filter': _this.data('filter') || '',
@@ -145,26 +145,26 @@
                         for ( i = 0; i < results.length; ++i ) {
                             if ( results[i].action == 'menu_filter' ) {
                                 if (results[i].value != true) {
-                                    $('#' + results[i].id).parent('.geot_menu_item').removeClass('geot_menu_item');
+                                    $('.' + results[i].id).parent('.geot_menu_item').removeClass('geot_menu_item');
                                 } else {
-                                    $('#' + results[i].id).parent('.geot_menu_item').remove();
+                                    $('.' + results[i].id).parent('.geot_menu_item').remove();
                                 }
                             } else if ( results[i].action == 'widget_filter' ) {
-                                const widget_id = $('#' + results[i].id).data('widget');
+                                const widget_id = $('.' + results[i].id).data('widget');
                                 if ( results[i].value != true ) {
                                     $('#css-' + widget_id).remove();
                                 } else {
                                     $('#' + widget_id).remove();
                                 }
-                                $('#' + results[i].id).remove();
+                                $('.' + results[i].id).remove();
                             } else if ( results[i].action.indexOf('filter' ) > -1) {
                                 if ( results[i].value == true ) {
-                                    var html = $('#' + results[i].id).html();
-                                    $('#' + results[i].id).replaceWith(html);
+                                    var html = $('.' + results[i].id).html();
+                                    $('.' + results[i].id).replaceWith(html);
                                 }
-                                $('#' + results[i].id).remove();
+                                $('.' + results[i].id).remove();
                             } else {
-                                $('#' + results[i].id).replaceWith(results[i].value);
+                                $('.' + results[i].id).replaceWith(results[i].value);
                             }
                         }
                     }
