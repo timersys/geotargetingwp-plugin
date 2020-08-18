@@ -204,7 +204,10 @@ private function replaceShortcodes( $opts, $basic_rules = false ) {
 	$replaces = [
 		'{{requested_uri}}'  => trim( $url, '/' ) ?: '',
 		'{{requested_path}}' => trim( parse_url( $url, PHP_URL_PATH ), '/' ) ?: '',
+		'{{last_path}}' => trim( parse_url( $url, PHP_URL_PATH ), '/' ) ?: '',
 	];
+	$path = explode('/', $replaces['{{requested_path}}']);
+	$replaces['{{last_path}}'] =  is_array( $path ) ? array_values(array_slice($path, -1))[0] : $replaces['{{requested_path}}'] ;
 
 	if ( ! $basic_rules ) {
 		$replaces['{{country_code}}'] = geot_country_code();
@@ -214,7 +217,6 @@ private function replaceShortcodes( $opts, $basic_rules = false ) {
 
 	// remove country codes from urls automatically to avoid /au/au
 	if( isset( $opts['remove_iso'] ) && 1 === absint( $opts['remove_iso'] ) ){
-		$path = explode('/', $replaces['{{requested_path}}']);
 		if( strlen($path[0]) === 2 ){
 			$replaces['{{requested_path}}'] = substr($replaces['{{requested_path}}'], 3);
 		}
@@ -236,6 +238,10 @@ private function replaceShortcodes( $opts, $basic_rules = false ) {
 		} else {
 			return $final_url . '?' . $query_string;
 		}
+	}
+	// if wpml active and language code
+	if( ! empty( $opts['wpml'] ) ) {
+		$final_url = apply_filters( 'wpml_permalink', $final_url, $opts['wpml'], 1 );
 	}
 	return apply_filters( 'geotr/shortcodes_url', $final_url, $opts, $url );
 }
