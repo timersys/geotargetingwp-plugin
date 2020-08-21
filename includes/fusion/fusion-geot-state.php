@@ -32,10 +32,28 @@ class Fusion_GeoState {
 				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
 			],
 			[
+				'type'			=> 'multiple_select',
+				'heading'		=> esc_attr__( 'Include State Regions', 'geot' ),
+				'description'	=> esc_attr__( 'Choose region name to show content to.', 'geot' ),
+				'param_name'	=> 'geot_in_region_states',
+				'value'			=> GeotWP_Fusion::get_regions( 'state' ),
+				'default'		=> '',
+				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
+			],
+			[
 				'type'			=> 'textfield',
 				'heading'		=> esc_attr__( 'Exclude States', 'geot' ),
 				'description'	=> esc_attr__( 'Type city names separated by commas.', 'geot' ),
 				'param_name'	=> 'geot_ex_states',
+				'default'		=> '',
+				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
+			],
+			[
+				'type'			=> 'multiple_select',
+				'heading'		=> esc_attr__( 'Exclude State Regions', 'geot' ),
+				'description'	=> esc_attr__( 'Choose region name to show content to.', 'geot' ),
+				'param_name'	=> 'geot_ex_region_states',
+				'value'			=> GeotWP_Fusion::get_regions( 'state' ),
 				'default'		=> '',
 				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
 			]
@@ -56,13 +74,17 @@ class Fusion_GeoState {
 
 		$in_states = trim( $geot_in_states );
 		$ex_states = trim( $geot_ex_states );
+		$in_regions = array_map( 'trim', explode( ',', $geot_in_region_states ) );
+		$ex_regions = array_map( 'trim', explode( ',', $geot_ex_region_states ) );
 
-		if ( empty( $in_states ) && empty( $ex_states ) ) {
+		if ( empty( $in_states ) && empty( $ex_states ) &&
+			count( $in_regions ) == 0 && count( $ex_regions ) == 0
+		) {
 			return true;
 		}
 
 
-		return geot_target_state( $in_states, $ex_states );
+		return geot_target_state( $in_states, $in_regions, $ex_states, $ex_regions );
 	}
 
 
@@ -73,17 +95,19 @@ class Fusion_GeoState {
 	 */
 	static function ajax_render( $attrs, $output ) {
 
-		$in_regions_commas = $ex_regions_commas = '';
-
 		extract( $attrs );
 
 		$in_states = trim( $geot_in_states );
 		$ex_states = trim( $geot_ex_states );
+		$in_regions = trim( $geot_in_region_states );
+		$ex_regions = trim( $geot_ex_region_states );
 
-		if ( empty( $in_states ) && empty( $ex_states ) ) {
+		if ( empty( $in_states ) && empty( $ex_states ) &&
+			empty( $in_regions ) && empty( $ex_regions )
+		) {
 			return $output;
 		}
 
-		return '<div class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $in_states . '" data-ex_filter="' . $ex_states . '">' . $output . '</div>';
+		return '<div class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $in_states . '" data-region="' . $in_regions . '" data-ex_filter="' . $ex_states . '" data-ex_region="' . $ex_regions . '">' . $output . '</div>';
 	}
 }

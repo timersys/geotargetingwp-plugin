@@ -24,15 +24,23 @@ registerBlockType('geotargeting-pro/gutenberg-state', {
             type: 'string',
             default: '',
         },
+        in_regions: {
+            type: 'array',
+            default: [],
+        },
         ex_states: {
             type: 'string',
             default: '',
+        },
+        ex_regions: {
+            type: 'array',
+            default: [],
         },
     },
 
     edit: function (props) {
         const {attributes, setAttributes, className, focus, setFocus} = props;
-        const {in_states, ex_states} = attributes;
+        const {in_states, in_regions, ex_states, ex_regions} = attributes;
 
         const ALLOWED_BLOCKS = [];
 
@@ -52,12 +60,28 @@ registerBlockType('geotargeting-pro/gutenberg-state', {
             setAttributes({ex_states: newContent});
         }
 
+        function onChangeInRegions(newContent) {
+            setAttributes({in_regions: newContent});
+        }
+
+        function onChangeExRegions(newContent) {
+            setAttributes({ex_regions: newContent});
+        }
+
         if (in_states) {
             block_sign_msg.push(__('Include States', 'geot') + ' : ' + in_states);
         }
 
         if (ex_states) {
             block_sign_msg.push(__('Exclude States', 'geot') + ' : ' + ex_states);
+        }
+
+        if (in_regions.length) {
+            block_sign_msg.push(__('Include Regions', 'geot') + ' : ' + in_regions.join(' , '));
+        }
+
+        if (ex_regions.length) {
+            block_sign_msg.push(__('Exclude Regions', 'geot') + ' : ' + ex_regions.join(' , '));
         }
 
 
@@ -77,12 +101,34 @@ registerBlockType('geotargeting-pro/gutenberg-state', {
                         }),
                     ),
                     el(PanelRow, {},
+                        el(SelectControl, {
+                                label: __('Include State Regions', 'geot'),
+                                multiple: true,
+                                options: gutgeot.regions_state,
+                                onChange: onChangeInRegions,
+                                value: in_regions,
+                                help: __('Choose region name to show content to', 'geot'),
+                            },
+                        ),
+                    ),
+                    el(PanelRow, {},
                         el(TextControl, {
                             label: __('Exclude States', 'geot'),
                             value: ex_states,
                             onChange: onChangeExStates,
                             help: __('Type state names or ISO codes separated by comma.', 'geot'),
                         }),
+                    ),
+                    el(PanelRow, {},
+                        el(SelectControl, {
+                                label: __('Exclude State Regions', 'geot'),
+                                multiple: true,
+                                options: gutgeot.regions_state,
+                                onChange: onChangeExRegions,
+                                value: ex_regions,
+                                help: __('Choose region name to exclude content', 'geot'),
+                            },
+                        ),
                     ),
                 ),
             ),

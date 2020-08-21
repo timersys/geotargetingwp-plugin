@@ -192,13 +192,14 @@ class GeotWP_Divi {
 		$opts 			= geot_settings();
 		$reg_countries 	= array_values( self::get_regions( 'country' ) );
 		$reg_cities 	= array_values( self::get_regions( 'city' ) );
+		$reg_states		= array_values( self::get_regions( 'state' ) );
 		$reg_zips 		= array_values( self::get_regions( 'zip' ) );
 
 
 		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
 
-			$output = Divi_GeoZipcode::ajax_render( $module->props, $output );
-			$output = Divi_GeoState::ajax_render( $module->props, $output );
+			$output = Divi_GeoZipcode::ajax_render( $module->props, $reg_zips, $output );
+			$output = Divi_GeoState::ajax_render( $module->props, $reg_states, $output );
 			$output = Divi_GeoCity::ajax_render( $module->props, $reg_cities, $output );
 			$output = Divi_GeoCountry::ajax_render( $module->props, $reg_countries, $output );
 
@@ -206,7 +207,7 @@ class GeotWP_Divi {
 
 			if ( ! Divi_GeoCountry::is_render( $module->props, $reg_countries ) ||
 			     ! Divi_GeoCity::is_render( $module->props, $reg_cities ) ||
-			     ! Divi_GeoState::is_render( $module->props ) ||
+			     ! Divi_GeoState::is_render( $module->props, $reg_states ) ||
 			     ! Divi_GeoZipcode::is_render( $module->props, $reg_zips )
 			) {
 				return '';
@@ -230,13 +231,17 @@ class GeotWP_Divi {
 			'ex_countries',
 			'ex_region_countries',
 			'in_states',
+			'in_region_states',
 			'ex_states',
+			'ex_region_states',
 			'in_cities',
 			'in_region_cities',
 			'ex_cities',
 			'ex_region_cities',
 			'in_zipcodes',
+			'in_region_zips',
 			'ex_zipcodes',
+			'ex_region_zips',
 		];
 
 		// check if any of the valid key has a value
@@ -263,6 +268,9 @@ class GeotWP_Divi {
 		switch ( $slug_region ) {
 			case 'city':
 				$regions = geot_city_regions();
+				break;
+			case 'state':
+				$regions = geot_state_regions();
 				break;
 			case 'zip':
 				$regions = geot_zip_regions();

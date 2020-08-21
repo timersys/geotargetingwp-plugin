@@ -81,6 +81,7 @@ class GeotWP_Metaboxes {
 		$countries 		= geot_countries();
 		$regions 		= geot_country_regions();
 		$city_regions 	= geot_city_regions();
+		$state_regions 	= geot_state_regions();
 		$zip_regions	= geot_zip_regions();
 
 		if ( ! isset( $opts['forbidden_text'] ) ) {
@@ -136,6 +137,7 @@ class GeotWP_Metaboxes {
 		     ! empty( $opts['city_region'] ) ||
 		     ! empty( $opts['cities'] ) ||
 		     ! empty( $opts['states'] ) ||
+		     ! empty( $opts['state_region'] ) ||
 		     ! empty( $opts['zip_region'] ) ||
 		     ! empty( $opts['zipcodes'] )
 		) {

@@ -56,6 +56,9 @@ function toPlural( $key ) {
 		case 'city' :
 			return 'cities';
 			break;
+		case 'state' :
+			return 'states';
+			break;
 		case 'zip' :
 			return 'zips';
 			break;

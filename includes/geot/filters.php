@@ -17,6 +17,13 @@ add_filter( 'geot/get_city_regions', function () {
 	return $regions;
 } );
 
+add_filter( 'geot/get_state_regions', function () {
+	$settings = geot_settings();
+	$regions  = isset( $settings['state_region'] ) ? $settings['state_region'] : [];
+
+	return $regions;
+} );
+
 add_filter( 'geot/get_zip_regions', function () {
 	$settings = geot_settings();
 	$regions  = isset( $settings['zip_region'] ) ? $settings['zip_region'] : [];

@@ -135,16 +135,24 @@ class GeotWP_Gutenberg {
 	 * @var    string $content
 	 */
 	public function save_gutenberg_state( $attributes, $content ) {
-		$in_states = $ex_states = '';
+		$in_states = $ex_states = $in_regions = $ex_regions = $in_regions_i = $ex_regions_i = '';
 
 		extract( $attributes );
+
+		if ( is_array( $in_regions ) && count( $in_regions ) > 0 ) {
+			$in_regions_i = implode( ',', $in_regions );
+		}
+
+		if ( is_array( $ex_regions ) && count( $ex_regions ) > 0 ) {
+			$ex_regions_i = implode( ',', $ex_regions );
+		}
 
 		$opts = geot_settings();
 
 		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
-			return '<div class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $in_states . '" data-ex_filter="' . $ex_states . '">' . $content . '</div>';
+			return '<div class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $in_states . '" data-region="' . $in_regions_i . '" data-ex_filter="' . $ex_states . '" data-ex_region="' . $ex_regions_i . '">' . $content . '</div>';
 		} else {
-			if ( geot_target_state( $in_states, $ex_states ) ) {
+			if ( geot_target_state( $in_states, $in_regions, $ex_states, $ex_regions ) ) {
 				return $content;
 			}
 		}
@@ -207,6 +215,7 @@ class GeotWP_Gutenberg {
 			'icon_zipcode'    => GEOWP_PLUGIN_URL . '/admin/img/states.png',
 			'regions_country' => $this->get_regions( 'countries' ),
 			'regions_city'    => $this->get_regions( 'cities' ),
+			'regions_state'   => $this->get_regions( 'states' ),
 			'regions_zip'     => $this->get_regions( 'zips' ),
 			'modules'         => $modules_geot,
 		];
@@ -281,6 +290,9 @@ class GeotWP_Gutenberg {
 		switch ( $slug_region ) {
 			case 'cities':
 				$regions = geot_city_regions();
+				break;
+			case 'states':
+				$regions = geot_state_regions();
 				break;
 			case 'zips':
 				$regions = geot_zip_regions();
