@@ -131,10 +131,24 @@
                         debug = response.debug;
 
                     if( redirect && redirect.url ) {
-                        $('.geotr-ajax').show();
-                        setTimeout(function () {
-                            location.replace(redirect.url)
-                        }, 2000);
+                        let do_redirect = true;
+                        if( parseInt( redirect.one_time_redirect ) == 1) {
+                            if( localStorage.getItem('geo_redirect_' + redirect.id ) ){
+                                do_redirect = false;
+                            }
+                            localStorage.setItem( 'geo_redirect_' + redirect.id, true );
+                        } if(  parseInt( redirect.one_time_redirect ) == 2) {
+                            if( sessionStorage.getItem('geo_redirect_' + redirect.id ) ){
+                                do_redirect = false;
+                            }
+                            localStorage.setItem( 'geo_redirect_' + redirect.id, true )
+                        }
+                        if( do_redirect ) {
+                            $('.geotr-ajax').show();
+                            setTimeout(function () {
+                                location.replace(redirect.url)
+                            }, 2000);
+                        }
                     }
 
                     if( blocker && blocker.length ) {

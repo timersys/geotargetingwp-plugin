@@ -295,7 +295,7 @@ private function perform_redirect( $redirection ) {
 
 	$opts['url'] = $this->replaceShortcodes( $opts );
 	$opts['url'] = $this->fixRedirect( $opts['url'] );
-
+	$opts['id']  = $redirection->ID;
 	//last chance to abort
 	if ( ! apply_filters( 'geotr/cancel_redirect', false, $opts, $redirection ) ) {
 		if ( $this->ajax_call === true ) {
