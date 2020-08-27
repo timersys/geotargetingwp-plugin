@@ -399,8 +399,8 @@ if ( ! function_exists( 'geot_target_city' ) ) {
  * @return bool
  */
 if ( ! function_exists( 'geot_target_state' ) ) {
-	function geot_target_state( $state = '', $exclude = '' ) {
-		return geot_target( $state, '', $exclude, '', 'state' );
+	function geot_target_state( $state = '', $state_region = '', $exclude = '', $exclude_region = '' ) {
+		return geot_target( $state, $state_region, $exclude, $exclude_region, 'state' );
 	}
 }
 /**
@@ -454,6 +454,15 @@ if ( ! function_exists( 'geot_country_regions' ) ) {
 if ( ! function_exists( 'geot_city_regions' ) ) {
 	function geot_city_regions() {
 		return apply_filters( 'geot/get_city_regions', [] );
+	}
+}
+/**
+ * Return State Regions
+ * @return mixed
+ */
+if ( ! function_exists( 'geot_state_regions' ) ) {
+	function geot_state_regions() {
+		return apply_filters( 'geot/get_state_regions', [] );
 	}
 }
 /**

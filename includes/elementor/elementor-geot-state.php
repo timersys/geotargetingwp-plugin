@@ -64,6 +64,17 @@ class Elementor_GeoState {
 		);
 
 		$control->add_control(
+			'in_regions_states',
+			[
+				'label'    => __( 'Regions', 'geot' ),
+				'type'     => \Elementor\Controls_Manager::SELECT2,
+				'multiple' => true,
+				'default'  => '',
+				'options'  => GeotWP_Elementor::get_regions( 'states' ),
+			]
+		);
+
+		$control->add_control(
 			'ex_header_states',
 			[
 				'label'     => __( 'Exclude', 'geot' ),
@@ -90,6 +101,17 @@ class Elementor_GeoState {
 			]
 		);
 
+		$control->add_control(
+			'ex_regions_states',
+			[
+				'label'    => __( 'Regions', 'geot' ),
+				'type'     => \Elementor\Controls_Manager::SELECT2,
+				'multiple' => true,
+				'default'  => '',
+				'options'  => GeotWP_Elementor::get_regions( 'states' ),
+			]
+		);
+
 		$control->end_controls_section();
 
 	}
@@ -106,12 +128,13 @@ class Elementor_GeoState {
 
 		extract( $settings );
 
-		if ( empty( $in_states ) && empty( $ex_states )
+		if ( empty( $in_states ) && empty( $ex_states ) &&
+			empty( $in_regions_states ) && empty( $ex_regions_states )
 		) {
 			return true;
 		}
 
-		return geot_target_state( $in_states, $ex_states );
+		return geot_target_state( $in_states, $in_regions_states, $ex_states, $ex_regions_states );
 	}
 
 
@@ -126,11 +149,21 @@ class Elementor_GeoState {
 
 		extract( $settings );
 
-		if ( empty( $in_states ) && empty( $ex_states ) ) {
+		if ( empty( $in_states ) && empty( $ex_states ) &&
+			empty( $in_regions_states ) && empty( $ex_regions_states )
+		) {
 			return;
 		}
 
-		echo '<div class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $in_states . '" data-ex_filter="' . $ex_states . '">';
+		if ( is_array( $in_regions_states ) && count( $in_regions_states ) > 0 ) {
+			$in_regions_i = implode( ',', $in_regions_states );
+		}
+
+		if ( is_array( $ex_regions_states ) && count( $ex_regions_states ) > 0 ) {
+			$ex_regions_i = implode( ',', $ex_regions_states );
+		}
+
+		echo '<div class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $in_states . '" data-region="' . $in_regions_i . '" data-ex_filter="' . $ex_states . '" data-ex_region="' . $ex_regions_i . '">';
 	}
 
 
@@ -145,7 +178,9 @@ class Elementor_GeoState {
 
 		extract( $settings );
 
-		if ( empty( $in_states ) && empty( $ex_states ) ) {
+		if ( empty( $in_states ) && empty( $ex_states ) &&
+			empty( $in_regions_states ) && empty( $ex_regions_states )
+		) {
 			return;
 		}
 

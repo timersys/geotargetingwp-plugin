@@ -80,6 +80,7 @@ tr.geot-settings-title th {
 .geot-settings .region-group,
 .geot-settings .redirection-group,
 .geot-settings .zip-region-group,
+.geot-settings .state-region-group,
 .geot-settings .city-region-group {
     display: block;
     margin-bottom: 20px;
@@ -89,6 +90,7 @@ tr.geot-settings-title th {
 .geot-settings .redirection-group:last-child,
 .geot-settings .region-group:last-child,
 .geot-settings .zip-region-group:last-child,
+.geot-settings .state-region-group:last-child,
 .geot-settings .city-region-group:last-child {
     margin-bottom: 0;
 }
@@ -102,6 +104,7 @@ tr.geot-settings-title th {
 .geot-settings .redirection-group .remove-redirection,
 .geot-settings .city-region-group .remove-city-region,
 .geot-settings .zip-region-group .remove-zip-region,
+.geot-settings .state-region-group .remove-state-region,
 .geot-settings .region-group .remove-region {
     display: none;
     text-decoration: none;
@@ -118,6 +121,7 @@ tr.geot-settings-title th {
 .geot-settings .redirection-group:hover .remove-redirection,
 .geot-settings .region-group:hover .remove-region,
 .geot-settings .zip-region-group:hover .remove-zip-region,
+.geot-settings .state-region-group:hover .remove-state-region,
 .geot-settings .city-region-group:hover .remove-city-region {
     display: inline-block;
 
@@ -126,6 +130,7 @@ tr.geot-settings-title th {
 .geot-settings .redirection-group:hover .remove-redirection:hover,
 .geot-settings .city-region-group:hover .remove-city-region:hover,
 .geot-settings .zip-region-group:hover .remove-zip-region:hover,
+.geot-settings .state-region-group:hover .remove-state-region:hover,
 .geot-settings .region-group:hover .remove-region:hover {
     color: red;
 }
@@ -133,12 +138,14 @@ tr.geot-settings-title th {
 .geot-settings .add-redirection,
 .geot-settings .add-region,
 .geot-settings .add-zip-region,
+.geot-settings .add-state-region,
 .geot-settings .add-city-region {
     clear: both;
     margin-top: 10px;
 }
 
-.geot-settings .zip-region-group input.zip-region-list {
+.geot-settings .zip-region-group input.zip-region-list,
+.geot-settings .state-region-group input.state-region-list {
     width: 42%;
     display: block;
 }

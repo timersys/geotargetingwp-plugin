@@ -74,6 +74,7 @@ class GeotWP_Taxonomies {
 
 		$regions_countries	= wp_list_pluck( geot_country_regions(), 'name' );
 		$regions_cities		= wp_list_pluck( geot_city_regions(), 'name' );
+		$regions_states		= wp_list_pluck( geot_state_regions(), 'name' );
 		$regions_zips		= wp_list_pluck( geot_zip_regions(), 'name' );
 
 		include_once GEOWP_PLUGIN_DIR . 'admin/partials/metabox-category.php';
@@ -267,6 +268,7 @@ class GeotWP_Taxonomies {
 
 		$regions_countries	= wp_list_pluck( geot_country_regions(), 'name' );
 		$regions_cities		= wp_list_pluck( geot_city_regions(), 'name' );
+		$regions_states		= wp_list_pluck( geot_state_regions(), 'name' );
 		$regions_zips		= wp_list_pluck( geot_zip_regions(), 'name' );
 
 		include_once GEOWP_PLUGIN_DIR . 'admin/partials/metabox-woo-category.php';
@@ -282,7 +284,6 @@ class GeotWP_Taxonomies {
 		if ( isset( $_POST['geot'] ) ) {
 
 			$array_geot = geotwp_format( $_POST['geot'] );
-
 			$without = array_filter( array_values( $array_geot ) );
 
 			if ( ! empty( $without ) ) {
@@ -350,8 +351,9 @@ class GeotWP_Taxonomies {
 		) $geot_city = GeotWP_Helper::is_targeted_city( $geot );
 
 		// State
-		if( ! empty( $geot['in_states'] ) || ! empty( $geot['ex_states'] ) )
-			$geot_state = GeotWP_Helper::is_targeted_state( $geot );
+		if( ! empty( $geot['in_states'] ) || ! empty( $geot['ex_states'] ) ||
+			! empty( $geot['in_states_regions'] ) || ! empty( $geot['ex_states_regions'] )
+		) $geot_state = GeotWP_Helper::is_targeted_state( $geot );
 
 		// Zipcode
 		if( ! empty( $geot['in_zipcodes'] ) || ! empty( $geot['ex_zipcodes'] ) ||

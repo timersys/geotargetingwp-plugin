@@ -125,12 +125,38 @@
 </tr>
 <tr class="form-field">
 	<th scope="row" valign="top">
+		<label for="geot-in-states-regions"><?php _e( 'Include State Regions' ); ?></label>
+	</th>
+	<td>
+		<select name="geot[in_states_regions][]" id="geot-in-states-regions" class="geot-chosen-select-multiple"
+		        multiple="multiple">
+			<?php foreach ( $regions_states as $region ) : ?>
+				<option value="<?php echo $region; ?>" <?php selected( in_array( $region, $geot['in_states_regions'] ), true, true ); ?>><?php echo $region; ?></option>
+			<?php endforeach; ?>
+		</select>
+	</td>
+</tr>
+<tr class="form-field">
+	<th scope="row" valign="top">
 		<label for="geot-ex-states"><?php _e( 'Exclude States' ); ?></label>
 	</th>
 	<td>
 		<input type="text" name="geot[ex_states]" id="geot-ex-states" class="selectize-input"
 		       value="<?php echo $geot['ex_states']; ?>" style="width:80%;"><br/>
 		<span class="description"><?php _e( 'Type state names or ISO codes separated by commas.', 'geot' ); ?></span>
+	</td>
+</tr>
+<tr class="form-field">
+	<th scope="row" valign="top">
+		<label for="geot-ex-states-regions"><?php _e( 'Exclude State Regions' ); ?></label>
+	</th>
+	<td>
+		<select name="geot[ex_states_regions][]" id="geot-ex-states-regions" class="geot-chosen-select-multiple"
+		        multiple="multiple">
+			<?php foreach ( $regions_states as $region ) : ?>
+				<option value="<?php echo $region; ?>" <?php selected( in_array( $region, $geot['ex_states_regions'] ), true, true ); ?>><?php echo $region; ?></option>
+			<?php endforeach; ?>
+		</select>
 	</td>
 </tr>
 

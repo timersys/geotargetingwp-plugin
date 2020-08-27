@@ -143,7 +143,7 @@ class GeotWP_Widgets {
 				       value="<?php echo esc_attr( $instance['geot_cities'] ); ?>"/>
 			</p>
 			<p>
-				<label for="geot_position"><?php _e( 'Or type states (comma separated):', 'geot' ); ?></label><br/>
+				<label for="geot_position"><?php _e( 'Or type states or state regions (comma separated):', 'geot' ); ?></label><br/>
 				<input type="text" class="geot_text" name="<?php echo $t->get_field_name( 'geot_states' ); ?>"
 				       value="<?php echo esc_attr( $instance['geot_states'] ); ?>"/>
 			</p>
@@ -244,7 +244,7 @@ class GeotWP_Widgets {
 						return @$widget_data['geot_include_mode'] == 'include' ?  false : true;
 					}
 				} elseif ( ! empty( $widget_data['geot_states'] ) ) {
-					if ( ! geot_target_state( @$widget_data['geot_states'] ) ) {
+					if ( ! geot_target_state( @$widget_data['geot_states'], @$widget_data['geot_states'] ) ) {
 						return @$widget_data['geot_include_mode'] == 'include' ?  false : true;
 					}
 				} elseif ( ! empty( $widget_data['radius_km'] ) && ! empty( $widget_data['radius_lng'] ) && ! empty( $widget_data['radius_lat'] ) ) {
@@ -316,6 +316,7 @@ class GeotWP_Widgets {
 			'cities'            => ! empty( $instance['geot_cities'] ) ? $instance['geot_cities'] : '',
 			'city_region'       => ! empty( $instance['geot_cities'] ) ? $instance['geot_cities'] : '',
 			'states'            => ! empty( $instance['geot_states'] ) ? $instance['geot_states'] : '',
+			'state_region'		=> ! empty( $instance['geot_states'] ) ? $instance['geot_states'] : '',
 			'zipcodes'          => ! empty( $instance['geot_zipcodes'] ) ? $instance['geot_zipcodes'] : '',
 			'zip_region'        => ! empty( $instance['geot_zipcodes'] ) ? $instance['geot_zipcodes'] : '',
 			'radius_km'         => ! empty( $instance['radius_km'] ) ? $instance['radius_km'] : '',
