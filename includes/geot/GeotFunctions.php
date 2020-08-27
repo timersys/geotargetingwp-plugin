@@ -815,7 +815,8 @@ class GeotCore {
 	 * @return GeotRecord
 	 */
 	private function cleanResponse( $response ) {
-
+		// allow devs to change response
+		$response = apply_filters( 'geot/response_data', $response );
 		if ( $this->opts['cache_mode'] ) {
 			$this->session->set( 'geot_data', $response );
 		}
