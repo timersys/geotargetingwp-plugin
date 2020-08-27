@@ -141,7 +141,7 @@
                             if( sessionStorage.getItem('geo_redirect_' + redirect.id ) ){
                                 do_redirect = false;
                             }
-                            localStorage.setItem( 'geo_redirect_' + redirect.id, true )
+                            sessionStorage.setItem( 'geo_redirect_' + redirect.id, true )
                         }
                         if( do_redirect ) {
                             $('.geotr-ajax').show();
