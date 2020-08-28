@@ -2,7 +2,7 @@
 Contributors: timersys
 Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
-Requires at least: 3.6
+Requires at least: 4.4
 Tested up to: 5.4.2
 Stable tag: 3.1.0.2
 License: GPLv2 or later
