@@ -151,10 +151,19 @@ tr.geot-settings-title th {
     width: 100% !important;
 }
 
-.field-geot_country {
-    border: 2px dashed #cdc8c8;
+.geot_menu_title {
+    text-align: center;
+}
+
+.geot_menu {
+    border: 1px solid #ccc;
     padding: 10px;
+    background: #faf6f6;
+    margin: 20px 0;
     box-sizing: border-box;
+}
+.geot_menu span.radius_km .geot_text {
+    margin-bottom: 10px;
 }
 
 .ui-dialog.ui-front {

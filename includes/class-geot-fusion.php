@@ -36,6 +36,7 @@ class GeotWP_Fusion {
 		require_once GEOWP_PLUGIN_DIR . 'includes/fusion/fusion-geot-city.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/fusion/fusion-geot-state.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/fusion/fusion-geot-zip.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/fusion/fusion-geot-radius.php';
 	}
 
 	/**
@@ -62,6 +63,9 @@ class GeotWP_Fusion {
 			'geot_in_region_zips',
 			'geot_ex_zips',
 			'geot_ex_region_zips',
+			'geot_radius_km',
+			'geot_radius_lat',
+			'geot_radius_lng',
 		];
 
 
@@ -75,7 +79,8 @@ class GeotWP_Fusion {
 			Fusion_GeoCountry::get_fields(),
 			Fusion_GeoCity::get_fields(),
 			Fusion_GeoState::get_fields(),
-			Fusion_GeoZip::get_fields()
+			Fusion_GeoZip::get_fields(),
+			Fusion_GeoRadius::get_fields()
 		);
 
 		return $params;
@@ -144,6 +149,9 @@ class GeotWP_Fusion {
 			'geot_in_region_zips',
 			'geot_ex_zips',
 			'geot_ex_region_zips',
+			'geot_radius_km',
+			'geot_radius_lat',
+			'geot_radius_lng',
 		];	
 
 		foreach( $geot_keys as $geot_key ) {
@@ -167,13 +175,15 @@ class GeotWP_Fusion {
 			$output = Fusion_GeoCity::ajax_render( $attrs, $output );
 			$output = Fusion_GeoState::ajax_render( $attrs, $output );
 			$output = Fusion_GeoZip::ajax_render( $attrs, $output );
+			$output = Fusion_GeoRadius::ajax_render( $attrs, $output );
 
 		} else {
 
 			if ( ! Fusion_GeoCountry::is_render( $attrs ) ||
 			     ! Fusion_GeoCity::is_render( $attrs ) ||
 			     ! Fusion_GeoState::is_render( $attrs ) ||
-			     ! Fusion_GeoZip::is_render( $attrs )
+			     ! Fusion_GeoZip::is_render( $attrs ) ||
+			     ! Fusion_GeoRadius::is_render( $attrs )
 			) {
 				return '';
 			}

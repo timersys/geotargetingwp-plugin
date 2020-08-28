@@ -259,6 +259,48 @@ class GeotWP_VC {
 			]
 		);
 
+		vc_map(
+			[
+				'name'                    => esc_html__( 'Radius', 'geot' ),
+				'is_container'            => true,
+				'content_element'         => true,
+				'base'                    => 'vc_geotwp_radius',
+				'icon'                    => GEOWP_PLUGIN_URL . '/admin/img/world.png',
+				'show_settings_on_create' => true,
+				'category'                => esc_html__( 'Geotargeting', 'geot' ),
+				'description'             => esc_html__( 'Place elements inside this geot container', 'geot' ),
+				'html_template'           => GEOWP_PLUGIN_DIR . '/includes/vc/vc_geot_radius.php',
+				'js_view'                 => 'VcColumnView',
+				"params"                  => [
+					[
+						"type"			=> "textfield",
+						"class"			=> "",
+						"heading"		=> esc_html__( "Radius (km)", 'geot' ),
+						"param_name"	=> "radius_km",
+						"value"			=> esc_html__( "", 'geot' ),
+						"description"	=> esc_html__( "Type the range in km", 'geot' ),
+						'group'			=> esc_html__( 'GeoTargeting', 'geot' ),
+					],[
+						"type"        => "textfield",
+						"class"       => "",
+						"heading"     => esc_html__( "Latitude", 'geot' ),
+						"param_name"  => "radius_lat",
+						"value"       => esc_html__( "", 'geot' ),
+						"description" => esc_html__( "Type the latitude", 'geot' ),
+						'group'       => esc_html__( 'GeoTargeting', 'geot' ),
+					],[
+						"type"        => "textfield",
+						"class"       => "",
+						"heading"     => esc_html__( "Longitude", 'geot' ),
+						"param_name"  => "radius_lng",
+						"value"       => esc_html__( "", 'geot' ),
+						"description" => esc_html__( "Type the longitude", 'geot' ),
+						'group'       => esc_html__( 'GeoTargeting', 'geot' ),
+					]
+				],
+			]
+		);
+
 	}
 
 	function dropdown_field( $settings, $value ) {
@@ -396,6 +438,9 @@ add_action( 'init', function () {
 		}
 
 		class WPBakeryShortCode_VC_GeotWP_Zip extends WPBakeryShortCodesContainer {
+		}
+
+		class WPBakeryShortCode_VC_GeotWP_Radius extends WPBakeryShortCodesContainer {
 		}
 	}
 } );

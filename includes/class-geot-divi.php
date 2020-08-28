@@ -129,6 +129,7 @@ class GeotWP_Divi {
 		require_once GEOWP_PLUGIN_DIR . 'includes/divi/divi-geot-city.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/divi/divi-geot-state.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/divi/divi-geot-zipcode.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/divi/divi-geot-radius.php';
 	}
 
 
@@ -156,17 +157,19 @@ class GeotWP_Divi {
 
 		$fields_geot = [];
 
-		$fields_country  = Divi_GeoCountry::get_fields();
-		$fields_city     = Divi_GeoCity::get_fields();
-		$fields_states   = Divi_GeoState::get_fields();
-		$fields_zipcodes = Divi_GeoZipcode::get_fields();
+		$fields_country		= Divi_GeoCountry::get_fields();
+		$fields_city		= Divi_GeoCity::get_fields();
+		$fields_states		= Divi_GeoState::get_fields();
+		$fields_zipcodes	= Divi_GeoZipcode::get_fields();
+		$fields_radius		= Divi_GeoRadius::get_fields();
 
 		$fields_geot = array_merge(
 			$fields_unprocessed,
 			$fields_country,
 			$fields_city,
 			$fields_states,
-			$fields_zipcodes
+			$fields_zipcodes,
+			$fields_radius
 		);
 
 		return apply_filters( 'geot/divi/get_fields', $fields_geot );
@@ -197,6 +200,7 @@ class GeotWP_Divi {
 
 		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
 
+			$output = Divi_GeoRadius::ajax_render( $module->props, $output );
 			$output = Divi_GeoZipcode::ajax_render( $module->props, $output );
 			$output = Divi_GeoState::ajax_render( $module->props, $output );
 			$output = Divi_GeoCity::ajax_render( $module->props, $reg_cities, $output );
@@ -207,7 +211,8 @@ class GeotWP_Divi {
 			if ( ! Divi_GeoCountry::is_render( $module->props, $reg_countries ) ||
 			     ! Divi_GeoCity::is_render( $module->props, $reg_cities ) ||
 			     ! Divi_GeoState::is_render( $module->props ) ||
-			     ! Divi_GeoZipcode::is_render( $module->props, $reg_zips )
+			     ! Divi_GeoZipcode::is_render( $module->props, $reg_zips ) ||
+			     ! Divi_GeoRadius::is_render( $module->props )
 			) {
 				return '';
 			}
@@ -237,6 +242,9 @@ class GeotWP_Divi {
 			'ex_region_cities',
 			'in_zipcodes',
 			'ex_zipcodes',
+			'radius_km',
+			'radius_lat',
+			'radius_lng',
 		];
 
 		// check if any of the valid key has a value

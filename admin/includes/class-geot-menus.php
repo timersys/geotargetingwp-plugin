@@ -173,15 +173,22 @@ class GeotWP_Menus {
 		$geot['states']            = isset( $geot['states'] ) ? $geot['states'] : '';
 		$geot['zipcodes']          = isset( $geot['zipcodes'] ) ? $geot['zipcodes'] : '';
 
+		// Radius
+		$geot['radius_km']			= isset( $geot['radius_km'] ) ? $geot['radius_km'] : '';
+		$geot['radius_lat']			= isset( $geot['radius_lat'] ) ? $geot['radius_lat'] : '';
+		$geot['radius_lng']			= isset( $geot['radius_lng'] ) ? $geot['radius_lng'] : '';
+
 		?>
 
 		<input type="hidden" name="custom-menu-meta-nonce" value="<?php echo wp_create_nonce( 'custom-menu-meta-name' ); ?>" />
 
-		<p class="field-geot_country description description-wide">
+		<h3 class="geot_menu_title"><?php esc_html_e( 'Geotargeting', 'geot' ); ?></h3>
+
+		<p class="geot_menu description description-wide">
 			<input type="hidden" class="nav-menu-id" value="<?php echo $item_id ;?>" />
 
+
 			<label for="edit-menu-item-geot_country-<?php echo $item_id; ?>">
-				<div style="text-align: center;"><?php esc_html_e( 'Geotargeting', 'geot' ); ?></div>
 				<label for="geot_what"><?php esc_html_e( 'Choose:', 'geot' ); ?></label><br/>
 				<input type="radio" class="geot_include_mode"
 				       name="menu-item-geot[<?php echo $item_id; ?>][geot_include_mode]"
@@ -226,6 +233,22 @@ class GeotWP_Menus {
 				<input type="text" class="geot_text widefat"
 				       name="menu-item-geot[<?php echo $item_id; ?>][zipcodes]"
 				       value="<?php echo esc_attr( $geot['zipcodes'] ); ?>"/>
+
+
+				<label for="geot_position"><?php _e( 'Given Radius:', 'geot' ); ?></label><br/>
+				<span class="radius_km">
+					<input type="text" id="radius_km" class="geot_text widefat" name="menu-item-geot[<?php echo $item_id; ?>][radius_km]"
+							       value="<?php echo esc_attr( $geot['radius_km'] ); ?>"
+							       placeholder="<?php _e( '100', 'geot' ); ?>"/> Km within
+					
+					<input type="text" id="radius_lat" class="geot_text widefat" name="menu-item-geot[<?php echo $item_id; ?>][radius_lat]"
+					       value="<?php echo esc_attr( $geot['radius_lat'] ); ?>"
+					       placeholder="<?php _e( 'Enter latitude', 'geot' ); ?>"/>
+
+					<input type="text" id="radius_lng" class="geot_text widefat" name="menu-item-geot[<?php echo $item_id; ?>][radius_lng]"
+					       value="<?php echo esc_attr( $geot['radius_lng'] ); ?>"
+					       placeholder="<?php _e( 'Enter longitude', 'geot' ); ?>"/>
+				</span>
 			</label>
 		</p>
 		<?php
@@ -242,7 +265,7 @@ class GeotWP_Menus {
 			return false;
 		}
 
-		if( empty( $menu['region'] ) && empty( $menu['country_code'] ) && empty( $menu['cities'] ) && empty( $menu['states'] ) && empty( $menu['zipcodes'] ) ) {
+		if( empty( $menu['region'] ) && empty( $menu['country_code'] ) && empty( $menu['cities'] ) && empty( $menu['states'] ) && empty( $menu['zipcodes'] ) && empty( $menu['radius_km'] ) && empty( $menu['radius_lat'] ) && empty( $menu['radius_lng'] ) ) {
 			return false;
 		}
 

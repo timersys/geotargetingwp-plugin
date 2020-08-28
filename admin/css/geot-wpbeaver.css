@@ -1,0 +1,5 @@
+#fl-builder-settings-section-geot-radius .geot_radius_km_input,
+#fl-builder-settings-section-geot-radius .geot_radius_lat_input,
+#fl-builder-settings-section-geot-radius .geot_radius_lng_input {
+	width: 150px;
+}

@@ -63,6 +63,10 @@ class GeotWP_Gutenberg {
 			register_block_type( 'geotargeting-pro/gutenberg-zipcode',
 				[ 'render_callback' => [ $this, 'save_gutenberg_zipcode' ] ]
 			);
+
+			register_block_type( 'geotargeting-pro/gutenberg-radius',
+				[ 'render_callback' => [ $this, 'save_gutenberg_radius' ] ]
+			);
 		}
 	}
 
@@ -184,6 +188,31 @@ class GeotWP_Gutenberg {
 	}
 
 	/**
+	 * Save Radius Block
+	 * @var    string $attributes
+	 * @var    string $content
+	 */
+	public function save_gutenberg_radius( $attributes, $content ) {
+		
+		//extract( $attributes );
+		$radius_km	= $attributes['radius_km'];
+		$radius_lat = $attributes['radius_lat'];
+		$radius_lng = $attributes['radius_lng'];
+
+		$opts = geot_settings();
+
+		if ( isset( $opts['ajax_mode'] ) && $opts['ajax_mode'] == '1' ) {
+			return '<div class="geot-ajax geot-filter" data-action="radius_filter" data-filter="' . $radius_km . '" data-region="' . $radius_lat . '" data-ex_filter="' . $radius_lng . '">' . $content . '</div>';
+		} else {
+			if ( geot_target_radius( $radius_lat, $radius_lng, $radius_km ) ) {
+				return $content;
+			}
+		}
+
+		return '';
+	}
+
+	/**
 	 * Register JS Blocks
 	 * @var    string $attributes
 	 * @var    string $content
@@ -198,17 +227,19 @@ class GeotWP_Gutenberg {
 			'geotargeting-pro/gutenberg-city',
 			'geotargeting-pro/gutenberg-state',
 			'geotargeting-pro/gutenberg-zipcode',
+			'geotargeting-pro/gutenberg-radius',
 		];
 
 		$localize_geot = [
-			'icon_country'    => GEOWP_PLUGIN_URL . '/admin/img/world.png',
-			'icon_city'       => GEOWP_PLUGIN_URL . '/admin/img/cities.png',
-			'icon_state'      => GEOWP_PLUGIN_URL . '/admin/img/states.png',
-			'icon_zipcode'    => GEOWP_PLUGIN_URL . '/admin/img/states.png',
-			'regions_country' => $this->get_regions( 'countries' ),
-			'regions_city'    => $this->get_regions( 'cities' ),
-			'regions_zip'     => $this->get_regions( 'zips' ),
-			'modules'         => $modules_geot,
+			'icon_country'		=> GEOWP_PLUGIN_URL . '/admin/img/world.png',
+			'icon_city'			=> GEOWP_PLUGIN_URL . '/admin/img/cities.png',
+			'icon_state'		=> GEOWP_PLUGIN_URL . '/admin/img/states.png',
+			'icon_zipcode'		=> GEOWP_PLUGIN_URL . '/admin/img/states.png',
+			'icon_radius'		=> GEOWP_PLUGIN_URL . '/admin/img/world.png',
+			'regions_country'	=> $this->get_regions( 'countries' ),
+			'regions_city'		=> $this->get_regions( 'cities' ),
+			'regions_zip'		=> $this->get_regions( 'zips' ),
+			'modules'			=> $modules_geot,
 		];
 
 		wp_enqueue_script(
@@ -264,6 +295,17 @@ class GeotWP_Gutenberg {
 		wp_enqueue_script(
 			'gutenberg-geo-zipcode',
 			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-zipcode.js',
+			[ 'gutenberg-geo' ],
+			GEOWP_VERSION,
+			true
+		);
+
+		/**********************
+		 * JS to Radius
+		 ***********************/
+		wp_enqueue_script(
+			'gutenberg-geo-radius',
+			GEOWP_PLUGIN_URL . '/includes/gutenberg/gutenberg-geot-radius.js',
 			[ 'gutenberg-geo' ],
 			GEOWP_VERSION,
 			true

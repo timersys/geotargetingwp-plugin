@@ -9,6 +9,9 @@
 .elementor-control-in_regions_cities .elementor-control-input-wrapper,
 .elementor-control-ex_regions_cities .elementor-control-input-wrapper,
 .elementor-control-in_regions_zips .elementor-control-input-wrapper,
-.elementor-control-ex_regions_zips .elementor-control-input-wrapper {
+.elementor-control-ex_regions_zips .elementor-control-input-wrapper,
+.elementor-control-radius_km .elementor-control-unit-2,
+.elementor-control-radius_lat .elementor-control-unit-2,
+.elementor-control-radius_lng .elementor-control-unit-2 {
 	width: 135px;
 }

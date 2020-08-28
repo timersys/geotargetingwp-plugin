@@ -360,7 +360,7 @@ class GeotWP_Taxonomies {
 
 		// Radius
 		if( ! empty( $geot['radius_km'] ) && ! empty( $geot['radius_lat'] ) && ! empty( $geot['radius_lng'] ) )
-			$geot_radius =  geot_target_radius( $geot['radius_lat'], $geot['radius_km'], $geot['radius_lng'] );
+			$geot_radius =  geot_target_radius( $geot['radius_lat'], $geot['radius_lng'], $geot['radius_km'] );
 
 		// Verify
 		if( ! $geot_country || ! $geot_city || ! $geot_state || ! $geot_zipcode || ! $geot_radius )

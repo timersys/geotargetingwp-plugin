@@ -244,7 +244,9 @@ class GeotCore {
 				// user saved regions
 				if ( ! empty( $saved_regions ) ) {
 					foreach ( $saved_regions as $sr_key => $saved_region ) {
-						if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) ) {
+						if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) &&
+							isset( $saved_region[ $plural_key ] )
+						) {
 							$places = array_merge( (array) $places, toArray( $saved_region[ $plural_key ] ) );
 						}
 					}
@@ -266,7 +268,9 @@ class GeotCore {
 				// user saved regions
 				if ( ! empty( $saved_regions ) ) {
 					foreach ( $saved_regions as $sr_key => $saved_region ) {
-						if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) ) {
+						if ( strtolower( $region_name ) == strtolower( $saved_region['name'] ) &&
+							isset( $saved_region[ $plural_key ] )
+						) {
 							$exclude_places = array_merge( (array) $exclude_places, toArray( $saved_region[ $plural_key ] ) );
 						}
 					}
