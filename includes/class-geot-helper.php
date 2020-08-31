@@ -311,6 +311,13 @@ class GeotWP_Helper {
 			];
 		}
 
+		if ( $options['param'] == 'radius' ) {
+			$choices = [
+				'inside'	=> __( "Inside", 'geot' ),
+				'outside'	=> __( "Outside", 'geot' ),
+			];
+		}
+
 		// allow custom operators
 		$choices = apply_filters( 'geot/metaboxes/rule_operators', $choices, $options );
 

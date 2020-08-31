@@ -60,6 +60,7 @@ class GeotWP_R_ules {
 		add_filter( 'geot/rules/rule_match/state_region', [ self::class, 'rule_match_state_region' ] );
 		add_filter( 'geot/rules/rule_match/zip', [ self::class, 'rule_match_zip' ] );
 		add_filter( 'geot/rules/rule_match/zip_region', [ self::class, 'rule_match_zip_region' ] );
+		add_filter( 'geot/rules/rule_match/radius', [ self::class, 'rule_match_radius' ] );
 		add_filter( 'geot/rules/rule_match/ip', [ self::class, 'rule_match_ip' ] );
 
 		// User
@@ -143,6 +144,7 @@ class GeotWP_R_ules {
 		add_action( 'geot/rules/print_state_region_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
 		add_action( 'geot/rules/print_zip_region_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
 		add_action( 'geot/rules/print_zip_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_radius_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 2 );
 		add_action( 'geot/rules/print_ip_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 
 		// User
@@ -194,6 +196,7 @@ class GeotWP_R_ules {
 				'state_region'		=> __( 'State Region', 'geot' ),
 				'zip'				=> __( 'Zip Code', 'geot' ),
 				'zip_region'		=> __( 'Zip Region', 'geot' ),
+				'radius'			=> __( 'Lat|Lng|Radius(km)', 'geot' ),
 				'ip'				=> __( 'IP', 'geot' ),
 			],
 			__( "User", 'geot' )         => [
@@ -354,7 +357,7 @@ class GeotWP_R_ules {
 	public static function rule_match_zip( $rule ) {
 		$zip = geot_zip();
 
-		$array_value = array_map('trim', explode( ',', $rule['value'] ) );
+		$array_value = array_map( 'trim', explode( ',', $rule['value'] ) );
 
 		if ( $rule['operator'] == "==" ) {
 			return ( in_array( $zip, $array_value ) );
@@ -362,6 +365,24 @@ class GeotWP_R_ules {
 
 		return ( ! in_array( $zip, $array_value ) );
 
+	}
+
+	/*
+	* rule_match_radius
+	* @since 1.0.0
+	*/
+	public static function rule_match_radius( $rule ) {
+		$array_value = array_map( 'trim', explode( '|', $rule['value'] ) );
+
+		// Lat|Lng|Radius(km)
+		if( count( $array_value ) != 3 )
+			return false;
+
+		if ( $rule['operator'] == 'inside' ) {
+			return ( geot_target_radius( $array_value[0], $array_value[1], $array_value[2] ) );
+		}
+
+		return ( ! geot_target_radius( $array_value[0], $array_value[1], $array_value[2] ) );
 	}
 
 	/*
