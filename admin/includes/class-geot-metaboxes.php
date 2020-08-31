@@ -624,6 +624,9 @@ class GeotWP_Metaboxes {
 				$input['dest'][ $key ]['countries'] = isset( $data['countries'] ) ? array_map( 'esc_attr', $data['countries'] ) : [];
 				$input['dest'][ $key ]['regions']   = isset( $data['regions'] ) ? array_map( 'esc_attr', $data['regions'] ) : [];
 				$input['dest'][ $key ]['zipcodes']  = esc_attr( $data['zipcodes'] );
+				$input['dest'][ $key ]['radius_km']  = esc_attr( $data['radius_km'] );
+				$input['dest'][ $key ]['radius_lat']  = esc_attr( $data['radius_lat'] );
+				$input['dest'][ $key ]['radius_lng']  = esc_attr( $data['radius_lng'] );
 				$input['dest'][ $key ]['states']    = esc_attr( $data['states'] );
 				$input['dest'][ $key ]['cities']    = esc_attr( $data['cities'] );
 				$input['dest'][ $key ]['device']    = esc_attr( $data['device'] );

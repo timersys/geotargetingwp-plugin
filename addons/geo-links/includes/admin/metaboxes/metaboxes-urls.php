@@ -97,6 +97,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 							</tr>
 
+							<tr>
+								<th><label>&emsp;&emsp;&emsp;&emsp;<?php _e( 'Radius', 'geol' ); ?></label></th>
+								<td>
+									<input type="number" class="widefat" step="1"
+									       name="geol[dest][<?php echo $key; ?>][radius_km]"
+									       value="<?php echo isset( $data['radius_km'] ) ? esc_attr( $data['radius_km'] ) : ''; ?>"
+									       placeholder="<?php _e( '100', 'geol' ); ?>" style="width: 60px;"/> km within
+									<br />
+									<input type="number" class="widefat" step="0.000001"
+									       name="geol[dest][<?php echo $key; ?>][radius_lat]"
+									       value="<?php echo isset( $data['radius_lat'] ) ? esc_attr( $data['radius_lat'] ) : ''; ?>"
+									       placeholder="<?php _e( 'Latitude', 'geol' ); ?>" style="width: 160px;" />
+									<input type="number" class="widefat" step="0.000001"
+									       name="geol[dest][<?php echo $key; ?>][radius_lng]"
+									       value="<?php echo isset( $data['radius_lng'] ) ? esc_attr( $data['radius_lng'] ) : ''; ?>"
+									       placeholder="<?php _e( 'Longitude', 'geol' ); ?>" style="width: 160px;" />
+								</td>
+
+							</tr>
+
 							<tr valign="top">
 								<th><label for="geol_trigger"><?php _e( 'Device', 'geol' ); ?></label></th>
 								<td>

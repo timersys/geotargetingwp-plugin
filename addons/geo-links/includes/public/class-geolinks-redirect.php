@@ -196,6 +196,14 @@ class Geol_Redirects {
 			return false;
 		}
 
+		// Zipcodes
+		if ( ! empty( $redirect['radius_km'] ) &&
+			! empty( $redirect['radius_lat'] ) &&
+			! empty( $redirect['radius_lng'] ) &&
+			! geot_target_radius( $redirect['radius_lat'], $redirect['radius_lng'], $redirect['radius_km'] ) ) {
+			return false;
+		}
+
 		return true;
 	}
 
