@@ -21,9 +21,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<li>
 					{{requested_uri}} <?php _e( 'Original requested url. Eg: http://geotargetingwp.com/geo-redirects', 'geotr' ); ?></li>
 				<li>{{requested_path}} <?php _e( 'Original requested path. Eg: geo-redirects', 'geotr' ); ?></li>
+				<li>{{last_path}} <?php _e( 'Last path in url. Eg: http://geotargetingwp.com/geo-redirects/redirect1 => redirect1', 'geotr' ); ?></li>
 			</ul>
 		</td>
 	</tr>
+	<?php
+	if ( function_exists( 'icl_object_id' ) ) {
+	?>
+	<tr valign="top">
+		<th><label for="geotr_trigger"><?php _e( 'WPML Language code', 'geotr' ); ?></label></th>
+		<td>
+			<input type="text" name="geotr[wpml]" value="<?php echo esc_attr( $opts['wpml'] ); ?>"
+			       placeholder=""/>
+			<p class="help"><?php _e( 'Enter 2 letter language code to automatically translate destination slug to that language if available.', 'geotr' ); ?></p>
+		</td>
+	</tr><?php
+	}
+	?>
 	<tr valign="top">
 		<th><label for="geotr_trigger"><?php _e( 'Exclude child pages from redirect ?', 'geotr' ); ?></label></th>
 		<td>

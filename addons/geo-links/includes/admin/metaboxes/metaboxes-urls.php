@@ -81,7 +81,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									       name="geol[dest][<?php echo $key; ?>][states]"
 									       value="<?php echo isset( $data['states'] ) ? esc_attr( $data['states'] ) : ''; ?>"
 									       placeholder="<?php _e( 'States', 'geol' ); ?>"/>
-									<p class="help-text"><?php _e( 'Type state iso codes, comma separated', 'geol' ); ?></p>
+									<p class="help-text"><?php _e( 'Type state iso codes or state regions, comma separated', 'geol' ); ?></p>
 								</td>
 
 							</tr>

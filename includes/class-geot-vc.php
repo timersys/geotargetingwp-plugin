@@ -61,6 +61,17 @@ class GeotWP_VC {
 			}
 		}
 
+		$state_regions         = geot_state_regions();
+		$state_dropdown_values = [ __( 'Choose one', 'geot' ) => '' ];
+
+		if ( ! empty( $state_regions ) ) {
+			foreach ( $state_regions as $k => $r ) {
+				if ( isset( $r['name'] ) ) {
+					$state_dropdown_values[ $r['name'] ] = $r['name'];
+				}
+			}
+		}
+
 		$zip_regions         = geot_zip_regions();
 		$zip_dropdown_values = [ __( 'Choose one', 'geot' ) => '' ];
 
@@ -198,12 +209,28 @@ class GeotWP_VC {
 						"description" => __( "Type state name or ISO code. Also you can write a comma separated list of states", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
 					],[
+						"type"        => "geot_dropdown",
+						"class"       => "",
+						"heading"     => __( "State Region", 'geot' ),
+						"param_name"  => "region",
+						"value"       => $state_dropdown_values,
+						"description" => __( "Choose region name to show content to", 'geot' ),
+						'group'       => __( 'GeoTargeting', 'geot' ),
+					],[
 						"type"        => "textfield",
 						"class"       => "",
 						"heading"     => __( "Exclude State", 'geot' ),
 						"param_name"  => "exclude_state",
 						"value"       => __( "", 'geot' ),
 						"description" => __( "Type state name or ISO code. Also you can write a comma separated list of states", 'geot' ),
+						'group'       => __( 'GeoTargeting', 'geot' ),
+					],[
+						"type"        => "geot_dropdown",
+						"class"       => "",
+						"heading"     => __( "Exclude State Region", 'geot' ),
+						"param_name"  => "exclude_region",
+						"value"       => $state_dropdown_values,
+						"description" => __( "Choose region name to exclude content.", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
 					],
 				],
@@ -238,7 +265,7 @@ class GeotWP_VC {
 						"value"       => $zip_dropdown_values,
 						"description" => __( "Choose region name to show content to", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
-					],					[
+					],[
 						"type"        => "textfield",
 						"class"       => "",
 						"heading"     => __( "Exclude zip", 'geot' ),
@@ -249,7 +276,7 @@ class GeotWP_VC {
 					],[
 						"type"        => "geot_dropdown",
 						"class"       => "",
-						"heading"     => __( "Zip Region", 'geot' ),
+						"heading"     => __( "Exclude Zip Region", 'geot' ),
 						"param_name"  => "exclude_region",
 						"value"       => $zip_dropdown_values,
 						"description" => __( "Choose region name to exclude content.", 'geot' ),

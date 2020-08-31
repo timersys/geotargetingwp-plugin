@@ -88,7 +88,7 @@ class Divi_GeoZipcode {
 	 *
 	 * @return array
 	 */
-	static function ajax_render( $settings, $output ) {
+	static function ajax_render( $settings, $regions, $output ) {
 
 		$in_regions_commas = $ex_regions_commas = '';
 

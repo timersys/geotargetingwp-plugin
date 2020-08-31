@@ -10,6 +10,9 @@ $opts = geot_settings();
 if ( empty( $opts['region'] ) ) {
 	$opts['region'] = [ [ 'name', 'countries' ] ];
 }
+if ( empty( $opts['state_region'] ) ) {
+	$opts['state_region'] = [ [ 'name', 'states' ] ];
+}
 if ( empty( $opts['city_region'] ) ) {
 	$opts['city_region'] = [ [ 'name', 'cities' ] ];
 }
@@ -197,6 +200,32 @@ $countries = geot_countries();
 					<p class="help"><?php _e( 'Add as many cities you need for each region', 'geot' ); ?></p>
 				</td>
 
+			</tr>
+			<tr valign="top" class="region-title">
+				<th colspan="3"><h3><?php _e( 'States:', 'geot' ); ?></h3></th>
+
+			</tr>
+			<tr valign="top" class="">
+				<th><label for="region"><?php _e( 'Create new region', 'geot' ); ?></label></th>
+				<td colspan="3">
+	
+					<?php if ( ! empty( $opts['state_region'] ) ) : $i = 0; ?>
+						<?php foreach ( $opts['state_region'] as $region ) : $i++; ?>
+
+							<div class="state-region-group" data-id="<?php echo $i; ?>">
+
+								<input type="text" class="state-region-name region-name" placeholder="Enter region name" name="geot_settings[state_region][<?php echo $i; ?>][name]" value="<?php echo ! empty( $region['name'] ) ? esc_attr( $region['name'] ) : ''; ?>" />
+								<a href="#" class="remove-state-region" title="<?php _e( 'Remove States', 'geot' ); ?>">-</a>
+								<input type="text" class="state-region-list" name="geot_settings[state_region][<?php echo $i; ?>][states]" placeholder="<?php _e( 'Type State iso codes separated with commas...', 'geot' ); ?>" value="<?php echo ! empty( $region['states'] ) ? esc_attr( $region['states'] ) : ''; ?>" />
+
+
+							</div>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				
+					<a href="#" class="add-state-region button"><?php _e( 'Add State Regions', 'geot' ); ?></a>
+					<p class="help"><?php _e( 'Add as many states you need for each region', 'geot' ); ?></p>
+				</td>
 			</tr>
 			<tr valign="top" class="region-title">
 				<th colspan="3"><h3><?php _e( 'Zip Codes:', 'geot' ); ?></h3></th>

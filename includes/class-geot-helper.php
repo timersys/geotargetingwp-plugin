@@ -81,9 +81,10 @@ class GeotWP_Helper {
 			}
 		}
 
-		if ( ! empty( $opts['states'] ) ) {
-			$states       = ! empty( $opts['states'] ) ? $opts['states'] : '';
-			$state_target = geot_target_state( $states );
+		if ( ! empty( $opts['states'] ) || ! empty( $opts['state_region'] ) ) {
+			$states 	= ! empty( $opts['states'] ) ? $opts['states'] : '';
+			$regions 	= ! empty( $opts['state_region'] ) ? $opts['state_region'] : '';
+			$state_target = geot_target_state( $states, $regions );
 
 			if ( $mode == 'exclude' && $state_target ) {
 				$state_remove = true;
@@ -230,12 +231,13 @@ class GeotWP_Helper {
 
 		extract( $opts );
 
-		if ( empty( $in_states ) && empty( $ex_states ) ) {
+		if ( empty( $in_states ) && empty( $ex_states ) &&
+			count( $in_states_regions ) == 0 && count( $ex_states_regions ) == 0
+		) {
 			return true;
 		}
 
-
-		return geot_target_state( $in_states, $ex_states );
+		return geot_target_state( $in_states, $in_states_regions, $ex_states, $ex_states_regions );
 	}
 
 
@@ -445,6 +447,12 @@ class GeotWP_Helper {
 				break;
 			case "city_region":
 				$regions = geot_city_regions();
+				foreach ( $regions as $r ) {
+					$choices[ $r['name'] ] = $r['name'];
+				}
+				break;
+			case "state_region":
+				$regions = geot_state_regions();
 				foreach ( $regions as $r ) {
 					$choices[ $r['name'] ] = $r['name'];
 				}
@@ -705,7 +713,9 @@ class GeotWP_Helper {
 			'city',
 			'city_region',
 			'state',
+			'state_region',
 			'zip',
+			'zip_region',
 		] );
 
 

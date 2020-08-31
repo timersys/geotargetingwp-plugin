@@ -155,6 +155,28 @@
             region.remove();
         });
 
+        // add state region
+        $(".add-state-region").on('click', function (e) {
+            e.preventDefault();
+
+            const region = $(this).prev('.state-region-group'),
+                new_region = region.clone(),
+                new_id = parseInt(region.data('id'), 10) + 1;
+
+            new_region.find('input.state-region-name').attr('name', 'geot_settings[state_region][' + new_id + '][name]').val('');
+            new_region.find('input.state-region-list').attr('name', 'geot_settings[state_region][' + new_id + '][states]').val('');
+            new_region.attr('data-id', new_id);
+
+            new_region.insertAfter(region);
+        });
+
+        // Remove state region
+        $(".geot-settings").on('click', '.remove-state-region', function (e) {
+            e.preventDefault();
+            const region = $(this).parent('.state-region-group');
+            region.remove();
+        });
+
         // add zip region
         $(".add-zip-region").on('click', function (e) {
             e.preventDefault();
@@ -165,6 +187,7 @@
 
             new_region.find('input.zip-region-name').attr('name', 'geot_settings[zip_region][' + new_id + '][name]').val('');
             new_region.find('input.zip-region-list').attr('name', 'geot_settings[zip_region][' + new_id + '][zips]').val('');
+            new_region.attr('data-id', new_id);
             
             new_region.insertAfter(region);
         });

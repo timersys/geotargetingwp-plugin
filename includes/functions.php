@@ -73,6 +73,8 @@ function geotwp_default() {
 		'ex_cities_regions'    => [],
 		'in_states'            => '',
 		'ex_states'            => '',
+		'in_states_regions'    => [],
+		'ex_states_regions'    => [],
 		'in_zipcodes'          => '',
 		'ex_zipcodes'          => '',
 		'in_zips_regions'      => [],

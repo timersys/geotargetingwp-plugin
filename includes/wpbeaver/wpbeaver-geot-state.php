@@ -32,10 +32,24 @@ class WPBeaver_GeoState {
 					'label' => __( 'Include States', 'Geot' ),
 					'help' => esc_html__( 'Type state names or ISO codes separated by comma.', 'geot' ),
 				],
+				'in_region_states' => [
+					'type' => 'select',
+					'multi-select' => true,
+					'label' => __( 'Include State Regions', 'Geot' ),
+					'options' => GeotWP_WPBeaver::get_regions( 'state' ),
+					'help' => esc_html__( 'Choose region name to show content to.', 'geot' ),
+				],
 				'ex_states' => [
 					'type' => 'text',
 					'label' => __( 'Exclude States', 'Geot' ),
 					'help' => esc_html__( 'Type state names or ISO codes separated by comma.', 'geot' ),
+				],
+				'ex_region_states' => [
+					'type' => 'select',
+					'multi-select' => true,
+					'label' => __( 'Exclude State Regions', 'Geot' ),
+					'options' => GeotWP_WPBeaver::get_regions( 'state' ),
+					'help' => esc_html__( 'Choose region name to show content to.', 'geot' ),
 				],
 			],
 		];
@@ -56,12 +70,17 @@ class WPBeaver_GeoState {
 
 		extract($settings);
 
-		if ( empty( $in_states ) && empty( $ex_states ) ) {
+		$in_region_states = !empty( $in_region_states ) &&  !empty( $in_region_states[0] ) ? $in_region_states  : [];
+		$ex_region_states = !empty( $ex_region_states ) &&  !empty( $ex_region_states[0] ) ? $ex_region_states  : [];
+
+		if ( empty( $in_states ) && empty( $ex_states ) &&
+			count( $in_region_states ) == 0 && count( $ex_region_states ) == 0
+		) {
 			return true;
 		}
 
 
-		return geot_target_state( $in_states, $ex_states );
+		return geot_target_state( $in_states, $in_region_states, $ex_states, $ex_region_states );
 	}
 
 
@@ -72,16 +91,30 @@ class WPBeaver_GeoState {
 	 */
 	static function ajax_render( $settings, $output ) {
 
+		$in_regions_commas = $ex_regions_commas = '';
+
 		if( is_object( $settings ) )
 			$settings = get_object_vars($settings);
 
 		extract( $settings );
 
-		if ( empty( $in_states ) && empty( $ex_states ) ) {
+		$in_region_states = !empty( $in_region_states ) &&  !empty( $in_region_states[0] ) ? $in_region_states  : [];
+		$ex_region_states = !empty( $ex_region_states ) &&  !empty( $ex_region_states[0] ) ? $ex_region_states  : [];
+
+		if ( empty( $in_states ) && empty( $ex_states ) &&
+			count( $in_region_states ) == 0 && count( $ex_region_states ) == 0
+		) {
 			return $output;
 		}
 
+		if ( count( $in_region_states ) > 0 ) {
+			$in_regions_commas = implode( ',', $in_region_states );
+		}
 
-		return '<div class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $in_states . '" data-ex_filter="' . $ex_states . '">' . $output . '</div>';
+		if ( count( $ex_region_states ) > 0 ) {
+			$ex_regions_commas = implode( ',', $ex_region_states );
+		}
+
+		return '<div class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $in_states . '" data-region="' . $in_regions_commas . '" data-ex_filter="' . $ex_states . '" data-ex_region="' . $ex_regions_commas . '">' . $output . '</div>';
 	}
 }

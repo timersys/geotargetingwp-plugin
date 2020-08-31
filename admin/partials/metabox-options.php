@@ -137,6 +137,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<td colspan="2"></td>
 	</tr>
 	<tr valign="top">
+		<th><label for="geot_position"><?php _e( 'State Regions:', 'geot' ); ?></label></th>
+		<td>
+			<?php if ( is_array( $state_regions ) ) : ?>
+				<select name="geot[state_region][]" multiple class="geot-chosen-select-multiple" data-placeholder="<?php _e( 'Choose state region name...', 'geot' ); ?>">
+					<?php foreach ( $state_regions as $r ) : ?>
+						<?php
+							if ( ! is_array( $opts ) || ! isset( $r['name'] ) ) {
+								continue;
+							}
+						?>
+						<option value="<?php echo $r['name']; ?>" <?php echo isset( $opts['state_region'] ) ? selected( true, @in_array( $r['name'], $opts['state_region'] ), true ) : ''; ?>>
+							<?php echo $r['name']; ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+			
+			<?php else : ?>
+				<p><?php _e('Add some regions first.','geot'); ?></p>
+			<?php endif; ?>
+		</td>
+		<td colspan="2"></td>
+	</tr>
+	<tr valign="top">
 		<th><label for="gstates"><?php _e( 'States:', 'geot' ); ?></label></th>
 		<td>
 
@@ -186,7 +209,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<td>
 
 			<input type="text" id="radius_km" class="geot_text" name="geot[radius_km]"
-			       value="<?php echo ! empty( $opts['radius_km'] ) ? $opts['radius_km'] : '100'; ?>"
+			       value="<?php echo ! empty( $opts['radius_km'] ) ? $opts['radius_km'] : ''; ?>"
 			       placeholder="<?php _e( '100', 'geot' ); ?>"/> km within
 			<input type="text" id="radius_lat" class="geot_text" name="geot[radius_lat]"
 			       value="<?php echo ! empty( $opts['radius_lat'] ) ? $opts['radius_lat'] : ''; ?>"

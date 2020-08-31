@@ -57,6 +57,7 @@ class GeotWP_R_ules {
 		add_filter( 'geot/rules/rule_match/city', [ self::class, 'rule_match_city' ] );
 		add_filter( 'geot/rules/rule_match/city_region', [ self::class, 'rule_match_city_region' ] );
 		add_filter( 'geot/rules/rule_match/state', [ self::class, 'rule_match_state' ] );
+		add_filter( 'geot/rules/rule_match/state_region', [ self::class, 'rule_match_state_region' ] );
 		add_filter( 'geot/rules/rule_match/zip', [ self::class, 'rule_match_zip' ] );
 		add_filter( 'geot/rules/rule_match/zip_region', [ self::class, 'rule_match_zip_region' ] );
 		add_filter( 'geot/rules/rule_match/ip', [ self::class, 'rule_match_ip' ] );
@@ -92,6 +93,7 @@ class GeotWP_R_ules {
 		add_filter( 'geot/rules/rule_match/referrer', [ self::class, 'rule_match_referrer' ] );
 		add_filter( 'geot/rules/rule_match/crawlers', [ self::class, 'rule_match_crawlers' ] );
 		add_filter( 'geot/rules/rule_match/query_string', [ self::class, 'rule_match_query_string' ] );
+		add_filter( 'geot/rules/rule_match/language', [ self::class, 'rule_match_language' ] );
 	}
 
 	/*
@@ -138,6 +140,7 @@ class GeotWP_R_ules {
 		add_action( 'geot/rules/print_city_region_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
 		add_action( 'geot/rules/print_city_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 2 );
 		add_action( 'geot/rules/print_state_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_state_region_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
 		add_action( 'geot/rules/print_zip_region_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
 		add_action( 'geot/rules/print_zip_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 		add_action( 'geot/rules/print_ip_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
@@ -173,6 +176,7 @@ class GeotWP_R_ules {
 		add_action( 'geot/rules/print_referrer_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 		add_action( 'geot/rules/print_query_string_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 		add_action( 'geot/rules/print_cookie_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_language_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 	}
 
 	/**
@@ -187,8 +191,9 @@ class GeotWP_R_ules {
 				'city'				=> __( 'City', 'geot' ),
 				'city_region'		=> __( 'City Region', 'geot' ),
 				'state'				=> __( 'State', 'geot' ),
-				'zip_region'		=> __( 'Zip Region', 'geot' ),
+				'state_region'		=> __( 'State Region', 'geot' ),
 				'zip'				=> __( 'Zip Code', 'geot' ),
+				'zip_region'		=> __( 'Zip Region', 'geot' ),
 				'ip'				=> __( 'IP', 'geot' ),
 			],
 			__( "User", 'geot' )         => [
@@ -224,7 +229,10 @@ class GeotWP_R_ules {
 				'crawlers'     => __( "Bots/Crawlers", 'geot' ),
 			],
 		];
-
+		// WPML or Polylang
+		if ( function_exists( 'icl_object_id' ) || function_exists( 'pll_current_language' ) ) {
+			$choices[ __( 'Other', 'wp-popups-lite' ) ]['language'] = __( 'Language', 'wp-popups-lite' );
+		}
 		// allow custom rules rules
 		return apply_filters( 'geot/metaboxes/rule_types', $choices );
 	}
@@ -275,6 +283,20 @@ class GeotWP_R_ules {
 		}
 
 		return ( ! in_array( $city, $array_value ) );
+
+	}
+
+	/*
+	* rule_match_state_region
+	* @since 1.0.0
+	*/
+	public static function rule_match_state_region( $rule ) {
+
+		if ( $rule['operator'] == "==" ) {
+			return ( geot_target_state( '', $rule['value'] ) );
+		}
+
+		return ( ! geot_target_state( '', $rule['value'] ) );
 
 	}
 
@@ -579,6 +601,31 @@ class GeotWP_R_ules {
 
 		return ! $found;
 
+	}
+
+	/**
+	 * Check for language WPML or Polylang
+	 *
+	 * @param $rule
+	 *
+	 * @return bool
+	 */
+	public static function rule_match_language( $rule ) {
+		$lang = '';
+		// polylang
+		if ( function_exists( 'pll_current_language' ) ) {
+			$lang = pll_current_language();
+		}
+		// wpml
+		if ( function_exists( 'icl_object_id' ) ) {
+			$lang = isset( $_GET['lang'] ) ? $_GET['lang'] : ICL_LANGUAGE_CODE;
+		}
+		// match
+		if ( '==' === $rule['operator'] ) {
+			return ( $lang === $rule['value'] );
+		}
+
+		return ( $lang !== $rule['value'] );
 	}
 
 	/**

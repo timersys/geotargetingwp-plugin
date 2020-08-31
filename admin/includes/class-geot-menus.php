@@ -70,6 +70,7 @@ class GeotWP_Menus {
 			$geot_value = $_REQUEST['menu-item-geot'][ $menu_item_db_id ];
 
 			$geot_value['city_region'] = $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['cities'];
+			$geot_value['state_region'] = $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['state_region'];
 			$geot_value['zip_region'] = $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['zipcodes'];
 
 			update_post_meta( $menu_item_db_id, '_menu_item_geot', $geot_value );
@@ -222,7 +223,7 @@ class GeotWP_Menus {
 				<br>
 
 				<label
-						for="geot_position"><?php _e( 'Or type states (comma separated):', 'geot' ); ?></label><br/>
+						for="geot_position"><?php _e( 'Or type states or state regions (comma separated):', 'geot' ); ?></label><br/>
 				<input type="text" class="geot_text widefat"
 				       name="menu-item-geot[<?php echo $item_id; ?>][states]"
 				       value="<?php echo esc_attr( $geot['states'] ); ?>"/>

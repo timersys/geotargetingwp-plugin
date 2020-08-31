@@ -58,7 +58,9 @@ class GeotWP_Fusion {
 			'geot_ex_cities',
 			'geot_ex_region_cities',
 			'geot_in_states',
+			'geot_in_region_states',
 			'geot_ex_states',
+			'geot_ex_region_states',
 			'geot_in_zips',
 			'geot_in_region_zips',
 			'geot_ex_zips',
@@ -104,6 +106,9 @@ class GeotWP_Fusion {
 			case 'zip':
 				$regions = geot_zip_regions();
 				break;
+			case 'state':
+				$regions = geot_state_regions();
+				break;
 			default:
 				$regions = geot_country_regions();
 		}
@@ -144,7 +149,9 @@ class GeotWP_Fusion {
 			'geot_ex_cities',
 			'geot_ex_region_cities',
 			'geot_in_states',
+			'geot_in_region_states',
 			'geot_ex_states',
+			'geot_ex_region_states',
 			'geot_in_zips',
 			'geot_in_region_zips',
 			'geot_ex_zips',

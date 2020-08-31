@@ -39,6 +39,11 @@ class GeotWP_Activator {
 				'<p>' . __( 'Geotargeting PRO requires at least PHP 5.6 and you are running PHP ' ) . PHP_VERSION . '</p>'
 			);
 		}
+		// deactivate lite
+		// Geotargetinglite
+		if ( is_plugin_active( 'geotargeting/geotargeting.php' ) ) {
+			deactivate_plugins( 'geotargeting/geotargeting.php', true );
+		}
 		// deactivate old plugins in old versions.
 		$addons = get_option('geot_pro_addons');
 		if( ! $addons ) {

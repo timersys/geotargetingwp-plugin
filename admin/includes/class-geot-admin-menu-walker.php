@@ -218,7 +218,7 @@ if ( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
 						<br>
 
 						<label
-								for="geot_position"><?php _e( 'Or type states (comma separated):', 'geot' ); ?></label><br/>
+								for="geot_position"><?php _e( 'Or type states or state regions (comma separated):', 'geot' ); ?></label><br/>
 						<input type="text" class="geot_text widefat"
 						       name="menu-item-geot[<?php echo $item_id; ?>][states]"
 						       value="<?php echo esc_attr( $item->geot['states'] ); ?>"/>

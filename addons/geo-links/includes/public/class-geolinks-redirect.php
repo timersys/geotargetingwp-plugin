@@ -187,7 +187,7 @@ class Geol_Redirects {
 		}
 
 		// States
-		if ( ! empty( $redirect['states'] ) && ! geot_target_state( $redirect['states'] ) ) {
+		if ( ! empty( $redirect['states'] ) && ! geot_target_state( $redirect['states'] ) && ! geot_target_state( '', $redirect['states'] ) ) {
 			return false;
 		}
 

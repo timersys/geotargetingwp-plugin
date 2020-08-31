@@ -3762,6 +3762,29 @@
                     str += "]<p>Please add your content in this area.</p>[/geot_filter_state]";
 
                 }
+            } else if ($.find('#geot_state_region').val()) {
+                var str = '[geot_filter_state ';
+                if (mode == 'include') {
+                    str += 'region="';
+                } else {
+                    str += 'exclude_region="';
+                }
+
+                str += $.find('#geot_state_region').val();
+
+                str += '" ';
+
+                var selected_text = parentEditor.selection.getContent();
+                if (selected_text) {
+
+                    str += "]" + selected_text + "[/geot_filter_state]";
+
+                } else {
+
+                    str += "]<p>Please add your content in this area.</p>[/geot_filter_state]";
+
+                }
+
             } else if ($.find('#geot_city').val()) {
                 var str = '[geot_filter_city ';
                 if (mode == 'include') {

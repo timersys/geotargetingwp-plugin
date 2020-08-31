@@ -153,7 +153,9 @@ class GeotWP_WPBeaver {
 			'ex_countries',
 			'ex_region_countries',
 			'in_states',
+			'in_region_states',
 			'ex_states',
+			'ex_region_states',
 			'in_cities',
 			'in_region_cities',
 			'ex_cities',
@@ -192,6 +194,9 @@ class GeotWP_WPBeaver {
 		switch ( $slug_region ) {
 			case 'city':
 				$regions = geot_city_regions();
+				break;
+			case 'state':
+				$regions = geot_state_regions();
 				break;
 			case 'zip':
 				$regions = geot_zip_regions();

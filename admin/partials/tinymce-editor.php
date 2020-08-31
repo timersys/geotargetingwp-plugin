@@ -2,6 +2,7 @@
 $countries 		= geot_countries();
 $regions 		= geot_country_regions();
 $city_regions 	= geot_city_regions();
+$state_regions 	= geot_state_regions();
 $zip_regions 	= geot_zip_regions();
 ?>
 <form name="form" autocomplete="off">
@@ -97,6 +98,25 @@ $zip_regions 	= geot_zip_regions();
 				<td>
 					<input type="text" name="geot[state]" id="geot_state"
 					       data-placeholder="<?php _e( 'Type states separated by comma', 'geot' ); ?>"/>
+				</td>
+				<td colspan="2"></td>
+			</tr>
+			<tr valign="top">
+				<th><label for="geot_position"><?php _e( 'Or choose State Regions:', 'geot' ); ?></label></th>
+				<td>
+					<select name="geot[state_region][]" id="geot_state_region" multiple
+					        class="geot-chosen-select-multiple"
+					        data-placeholder="<?php _e( 'Choose states region name...', 'geot' ); ?>">
+						<?php
+						if ( is_array( $state_regions ) ) {
+							foreach ( $state_regions as $cr ) {
+								?>
+								<option value="<?php echo strtolower( $cr['name'] ); ?>"> <?php echo $cr['name']; ?></option>
+								<?php
+							}
+						}
+						?>
+					</select>
 				</td>
 				<td colspan="2"></td>
 			</tr>
