@@ -33,7 +33,7 @@ class Elementor_GeoRadius {
 
 
 		$control->add_control(
-			'in_header_zipcodes',
+			'in_header_radius',
 			[
 				'label'     => __( 'Radius', 'geot' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
