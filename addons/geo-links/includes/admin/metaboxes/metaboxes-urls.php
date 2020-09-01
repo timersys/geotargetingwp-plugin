@@ -16,6 +16,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<table class="form-table">
 
 							<?php do_action( 'geol/metaboxes/before_repeater', $opts ); ?>
+							<tr valign="top">
+								<th><label for="geol_dest"><?php _e( 'Label', 'geol' ); ?></label></th>
+								<td>
+									<input type="text" class="widefat" name="geol[dest][<?php echo $key; ?>][label]"
+									       value="<?php echo isset( $data['label'] ) ? esc_attr( $data['label'] ) : ''; ?>"
+									       placeholder=""/>
+									<p class="help-text"><?php _e( 'Enter a friendly name to identify your links', 'geol' ); ?></p>
+								</td>
+							</tr>
 
 							<tr valign="top">
 								<th><label for="geol_dest"><?php _e( 'Destination URL', 'geol' ); ?></label></th>

@@ -3,6 +3,7 @@
 	<table class="wp-list-table widefat striped">
 		<thead>
 		<tr>
+			<th><?php _e( 'Label', 'geol' ); ?></th>
 			<th><?php _e( 'Destinations', 'geol' ); ?></th>
 			<th><?php _e( 'Clicks', 'geol' ); ?></th>
 		</tr>
@@ -15,16 +16,17 @@
 				}
 				?>
 				<tr>
+					<td class="geol_stats_url"><?php echo $data['label']; ?></td>
 					<td class="geol_stats_url"><?php echo $data['url']; ?></td>
-					<td class="geol_stats_count"><?php echo $data['count_dest']; ?></td>
+					<td class="geol_stats_count"><?php echo empty( $data['count_dest'] ) ? 0 : $data['count_dest']; ?></td>
 				</tr>
 			<?php endforeach; ?>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $opts['dest_default'] ) ) : ?>
 			<tr>
-				<td class="geol_stats_url"><strong><?php _e( 'Default', 'geol' ); ?>
-						:</strong> <?php echo $opts['dest_default']; ?></td>
+				<td class="geol_stats_url"><strong><?php _e( 'Default', 'geol' ); ?>:</strong></td>
+				<td class="geol_stats_url"><?php echo $opts['dest_default']; ?></td>
 				<td class="geol_stats_count"><?php echo $opts['click_default']; ?></td>
 			</tr>
 		<?php else : ?>

@@ -620,6 +620,7 @@ class GeotWP_Metaboxes {
 			$i = 0;
 			foreach ( $opts['dest'] as $data ) {
 				$key                                = 'dest_' . $i;
+				$input['dest'][ $key ]['label']    = esc_attr( $data['label'] );
 				$input['dest'][ $key ]['url']       = esc_url_raw( $data['url'] );
 				$input['dest'][ $key ]['countries'] = isset( $data['countries'] ) ? array_map( 'esc_attr', $data['countries'] ) : [];
 				$input['dest'][ $key ]['regions']   = isset( $data['regions'] ) ? array_map( 'esc_attr', $data['regions'] ) : [];

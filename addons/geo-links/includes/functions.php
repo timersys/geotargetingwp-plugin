@@ -34,6 +34,7 @@ function geotWPL_options( $id ) {
 			'dest'          => [
 				'dest_0' =>
 					[
+						'label'      => '',
 						'url'        => '',
 						'ref'        => '',
 						'countries'  => [],
