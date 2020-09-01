@@ -31,6 +31,7 @@
                                 select_city.settings.placeholder = 'Choose one o or more cities';
                                 select_city.updatePlaceholder();
                                 select_city.enable();
+                                select_city.loaded = true;
                                 callback(res);
                             }
                         });

@@ -164,10 +164,22 @@ $countries = geot_countries();
                                         render: function (item, escape) {
                                             return '<div>' + escape(item.name) + '</div>';
                                         },
+                                        create: function(input) {
+                                            const inst = select_<?= $j;?>[0].selectize;
+                                            inst.addOption({name:input});
+                                            inst.addItem(input);
+                                            inst.refreshOptions(true);
+                                            inst.refreshItems(true);
+                                            inst.setTextboxValue('');
+                                            return {
+                                                value: input,
+                                                text: input
+                                            }
+                                        },
                                         preload: true,
                                         openOnFocus: true,
                                         onFocus: function () {
-                                            var inst = select_<?= $j;?>[0].selectize;
+                                            const inst = select_<?= $j;?>[0].selectize;
                                             if (inst.loaded)
                                                 return;
                                             inst.disable();
