@@ -419,7 +419,7 @@ class GeotWP_Ajax {
 	 */
 	private function state_filter( $geot ) {
 
-		if ( geot_target_state( $geot['filter'], $geot['ex_filter'] ) ) {
+		if ( geot_target_state( $geot['filter'], $geot['region'], $geot['ex_filter'], $geot['ex_region'] ) ) {
 			return true;
 		}
 
