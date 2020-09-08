@@ -140,11 +140,13 @@ class GeotWP_Shortcodes {
 	function geot_filter_states( $atts, $content ) {
 		extract( shortcode_atts( [
 			'state'         => '',
-			'exclude_state' => '',
+			'state_region'         => '',
+			'exclude_state'         => '',
+			'exclude_state_region' => '',
 		], $atts ) );
 
 
-		if ( geot_target_state( $state, $exclude_state ) ) {
+		if ( geot_target_state( $state, $state_region, $exclude_state, $exclude_state_region ) ) {
 			return do_shortcode( $content );
 		}
 

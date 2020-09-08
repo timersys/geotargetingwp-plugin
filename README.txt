@@ -3,8 +3,8 @@ Contributors: timersys
 Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
-Tested up to: 5.4.2
-Stable tag: 3.1.0.2
+Tested up to: 5.5
+Stable tag: 3.2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,20 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.2.0.1 - September 5 2020 =
+* Fix issue with ajax and states
+
+= 3.2 - August 7 2020 =
+* Fixed WP v < 4.4 issue
+* Fixed menu items with certain themes that duplicate menus
+* Fixed bug with city regions first click
+* Feature: New cities can be added to city regions
+* Feature: Labels added to Geolinks destinations
+* Feature: WPML Auto translation of slugs in redirects
+* Feature: Ajax mode use local storage for redirects session
+* Feature: State regions added
+* Feature: Added radius in missing places
+
 = 3.1.0.2 - August 7 2020 =
 * Widget Bug introduced on previous version
 

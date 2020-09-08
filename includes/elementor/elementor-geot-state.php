@@ -154,7 +154,7 @@ class Elementor_GeoState {
 		) {
 			return;
 		}
-
+		$in_regions_i = $ex_regions_i = '';
 		if ( is_array( $in_regions_states ) && count( $in_regions_states ) > 0 ) {
 			$in_regions_i = implode( ',', $in_regions_states );
 		}
