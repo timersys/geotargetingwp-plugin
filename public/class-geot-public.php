@@ -126,6 +126,7 @@ class GeotWP_Public {
 			'is_builder'        => is_builder(),
 			'dropdown_search'   => apply_filters( 'geot/dropdown_widget/disable_search', false ),
 			'dropdown_redirect' => apply_filters( 'geot/dropdown_widget/redirect_url', '' ),
+			'elementor_popup'	=> apply_filters( 'geot/elementor/popup', true ),
 
 			'geoloc_enable'		=> isset($this->opts['geolocation']) ? $this->opts['geolocation'] : 0,
 			'geoloc_force'		=> isset($this->opts['force_geot']) ? $this->opts['force_geot'] : '',

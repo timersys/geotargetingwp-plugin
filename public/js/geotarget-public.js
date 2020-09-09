@@ -29,7 +29,9 @@
 
             } else {
                 GeotWP.executeAjax();
-                $( document ).on( 'elementor/popup/show', GeotWP.executeAjax );
+
+                if( geot.elementor_popup )
+                    $( document ).on( 'elementor/popup/show', GeotWP.executeAjax );
             }
         },
         executeGps: function() {
