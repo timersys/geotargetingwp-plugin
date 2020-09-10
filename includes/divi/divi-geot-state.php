@@ -90,11 +90,10 @@ class Divi_GeoState {
 	static function ajax_render( $settings, $regions, $output ) {
 
 		$in_regions_commas = $ex_regions_commas = '';
+		extract( $settings );
 
 		$in_regions = GeotWP_Divi::format_regions( $in_region_states, '|', $regions );
 		$ex_regions = GeotWP_Divi::format_regions( $ex_region_states, '|', $regions );
-
-		extract( $settings );
 
 		if ( empty( $in_states ) && empty( $ex_states ) &&
 			count( $in_regions ) == 0 && count( $ex_regions ) == 0
