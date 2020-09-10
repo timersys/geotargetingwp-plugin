@@ -23,10 +23,15 @@
             /* Geolocation */
             if( geot.geoloc_enable && geot.geoloc_enable == 'by_html5' ) {
                 GeotWP.executeGps();
+
             } else if( geot.geoloc_enable && geot.geoloc_enable == 'by_html5_mobile' && GeotWP.isMobile() ) {
                 GeotWP.executeGps();
+
             } else {
                 GeotWP.executeAjax();
+
+                if( geot.elementor_popup )
+                    $( document ).on( 'elementor/popup/show', GeotWP.executeAjax );
             }
         },
         executeGps: function() {
