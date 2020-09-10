@@ -64,7 +64,7 @@ class Fusion_GeoRadius {
 		$geot_radius_lng	= trim( $attrs['geot_radius_lng'] );
 
 		if ( empty( $geot_radius_km ) || empty( $geot_radius_lat ) || empty( $geot_radius_lng ) ) {
-			return true;
+			return $output;
 		}
 
 		return geot_target_radius( $geot_radius_lat, $geot_radius_lng, $geot_radius_km );
@@ -84,7 +84,7 @@ class Fusion_GeoRadius {
 		$geot_radius_lng	= trim( $attrs['geot_radius_lng'] );
 
 		if ( empty( $geot_radius_km ) || empty( $geot_radius_lat ) || empty( $geot_radius_lng ) ) {
-			return true;
+			return $output;
 		}
 
 		return '<div class="geot-ajax geot-filter" data-action="radius_filter" data-filter="' . $geot_radius_km . '" data-region="' . $geot_radius_lat . '" data-ex_filter="' . $geot_radius_lng . '">' . $output . '</div>';
