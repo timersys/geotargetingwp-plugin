@@ -92,10 +92,10 @@ class Elementor_GeoRadius {
 	 */
 	static function is_render( $settings ) {
 
-		//extract( $settings );
-		$radius_km	= $settings['radius_km'];
-		$radius_lat = $settings['radius_lat'];
-		$radius_lng = $settings['radius_lng'];
+		$radius_km	= isset( $settings['radius_km'] ) ? trim( $settings['radius_km'] ) : '';
+		$radius_lat = isset( $settings['radius_lat'] ) ? trim( $settings['radius_lat'] ) : '';
+		$radius_lng = isset( $settings['radius_lng'] ) ? trim( $settings['radius_lng'] ) : '';
+
 
 		if ( empty( $radius_km ) || empty( $radius_lat ) || empty( $radius_lng ) ) {
 			return true;
@@ -114,10 +114,10 @@ class Elementor_GeoRadius {
 	 */
 	static function ajax_before_render( $settings ) {
 
-		//extract( $settings );
-		$radius_km	= $settings['radius_km'];
-		$radius_lat = $settings['radius_lat'];
-		$radius_lng = $settings['radius_lng'];
+		$radius_km	= isset( $settings['radius_km'] ) ? trim( $settings['radius_km'] ) : '';
+		$radius_lat = isset( $settings['radius_lat'] ) ? trim( $settings['radius_lat'] ) : '';
+		$radius_lng = isset( $settings['radius_lng'] ) ? trim( $settings['radius_lng'] ) : '';
+
 
 		if ( empty( $radius_km ) || empty( $radius_lat ) || empty( $radius_lng ) ) {
 			return;
@@ -136,9 +136,10 @@ class Elementor_GeoRadius {
 	 */
 	static function ajax_after_render( $settings ) {
 
-		$radius_km	= $settings['radius_km'];
-		$radius_lat = $settings['radius_lat'];
-		$radius_lng = $settings['radius_lng'];
+		$radius_km	= isset( $settings['radius_km'] ) ? trim( $settings['radius_km'] ) : '';
+		$radius_lat = isset( $settings['radius_lat'] ) ? trim( $settings['radius_lat'] ) : '';
+		$radius_lng = isset( $settings['radius_lng'] ) ? trim( $settings['radius_lng'] ) : '';
+
 
 		if ( empty( $radius_km ) || empty( $radius_lat ) || empty( $radius_lng ) ) {
 			return;
