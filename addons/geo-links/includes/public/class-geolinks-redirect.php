@@ -157,17 +157,17 @@ class Geol_Redirects {
 		}
 
 		//Devices Mobiles
-		if ( $redirect['device'] == 'mobiles' && self::$detect->isMobile() ) {
+		if ( $redirect['device'] == 'mobiles' && ! self::$detect->isMobile() ) {
 			return false;
 		}
 
 		//Devices Tablets
-		if ( $redirect['device'] == 'tablets' && self::$detect->isTablet() ) {
+		if ( $redirect['device'] == 'tablets' && ! self::$detect->isTablet() ) {
 			return false;
 		}
 
 		//Devices Desktop
-		if ( $redirect['device'] == 'desktop' && ( ! self::$detect->isTablet() && ! self::$detect->isMobile() ) ) {
+		if ( $redirect['device'] == 'desktop' && (  self::$detect->isTablet() || self::$detect->isMobile() ) ) {
 			return false;
 		}
 
@@ -203,7 +203,7 @@ class Geol_Redirects {
 			! geot_target_radius( $redirect['radius_lat'], $redirect['radius_lng'], $redirect['radius_km'] ) ) {
 			return false;
 		}
-
+		
 		return true;
 	}
 
