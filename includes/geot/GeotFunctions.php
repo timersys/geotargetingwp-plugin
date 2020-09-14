@@ -260,6 +260,10 @@ class GeotCore {
 			if ( 'city' == $key ) {
 				$user_state = $this->get( 'state' );
 			}
+			// if region is given but no match add at least a place to avoid getting false true targe
+			if( count($places) === 0 ) {
+				$places[] = 'invalid-region';
+			}
 		}
 		// append excluded regions to excluded places
 		if ( ! empty( $args['exclude_region'] ) ) {

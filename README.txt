@@ -3,8 +3,8 @@ Contributors: timersys
 Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
-Tested up to: 5.5
-Stable tag: 3.2.0.1
+Tested up to: 5.5.1
+Stable tag: 3.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,10 +37,15 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.2.1 - September 14 2020 =
+* Fix issue with Fusion builder
+* Fix issue with Geo Links States
+* Added compatibility with Elementor popups
+
 = 3.2.0.1 - September 5 2020 =
 * Fix issue with ajax and states
 
-= 3.2 - August 7 2020 =
+= 3.2 - September 2 2020 =
 * Fixed WP v < 4.4 issue
 * Fixed menu items with certain themes that duplicate menus
 * Fixed bug with city regions first click

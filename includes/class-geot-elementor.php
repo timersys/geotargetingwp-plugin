@@ -32,6 +32,11 @@ class GeotWP_Elementor {
 		add_action( 'elementor/frontend/column/should_render', [ $this, 'is_render' ], 10, 2 );
 		add_action( 'elementor/frontend/before_render', [ $this, 'ajax_before_render' ], 10, 1 );
 		add_action( 'elementor/frontend/after_render', [ $this, 'ajax_after_render' ], 10, 1 );
+
+		// Conditions ( element pro )
+		add_action( 'elementor/theme/register_conditions', [ $this, 'condition_register' ], 10, 1 );
+		add_filter( 'elementor/query/get_autocomplete/geot', [ $this, 'condition_autocomplete' ], 10, 2 );
+		add_filter( 'elementor/query/get_value_titles/geot', [ $this, 'condition_value' ], 10, 2 );
 	}
 
 	/**
@@ -204,6 +209,118 @@ class GeotWP_Elementor {
 			Elementor_GeoZipcode::ajax_after_render( $settings );
 			Elementor_GeoRadius::ajax_after_render( $settings );
 		}
+	}
 
+
+	/**
+	 * Register conditions
+	 * @param  [type] $elementor [description]
+	 * @return [type]            [description]
+	 */
+	public function condition_register( $elementor ) {
+
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-base.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-country.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-region-country.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-city.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-region-city.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-state.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-region-state.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-zip.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-region-zip.php';
+
+		$elementor->get_condition( 'general' )->register_sub_condition( new Elementor_GeoConditions_Base );
+	}
+
+	/**
+	 * [condition_autocomplete description]
+	 * @param  [type] $results [description]
+	 * @param  [type] $data    [description]
+	 * @return [type]          [description]
+	 */
+	public function condition_autocomplete( $results, $data ) {
+		
+		if( ! isset( $data['autocomplete']['object'] ) )
+			return $results;
+
+		if( $data['autocomplete']['object'] == 'geot_country' ) {
+			foreach( geot_countries() as $country ) {
+				if( ! empty( $data['q'] ) && stripos( $country->country, $data['q'] ) === FALSE )
+					continue;
+
+				$results[] = [
+					'id'	=> $country->iso_code,
+					'text'	=> $country->country,
+				];
+			}
+		} else {
+
+			switch( $data['autocomplete']['object'] ) {
+
+				case 'geot_region_city':
+					$regions = geot_city_regions();
+					break;
+				case 'geot_region_state':
+					$regions = geot_state_regions();
+					break;
+				case 'geot_region_zip':
+					$regions = geot_zip_regions();
+					break;
+				default:
+					$regions = geot_country_regions();
+			}
+
+			
+			foreach ( $regions as $r ) {
+
+				if( ! empty( $data['q'] ) && stripos( $r['name'], $data['q'] ) === FALSE )
+					continue;
+
+				$results[] = [
+					'id'	=> $r['name'],
+					'text'	=> $r['name'],
+				];
+			}
+		}
+		
+		return $results;
+	}
+
+
+	/**
+	 * [condition_value description]
+	 * @param  [type] $result  [description]
+	 * @param  [type] $request [description]
+	 * @return [type]          [description]
+	 */
+	public function condition_value( $result, $request ) {
+
+		if( ! isset( $request['get_titles']['object'] ) || ! isset( $request['id'] ) )
+			return $result;
+
+		if( $request['get_titles']['object'] == 'geot_country' ) {
+
+			foreach( geot_countries() as $country ) {
+
+				if( $country->iso_code == $request['id'] ) {
+					$result[ $country->iso_code ] = $country->country;
+					break;
+				}
+			}
+
+		} else {
+
+			switch( $request['get_titles']['object'] ) {
+
+				case 'geot_region_country':
+				case 'geot_region_city':
+				case 'geot_region_state':
+				case 'geot_region_zip':
+					$result[ $request['id'] ] = $request['id'];
+					break;
+			}
+		}
+		
+		return $result;
 	}
 }
