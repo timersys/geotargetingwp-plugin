@@ -68,7 +68,11 @@ class Divi_GeoCountry {
 	 */
 	static function is_render( $settings, $regions ) {
 
-		extract( $settings );
+		$in_countries = isset( $settings['in_countries'] ) ? trim( $settings['in_countries'] ) : '';
+		$ex_countries = isset( $settings['ex_countries'] ) ? trim( $settings['ex_countries'] ) : '';
+
+		$in_region_countries = isset( $settings['in_region_countries'] ) ? trim( $settings['in_region_countries'] ) : '';
+		$ex_region_countries = isset( $settings['ex_region_countries'] ) ? trim( $settings['ex_region_countries'] ) : '';
 
 		$in_regions = GeotWP_Divi::format_regions( $in_region_countries, '|', $regions );
 		$ex_regions = GeotWP_Divi::format_regions( $ex_region_countries, '|', $regions );
@@ -93,7 +97,12 @@ class Divi_GeoCountry {
 
 		$in_regions_commas = $ex_regions_commas = '';
 
-		extract( $settings );
+		$in_countries = isset( $settings['in_countries'] ) ? trim( $settings['in_countries'] ) : '';
+		$ex_countries = isset( $settings['ex_countries'] ) ? trim( $settings['ex_countries'] ) : '';
+
+		$in_region_countries = isset( $settings['in_region_countries'] ) ? trim( $settings['in_region_countries'] ) : '';
+		$ex_region_countries = isset( $settings['ex_region_countries'] ) ? trim( $settings['ex_region_countries'] ) : '';
+		
 
 		$in_regions = GeotWP_Divi::format_regions( $in_region_countries, '|', $regions );
 		$ex_regions = GeotWP_Divi::format_regions( $ex_region_countries, '|', $regions );
