@@ -15,3 +15,11 @@
 .elementor-control-radius_lng .elementor-control-unit-2 {
 	width: 135px;
 }
+
+.elementor-control-conditions .elementor-control-field input[type="text"] {
+	border-width: 0;
+	height: 40px;
+	padding: 0 14px;
+	background-color: #FFFFFF;
+	border-width: 0;
+}
