@@ -11,9 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $exclude_region
  * @var $this WPBakeryShortCode_VC_Geot
  */
-$city = $exclude_city = $region = $exclude_region = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
-extract( $atts );
+
+$city = isset( $atts['city'] ) ? trim( $atts['city'] ) : '';
+$exclude_city = isset( $atts['exclude_city'] ) ? trim( $atts['exclude_city'] ) : '';
+
+$region = isset( $atts['region'] ) ? trim( $atts['region'] ) : '';
+$exclude_region = isset( $atts['exclude_region'] ) ? trim( $atts['exclude_region'] ) : '';
 
 $opts = geot_settings();
 

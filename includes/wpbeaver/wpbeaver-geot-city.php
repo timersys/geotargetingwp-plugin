@@ -68,7 +68,12 @@ class WPBeaver_GeoCity {
 		if( is_object( $settings ) )
 			$settings = get_object_vars($settings);
 
-		extract($settings);
+		$in_cities = isset( $settings['in_cities'] ) ? trim( $settings['in_cities'] ) : '';
+		$ex_cities = isset( $settings['ex_cities'] ) ? trim( $settings['ex_cities'] ) : '';
+
+		$in_region_cities = isset( $settings['in_region_cities'] ) && is_array( $settings['in_region_cities'] ) ? array_map( 'trim', $settings['in_region_cities'] ) : [];
+		$ex_region_cities = isset( $settings['ex_region_cities'] ) && is_array( $settings['ex_region_cities'] ) ? array_map( 'trim', $settings['ex_region_cities'] ) : [];
+
 
 		$in_region_cities = !empty( $in_region_cities ) && !empty( $in_region_cities[0] ) ? $in_region_cities  : [];
 		$ex_region_cities = !empty( $ex_region_cities ) && !empty( $ex_region_cities[0] ) ? $ex_region_cities  : [];
@@ -96,7 +101,14 @@ class WPBeaver_GeoCity {
 		if( is_object( $settings ) )
 			$settings = get_object_vars($settings);
 
-		extract( $settings );
+
+		$in_cities = isset( $settings['in_cities'] ) ? trim( $settings['in_cities'] ) : '';
+		$ex_cities = isset( $settings['ex_cities'] ) ? trim( $settings['ex_cities'] ) : '';
+
+		$in_region_cities = isset( $settings['in_region_cities'] ) && is_array( $settings['in_region_cities'] ) ? array_map( 'trim', $settings['in_region_cities'] ) : [];
+		$ex_region_cities = isset( $settings['ex_region_cities'] ) && is_array( $settings['ex_region_cities'] ) ? array_map( 'trim', $settings['ex_region_cities'] ) : [];
+
+
 
 		$in_region_cities = !empty( $in_region_cities ) && !empty( $in_region_cities[0] ) ? $in_region_cities  : [];
 		$ex_region_cities = !empty( $ex_region_cities ) && !empty( $ex_region_cities[0] ) ? $ex_region_cities  : [];

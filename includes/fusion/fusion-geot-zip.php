@@ -70,12 +70,12 @@ class Fusion_GeoZip {
 	 */
 	static function is_render( $attrs ) {
 
-		extract( $attrs );
+		$in_zips = isset( $attrs['geot_in_zips'] ) ?  trim( $attrs['geot_in_zips'] ) : '';
+		$ex_zips = isset( $attrs['geot_ex_zips'] ) ?  trim( $attrs['geot_ex_zips'] ) : '';
+		
+		$in_regions = isset( $attrs['geot_in_region_zips'] ) ? array_filter( array_map( 'trim', explode( ',', $attrs['geot_in_region_zips'] ) ) ) : [];
+		$ex_regions = isset( $attrs['geot_ex_region_zips'] ) ? array_filter( array_map( 'trim', explode( ',', $attrs['geot_ex_region_zips'] ) ) ) : [];
 
-		$in_zips = trim( $geot_in_zips );
-		$ex_zips = trim( $geot_ex_zips );
-		$in_regions = array_map( 'trim', explode( ',', $geot_in_region_zips ) );
-		$ex_regions = array_map( 'trim', explode( ',', $geot_ex_region_zips ) );
 
 		if ( empty( $in_zips ) && empty( $ex_zips ) &&
 		     count( $in_regions ) == 0 && count( $ex_regions ) == 0
@@ -94,12 +94,12 @@ class Fusion_GeoZip {
 	 */
 	static function ajax_render( $attrs, $output ) {
 
-		extract( $attrs );
+		$in_zips = isset( $attrs['geot_in_zips'] ) ?  trim( $attrs['geot_in_zips'] ) : '';
+		$ex_zips = isset( $attrs['geot_ex_zips'] ) ?  trim( $attrs['geot_ex_zips'] ) : '';
+		
+		$in_regions = isset( $attrs['geot_in_region_zips'] ) ? trim( $attrs['geot_in_region_zips'] ) : '';
+		$ex_regions = isset( $attrs['geot_ex_region_zips'] ) ? trim( $attrs['geot_ex_region_zips'] ) : '';
 
-		$in_zips = trim( $geot_in_zips );
-		$ex_zips = trim( $geot_ex_zips );
-		$in_regions = trim( $geot_in_region_zips );
-		$ex_regions = trim( $geot_ex_region_zips );
 
 		if ( empty( $in_zips ) && empty( $ex_zips ) &&
 		     empty( $in_regions ) && empty( $ex_regions )

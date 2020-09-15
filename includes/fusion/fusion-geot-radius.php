@@ -58,13 +58,12 @@ class Fusion_GeoRadius {
 	 */
 	static function is_render( $attrs ) {
 
-		//extract( $attrs );
-		$geot_radius_km		= trim( $attrs['geot_radius_km'] );
-		$geot_radius_lat	= trim( $attrs['geot_radius_lat'] );
-		$geot_radius_lng	= trim( $attrs['geot_radius_lng'] );
+		$geot_radius_km		= isset( $attrs['geot_radius_km'] ) ? trim( $attrs['geot_radius_km'] ) : '';
+		$geot_radius_lat	= isset( $attrs['geot_radius_lat'] ) ? trim( $attrs['geot_radius_lat'] ) : '';
+		$geot_radius_lng	= isset( $attrs['geot_radius_lng'] ) ? trim( $attrs['geot_radius_lng'] ) : '';
 
 		if ( empty( $geot_radius_km ) || empty( $geot_radius_lat ) || empty( $geot_radius_lng ) ) {
-			return $output;
+			return true;
 		}
 
 		return geot_target_radius( $geot_radius_lat, $geot_radius_lng, $geot_radius_km );

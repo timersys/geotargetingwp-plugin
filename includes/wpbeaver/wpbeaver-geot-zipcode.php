@@ -68,7 +68,13 @@ class WPBeaver_GeoZipcode {
 		if( is_object( $settings ) )
 			$settings = get_object_vars($settings);
 
-		extract($settings);
+		
+		$in_zipcodes = isset( $settings['in_zipcodes'] ) ? trim( $settings['in_zipcodes'] ) : '';
+		$ex_zipcodes = isset( $settings['ex_zipcodes'] ) ? trim( $settings['ex_zipcodes'] ) : '';
+
+		$in_region_zips = isset( $settings['in_region_zips'] ) && is_array( $settings['in_region_zips'] ) ? array_map( 'trim', $settings['in_region_zips'] ) : [];
+		$ex_region_zips = isset( $settings['ex_region_zips'] ) && is_array( $settings['ex_region_zips'] ) ? array_map( 'trim', $settings['ex_region_zips'] ) : [];
+
 		
 		$in_region_zips = !empty( $in_region_zips ) &&  !empty( $in_region_zips[0] ) ? $in_region_zips  : [];
 		$ex_region_zips = !empty( $ex_region_zips ) &&  !empty( $ex_region_zips[0] ) ? $ex_region_zips  : [];
@@ -97,7 +103,13 @@ class WPBeaver_GeoZipcode {
 		if( is_object( $settings ) )
 			$settings = get_object_vars($settings);
 
-		extract( $settings );
+		
+		$in_zipcodes = isset( $settings['in_zipcodes'] ) ? trim( $settings['in_zipcodes'] ) : '';
+		$ex_zipcodes = isset( $settings['ex_zipcodes'] ) ? trim( $settings['ex_zipcodes'] ) : '';
+
+		$in_region_zips = isset( $settings['in_region_zips'] ) && is_array( $settings['in_region_zips'] ) ? array_map( 'trim', $settings['in_region_zips'] ) : [];
+		$ex_region_zips = isset( $settings['ex_region_zips'] ) && is_array( $settings['ex_region_zips'] ) ? array_map( 'trim', $settings['ex_region_zips'] ) : [];
+		
 
 		$in_region_zips = !empty( $in_region_zips ) &&  !empty( $in_region_zips[0] ) ? $in_region_zips  : [];
 		$ex_region_zips = !empty( $ex_region_zips ) &&  !empty( $ex_region_zips[0] ) ? $ex_region_zips  : [];
