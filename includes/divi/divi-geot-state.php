@@ -67,7 +67,11 @@ class Divi_GeoState {
 	 */
 	static function is_render( $settings, $regions ) {
 
-		extract( $settings );
+		$in_states = isset( $settings['in_states'] ) ? trim( $settings['in_states'] ) : '';
+		$ex_states = isset( $settings['ex_states'] ) ? trim( $settings['ex_states'] ) : '';
+
+		$in_region_states = isset( $settings['in_region_states'] ) ? trim( $settings['in_region_states'] ) : '';
+		$ex_region_states = isset( $settings['ex_region_states'] ) ? trim( $settings['ex_region_states'] ) : '';
 
 		$in_regions = GeotWP_Divi::format_regions( $in_region_states, '|', $regions );
 		$ex_regions = GeotWP_Divi::format_regions( $ex_region_states, '|', $regions );
@@ -90,7 +94,12 @@ class Divi_GeoState {
 	static function ajax_render( $settings, $regions, $output ) {
 
 		$in_regions_commas = $ex_regions_commas = '';
-		extract( $settings );
+
+		$in_states = isset( $settings['in_states'] ) ? trim( $settings['in_states'] ) : '';
+		$ex_states = isset( $settings['ex_states'] ) ? trim( $settings['ex_states'] ) : '';
+
+		$in_region_states = isset( $settings['in_region_states'] ) ? trim( $settings['in_region_states'] ) : '';
+		$ex_region_states = isset( $settings['ex_region_states'] ) ? trim( $settings['ex_region_states'] ) : '';
 
 		$in_regions = GeotWP_Divi::format_regions( $in_region_states, '|', $regions );
 		$ex_regions = GeotWP_Divi::format_regions( $ex_region_states, '|', $regions );

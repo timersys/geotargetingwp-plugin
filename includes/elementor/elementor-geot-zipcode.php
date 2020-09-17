@@ -124,7 +124,12 @@ class Elementor_GeoZipcode {
 	 */
 	static function is_render( $settings ) {
 
-		extract( $settings );
+		$in_zipcodes = isset( $settings['in_zipcodes'] ) ? trim( $settings['in_zipcodes'] ) : '';
+		$ex_zipcodes = isset( $settings['ex_zipcodes'] ) ? trim( $settings['ex_zipcodes'] ) : '';
+
+		$in_regions_zips = is_array( $settings['in_regions_zips'] ) ? array_map( 'trim', $settings['in_regions_zips'] ) : [];
+		$ex_regions_zips = is_array( $settings['ex_regions_zips'] ) ? array_map( 'trim', $settings['ex_regions_zips'] ) : [];
+
 
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
 			 empty( $in_regions_zips ) && empty( $ex_regions_zips )
@@ -145,7 +150,12 @@ class Elementor_GeoZipcode {
 	 */
 	static function ajax_before_render( $settings ) {
 
-		extract( $settings );
+		$in_zipcodes = isset( $settings['in_zipcodes'] ) ? trim( $settings['in_zipcodes'] ) : '';
+		$ex_zipcodes = isset( $settings['ex_zipcodes'] ) ? trim( $settings['ex_zipcodes'] ) : '';
+
+		$in_regions_zips = is_array( $settings['in_regions_zips'] ) ? array_map( 'trim', $settings['in_regions_zips'] ) : [];
+		$ex_regions_zips = is_array( $settings['ex_regions_zips'] ) ? array_map( 'trim', $settings['ex_regions_zips'] ) : [];
+
 
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
 			empty( $in_regions_zips ) && empty( $ex_regions_zips )
@@ -174,7 +184,12 @@ class Elementor_GeoZipcode {
 	 */
 	static function ajax_after_render( $settings ) {
 
-		extract( $settings );
+		$in_zipcodes = isset( $settings['in_zipcodes'] ) ? trim( $settings['in_zipcodes'] ) : '';
+		$ex_zipcodes = isset( $settings['ex_zipcodes'] ) ? trim( $settings['ex_zipcodes'] ) : '';
+
+		$in_regions_zips = is_array( $settings['in_regions_zips'] ) ? array_map( 'trim', $settings['in_regions_zips'] ) : [];
+		$ex_regions_zips = is_array( $settings['ex_regions_zips'] ) ? array_map( 'trim', $settings['ex_regions_zips'] ) : [];
+		
 
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
 			empty( $in_regions_zips ) && empty( $ex_regions_zips )

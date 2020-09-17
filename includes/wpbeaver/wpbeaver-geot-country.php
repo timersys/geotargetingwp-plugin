@@ -70,7 +70,14 @@ class WPBeaver_GeoCountry {
 		if( is_object( $settings ) )
 			$settings = get_object_vars($settings);
 
-		extract($settings);
+		
+		$in_countries = isset( $settings['in_countries'] ) ? trim( $settings['in_countries'] ) : '';
+		$ex_countries = isset( $settings['ex_countries'] ) ? trim( $settings['ex_countries'] ) : '';
+
+		$in_region_countries = isset( $settings['in_region_countries'] ) && is_array( $settings['in_region_countries'] ) ? array_map( 'trim', $settings['in_region_countries'] ) : [];
+		$ex_region_countries = isset( $settings['ex_region_countries'] ) && is_array( $settings['ex_region_countries'] ) ? array_map( 'trim', $settings['ex_region_countries'] ) : [];
+
+
 
 		$in_region_countries = !empty( $in_region_countries )  &&  !empty( $in_region_countries[0] ) ? $in_region_countries  : [];
 		$ex_region_countries = !empty( $ex_region_countries )  &&  !empty( $ex_region_countries[0] ) ? $ex_region_countries  : [];
@@ -98,7 +105,13 @@ class WPBeaver_GeoCountry {
 		if( is_object( $settings ) )
 			$settings = get_object_vars($settings);
 
-		extract( $settings );
+		
+		$in_countries = isset( $settings['in_countries'] ) ? trim( $settings['in_countries'] ) : '';
+		$ex_countries = isset( $settings['ex_countries'] ) ? trim( $settings['ex_countries'] ) : '';
+
+		$in_region_countries = isset( $settings['in_region_countries'] ) && is_array( $settings['in_region_countries'] ) ? array_map( 'trim', $settings['in_region_countries'] ) : [];
+		$ex_region_countries = isset( $settings['ex_region_countries'] ) && is_array( $settings['ex_region_countries'] ) ? array_map( 'trim', $settings['ex_region_countries'] ) : [];
+		
 
 		$in_region_countries = !empty( $in_region_countries )  &&  !empty( $in_region_countries[0] ) ? $in_region_countries  : [];
 		$ex_region_countries = !empty( $ex_region_countries )  &&  !empty( $ex_region_countries[0] ) ? $ex_region_countries  : [];

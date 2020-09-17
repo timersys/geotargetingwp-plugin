@@ -75,17 +75,21 @@ class GeotWP_Gutenberg {
 	 * @var    string $attributes
 	 * @var    string $content
 	 */
-	public function save_gutenberg_country( $attributes, $content ) {
+	public function save_gutenberg_country( $atts, $content ) {
 
-		$in_countries = $ex_countries = $in_regions = $ex_regions = $in_regions_i = $ex_regions_i = '';
+		$in_regions_i = $ex_regions_i = '';
 
-		extract( $attributes );
+		$in_countries = isset( $atts['in_countries'] ) ? trim( $atts['in_countries'] ) : '';
+		$ex_countries = isset( $atts['ex_countries'] ) ? trim( $atts['ex_countries'] ) : '';
 
-		if ( is_array( $in_regions ) && count( $in_regions ) > 0 ) {
+		$in_regions = isset( $atts['in_regions'] ) && is_array( $atts['in_regions'] ) ? array_map( 'trim', $atts['in_regions'] ) : [];
+		$ex_regions = isset( $atts['ex_regions'] ) && is_array( $atts['ex_regions'] ) ? array_map( 'trim', $atts['ex_regions'] ) : [];
+
+		if ( count( $in_regions ) > 0 ) {
 			$in_regions_i = implode( ',', $in_regions );
 		}
 
-		if ( is_array( $ex_regions ) && count( $ex_regions ) > 0 ) {
+		if ( count( $ex_regions ) > 0 ) {
 			$ex_regions_i = implode( ',', $ex_regions );
 		}
 
@@ -107,16 +111,21 @@ class GeotWP_Gutenberg {
 	 * @var    string $attributes
 	 * @var    string $content
 	 */
-	public function save_gutenberg_city( $attributes, $content ) {
-		$in_cities = $ex_cities = $in_regions = $ex_regions = $in_regions_i = $ex_regions_i = '';
+	public function save_gutenberg_city( $atts, $content ) {
+		$in_regions_i = $ex_regions_i = '';
 
-		extract( $attributes );
+		$in_cities = isset( $atts['in_cities'] ) ? trim( $atts['in_cities'] ) : '';
+		$ex_cities = isset( $atts['ex_cities'] ) ? trim( $atts['ex_cities'] ) : '';
 
-		if ( is_array( $in_regions ) && count( $in_regions ) > 0 ) {
+		$in_regions = isset( $atts['in_regions'] ) && is_array( $atts['in_regions'] ) ? array_map( 'trim', $atts['in_regions'] ) : [];
+		$ex_regions = isset( $atts['ex_regions'] ) && is_array( $atts['ex_regions'] ) ? array_map( 'trim', $atts['ex_regions'] ) : [];
+
+
+		if ( count( $in_regions ) > 0 ) {
 			$in_regions_i = implode( ',', $in_regions );
 		}
 
-		if ( is_array( $ex_regions ) && count( $ex_regions ) > 0 ) {
+		if ( count( $ex_regions ) > 0 ) {
 			$ex_regions_i = implode( ',', $ex_regions );
 		}
 
@@ -138,16 +147,21 @@ class GeotWP_Gutenberg {
 	 * @var    string $attributes
 	 * @var    string $content
 	 */
-	public function save_gutenberg_state( $attributes, $content ) {
-		$in_states = $ex_states = $in_regions = $ex_regions = $in_regions_i = $ex_regions_i = '';
+	public function save_gutenberg_state( $atts, $content ) {
+		$in_regions_i = $ex_regions_i = '';
 
-		extract( $attributes );
+		$in_states = isset( $atts['in_states'] ) ? trim( $atts['in_states'] ) : '';
+		$ex_states = isset( $atts['ex_states'] ) ? trim( $atts['ex_states'] ) : '';
 
-		if ( is_array( $in_regions ) && count( $in_regions ) > 0 ) {
+		$in_regions = isset( $atts['in_regions'] ) && is_array( $atts['in_regions'] ) ? array_map( 'trim', $atts['in_regions'] ) : [];
+		$ex_regions = isset( $atts['ex_regions'] ) && is_array( $atts['ex_regions'] ) ? array_map( 'trim', $atts['ex_regions'] ) : [];
+
+
+		if ( count( $in_regions ) > 0 ) {
 			$in_regions_i = implode( ',', $in_regions );
 		}
 
-		if ( is_array( $ex_regions ) && count( $ex_regions ) > 0 ) {
+		if ( count( $ex_regions ) > 0 ) {
 			$ex_regions_i = implode( ',', $ex_regions );
 		}
 
@@ -170,15 +184,20 @@ class GeotWP_Gutenberg {
 	 * @var    string $content
 	 */
 	public function save_gutenberg_zipcode( $attributes, $content ) {
-		$in_zipcodes = $ex_zipcodes = $in_regions = $ex_regions = $in_regions_i = $ex_regions_i = '';
+		$in_regions_i = $ex_regions_i = '';
 
-		extract( $attributes );
+		$in_zipcodes = isset( $atts['in_zipcodes'] ) ? trim( $atts['in_zipcodes'] ) : '';
+		$ex_zipcodes = isset( $atts['ex_zipcodes'] ) ? trim( $atts['ex_zipcodes'] ) : '';
 
-		if ( is_array( $in_regions ) && count( $in_regions ) > 0 ) {
+		$in_regions = isset( $atts['in_regions'] ) && is_array( $atts['in_regions'] ) ? array_map( 'trim', $atts['in_regions'] ) : [];
+		$ex_regions = isset( $atts['ex_regions'] ) && is_array( $atts['ex_regions'] ) ? array_map( 'trim', $atts['ex_regions'] ) : [];
+
+
+		if ( count( $in_regions ) > 0 ) {
 			$in_regions_i = implode( ',', $in_regions );
 		}
 
-		if ( is_array( $ex_regions ) && count( $ex_regions ) > 0 ) {
+		if ( count( $ex_regions ) > 0 ) {
 			$ex_regions_i = implode( ',', $ex_regions );
 		}
 
@@ -200,12 +219,11 @@ class GeotWP_Gutenberg {
 	 * @var    string $attributes
 	 * @var    string $content
 	 */
-	public function save_gutenberg_radius( $attributes, $content ) {
+	public function save_gutenberg_radius( $atts, $content ) {
 		
-		//extract( $attributes );
-		$radius_km	= $attributes['radius_km'];
-		$radius_lat = $attributes['radius_lat'];
-		$radius_lng = $attributes['radius_lng'];
+		$radius_km	= isset( $atts['radius_km'] ) ? trim( $atts['radius_km'] ) : '';
+		$radius_lat = isset( $atts['radius_lat'] ) ? trim( $atts['radius_lat'] ) : '';
+		$radius_lng = isset( $atts['radius_lng'] ) ? trim( $atts['radius_lng'] ) : '';
 
 		$opts = geot_settings();
 

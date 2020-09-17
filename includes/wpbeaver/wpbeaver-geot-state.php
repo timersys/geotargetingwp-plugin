@@ -68,7 +68,13 @@ class WPBeaver_GeoState {
 		if( is_object( $settings ) )
 			$settings = get_object_vars($settings);
 
-		extract($settings);
+		
+		$in_states = isset( $settings['in_states'] ) ? trim( $settings['in_states'] ) : '';
+		$ex_states = isset( $settings['ex_states'] ) ? trim( $settings['ex_states'] ) : '';
+
+		$in_region_states = isset( $settings['in_region_states'] ) && is_array( $settings['in_region_states'] ) ? array_map( 'trim', $settings['in_region_states'] ) : [];
+		$ex_region_states = isset( $settings['ex_region_states'] ) && is_array( $settings['ex_region_states'] ) ? array_map( 'trim', $settings['ex_region_states'] ) : [];
+
 
 		$in_region_states = !empty( $in_region_states ) &&  !empty( $in_region_states[0] ) ? $in_region_states  : [];
 		$ex_region_states = !empty( $ex_region_states ) &&  !empty( $ex_region_states[0] ) ? $ex_region_states  : [];
@@ -96,7 +102,13 @@ class WPBeaver_GeoState {
 		if( is_object( $settings ) )
 			$settings = get_object_vars($settings);
 
-		extract( $settings );
+		
+		$in_states = isset( $settings['in_states'] ) ? trim( $settings['in_states'] ) : '';
+		$ex_states = isset( $settings['ex_states'] ) ? trim( $settings['ex_states'] ) : '';
+
+		$in_region_states = isset( $settings['in_region_states'] ) && is_array( $settings['in_region_states'] ) ? array_map( 'trim', $settings['in_region_states'] ) : [];
+		$ex_region_states = isset( $settings['ex_region_states'] ) && is_array( $settings['ex_region_states'] ) ? array_map( 'trim', $settings['ex_region_states'] ) : [];
+		
 
 		$in_region_states = !empty( $in_region_states ) &&  !empty( $in_region_states[0] ) ? $in_region_states  : [];
 		$ex_region_states = !empty( $ex_region_states ) &&  !empty( $ex_region_states[0] ) ? $ex_region_states  : [];

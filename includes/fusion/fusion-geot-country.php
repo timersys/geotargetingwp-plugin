@@ -70,12 +70,12 @@ class Fusion_GeoCountry {
 	 */
 	static function is_render( $attrs ) {
 
-		extract( $attrs );
+		$in_countries = isset( $attrs['geot_in_countries'] ) ?  trim( $attrs['geot_in_countries'] ) : '';
+		$ex_countries = isset( $attrs['geot_ex_countries'] ) ?  trim( $attrs['geot_ex_countries'] ) : '';
+		
+		$in_regions = isset( $attrs['geot_in_region_countries'] ) ? array_filter( array_map( 'trim', explode( ',', $attrs['geot_in_region_countries'] ) ) ) : [];
+		$ex_regions = isset( $attrs['geot_ex_region_countries'] ) ? array_filter( array_map( 'trim', explode( ',', $attrs['geot_ex_region_countries'] ) ) ) : [];
 
-		$in_countries = trim( $geot_in_countries );
-		$ex_countries = trim( $geot_ex_countries );
-		$in_regions = array_map( 'trim', explode( ',', $geot_in_region_countries ) );
-		$ex_regions = array_map( 'trim', explode( ',', $geot_ex_region_countries ) );
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
 		     count( $in_regions ) == 0 && count( $ex_regions ) == 0
@@ -94,12 +94,12 @@ class Fusion_GeoCountry {
 	 */
 	static function ajax_render( $attrs, $output ) {
 
-		extract( $attrs );
+		$in_countries = isset( $attrs['geot_in_countries'] ) ?  trim( $attrs['geot_in_countries'] ) : '';
+		$ex_countries = isset( $attrs['geot_ex_countries'] ) ?  trim( $attrs['geot_ex_countries'] ) : '';
+		
+		$in_regions = isset( $attrs['geot_in_region_countries'] ) ? trim( $attrs['geot_in_region_countries'] ) : '';
+		$ex_regions = isset( $attrs['geot_ex_region_countries'] ) ? trim( $attrs['geot_ex_region_countries'] ) : '';
 
-		$in_countries = trim( $geot_in_countries );
-		$ex_countries = trim( $geot_ex_countries );
-		$in_regions = trim( $geot_in_region_countries );
-		$ex_regions = trim( $geot_ex_region_countries );
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
 		     empty( $in_regions ) && empty( $ex_regions )

@@ -67,7 +67,11 @@ class Divi_GeoZipcode {
 	 */
 	static function is_render( $settings, $regions ) {
 
-		extract( $settings );
+		$in_zipcodes = isset( $settings['in_zipcodes'] ) ? trim( $settings['in_zipcodes'] ) : '';
+		$ex_zipcodes = isset( $settings['ex_zipcodes'] ) ? trim( $settings['ex_zipcodes'] ) : '';
+
+		$in_region_zips = isset( $settings['in_region_zips'] ) ? trim( $settings['in_region_zips'] ) : '';
+		$ex_region_zips = isset( $settings['ex_region_zips'] ) ? trim( $settings['ex_region_zips'] ) : '';
 
 		$in_regions = GeotWP_Divi::format_regions( $in_region_zips, '|', $regions );
 		$ex_regions = GeotWP_Divi::format_regions( $ex_region_zips, '|', $regions );
@@ -92,7 +96,12 @@ class Divi_GeoZipcode {
 
 		$in_regions_commas = $ex_regions_commas = '';
 
-		extract( $settings );
+		$in_zipcodes = isset( $settings['in_zipcodes'] ) ? trim( $settings['in_zipcodes'] ) : '';
+		$ex_zipcodes = isset( $settings['ex_zipcodes'] ) ? trim( $settings['ex_zipcodes'] ) : '';
+
+		$in_region_zips = isset( $settings['in_region_zips'] ) ? trim( $settings['in_region_zips'] ) : '';
+		$ex_region_zips = isset( $settings['ex_region_zips'] ) ? trim( $settings['ex_region_zips'] ) : '';
+		
 
 		$in_regions = GeotWP_Divi::format_regions( $in_region_zips, '|', $regions );
 		$ex_regions = GeotWP_Divi::format_regions( $ex_region_zips, '|', $regions );

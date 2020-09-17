@@ -67,7 +67,12 @@ class Divi_GeoCity {
 	 */
 	static function is_render( $settings, $regions ) {
 
-		extract( $settings );
+		$in_cities = isset( $settings['in_cities'] ) ? trim( $settings['in_cities'] ) : '';
+		$ex_cities = isset( $settings['ex_cities'] ) ? trim( $settings['ex_cities'] ) : '';
+
+		$in_region_cities = isset( $settings['in_region_cities'] ) ? trim( $settings['in_region_cities'] ) : '';
+		$ex_region_cities = isset( $settings['ex_region_cities'] ) ? trim( $settings['ex_region_cities'] ) : '';
+
 
 		$in_regions = GeotWP_Divi::format_regions( $in_region_cities, '|', $regions );
 		$ex_regions = GeotWP_Divi::format_regions( $ex_region_cities, '|', $regions );
@@ -91,7 +96,12 @@ class Divi_GeoCity {
 
 		$in_regions_commas = $ex_regions_commas = '';
 
-		extract( $settings );
+		$in_cities = isset( $settings['in_cities'] ) ? trim( $settings['in_cities'] ) : '';
+		$ex_cities = isset( $settings['ex_cities'] ) ? trim( $settings['ex_cities'] ) : '';
+
+		$in_region_cities = isset( $settings['in_region_cities'] ) ? trim( $settings['in_region_cities'] ) : '';
+		$ex_region_cities = isset( $settings['ex_region_cities'] ) ? trim( $settings['ex_region_cities'] ) : '';
+		
 
 		$in_regions = GeotWP_Divi::format_regions( $in_region_cities, '|', $regions );
 		$ex_regions = GeotWP_Divi::format_regions( $ex_region_cities, '|', $regions );

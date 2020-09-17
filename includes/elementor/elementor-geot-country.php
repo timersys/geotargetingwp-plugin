@@ -126,7 +126,12 @@ class Elementor_GeoCountry {
 	 */
 	static function is_render( $settings ) {
 
-		extract( $settings );
+		$in_countries = isset( $settings['in_countries'] ) ? trim( $settings['in_countries'] ) : '';
+		$ex_countries = isset( $settings['ex_countries'] ) ? trim( $settings['ex_countries'] ) : '';
+
+		$in_regions = is_array( $settings['in_regions'] ) ? array_map( 'trim', $settings['in_regions'] ) : [];
+		$ex_regions = is_array( $settings['ex_regions'] ) ? array_map( 'trim', $settings['ex_regions'] ) : [];
+
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
 		     empty( $in_regions ) && empty( $ex_regions )
@@ -148,7 +153,13 @@ class Elementor_GeoCountry {
 	static function ajax_before_render( $settings ) {
 
 		$in_regions_i = $ex_regions_i = '';
-		extract( $settings );
+		
+		$in_countries = isset( $settings['in_countries'] ) ? trim( $settings['in_countries'] ) : '';
+		$ex_countries = isset( $settings['ex_countries'] ) ? trim( $settings['ex_countries'] ) : '';
+
+		$in_regions = is_array( $settings['in_regions'] ) ? array_map( 'trim', $settings['in_regions'] ) : [];
+		$ex_regions = is_array( $settings['ex_regions'] ) ? array_map( 'trim', $settings['ex_regions'] ) : [];
+
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
 		     empty( $in_regions ) && empty( $ex_regions )
@@ -178,7 +189,12 @@ class Elementor_GeoCountry {
 	 */
 	static function ajax_after_render( $settings ) {
 
-		extract( $settings );
+		$in_countries = isset( $settings['in_countries'] ) ? trim( $settings['in_countries'] ) : '';
+		$ex_countries = isset( $settings['ex_countries'] ) ? trim( $settings['ex_countries'] ) : '';
+
+		$in_regions = is_array( $settings['in_regions'] ) ? array_map( 'trim', $settings['in_regions'] ) : [];
+		$ex_regions = is_array( $settings['ex_regions'] ) ? array_map( 'trim', $settings['ex_regions'] ) : [];
+
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
 		     empty( $in_regions ) && empty( $ex_regions )

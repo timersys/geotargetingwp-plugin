@@ -63,10 +63,9 @@ class WPBeaver_GeoRadius {
 		if( is_object( $settings ) )
 			$settings = get_object_vars($settings);
 
-		//extract($settings);
-		$radius_km	= $settings['radius_km'];
-		$radius_lat = $settings['radius_lat'];
-		$radius_lng = $settings['radius_lng'];
+		$radius_km	= isset( $settings['radius_km'] ) ? trim( $settings['radius_km'] ) : '';
+		$radius_lat = isset( $settings['radius_lat'] ) ? trim( $settings['radius_lat'] ) : '';
+		$radius_lng = isset( $settings['radius_lng'] ) ? trim( $settings['radius_lng'] ) : '';
 
 
 		if ( empty( $radius_km ) || empty( $radius_lat ) || empty( $radius_lng ) ) {
@@ -87,10 +86,10 @@ class WPBeaver_GeoRadius {
 		if( is_object( $settings ) )
 			$settings = get_object_vars($settings);
 
-		//extract( $settings );
-		$radius_km	= $settings['radius_km'];
-		$radius_lat = $settings['radius_lat'];
-		$radius_lng = $settings['radius_lng'];
+
+		$radius_km	= isset( $settings['radius_km'] ) ? trim( $settings['radius_km'] ) : '';
+		$radius_lat = isset( $settings['radius_lat'] ) ? trim( $settings['radius_lat'] ) : '';
+		$radius_lng = isset( $settings['radius_lng'] ) ? trim( $settings['radius_lng'] ) : '';
 
 
 		if ( empty( $radius_km ) || empty( $radius_lat ) || empty( $radius_lng ) ) {

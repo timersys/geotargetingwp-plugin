@@ -127,9 +127,12 @@ class Elementor_GeoCity {
 	 */
 	static function is_render( $settings ) {
 
-		extract( $settings );
+		$in_cities = isset( $settings['in_cities'] ) ? trim( $settings['in_cities'] ) : '';
+		$ex_cities = isset( $settings['ex_cities'] ) ? trim( $settings['ex_cities'] ) : '';
 
-		//$in_regions_i = $ex_regions_i = '';
+		$in_regions_cities = is_array( $settings['in_regions_cities'] ) ? array_map( 'trim', $settings['in_regions_cities'] ) : [];
+		$ex_regions_cities = is_array( $settings['ex_regions_cities'] ) ? array_map( 'trim', $settings['ex_regions_cities'] ) : [];
+
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
 		     empty( $in_regions_cities ) && empty( $ex_regions_cities )
@@ -151,7 +154,13 @@ class Elementor_GeoCity {
 	static function ajax_before_render( $settings ) {
 
 		$in_regions_i = $ex_regions_i = '';
-		extract( $settings );
+		
+		$in_cities = isset( $settings['in_cities'] ) ? trim( $settings['in_cities'] ) : '';
+		$ex_cities = isset( $settings['ex_cities'] ) ? trim( $settings['ex_cities'] ) : '';
+
+		$in_regions_cities = is_array( $settings['in_regions_cities'] ) ? array_map( 'trim', $settings['in_regions_cities'] ) : [];
+		$ex_regions_cities = is_array( $settings['ex_regions_cities'] ) ? array_map( 'trim', $settings['ex_regions_cities'] ) : [];
+
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
 		     empty( $in_regions_cities ) && empty( $ex_regions_cities )
@@ -182,7 +191,12 @@ class Elementor_GeoCity {
 	 */
 	static function ajax_after_render( $settings ) {
 
-		extract( $settings );
+		$in_cities = isset( $settings['in_cities'] ) ? trim( $settings['in_cities'] ) : '';
+		$ex_cities = isset( $settings['ex_cities'] ) ? trim( $settings['ex_cities'] ) : '';
+
+		$in_regions_cities = is_array( $settings['in_regions_cities'] ) ? array_map( 'trim', $settings['in_regions_cities'] ) : [];
+		$ex_regions_cities = is_array( $settings['ex_regions_cities'] ) ? array_map( 'trim', $settings['ex_regions_cities'] ) : [];
+
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
 		     empty( $in_regions_cities ) && empty( $ex_regions_cities )

@@ -9,9 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $exclude_zip
  * @var $this WPBakeryShortCode_VC_Geot
  */
-$zip  = $exclude_zip = $region = $exclude_region = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
-extract( $atts );
+
+$zip = isset( $atts['zip'] ) ? trim( $atts['zip'] ) : '';
+$exclude_zip = isset( $atts['exclude_zip'] ) ? trim( $atts['exclude_zip'] ) : '';
+
+$region = isset( $atts['region'] ) ? trim( $atts['region'] ) : '';
+$exclude_region = isset( $atts['exclude_region'] ) ? trim( $atts['exclude_region'] ) : '';
+
 
 $opts = geot_settings();
 

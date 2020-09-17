@@ -126,7 +126,12 @@ class Elementor_GeoState {
 	 */
 	static function is_render( $settings ) {
 
-		extract( $settings );
+		$in_states = isset( $settings['in_states'] ) ? trim( $settings['in_states'] ) : '';
+		$ex_states = isset( $settings['ex_states'] ) ? trim( $settings['ex_states'] ) : '';
+
+		$in_regions_states = is_array( $settings['in_regions_states'] ) ? array_map( 'trim', $settings['in_regions_states'] ) : [];
+		$ex_regions_states = is_array( $settings['ex_regions_states'] ) ? array_map( 'trim', $settings['ex_regions_states'] ) : [];
+
 
 		if ( empty( $in_states ) && empty( $ex_states ) &&
 			empty( $in_regions_states ) && empty( $ex_regions_states )
@@ -147,14 +152,21 @@ class Elementor_GeoState {
 	 */
 	static function ajax_before_render( $settings ) {
 
-		extract( $settings );
+		$in_regions_i = $ex_regions_i = '';
+
+		$in_states = isset( $settings['in_states'] ) ? trim( $settings['in_states'] ) : '';
+		$ex_states = isset( $settings['ex_states'] ) ? trim( $settings['ex_states'] ) : '';
+
+		$in_regions_states = is_array( $settings['in_regions_states'] ) ? array_map( 'trim', $settings['in_regions_states'] ) : [];
+		$ex_regions_states = is_array( $settings['ex_regions_states'] ) ? array_map( 'trim', $settings['ex_regions_states'] ) : [];
+
 
 		if ( empty( $in_states ) && empty( $ex_states ) &&
 			empty( $in_regions_states ) && empty( $ex_regions_states )
 		) {
 			return;
 		}
-		$in_regions_i = $ex_regions_i = '';
+		
 		if ( is_array( $in_regions_states ) && count( $in_regions_states ) > 0 ) {
 			$in_regions_i = implode( ',', $in_regions_states );
 		}
@@ -176,7 +188,12 @@ class Elementor_GeoState {
 	 */
 	static function ajax_after_render( $settings ) {
 
-		extract( $settings );
+		$in_states = isset( $settings['in_states'] ) ? trim( $settings['in_states'] ) : '';
+		$ex_states = isset( $settings['ex_states'] ) ? trim( $settings['ex_states'] ) : '';
+
+		$in_regions_states = is_array( $settings['in_regions_states'] ) ? array_map( 'trim', $settings['in_regions_states'] ) : [];
+		$ex_regions_states = is_array( $settings['ex_regions_states'] ) ? array_map( 'trim', $settings['ex_regions_states'] ) : [];
+
 
 		if ( empty( $in_states ) && empty( $ex_states ) &&
 			empty( $in_regions_states ) && empty( $ex_regions_states )

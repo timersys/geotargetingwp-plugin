@@ -70,12 +70,12 @@ class Fusion_GeoCity {
 	 */
 	static function is_render( $attrs ) {
 
-		extract( $attrs );
+		$in_cities = isset( $attrs['geot_in_cities'] ) ?  trim( $attrs['geot_in_cities'] ) : '';
+		$ex_cities = isset( $attrs['geot_ex_cities'] ) ?  trim( $attrs['geot_ex_cities'] ) : '';
+		
+		$in_regions = isset( $attrs['geot_in_region_cities'] ) ? array_filter( array_map( 'trim', explode( ',', $attrs['geot_in_region_cities'] ) ) ) : [];
+		$ex_regions = isset( $attrs['geot_ex_region_cities'] ) ? array_filter( array_map( 'trim', explode( ',', $attrs['geot_ex_region_cities'] ) ) ) : [];
 
-		$in_cities = trim( $geot_in_cities );
-		$ex_cities = trim( $geot_ex_cities );
-		$in_regions = array_map( 'trim', explode( ',', $geot_in_region_cities ) );
-		$ex_regions = array_map( 'trim', explode( ',', $geot_ex_region_cities ) );
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
 		     count( $in_regions ) == 0 && count( $ex_regions ) == 0
@@ -94,12 +94,12 @@ class Fusion_GeoCity {
 	 */
 	static function ajax_render( $attrs, $output ) {
 
-		extract( $attrs );
+		$in_cities = isset( $attrs['geot_in_cities'] ) ?  trim( $attrs['geot_in_cities'] ) : '';
+		$ex_cities = isset( $attrs['geot_ex_cities'] ) ?  trim( $attrs['geot_ex_cities'] ) : '';
+		
+		$in_regions = isset( $attrs['geot_in_region_cities'] ) ? trim( $attrs['geot_in_region_cities'] ) : '';
+		$ex_regions = isset( $attrs['geot_ex_region_cities'] ) ? trim( $attrs['geot_ex_region_cities'] ) : '';
 
-		$in_cities = trim( $geot_in_cities );
-		$ex_cities = trim( $geot_ex_cities );
-		$in_regions = trim( $geot_in_region_cities );
-		$ex_regions = trim( $geot_ex_region_cities );
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
 		     empty( $in_regions ) && empty( $ex_regions )

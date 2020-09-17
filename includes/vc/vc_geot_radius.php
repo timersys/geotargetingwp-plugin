@@ -12,10 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 $atts  = vc_map_get_attributes( $this->getShortcode(), $atts );
 
-//extract( $atts );
-$radius_km 	= $atts['radius_km'];
-$radius_lat = $atts['radius_lat'];
-$radius_lng = $atts['radius_lng'];
+$radius_km 	= isset( $atts['radius_km'] ) ? trim( $atts['radius_km'] ) : '';
+$radius_lat = isset( $atts['radius_lat'] ) ? trim( $atts['radius_lat'] ) : '';
+$radius_lng = isset( $atts['radius_lng'] ) ? trim( $atts['radius_lng'] ) : '';
 
 $opts = geot_settings();
 
