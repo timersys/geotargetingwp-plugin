@@ -346,7 +346,7 @@ function is_builder() {
 	}
 
 	// flat some
-	if ( isset( $_GET['uxb_iframe'] ) && $_GET['uxb_iframe'] == '1' ) {
+	if (  isset( $_GET['uxb_iframe'] )  || ( isset( $_GET['page'] ) && $_GET['page'] == 'uxbuilder' ) ) {
 		return true;
 	}
 
