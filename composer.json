@@ -50,7 +50,7 @@
     "mobiledetect/mobiledetectlib": "^2.8",
     "php": ">=5.6",
     "ip2location/ip2location-php": "8.*",
-    "maxmind-db/reader": "^1.1",
+    "maxmind-db/reader": "1.6.0",
     "jaybizzle/crawler-detect" :"1.*",
     "ericmann/sessionz": "^0.3"
   }
