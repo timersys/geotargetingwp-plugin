@@ -328,15 +328,28 @@ class GeotWP_Shortcodes {
 
 	/**
 	 * Display the regions of current user
-	 * [geot_region]
+	 * [geot_region type ="country|city|state|zip"]
 	 * @return string city name
 	 */
 	function geot_show_regions( $atts ) {
 		extract( shortcode_atts( [
 			'default' => '',
+			'type' => 'country',
 		], $atts ) );
+		switch ( $type ){
+			case 'city':
+				$regions = geot_user_city_region( $default );
+				break;
+			case 'state':
+				$regions = geot_user_state_region( $default );
+				break;
+			case 'zip':
+				$regions = geot_user_zip_region( $default );
+				break;
+			default:
+				$regions = geot_user_country_region( $default );
+		}
 
-		$regions = geot_user_country_region( $default );
 
 		if ( is_array( $regions ) ) {
 			return implode( ', ', $regions );

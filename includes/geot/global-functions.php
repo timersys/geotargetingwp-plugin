@@ -317,6 +317,7 @@ if ( ! function_exists( 'geot_user_country_region' ) ) {
 
 	}
 }
+
 /**
  * Check for current user if belong to any city regions and return the name of them
  * or return default
@@ -346,6 +347,68 @@ if ( ! function_exists( 'geot_user_city_region' ) ) {
 
 	}
 }
+
+/**
+ * Check for current user if belong to any state regions and return the name of them
+ * or return default
+ *
+ * @param string $default
+ *
+ * @return Array/String
+ */
+if ( ! function_exists( 'geot_user_state_region' ) ) {
+	function geot_user_state_region( $default = '' ) {
+
+		$state_name = geot_state_name();
+		$state_code = geot_state_code();
+		$regions   = geot_state_regions();
+
+		if ( empty( $regions ) || ! is_array( $regions ) || ( empty( $state_code ) && empty( $state_name ) ) ) {
+			return $default;
+		}
+
+		$user_regions = [];
+		foreach ( $regions as $region ) {
+			if ( in_array( $state_name, $region['states'] ) || in_array( $state_code, $region['states'] )) {
+				$user_regions[] = $region['name'];
+			}
+		}
+
+		return empty( $user_regions ) ? $default : $user_regions;
+
+	}
+}
+
+
+/**
+ * Check for current user if belong to any zip regions and return the name of them
+ * or return default
+ *
+ * @param string $default
+ *
+ * @return Array/String
+ */
+if ( ! function_exists( 'geot_user_zip_region' ) ) {
+	function geot_user_zip_region( $default = '' ) {
+
+		$zip = geot_zip();
+
+		if ( empty( $regions ) || ! is_array( $regions ) || empty( $zip ) ) {
+			return $default;
+		}
+
+		$user_regions = [];
+		foreach ( $regions as $region ) {
+			if ( in_array( $zip, $region['zips'] ) ) {
+				$user_regions[] = $region['name'];
+			}
+		}
+
+		return empty( $user_regions ) ? $default : $user_regions;
+
+	}
+}
+
 /**
  * if( ! function_exists( 'that M a i {
  * function that return is current user target the given countries / regions or not
