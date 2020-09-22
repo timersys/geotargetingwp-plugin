@@ -77,7 +77,11 @@ function grab_post_id() {
 
 	add_filter( 'geot/cancel_posts_where', '__return_true' );
 	$actual_url = get_current_url();
-	$id         = isset( $post->ID ) ? $post->ID : url_to_postid( $actual_url );
+	$id         = !empty( $post->ID ) ? $post->ID :  '';
+	// Give the ability to disable due to errors in one page when url_to_postid being called.#7989
+	if( empty( $id ) && ! apply_filters('geot/disable_url_to_post_id', false ) ) {
+		$id = url_to_postid( $actual_url ) ;
+	}
 	remove_filter( 'geot/cancel_posts_where', '__return_true' );
 
 	return $id;
