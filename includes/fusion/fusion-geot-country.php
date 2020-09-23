@@ -37,7 +37,7 @@ class Fusion_GeoCountry {
 				'description'	=> esc_attr__( 'Choose region name to show content to.', 'geot' ),
 				'param_name'	=> 'geot_in_region_countries',
 				'value'			=> GeotWP_Fusion::get_regions( 'country' ),
-				'default'		=> '',
+				'default'		=> 'null',
 				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
 			],
 			[
@@ -54,7 +54,7 @@ class Fusion_GeoCountry {
 				'description'	=> esc_attr__( 'Choose region name to show content to.', 'geot' ),
 				'param_name'	=> 'geot_ex_region_countries',
 				'value'			=> GeotWP_Fusion::get_regions( 'country' ),
-				'default'		=> '',
+				'default'		=> 'null',
 				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
 			]
 		];
@@ -73,8 +73,8 @@ class Fusion_GeoCountry {
 		$in_countries = isset( $attrs['geot_in_countries'] ) ?  trim( $attrs['geot_in_countries'] ) : '';
 		$ex_countries = isset( $attrs['geot_ex_countries'] ) ?  trim( $attrs['geot_ex_countries'] ) : '';
 		
-		$in_regions = isset( $attrs['geot_in_region_countries'] ) ? array_filter( array_map( 'trim', explode( ',', $attrs['geot_in_region_countries'] ) ) ) : [];
-		$ex_regions = isset( $attrs['geot_ex_region_countries'] ) ? array_filter( array_map( 'trim', explode( ',', $attrs['geot_ex_region_countries'] ) ) ) : [];
+		$in_regions = isset( $attrs['geot_in_region_countries'] ) ? GeotWP_Fusion::clean_region( $attrs['geot_in_region_countries'] ) : [];
+		$ex_regions = isset( $attrs['geot_ex_region_countries'] ) ? GeotWP_Fusion::clean_region( $attrs['geot_ex_region_countries'] ) : [];
 
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&

@@ -335,7 +335,7 @@ function is_builder() {
 		return true;
 	}
 	// is fusion builder
-	if ( isset( $_GET['fb-edit'] ) && is_numeric( $_GET['fb-edit'] ) ) {
+	if ( ( isset( $_GET['fb-edit'] ) &&  is_numeric( $_GET['fb-edit'] ) ) || ( function_exists('fusion_is_preview_frame') && fusion_is_preview_frame() ) ) {
 		return true;
 	}
 

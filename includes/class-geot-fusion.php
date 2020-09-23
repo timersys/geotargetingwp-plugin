@@ -97,7 +97,7 @@ class GeotWP_Fusion {
 	 */
 	static function get_regions( $slug_region = 'country' ) {
 
-		$dropdown_values = [];
+		$dropdown_values = ['null' => 'None'];
 
 		switch ( $slug_region ) {
 			case 'city':
@@ -185,18 +185,31 @@ class GeotWP_Fusion {
 			$output = Fusion_GeoRadius::ajax_render( $attrs, $output );
 
 		} else {
-
-			if ( ! Fusion_GeoCountry::is_render( $attrs ) ||
-			     ! Fusion_GeoCity::is_render( $attrs ) ||
-			     ! Fusion_GeoState::is_render( $attrs ) ||
-			     ! Fusion_GeoZip::is_render( $attrs ) ||
-			     ! Fusion_GeoRadius::is_render( $attrs )
+			if ( ! Fusion_GeoCountry::is_render( $attrs )
+			     || ! Fusion_GeoCity::is_render( $attrs )
+			     || ! Fusion_GeoState::is_render( $attrs )
+			     || ! Fusion_GeoZip::is_render( $attrs )
+			     || ! Fusion_GeoRadius::is_render( $attrs )
 			) {
 				return '';
 			}
 		}
 
 		return $output;
+	}
+	/*
+	 * Fusion builder dropdown needs to have a default value
+	 * we use this function to clear the null one
+	 */
+	public static function clean_region( $regions ) {
+		$regions = array_filter( array_map( 'trim', explode( ',', $regions ) ) );
+
+		foreach ( $regions as $key => $name ) {
+			if( 'null' == $name ) {
+				unset($regions[$key]);
+			}
+		}
+		return $regions;
 	}
 
 }

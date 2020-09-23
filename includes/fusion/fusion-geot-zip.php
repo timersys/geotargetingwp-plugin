@@ -37,7 +37,7 @@ class Fusion_GeoZip {
 				'description'	=> esc_attr__( 'Choose region name to show content to.', 'geot' ),
 				'param_name'	=> 'geot_in_region_zips',
 				'value'			=> GeotWP_Fusion::get_regions( 'zip' ),
-				'default'		=> '',
+				'default'		=> 'null',
 				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
 			],
 			[
@@ -54,7 +54,7 @@ class Fusion_GeoZip {
 				'description'	=> esc_attr__( 'Choose region name to show content to.', 'geot' ),
 				'param_name'	=> 'geot_ex_region_zips',
 				'value'			=> GeotWP_Fusion::get_regions( 'zip' ),
-				'default'		=> '',
+				'default'		=> 'null',
 				'group'			=> esc_attr__( 'GeoTargeting', 'geot' ),
 			]
 		];
@@ -73,8 +73,8 @@ class Fusion_GeoZip {
 		$in_zips = isset( $attrs['geot_in_zips'] ) ?  trim( $attrs['geot_in_zips'] ) : '';
 		$ex_zips = isset( $attrs['geot_ex_zips'] ) ?  trim( $attrs['geot_ex_zips'] ) : '';
 		
-		$in_regions = isset( $attrs['geot_in_region_zips'] ) ? array_filter( array_map( 'trim', explode( ',', $attrs['geot_in_region_zips'] ) ) ) : [];
-		$ex_regions = isset( $attrs['geot_ex_region_zips'] ) ? array_filter( array_map( 'trim', explode( ',', $attrs['geot_ex_region_zips'] ) ) ) : [];
+		$in_regions = isset( $attrs['geot_in_region_zips'] ) ? GeotWP_Fusion::clean_region( $attrs['geot_in_region_zips'] ) : [];
+		$ex_regions = isset( $attrs['geot_ex_region_zips'] ) ? GeotWP_Fusion::clean_region( $attrs['geot_ex_region_zips'] ) : [];
 
 
 		if ( empty( $in_zips ) && empty( $ex_zips ) &&
