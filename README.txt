@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
 Tested up to: 5.5.1
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,12 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.2.2 - September 14 2020 =
+* Fixed issue with Fusion Core > v5 and builder >v3
+* Regions shortcode now return all regions and not just countries
+* Fixed issue with Maxmin local database and PHP < 7.2
+* Fixed issue with flatsome builder
+
 = 3.2.1 - September 14 2020 =
 * Fix issue with Fusion builder
 * Fix issue with Geo Links States

@@ -96,13 +96,13 @@ class Fusion_GeoCity {
 
 		$in_cities = isset( $attrs['geot_in_cities'] ) ?  trim( $attrs['geot_in_cities'] ) : '';
 		$ex_cities = isset( $attrs['geot_ex_cities'] ) ?  trim( $attrs['geot_ex_cities'] ) : '';
-		
-		$in_regions = isset( $attrs['geot_in_region_cities'] ) ? trim( $attrs['geot_in_region_cities'] ) : '';
-		$ex_regions = isset( $attrs['geot_ex_region_cities'] ) ? trim( $attrs['geot_ex_region_cities'] ) : '';
+
+		$in_regions = isset( $attrs['geot_in_region_cities'] ) ? GeotWP_Fusion::clean_region( $attrs['geot_in_region_cities'] ) : [];
+		$ex_regions = isset( $attrs['geot_ex_region_cities'] ) ? GeotWP_Fusion::clean_region( $attrs['geot_ex_region_cities'] ) : [];
 
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
-		     empty( $in_regions ) && empty( $ex_regions )
+		     count( $in_regions ) == 0 && count( $ex_regions ) == 0
 		) {
 			return $output;
 		}
