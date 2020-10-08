@@ -507,7 +507,7 @@ class GeotCore {
 			}
 			// check for crawlers and if rest
 			$CD = new CrawlerDetect();
-			if ( $CD->isCrawler() || $this->treatAsBot() || is_rest_request() ) {
+			if ( ( apply_filters('geot/enable_crawl_detection', true) &&  $CD->isCrawler() ) || $this->treatAsBot() || is_rest_request() )  {
 				return $this->setData( ! empty( $this->opts['bots_country'] ) ? $this->opts['bots_country'] : 'US' );
 			}
 
