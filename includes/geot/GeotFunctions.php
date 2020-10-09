@@ -107,6 +107,10 @@ class GeotCore {
 			add_action( 'init', [ $this, 'getUserData' ] );
 			add_action( 'init', [ $this, 'createRocketCookies' ], 15 );
 		}
+		// disable wprocket cookies when cache mode it's turned off
+		if ( empty( $this->opts['cache_mode'] ) ) {
+			add_filter('rocket_geotargetingwp_enabled_cookies', function(){ return [];});
+		}
 
 		if ( is_admin() ) {
 			new GeotNotices();
