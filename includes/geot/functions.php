@@ -325,6 +325,7 @@ function get_countries_from_predefined_regions( $continent ) {
  */
 function is_builder() {
 
+
 	// is Elementor
 	if ( isset( $_GET['elementor-preview'] ) && is_numeric( $_GET['elementor-preview'] ) ) {
 		return true;
@@ -351,6 +352,11 @@ function is_builder() {
 
 	// flat some
 	if (  isset( $_GET['uxb_iframe'] )  || ( isset( $_GET['page'] ) && $_GET['page'] == 'uxbuilder' ) ) {
+		return true;
+	}
+
+	// WPBakery
+	if( isset( $_GET['vc_editable'] ) && $_GET['vc_editable'] == 'true' ) {
 		return true;
 	}
 

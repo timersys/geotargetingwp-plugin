@@ -1621,3 +1621,21 @@
     opacity: 1;
 }
 
+.vc_editor.compose-mode .vc_vc_geotwp_country:hover:before,
+.vc_editor.compose-mode .vc_vc_geotwp_city:hover:before,
+.vc_editor.compose-mode .vc_vc_geotwp_radius:hover:before,
+.vc_editor.compose-mode .vc_vc_geotwp_state:hover:before,
+.vc_editor.compose-mode .vc_vc_geotwp_zip:hover:before
+{
+    content: '';
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    outline: 1px dashed #ebebeb;
+    outline: 1px dashed rgba(125,125,125,.4);
+}
