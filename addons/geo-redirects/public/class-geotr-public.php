@@ -230,6 +230,12 @@ class GeotWP_R_Public {
 		$replaces = apply_filters( 'geotr/placeholders', array_map( 'strtolower', $replaces ) );
 
 		$final_url = str_replace( array_keys( $replaces ), array_values( $replaces ), $opts['url'] );
+
+		// if wpml active and language code
+		if( ! empty( $opts['wpml'] ) ) {
+			$final_url = apply_filters( 'wpml_permalink', rtrim( $final_url,'/' ) . '/', $opts['wpml'], 1 );
+		}
+
 		// add back query string
 		if ( isset( $opts['pass_query_string'] ) && $opts['pass_query_string'] == 1 && ! empty( $query_string ) ) {
 			// check if a query string already exist in final url
@@ -238,10 +244,6 @@ class GeotWP_R_Public {
 			} else {
 				return $final_url . '?' . $query_string;
 			}
-		}
-		// if wpml active and language code
-		if ( ! empty( $opts['wpml'] ) ) {
-			$final_url = apply_filters( 'wpml_permalink', $final_url, $opts['wpml'], 1 );
 		}
 
 		return apply_filters( 'geotr/shortcodes_url', $final_url, $opts, $url );
