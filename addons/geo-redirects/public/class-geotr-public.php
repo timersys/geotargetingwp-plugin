@@ -58,7 +58,7 @@ class GeotWP_R_Public {
 	<div>
 		<?php do_action( 'geotr/ajax_placeholder' ); ?>
 		<img src="<?php echo plugin_dir_url( __FILE__ ); ?>img/loading.svg" alt="loading"/>
-		<p><?php apply_filters( 'geotr/ajax_message', _e( 'Please wait while you are redirected to the right page...', 'geotr' ) ); ?></p>
+		<p><?php echo apply_filters( 'geotr/ajax_message', __( 'Please wait while you are redirected to the right page...', 'geotr' ) ); ?></p>
 	</div>
 </div>
 <style>
