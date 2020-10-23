@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
 Tested up to: 5.5.1
-Stable tag: 3.2.2
+Stable tag: 3.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,14 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.2.3 - October 23 2020 =
+
+* Devs: Add filter to disable crawl detection
+* Fix: Disable WpRocket cookies when cache mode it's disabled
+* Fix: WpBakery frontend editor not showing geolocated modules
+* Fix: With Query string and WPML redirects
+* Feature: Check if page exists before redirect
+
 = 3.2.2 - September 14 2020 =
 * Fixed issue with Fusion Core > v5 and builder >v3
 * Regions shortcode now return all regions and not just countries
