@@ -557,7 +557,7 @@ class GeotCore {
 
 			return $this->getFallbackCountry();
 		} catch ( InvalidLicenseException $e ) {
-			GeotEmails::AuthenticationException();
+			GeotEmails::AuthenticationException($e->getMessage());
 			GeotNotifications::notify( $e->getMessage() );
 
 			return $this->getFallbackCountry();
