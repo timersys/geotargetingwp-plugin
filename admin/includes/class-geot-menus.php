@@ -33,7 +33,7 @@ class GeotWP_Menus {
 				add_filter( 'wp_edit_nav_menu_walker', [ $this, 'admin_menu_walker' ], 150, 2 );
 
 			add_filter( 'wp_setup_nav_menu_item', [ $this, 'add_custom_fields' ] );
-			add_filter( 'wp_nav_menu_objects', [ $this, 'geotarget_menus' ], 10, 2 );
+			add_filter( 'wp_nav_menu_objects', [ $this, 'geotarget_menus' ], 90, 2 );
 			add_action( 'wp_update_nav_menu_item', [ $this, 'save_custom_fields' ], 10, 3 );
 		}
 	}
@@ -118,6 +118,7 @@ class GeotWP_Menus {
 				if ( isset( $this->opts['ajax_mode'] ) && $this->opts['ajax_mode'] == '1' ) {
 					$menu_item->classes[] = ' geot-ajax geot_menu_item ';
 					add_filter( 'nav_menu_link_attributes', [ $this, 'add_geot_info' ], 10, 2 );
+					add_filter( 'megamenu_nav_menu_link_attributes', [ $this, 'add_geot_info' ], 10, 2 );
 				} else {
 					if ( GeotWP_Helper::user_is_targeted( $g, $menu_item->ID ) ) {
 						unset( $sorted_menu_items[ $k ] );

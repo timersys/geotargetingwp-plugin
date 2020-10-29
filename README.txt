@@ -43,6 +43,7 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 * Fix: Disable WpRocket cookies when cache mode it's disabled
 * Fix: WpBakery frontend editor not showing geolocated modules
 * Fix: With Query string and WPML redirects
+* Fix: Redirect message filter
 * Feature: Check if page exists before redirect
 
 = 3.2.2 - September 14 2020 =
