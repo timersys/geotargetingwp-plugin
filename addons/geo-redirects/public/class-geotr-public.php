@@ -299,8 +299,9 @@ class GeotWP_R_Public {
 		$opts['url'] = $this->replaceShortcodes( $opts );
 		$opts['url'] = $this->fixRedirect( $opts['url'] );
 		$opts['id']  = $redirection->ID;
+
 		// do one more test to check if url exist only when dynamic shortcodes are used
-		if ( strpos( $old_url, '{{' ) !== false ) {
+		if ( ( strpos( $old_url, '{{' ) !== false && ! is_multisite() ) || apply_filters('geot/disable_page_exists_check', false ) ) {
 			$path = parse_url( $opts['url'], PHP_URL_PATH );
 			// check if exists the destination url in different post types
 			if ( ! $this->page_exists( $path ) ) {
