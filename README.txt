@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
 Tested up to: 5.5.1
-Stable tag: 3.2.3
+Stable tag: 3.2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,8 +37,12 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
-= 3.2.3 - October 23 2020 =
+= 3.2.3.1 - Nov 2 2020 =
+* Add filter to disable url check in geo redirects and disabled in MU
+* Fix: Megamenu compatibility issue
+* Whitelist Jetpack Ips to save requests
 
+= 3.2.3 - October 23 2020 =
 * Devs: Add filter to disable crawl detection
 * Fix: Disable WpRocket cookies when cache mode it's disabled
 * Fix: WpBakery frontend editor not showing geolocated modules
