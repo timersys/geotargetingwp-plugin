@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	if ( function_exists( 'icl_object_id' ) ) {
 	?>
 	<tr valign="top">
-		<th><label for="geotr_trigger"><?php _e( 'WPML Language code', 'geotr' ); ?></label></th>
+		<th><label for="geotr_trigger"><?php _e( 'WPML/Polylang Language code', 'geotr' ); ?></label></th>
 		<td>
 			<input type="text" name="geotr[wpml]" value="<?php echo esc_attr( $opts['wpml'] ); ?>"
 			       placeholder=""/>

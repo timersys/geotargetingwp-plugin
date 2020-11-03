@@ -233,7 +233,19 @@ class GeotWP_R_Public {
 
 		// if wpml active and language code
 		if( ! empty( $opts['wpml'] ) ) {
-			$final_url = apply_filters( 'wpml_permalink', rtrim( $final_url,'/' ) . '/', $opts['wpml'], 1 );
+			// only run for WPML, polylang wpml api is not working
+			if( ! function_exists('PLL') ) {
+				$final_url = apply_filters( 'wpml_permalink', rtrim( $final_url, '/' ) . '/', $opts['wpml'], 1 );
+			} else {
+				$links =  PLL()->links_model;
+				$path = $links->remove_language_from_link( parse_url( $final_url, PHP_URL_PATH ) );
+
+				// check if exists the destination url in different post types
+				if ( ( $p = $this->page_exists( $path ) ) != false ) {
+					$tr_id = $links->model->post->get( $p->ID, $opts['wpml'] );
+					$final_url = get_permalink( $tr_id );
+				}
+			}
 		}
 
 		// add back query string
@@ -301,7 +313,7 @@ class GeotWP_R_Public {
 		$opts['id']  = $redirection->ID;
 
 		// do one more test to check if url exist only when dynamic shortcodes are used
-		if ( ( strpos( $old_url, '{{' ) !== false && ! is_multisite() ) || apply_filters('geot/disable_page_exists_check', false ) ) {
+		if ( ( strpos( $old_url, '{{' ) !== false && ! is_multisite() ) && ! apply_filters('geot/disable_page_exists_check', false ) ) {
 			$path = parse_url( $opts['url'], PHP_URL_PATH );
 			// check if exists the destination url in different post types
 			if ( ! $this->page_exists( $path ) ) {
@@ -359,8 +371,9 @@ class GeotWP_R_Public {
 	private function page_exists( $path ) {
 		$post_types = apply_filters( 'geot/get_page_by_path_post_types', [ 'page', 'post' ] );
 		foreach ( $post_types as $pt ) {
-			if( get_page_by_path( $path, OBJECT, $pt ) !== null ) {
-				return true;
+			$p = get_page_by_path( $path, OBJECT, $pt );
+			if( $p !== null ) {
+				return $p;
 			}
 		}
 		return false;
