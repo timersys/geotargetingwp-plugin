@@ -134,11 +134,13 @@ class GeotWP_Ajax_Shortcodes {
 	function geot_filter_states( $atts, $content ) {
 		extract( shortcode_atts( [
 			'state'         => '',
+			'region'         => '',
 			'exclude_state' => '',
+			'exclude_region' => '',
 			'html_tag'      => 'div',
 		], $atts ) );
 
-		return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $state . '" data-ex_filter="' . $exclude_state . '" >' . do_shortcode( $content ) . '</' . $html_tag . '>';
+		return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $state . '" data-region="' . $region . '"  data-ex_filter="' . $exclude_state . '" data-ex_region="' . $exclude_region . '" >' . do_shortcode( $content ) . '</' . $html_tag . '>';
 
 	}
 
