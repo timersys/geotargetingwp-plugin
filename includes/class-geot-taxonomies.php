@@ -109,7 +109,7 @@ class GeotWP_Taxonomies {
 	 */
 	public function pre_get_posts( $q ) {
 
-		if ( is_admin() || ! $q->is_main_query() || ! $q->is_single )
+		if ( is_admin() || ! $q->is_main_query() || ! $q->is_single || empty( $q->query['name'] ) )
 			return;
 
 		if( empty( $this->geot_opts['enable_taxonomies'] ) )
