@@ -255,7 +255,7 @@ $countries = geot_countries();
 								<input type="text" class="zip-region-name region-name" placeholder="Enter zip region name" name="geot_settings[zip_region][<?php echo $i; ?>][name]" value="<?php echo ! empty( $region['name'] ) ? esc_attr( $region['name'] ) : ''; ?>" />
 								<a href="#" class="remove-zip-region" title="<?php _e( 'Remove Zip', 'geot' ); ?>">-</a>
 								<input type="text" class="zip-region-list" name="geot_settings[zip_region][<?php echo $i; ?>][zips]" data-placeholder="<?php _e( 'Type Zip Code separate with commas...', 'geot' ); ?>" value="<?php echo ! empty( $region['zips'] ) ? esc_attr( $region['zips'] ) : ''; ?>" />
-								<p class="help"><?php _e('Write the zip codes separate by commas','geot'); ?></p>
+								<p class="help"><?php _e('Write the zip codes separate by commas. You can use * to wide mach zips. For example 546* will match all zips codes starting with 546.','geot'); ?></p>
 
 							</div>
 						<?php endforeach; ?>
