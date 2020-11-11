@@ -909,6 +909,13 @@ class GeotCore {
 
 		if ( count( $places ) > 0 ) {
 			foreach ( $places as $zip ) {
+				// this is a wide zip match
+				if ( strpos( $zip, '*') !== false ) {
+					$zip = str_replace( '*', '', $zip );
+					if( strpos( strtolower( $user_place->zip ), strtolower( $zip ) ) === 0 ) {
+						$target = true;
+					}
+				}
 				if ( strtolower( $user_place->zip ) == strtolower( $zip ) ) {
 					$target = true;
 				}
@@ -920,6 +927,13 @@ class GeotCore {
 
 		if ( count( $exclude_places ) > 0 ) {
 			foreach ( $exclude_places as $ezip ) {
+				// this is a wide zip match
+				if ( strpos( $ezip, '*') !== false ) {
+					$ezip = str_replace( '*', '', $ezip );
+					if( strpos( strtolower( $user_place->zip ), strtolower( $ezip ) ) === 0 ) {
+						$target = false;
+					}
+				}
 				if ( strtolower( $user_place->zip ) == strtolower( $ezip ) ) {
 					$target = false;
 				}
