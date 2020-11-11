@@ -85,6 +85,8 @@ class acf_field_geot_field extends acf_field {
 					'choices' => [
 						'regions'      => __( 'Regions', 'geot' ),
 						'city-regions' => __( 'City Regions', 'geot' ),
+						'zip-regions' => __( 'Zip Regions', 'geot' ),
+						'state-regions' => __( 'State Regions', 'geot' ),
 						'countries'    => __( 'Countries', 'geot' ),
 					],
 				] );
@@ -177,7 +179,59 @@ class acf_field_geot_field extends acf_field {
 
 				} else { ?>
 
-					<p> Add some regions first.</p>
+					<p> Add some City regions first.</p>
+
+					<?php
+				}
+			} elseif ( 'zip-regions' == $field['geot_show'] ) {
+
+				$regions = geot_zip_regions();
+
+				if ( is_array( $regions ) ) {
+
+					foreach ( $regions as $r ) {
+						if ( ! empty( $r['name'] ) ) {
+							$choices[ $r['name'] ] = $r['name'];
+						}
+					}
+
+					do_action( 'acf/create_field', [
+						'type'     => 'select',
+						'multiple' => true,
+						'name'     => $field['name'] . '[geot_zip_regions]',
+						'value'    => $field['value']['geot_zip_regions'],
+						'choices'  => $choices,
+					] );
+
+				} else { ?>
+
+					<p> Add some Zip regions first.</p>
+
+					<?php
+				}
+			} elseif ( 'state-regions' == $field['geot_show'] ) {
+
+				$regions = geot_state_regions();
+
+				if ( is_array( $regions ) ) {
+
+					foreach ( $regions as $r ) {
+						if ( ! empty( $r['name'] ) ) {
+							$choices[ $r['name'] ] = $r['name'];
+						}
+					}
+
+					do_action( 'acf/create_field', [
+						'type'     => 'select',
+						'multiple' => true,
+						'name'     => $field['name'] . '[geot_state_regions]',
+						'value'    => $field['value']['geot_state_regions'],
+						'choices'  => $choices,
+					] );
+
+				} else { ?>
+
+					<p> Add some State regions first.</p>
 
 					<?php
 				}
