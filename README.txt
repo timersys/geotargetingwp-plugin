@@ -3,8 +3,8 @@ Contributors: timersys
 Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
-Tested up to: 5.5.1
-Stable tag: 3.2.3.2
+Tested up to: 5.5.3
+Stable tag: 3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,13 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.3 - Nov 12 2020 =
+* Fix: State regions shortcodes
+* Fix: Page check disabled for redirects. It can be enabled on demand
+* Fix: Added missing regions in ACF api v4 a v5
+* Feature: Zip code can be wide matched as 456*
+* Feature: WP Popups compatibility
+
 = 3.2.3.2 - Nov 3 2020 =
 * Added Polylang support for automatic translation
 * Fix bug in disable url check introduced in 3.2.3.1
