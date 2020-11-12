@@ -168,6 +168,7 @@ class Geot {
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-rocket.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-stats.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-wc.php';
+		require_once GEOWP_PLUGIN_DIR . 'includes/class-geot-popups.php';
 
 
 		require_once GEOWP_PLUGIN_DIR . 'admin/includes/class-geot-menus.php';
