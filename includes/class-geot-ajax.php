@@ -39,6 +39,26 @@ class GeotWP_Ajax {
 
 		add_action( 'wp_ajax_geot/field_group/render_rules', [ 'GeotWP_Helper', 'ajax_render_rules' ], 1 );
 		add_action( 'wp_ajax_geot/field_group/render_operator', [ 'GeotWP_Helper', 'ajax_render_operator' ], 1 );
+
+		add_filter( 'geot/ajax/country_name', [ $this, 'country_name' ] );
+		add_filter( 'geot/ajax/city_name', [ $this, 'city_name' ] );
+		add_filter( 'geot/ajax/state_name', [ $this, 'state_name' ] );
+		add_filter( 'geot/ajax/continent_name', [ $this, 'continent_name' ] );
+		add_filter( 'geot/ajax/state_code', [ $this, 'state_code' ] );
+		add_filter( 'geot/ajax/zip', [ $this, 'zip' ] );
+		add_filter( 'geot/ajax/time_zone', [ $this, 'time_zone' ] );
+		add_filter( 'geot/ajax/latitude', [ $this, 'latitude' ] );
+		add_filter( 'geot/ajax/longitude', [ $this, 'longitude' ] );
+		add_filter( 'geot/ajax/region', [ $this, 'region' ] );
+		add_filter( 'geot/ajax/country_code', [ $this, 'country_code' ] );
+		add_filter( 'geot/ajax/country_filter', [ $this, 'country_filter' ] );
+		add_filter( 'geot/ajax/city_filter', [ $this, 'city_filter' ] );
+		add_filter( 'geot/ajax/state_filter', [ $this, 'state_filter' ] );
+		add_filter( 'geot/ajax/zip_filter', [ $this, 'zip_filter' ] );
+		add_filter( 'geot/ajax/radius_filter', [ $this, 'radius_filter' ] );
+		add_filter( 'geot/ajax/menu_filter', [ $this, 'menu_filter' ] );
+		add_filter( 'geot/ajax/widget_filter', [ $this, 'widget_filter' ] );
+		add_filter( 'geot/ajax/geo_flag', [ $this, 'geo_flag' ] );
 	}
 
 	/**
@@ -77,7 +97,7 @@ class GeotWP_Ajax {
 					$geots[] = [
 						'id'     => $id,
 						'action' => $geot['action'],
-						'value'  => $this->{$geot['action']}( $geot ),
+						'value'  => apply_filters( "geot/ajax/{$geot['action']}",  $geot ),
 					];
 				}
 			}
@@ -196,7 +216,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function country_name( $geot ) {
+	public function country_name( $geot ) {
 		if ( ! isset( $geot['locale'] ) ) {
 			$geot['locale'] = 'en';
 		}
@@ -217,7 +237,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function city_name( $geot ) {
+	public function city_name( $geot ) {
 		if ( ! isset( $geot['locale'] ) ) {
 			$geot['locale'] = 'en';
 		}
@@ -238,7 +258,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function state_name( $geot ) {
+	public function state_name( $geot ) {
 		if ( ! isset( $geot['locale'] ) ) {
 			$geot['locale'] = 'en';
 		}
@@ -259,7 +279,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function continent_name( $geot ) {
+	public function continent_name( $geot ) {
 		if ( ! isset( $geot['locale'] ) ) {
 			$geot['locale'] = 'en';
 		}
@@ -280,7 +300,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function state_code( $geot ) {
+	public function state_code( $geot ) {
 
 		$code = geot_state_code();
 
@@ -295,7 +315,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function zip( $geot ) {
+	public function zip( $geot ) {
 
 		$code = geot_zip();
 
@@ -309,7 +329,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function time_zone( $geot ) {
+	public function time_zone( $geot ) {
 
 		$code = geot_time_zone();
 
@@ -323,7 +343,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function latitude( $geot ) {
+	public function latitude( $geot ) {
 
 		$code = geot_lat();
 
@@ -337,7 +357,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function longitude( $geot ) {
+	public function longitude( $geot ) {
 
 		$code = geot_lng();
 
@@ -351,7 +371,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function region( $geot ) {
+	public function region( $geot ) {
 
 		$regions = geot_user_country_region( $geot['default'] );
 
@@ -370,7 +390,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function country_code( $geot ) {
+	public function country_code( $geot ) {
 
 		$code = geot_country_code();
 
@@ -385,7 +405,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return boolean
 	 */
-	private function country_filter( $geot ) {
+	public function country_filter( $geot ) {
 
 		if ( geot_target( $geot['filter'], $geot['region'], $geot['ex_filter'], $geot['ex_region'] ) ) {
 			return true;
@@ -401,7 +421,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return boolean
 	 */
-	private function city_filter( $geot ) {
+	public function city_filter( $geot ) {
 
 		if ( geot_target_city( $geot['filter'], $geot['region'], $geot['ex_filter'], $geot['ex_region'] ) ) {
 			return true;
@@ -417,7 +437,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return boolean
 	 */
-	private function state_filter( $geot ) {
+	public function state_filter( $geot ) {
 
 		if ( geot_target_state( $geot['filter'], $geot['region'], $geot['ex_filter'], $geot['ex_region'] ) ) {
 			return true;
@@ -433,7 +453,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return boolean
 	 */
-	private function zip_filter( $geot ) {
+	public function zip_filter( $geot ) {
 
 		if ( geot_target_zip( $geot['filter'], $geot['region'], $geot['ex_filter'], $geot['ex_region'] ) ) {
 			return true;
@@ -450,7 +470,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return boolean
 	 */
-	private function radius_filter( $geot ) {
+	public function radius_filter( $geot ) {
 
 		if ( geot_target_radius( $geot['region'], $geot['ex_filter'], $geot['filter'] ) ) {
 			return true;
@@ -466,7 +486,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return boolean
 	 */
-	private function menu_filter( $geot ) {
+	public function menu_filter( $geot ) {
 
 		$target = unserialize( base64_decode( $geot['filter'] ) );
 
@@ -484,7 +504,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return boolean
 	 */
-	private function widget_filter( $geot ) {
+	public function widget_filter( $geot ) {
 
 		$target = unserialize( base64_decode( $geot['filter'] ) );
 		if ( GeotWP_Helper::user_is_targeted( $target, $geot['ex_filter'] ) ) {
@@ -501,7 +521,7 @@ class GeotWP_Ajax {
 	 *
 	 * @return string
 	 */
-	private function geo_flag( $geot ) {
+	public function geo_flag( $geot ) {
 		$country_code = ! empty( $geot['filter'] ) ? $geot['filter'] : geot_country_code();
 
 		$squared = $geot['default'] ?: '';
