@@ -107,6 +107,8 @@ class GeotWP_Elementor {
 		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/elementor-geot-state.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/elementor-geot-zipcode.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/elementor-geot-radius.php';
+
+		do_action( 'geot/elementor/register_init' );
 	}
 
 	/**
@@ -134,6 +136,7 @@ class GeotWP_Elementor {
 			Elementor_GeoState::get_fields( $control );
 			Elementor_GeoZipcode::get_fields( $control );
 			Elementor_GeoRadius::get_fields( $control );
+			do_action('geot/elementor/register_controls', $control);
 		}
 	}
 
@@ -184,6 +187,7 @@ class GeotWP_Elementor {
 			Elementor_GeoState::ajax_before_render( $settings );
 			Elementor_GeoZipcode::ajax_before_render( $settings );
 			Elementor_GeoRadius::ajax_before_render( $settings );
+			do_action('geot/elementor/ajax_before_render', $settings);
 		}
 
 	}
