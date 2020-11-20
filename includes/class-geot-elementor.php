@@ -212,6 +212,7 @@ class GeotWP_Elementor {
 			Elementor_GeoState::ajax_after_render( $settings );
 			Elementor_GeoZipcode::ajax_after_render( $settings );
 			Elementor_GeoRadius::ajax_after_render( $settings );
+			do_action('geot/elementor/ajax_after_render', $settings);
 		}
 	}
 
@@ -232,7 +233,7 @@ class GeotWP_Elementor {
 		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-region-state.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-zip.php';
 		require_once GEOWP_PLUGIN_DIR . 'includes/elementor/conditions/elementor-geot-conditions-region-zip.php';
-
+		do_action('geot/elementor/condition_register');
 		$elementor->get_condition( 'general' )->register_sub_condition( new Elementor_GeoConditions_Base );
 	}
 
