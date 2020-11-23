@@ -129,8 +129,8 @@ class Elementor_GeoCountry {
 		$in_countries = isset( $settings['in_countries'] ) ? trim( $settings['in_countries'] ) : '';
 		$ex_countries = isset( $settings['ex_countries'] ) ? trim( $settings['ex_countries'] ) : '';
 
-		$in_regions = is_array( $settings['in_regions'] ) ? array_map( 'trim', $settings['in_regions'] ) : [];
-		$ex_regions = is_array( $settings['ex_regions'] ) ? array_map( 'trim', $settings['ex_regions'] ) : [];
+		$in_regions = is_array( $settings['in_regions'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['in_regions'] ), 'countries' ) : [];
+		$ex_regions = is_array( $settings['ex_regions'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['ex_regions'] ), 'countries' ) : [];
 
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
@@ -157,8 +157,8 @@ class Elementor_GeoCountry {
 		$in_countries = isset( $settings['in_countries'] ) ? trim( $settings['in_countries'] ) : '';
 		$ex_countries = isset( $settings['ex_countries'] ) ? trim( $settings['ex_countries'] ) : '';
 
-		$in_regions = is_array( $settings['in_regions'] ) ? array_map( 'trim', $settings['in_regions'] ) : [];
-		$ex_regions = is_array( $settings['ex_regions'] ) ? array_map( 'trim', $settings['ex_regions'] ) : [];
+		$in_regions = is_array( $settings['in_regions'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['in_regions'] ), 'countries' ) : [];
+		$ex_regions = is_array( $settings['ex_regions'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['ex_regions'] ), 'countries' ) : [];
 
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
@@ -192,8 +192,8 @@ class Elementor_GeoCountry {
 		$in_countries = isset( $settings['in_countries'] ) ? trim( $settings['in_countries'] ) : '';
 		$ex_countries = isset( $settings['ex_countries'] ) ? trim( $settings['ex_countries'] ) : '';
 
-		$in_regions = is_array( $settings['in_regions'] ) ? array_map( 'trim', $settings['in_regions'] ) : [];
-		$ex_regions = is_array( $settings['ex_regions'] ) ? array_map( 'trim', $settings['ex_regions'] ) : [];
+		$in_regions = is_array( $settings['in_regions'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['in_regions'] ), 'countries' ) : [];
+		$ex_regions = is_array( $settings['ex_regions'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['ex_regions'] ), 'countries' ) : [];
 
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&

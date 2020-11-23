@@ -129,8 +129,8 @@ class Elementor_GeoState {
 		$in_states = isset( $settings['in_states'] ) ? trim( $settings['in_states'] ) : '';
 		$ex_states = isset( $settings['ex_states'] ) ? trim( $settings['ex_states'] ) : '';
 
-		$in_regions_states = is_array( $settings['in_regions_states'] ) ? array_map( 'trim', $settings['in_regions_states'] ) : [];
-		$ex_regions_states = is_array( $settings['ex_regions_states'] ) ? array_map( 'trim', $settings['ex_regions_states'] ) : [];
+		$in_regions_states = is_array( $settings['in_regions_states'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['in_regions_states'] ), 'states' ) : [];
+		$ex_regions_states = is_array( $settings['ex_regions_states'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['ex_regions_states'] ), 'states' ) : [];
 
 
 		if ( empty( $in_states ) && empty( $ex_states ) &&
@@ -157,8 +157,8 @@ class Elementor_GeoState {
 		$in_states = isset( $settings['in_states'] ) ? trim( $settings['in_states'] ) : '';
 		$ex_states = isset( $settings['ex_states'] ) ? trim( $settings['ex_states'] ) : '';
 
-		$in_regions_states = is_array( $settings['in_regions_states'] ) ? array_map( 'trim', $settings['in_regions_states'] ) : [];
-		$ex_regions_states = is_array( $settings['ex_regions_states'] ) ? array_map( 'trim', $settings['ex_regions_states'] ) : [];
+		$in_regions_states = is_array( $settings['in_regions_states'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['in_regions_states'] ), 'states' ) : [];
+		$ex_regions_states = is_array( $settings['ex_regions_states'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['ex_regions_states'] ), 'states' ) : [];
 
 
 		if ( empty( $in_states ) && empty( $ex_states ) &&
@@ -191,8 +191,8 @@ class Elementor_GeoState {
 		$in_states = isset( $settings['in_states'] ) ? trim( $settings['in_states'] ) : '';
 		$ex_states = isset( $settings['ex_states'] ) ? trim( $settings['ex_states'] ) : '';
 
-		$in_regions_states = is_array( $settings['in_regions_states'] ) ? array_map( 'trim', $settings['in_regions_states'] ) : [];
-		$ex_regions_states = is_array( $settings['ex_regions_states'] ) ? array_map( 'trim', $settings['ex_regions_states'] ) : [];
+		$in_regions_states = is_array( $settings['in_regions_states'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['in_regions_states'] ), 'states' ) : [];
+		$ex_regions_states = is_array( $settings['ex_regions_states'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['ex_regions_states'] ), 'states' ) : [];
 
 
 		if ( empty( $in_states ) && empty( $ex_states ) &&

@@ -328,4 +328,23 @@ class GeotWP_Elementor {
 		
 		return $result;
 	}
+
+	/**
+	 * Check if regions are the ones stored in admin
+	 * @param $regions
+	 * @param $slug
+	 *
+	 * @return array
+	 */
+	static function filter_regions( $regions, $slug ) {
+		$saved_regions = GeotWP_Elementor::get_regions( $slug );
+		if( is_array( $regions ) ) {
+			foreach ($regions as $i => $r) {
+				if( ! in_array( $r, $saved_regions ) ) {
+					unset($regions[$i]);
+				}
+			}
+		}
+		return $regions;
+	}
 }
