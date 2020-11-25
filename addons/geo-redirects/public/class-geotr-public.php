@@ -53,12 +53,12 @@ class GeotWP_R_Public {
 	 * Print placeholder in front end
 	 */
 	public static function ajax_placeholder(){
+		$opts = geotr_settings();
 	?><!-- Geo Redirects plugin https://geotargetingwp.com-->
 <div class="geotr-ajax" style="display: none">
 	<div>
 		<?php do_action( 'geotr/ajax_placeholder' ); ?>
-		<img src="<?php echo plugin_dir_url( __FILE__ ); ?>img/loading.svg" alt="loading"/>
-		<p><?php echo apply_filters( 'geotr/ajax_message', __( 'Please wait while you are redirected to the right page...', 'geotr' ) ); ?></p>
+		<?php echo $opts['redirect_message'];?>
 	</div>
 </div>
 <style>
@@ -72,6 +72,9 @@ class GeotWP_R_Public {
 		left: 0;
 		z-index: 9999999999;
 		color: #000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.geotr-ajax img {
@@ -80,16 +83,8 @@ class GeotWP_R_Public {
 	}
 
 	.geotr-ajax div {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		margin: auto;
-		width: 320px;
-		height: 140px;
+		margin: 20px;
 		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-		text-align: center;
 	}
 </style>
 	<?php
