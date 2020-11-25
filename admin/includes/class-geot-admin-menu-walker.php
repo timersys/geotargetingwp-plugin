@@ -231,7 +231,8 @@ if ( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
 						       name="menu-item-geot[<?php echo $item_id; ?>][zipcodes]"
 						       value="<?php echo esc_attr( $item->geot['zipcodes'] ); ?>"/>
 
-						
+						<?php do_action( 'geot/menus/fields/radius', $item_id, $item ); ?>
+
 						<label for="geot_position"><?php _e( 'Given Radius:', 'geot' ); ?></label><br/>
 						<span class="radius_km">
 							<input type="text" id="radius_km" class="geot_text widefat" name="menu-item-geot[<?php echo $item_id; ?>][radius_km]"
@@ -246,6 +247,8 @@ if ( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
 							       value="<?php echo esc_attr( $item->geot['radius_lng'] ); ?>"
 							       placeholder="<?php _e( 'Enter longitude', 'geot' ); ?>"/>
 						</span>
+
+						<?php do_action( 'geot/menus/fields/after', $item_id, $item ); ?>
 
 					</label>
 				</p>

@@ -996,7 +996,10 @@ class GeotCore {
 	public function targetRadius( $radius_lat, $radius_lng, $radius_km ) {
 		$user_geo = $this->get( 'geolocation' );
 
-		$distance = $this->getDistance( $user_geo->latitude, $user_geo->longitude, $radius_lat, $radius_lng );
+		$distance = 0;
+
+		if( is_numeric( $user_geo->latitude ) && is_numeric( $user_geo->longitude ) )
+			$distance = $this->getDistance( $user_geo->latitude, $user_geo->longitude, $radius_lat, $radius_lng );
 
 		if ( $distance <= $radius_km ) {
 			return true;

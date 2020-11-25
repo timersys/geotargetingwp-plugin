@@ -128,7 +128,7 @@ class GeotWP_Menus {
 
 		}
 
-		return $sorted_menu_items;
+		return apply_filters( 'geot/menus/target', $sorted_menu_items, $args );
 	}
 
 	/**
@@ -237,6 +237,8 @@ class GeotWP_Menus {
 				       value="<?php echo esc_attr( $geot['zipcodes'] ); ?>"/>
 
 
+				<?php do_action( 'geot/menus/fields/radius', $item_id, $item ); ?>
+
 				<label for="geot_position"><?php _e( 'Given Radius:', 'geot' ); ?></label><br/>
 				<span class="radius_km">
 					<input type="text" id="radius_km" class="geot_text widefat" name="menu-item-geot[<?php echo $item_id; ?>][radius_km]"
@@ -251,6 +253,8 @@ class GeotWP_Menus {
 					       value="<?php echo esc_attr( $geot['radius_lng'] ); ?>"
 					       placeholder="<?php _e( 'Enter longitude', 'geot' ); ?>"/>
 				</span>
+
+				<?php do_action( 'geot/menus/fields/after', $item_id, $item ); ?>
 			</label>
 		</p>
 		<?php
@@ -268,7 +272,7 @@ class GeotWP_Menus {
 		}
 
 		if( empty( $menu['region'] ) && empty( $menu['country_code'] ) && empty( $menu['cities'] ) && empty( $menu['states'] ) && empty( $menu['zipcodes'] ) && empty( $menu['radius_km'] ) && empty( $menu['radius_lat'] ) && empty( $menu['radius_lng'] ) ) {
-			return false;
+			return apply_filters( 'geot/menus/has_geot', false, $menu );
 		}
 
 		return true;
