@@ -96,10 +96,10 @@ class GeotWP_R {
 		require_once GEOTWP_R_PLUGIN_DIR . 'includes/class-geotr-cpt.php';
 		require_once GEOTWP_R_PLUGIN_DIR . 'includes/class-geotr-helper.php';
 		require_once GEOTWP_R_PLUGIN_DIR . 'public/class-geotr-public.php';
+		require_once GEOTWP_R_PLUGIN_DIR . 'admin/class-geotr-settings.php';
 
 		if ( is_admin() ) {
 			require_once GEOTWP_R_PLUGIN_DIR . 'admin/class-geotr-admin.php';
-			require_once GEOTWP_R_PLUGIN_DIR . 'admin/class-geotr-settings.php';
 		}
 	}
 

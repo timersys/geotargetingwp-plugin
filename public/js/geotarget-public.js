@@ -81,6 +81,7 @@
                     'is_archive': geot.is_archive,
                     'is_front_page': geot.is_front_page,
                     'is_search': geot.is_search,
+                    'browser_language': navigator.language || navigator.userLanguage,
                     'geot_debug': geot_debug,
                     'geot_debug_iso': geot_debug_iso,
                     'geot_state': geot_state,

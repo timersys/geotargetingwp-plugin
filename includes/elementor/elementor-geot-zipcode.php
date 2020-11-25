@@ -156,7 +156,7 @@ class Elementor_GeoZipcode {
 		$in_regions_zips = is_array( $settings['in_regions_zips'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['in_regions_zips'] ), 'zips' ): [];
 		$ex_regions_zips = is_array( $settings['ex_regions_zips'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['ex_regions_zips'] ), 'zips' ): [];
 
-
+		$in_regions_i = $ex_regions_i = '';
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
 			empty( $in_regions_zips ) && empty( $ex_regions_zips )
 		) {
