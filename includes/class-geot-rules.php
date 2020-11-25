@@ -13,6 +13,7 @@ class GeotWP_R_ules {
 	private static $post_id;
 	private static $detect;
 	private static $referrer;
+	private static $browser_language;
 	private static $query_string;
 	private static $is_category;
 	private static $is_archive;
@@ -25,6 +26,7 @@ class GeotWP_R_ules {
 		self::$detect       = new Mobile_Detect;
 		self::$referrer     = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '';
 		self::$query_string = isset( $_SERVER['QUERY_STRING'] ) ? $_SERVER['QUERY_STRING'] : '';
+		self::$browser_language = isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
 		self::$current_url  = \GeotCore\get_current_url();
 
 		if ( defined( 'DOING_AJAX' ) ) {
@@ -49,6 +51,9 @@ class GeotWP_R_ules {
 			}
 			if ( ! empty( $_REQUEST['url'] ) ) {
 				self::$current_url = $_REQUEST['url'];
+			}
+			if ( ! empty( $_REQUEST['browser_language'] ) ) {
+				self::$browser_language = $_REQUEST['browser_language'];
 			}
 		}
 		// Geotargeting
@@ -95,6 +100,7 @@ class GeotWP_R_ules {
 		add_filter( 'geot/rules/rule_match/crawlers', [ self::class, 'rule_match_crawlers' ] );
 		add_filter( 'geot/rules/rule_match/query_string', [ self::class, 'rule_match_query_string' ] );
 		add_filter( 'geot/rules/rule_match/language', [ self::class, 'rule_match_language' ] );
+		add_filter( 'geot/rules/rule_match/browser_language', [ self::class, 'rule_match_browser_language' ] );
 	}
 
 	/*
@@ -179,6 +185,7 @@ class GeotWP_R_ules {
 		add_action( 'geot/rules/print_query_string_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 		add_action( 'geot/rules/print_cookie_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 		add_action( 'geot/rules/print_language_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+		add_action( 'geot/rules/print_browser_language_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 	}
 
 	/**
@@ -230,6 +237,7 @@ class GeotWP_R_ules {
 				'tablets'      => __( "Tablet", 'geot' ),
 				'desktop'      => __( "Dekstop", 'geot' ),
 				'crawlers'     => __( "Bots/Crawlers", 'geot' ),
+				'browser_language'     => __( "Browser Language", 'geot' ),
 			],
 		];
 		// WPML or Polylang
@@ -647,6 +655,31 @@ class GeotWP_R_ules {
 		}
 
 		return ( $lang !== $rule['value'] );
+	}
+
+	/**
+	 * Check for language in browser
+	 *
+	 * @param $rule
+	 *
+	 * @return bool
+	 */
+	public static function rule_match_browser_language( $rule ) {
+
+		$wide_search = strpos( $rule['value'], '*' ) !== false ? true : false;
+
+		if ( $wide_search ) {
+			if ( strpos( self::$browser_language, trim( $rule['value'], '*' ) ) === 0 ) {
+
+			}
+		}
+		$ref = self::$referrer;
+
+		if ( strpos( $ref, $rule['value'] ) !== false ) {
+			return $rule['operator'] == "==" ? true : false;
+		}
+
+		return $rule['operator'] == "==" ? false : true;
 	}
 
 	/**
