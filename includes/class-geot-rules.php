@@ -667,15 +667,20 @@ class GeotWP_R_ules {
 	public static function rule_match_browser_language( $rule ) {
 
 		$wide_search = strpos( $rule['value'], '*' ) !== false ? true : false;
+		// convert all to _
+		$browser_language = strtolower(str_replace('-','_', self::$browser_language ));
+		$rule_language = strtolower(str_replace('-','_', $rule['value'] ));
 
 		if ( $wide_search ) {
-			if ( strpos( self::$browser_language, trim( $rule['value'], '*' ) ) === 0 ) {
-
+			if ( strpos( $browser_language, trim( $rule_language, '*' ) ) === 0 ) {
+				return ( $rule['operator'] == "==" );
 			}
-		}
-		$ref = self::$referrer;
 
-		if ( strpos( $ref, $rule['value'] ) !== false ) {
+			return ! ( $rule['operator'] == "==" );
+		}
+
+
+		if ( strpos( $browser_language, $rule_language ) !== false ) {
 			return $rule['operator'] == "==" ? true : false;
 		}
 

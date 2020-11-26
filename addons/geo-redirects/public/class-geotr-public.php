@@ -58,7 +58,7 @@ class GeotWP_R_Public {
 <div class="geotr-ajax" style="display: none">
 	<div>
 		<?php do_action( 'geotr/ajax_placeholder' ); ?>
-		<?php echo $opts['redirect_message'];?>
+		<?php echo stripslashes( html_entity_decode( $opts['redirect_message'] ) );?>
 	</div>
 </div>
 <style>
