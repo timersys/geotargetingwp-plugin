@@ -123,7 +123,7 @@ class GeotWP_Helper {
 			$_user_is_targeted = true;
 		}
 
-		return self::$_user_is_targeted[ $post_id ] = $_user_is_targeted;
+		return apply_filters( 'geot/helper/is_targeted', self::$_user_is_targeted[ $post_id ] = $_user_is_targeted, $opts, $post_id, $cache );
 	}
 
 	/**
