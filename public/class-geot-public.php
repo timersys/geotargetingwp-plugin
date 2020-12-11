@@ -52,6 +52,7 @@ class GeotWP_Public {
 		if( apply_filters( 'geot/disable_in_rest', true ) || ! defined( 'REST_REQUEST' ) || ! REST_REQUEST  ) {
 			add_filter( 'posts_where', [ $this, 'handle_geotargeted_posts' ], PHP_INT_MAX );
 			add_filter( 'the_content', [ $this, 'check_if_geotargeted_content' ], 99 );
+			add_filter( 'woocommerce_short_description', [ $this, 'check_if_geotargeted_content' ], 99 );
 			//woocommerce
 			add_filter( 'woocommerce_product_related_posts_query', [ $this, 'woocommerce_related_products' ], 99 );
 
@@ -106,6 +107,8 @@ class GeotWP_Public {
 			'dropdown_search'   => apply_filters( 'geot/dropdown_widget/disable_search', false ),
 			'dropdown_redirect' => apply_filters( 'geot/dropdown_widget/redirect_url', '' ),
 			'elementor_popup'	=> apply_filters( 'geot/elementor/popup', true ),
+			'hide_class'	    => apply_filters( 'geot/ajax_mode/hide_class', '' ),
+			'remove_class'	    => apply_filters( 'geot/ajax_mode/remove_class', '' ),
 
 			'geoloc_enable'		=> isset($this->opts['geolocation']) ? $this->opts['geolocation'] : 0,
 			'geoloc_force'		=> isset($this->opts['force_geot']) ? $this->opts['force_geot'] : '',

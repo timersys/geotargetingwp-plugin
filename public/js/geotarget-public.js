@@ -189,15 +189,28 @@
                         }
                     }
                     if (remove && remove.length) {
+
                         for (i = 0; i < remove.length; ++i) {
                             let id = remove[i];
-                            $('#post-' + id + ', .post-' + id).remove();
+                            let remove_class = '#post-' + id + ', .post-' + id;
+                            if( geot.remove_class.length ) {
+                                remove_class = remove_class + ',' + geot.remove_class.replace('%id', id);
+                            }
+                            $(remove_class).remove();
                         }
                     }
                     if (hide && hide.length) {
+
                         for (i = 0; i < hide.length; ++i) {
                             let id = hide[i].id;
-                            $('#post-' + id + ' .entry-content, .post-' + id + ' .entry-content').html('<p>' + hide[i].msg + '</p>');
+                            let hide_class = '#post-' + id + ' .entry-content,' +
+                                '#post-' + id + ' .woocommerce-product-details__short-description,' +
+                                '.post-' + id + ' .entry-content,' +
+                                '.post-' + id + ' .woocommerce-product-details__short-description';
+                            if( geot.hide_class.length ) {
+                                hide_class = hide_class + ',' + geot.hide_class.replace('%id', id);;
+                            }
+                            $( hide_class ).html('<p>' + hide[i].msg + '</p>');
                         }
                     }
                     if (debug && debug.length) {
