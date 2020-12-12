@@ -104,7 +104,7 @@ class GeotWP_Public {
 			'is_page'           => is_page(),
 			'is_single'         => is_single(),
 			'is_builder'        => is_builder(),
-			'has_geo_posts'     => empty( GeotWP_Helper::get_geotarget_posts() ),
+			'has_geo_posts'     => ! empty( GeotWP_Helper::get_geotarget_posts() ),
 			'dropdown_search'   => apply_filters( 'geot/dropdown_widget/disable_search', false ),
 			'dropdown_redirect' => apply_filters( 'geot/dropdown_widget/redirect_url', '' ),
 			'elementor_popup'	=> apply_filters( 'geot/elementor/popup', true ),
