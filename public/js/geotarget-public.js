@@ -58,7 +58,7 @@
         },
         executeAjax: function() {
             if( ( ! $('.geot-ajax').length &&
-                ( ! geot.has_geo_posts || has_geo_posts.length == 0 ) &&
+                ( ! geot.has_geo_posts || geot.has_geo_posts.length == 0 ) &&
                 ! $('.geotr-ajax').length &&
                 ! $('.geobl-ajax').length )||
                 geot.is_builder == '1' ) {
