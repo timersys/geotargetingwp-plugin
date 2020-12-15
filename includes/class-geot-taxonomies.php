@@ -47,7 +47,7 @@ class GeotWP_Taxonomies {
 			add_action( $tax_slug.'_edit_form_fields', [ $this, 'edit_tax_fields' ], 10, 2 );
 			add_action( 'edited_'.$tax_slug, [ $this, 'save_tax_fields' ], 10, 2 );
 		}
-		
+
 		add_action( 'pre_get_posts', [ $this, 'pre_get_posts' ], 10, 1 );
 		add_action( 'pre_get_posts', [ $this, 'pre_get_categories' ], 10, 1 );
 		add_action( 'get_terms', [ $this, 'get_terms' ], 10, 4 );
@@ -132,7 +132,6 @@ class GeotWP_Taxonomies {
 		if( empty( $taxonomies ) )
 			return;
 
-
 		foreach( $taxonomies as $tax_slug ) {
 	
 			// Get terms by taxonomy
@@ -170,8 +169,14 @@ class GeotWP_Taxonomies {
 	 */
 	public function pre_get_categories( $q ) {
 
-		if ( is_admin() || ! $q->is_main_query() || ( ! $q->is_tax && ! $q->is_category ) )
+		if ( is_admin() || ! $q->is_main_query() )
 			return;
+		
+		if( apply_filters('geot/apply_on_taxonomy_pages_only', false ) ) {
+			if( ! $q->is_tax && ! $q->is_category ) {
+				return;
+			}
+		}
 
 		if( empty( $this->geot_opts['enable_taxonomies'] ) )
 			return;
