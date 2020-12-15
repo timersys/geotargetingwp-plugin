@@ -185,7 +185,11 @@ class GeotWP_Helper {
 	 */
 	public static function is_targeted_country( $opts ) {
 
-		extract( $opts );
+		$in_countries = isset( $opts['in_countries'] ) ? $opts['in_countries'] : '';
+		$ex_countries = isset( $opts['ex_countries'] ) ? $opts['ex_countries'] : '';
+
+		$in_countries_regions = isset( $opts['in_countries_regions'] ) ? $opts['in_countries_regions'] : [];
+		$ex_countries_regions = isset( $opts['ex_countries_regions'] ) ? $opts['ex_countries_regions'] : [];
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
 		     count( $in_countries_regions ) == 0 && count( $ex_countries_regions ) == 0
@@ -207,7 +211,11 @@ class GeotWP_Helper {
 	 */
 	public static function is_targeted_city( $opts ) {
 
-		extract( $opts );
+		$in_cities = isset( $opts['in_cities'] ) ? $opts['in_cities'] : '';
+		$ex_cities = isset( $opts['ex_cities'] ) ? $opts['ex_cities'] : '';
+
+		$in_cities_regions = isset( $opts['in_cities_regions'] ) ? $opts['in_cities_regions'] : [];
+		$ex_cities_regions = isset( $opts['ex_cities_regions'] ) ? $opts['ex_cities_regions'] : [];
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
 		     count( $in_cities_regions ) == 0 && count( $ex_cities_regions ) == 0
@@ -229,7 +237,12 @@ class GeotWP_Helper {
 	 */
 	public static function is_targeted_state( $opts ) {
 
-		extract( $opts );
+		$in_states = isset( $opts['in_states'] ) ? $opts['in_states'] : '';
+		$ex_states = isset( $opts['ex_states'] ) ? $opts['ex_states'] : '';
+
+		$in_states_regions = isset( $opts['in_states_regions'] ) ? $opts['in_states_regions'] : [];
+		$ex_states_regions = isset( $opts['ex_states_regions'] ) ? $opts['ex_states_regions'] : [];
+
 
 		if ( empty( $in_states ) && empty( $ex_states ) &&
 			count( $in_states_regions ) == 0 && count( $ex_states_regions ) == 0
@@ -250,14 +263,18 @@ class GeotWP_Helper {
 	 */
 	public static function is_targeted_zipcode( $opts ) {
 
-		extract( $opts );
+		$in_zipcodes = isset( $opts['in_zipcodes'] ) ? $opts['in_zipcodes'] : '';
+		$ex_zipcodes = isset( $opts['ex_zipcodes'] ) ? $opts['ex_zipcodes'] : '';
+
+		$in_zips_regions = isset( $opts['in_zips_regions'] ) ? $opts['in_zips_regions'] : [];
+		$ex_zips_regions = isset( $opts['ex_zips_regions'] ) ? $opts['ex_zips_regions'] : [];
+
 
 		if ( empty( $in_zipcodes ) && empty( $ex_zipcodes ) &&
 		     count( $in_zips_regions ) == 0 && count( $ex_zips_regions ) == 0
 		) {
 			return true;
 		}
-
 
 		return geot_target_zip( $in_zipcodes, $in_zips_regions, $ex_zipcodes, $ex_zips_regions );
 	}
@@ -273,7 +290,6 @@ class GeotWP_Helper {
 	 * @since 1.0.0
 	 *  I took these functions from the awesome Advanced custom fields plugin http://www.advancedcustomfields.com/ and modified for my plugin
 	 */
-
 	public static function ajax_render_operator( $options = [] ) {
 		// defaults
 		$defaults = [

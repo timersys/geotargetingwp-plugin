@@ -125,7 +125,12 @@ function geotwp_update_like($args = []) {
 	if( empty($args) || count($args) == 0 )
 		return;	
 
-	extract($args);
+	$ini_find 		= isset( $args['ini_find'] ) ? $args['ini_find'] : '';
+	$ini_replace 	= isset( $args['ini_replace'] ) ? $args['ini_replace'] : '';
+	$fin_find 		= isset( $args['fin_find'] ) ? $args['fin_find'] : '';
+	$fin_replace 	= isset( $args['fin_replace'] ) ? $args['fin_replace'] : '';
+	$like 			= isset( $args['like'] ) ? $args['like'] : '';
+	$notlike 		= isset( $args['notlike'] ) ? $args['notlike'] : '';
 
 	$update = 'UPDATE
 					'.$wpdb->posts.'

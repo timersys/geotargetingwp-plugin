@@ -81,7 +81,6 @@ class Divi_GeoRadius {
 	 */
 	static function ajax_render( $settings, $output ) {
 
-		//extract( $settings );
 		$radius_km	= isset( $settings['radius_km'] ) ? $settings['radius_km'] : '';
 		$radius_lat = isset( $settings['radius_lat'] ) ? $settings['radius_lat'] : '';
 		$radius_lng = isset( $settings['radius_lng'] ) ? $settings['radius_lng'] : '';
