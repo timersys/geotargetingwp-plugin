@@ -97,12 +97,12 @@ class Fusion_GeoCountry {
 		$in_countries = isset( $attrs['geot_in_countries'] ) ?  trim( $attrs['geot_in_countries'] ) : '';
 		$ex_countries = isset( $attrs['geot_ex_countries'] ) ?  trim( $attrs['geot_ex_countries'] ) : '';
 
-		$in_regions = isset( $attrs['geot_in_region_countries'] ) ? GeotWP_Fusion::clean_region( $attrs['geot_in_region_countries'] ) : [];
-		$ex_regions = isset( $attrs['geot_ex_region_countries'] ) ? GeotWP_Fusion::clean_region( $attrs['geot_ex_region_countries'] ) : [];
+		$in_regions = isset( $attrs['geot_in_region_countries'] ) ? $attrs['geot_in_region_countries']  : '';
+		$ex_regions = isset( $attrs['geot_ex_region_countries'] ) ? $attrs['geot_ex_region_countries']  : '';
 
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
-		     count( $in_regions ) == 0 && count( $ex_regions ) == 0
+		     empty( $in_regions ) && empty( $ex_regions )
 		) {
 			return $output;
 		}
