@@ -149,6 +149,20 @@ class GeotWP_R_Public {
 			return false;
 		}
 
+		// redirect once
+		if ( (int) $opts['one_time_redirect'] === 1 ) {
+			if ( isset( $_COOKIE[ 'geotr_redirect_' . $redirection->ID ] ) ) {
+				return false;
+			}
+		}
+		// redirect 1 per session
+		if ( (int) $opts['one_time_redirect'] === 2 ) {
+			$session = geotWP()->getSession();
+			if ( ! empty( $session->get( 'geotr_redirect_' . $redirection->ID ) ) ) {
+				return false;
+			}
+		}
+
 		// check for child page
 		if ( isset( $opts['exclude_child'] ) && 1 === absint( $opts['exclude_child'] ) ) {
 			$temp_opts        = $opts;
@@ -282,19 +296,12 @@ class GeotWP_R_Public {
 		$opts = maybe_unserialize( $redirection->geotr_options );
 		// redirect one time uses cookies
 		if ( (int) $opts['one_time_redirect'] === 1 ) {
-			if ( isset( $_COOKIE[ 'geotr_redirect_' . $redirection->ID ] ) ) {
-				return false;
-			}
 			setcookie( 'geotr_redirect_' . $redirection->ID, true, time() + apply_filters( 'geotr/cookie_expiration', YEAR_IN_SECONDS ), '/' );
 		}
 
 		// redirect 1 per session
 		if ( (int) $opts['one_time_redirect'] === 2 ) {
 			$session = geotWP()->getSession();
-
-			if ( ! empty( $session->get( 'geotr_redirect_' . $redirection->ID ) ) ) {
-				return false;
-			}
 			$session->set( 'geotr_redirect_' . $redirection->ID, true );
 		}
 
