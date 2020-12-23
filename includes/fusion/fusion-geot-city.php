@@ -102,7 +102,7 @@ class Fusion_GeoCity {
 
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
-		     empty( $in_regions ) && empty( $ex_regions )
+		     ( empty( $in_regions ) || 'null' == $in_regions ) && ( empty( $ex_regions ) || 'null' == $ex_regions )
 		) {
 			return $output;
 		}

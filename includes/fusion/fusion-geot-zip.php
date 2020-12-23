@@ -102,7 +102,7 @@ class Fusion_GeoZip {
 
 
 		if ( empty( $in_zips ) && empty( $ex_zips ) &&
-		     empty( $in_regions ) && empty( $ex_regions )
+		     ( empty( $in_regions ) || 'null' == $in_regions ) && ( empty( $ex_regions ) || 'null' == $ex_regions )
 		) {
 			return $output;
 		}

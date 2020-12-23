@@ -103,7 +103,7 @@ class Fusion_GeoState {
 
 
 		if ( empty( $in_states ) && empty( $ex_states ) &&
-		     empty( $in_regions ) && empty( $ex_regions )
+		     ( empty( $in_regions ) || 'null' == $in_regions ) && ( empty( $ex_regions ) || 'null' == $ex_regions )
 		) {
 			return $output;
 		}

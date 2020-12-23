@@ -102,7 +102,7 @@ class Fusion_GeoCountry {
 
 
 		if ( empty( $in_countries ) && empty( $ex_countries ) &&
-		     empty( $in_regions ) && empty( $ex_regions )
+		     ( empty( $in_regions ) || 'null' == $in_regions ) &&  ( empty( $ex_regions ) || 'null' == $ex_regions )
 		) {
 			return $output;
 		}
