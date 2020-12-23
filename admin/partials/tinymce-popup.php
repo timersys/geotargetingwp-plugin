@@ -3695,7 +3695,7 @@
 
             var mode = $.find('#geot_editor .geot_include_mode:checked').val();
 
-            if ($.find('#geot_zip').val()) {
+            if ($.find('#geot_zip').val() != '') {
                 var str = '[geot_filter_zip ';
                 if (mode == 'include') {
                     str += 'zip="';
@@ -3717,7 +3717,7 @@
                     str += "]<p>Please add your content in this area.</p>[/geot_filter_zip]";
 
                 }
-            } else if ($.find('#geot_zip_region').val()) {
+            } else if ($.find('#geot_zip_region').val() != '') {
                 var str = '[geot_filter_zip ';
                 if (mode == 'include') {
                     str += 'region="';
@@ -3740,7 +3740,7 @@
 
                 }
 
-            } else if ($.find('#geot_state').val()) {
+            } else if ($.find('#geot_state').val() != '') {
                 var str = '[geot_filter_state ';
                 if (mode == 'include') {
                     str += 'state="';
@@ -3762,7 +3762,7 @@
                     str += "]<p>Please add your content in this area.</p>[/geot_filter_state]";
 
                 }
-            } else if ($.find('#geot_state_region').val()) {
+            } else if ($.find('#geot_state_region').val() != '') {
                 var str = '[geot_filter_state ';
                 if (mode == 'include') {
                     str += 'region="';
@@ -3785,7 +3785,7 @@
 
                 }
 
-            } else if ($.find('#geot_city').val()) {
+            } else if ($.find('#geot_city').val() != '') {
                 var str = '[geot_filter_city ';
                 if (mode == 'include') {
                     str += 'city="';
@@ -3807,7 +3807,7 @@
                     str += "]<p>Please add your content in this area.</p>[/geot_filter_city]";
 
                 }
-            } else if ($.find('#geot_city_region').val()) {
+            } else if ($.find('#geot_city_region').val() != '') {
                 var str = '[geot_filter_city ';
                 if (mode == 'include') {
                     str += 'region="';
