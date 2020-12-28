@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
 Tested up to: 5.6
-Stable tag: 3.3.1.1
+Stable tag: 3.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,10 +37,15 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
-= 3.3.1.1 - Dec 12 2020 =
+= 3.3.2 - Dec 28 2020 =
 * Feature: Hooks to add custom classes for AJAX mode
 * Fix: Ajax mode not running when only geo posts are being used
 * Fix: Woocommerce short description is now also removed
+* Fix: Compatibility with price per country plugin
+* Fix: Taxonomy geolocation now applied on every page and not just archives ones
+* Fix: Redirects check session and cookies before other rules to save resources
+* Fix: Fusion builder regions with ajax mode
+
 
 = 3.3.1 - Nov 26 2020 =
 * Feature: Redirect message can be easily changed from settings page
