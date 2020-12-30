@@ -68,8 +68,8 @@ class GeotWP_Settings {
 		$taxonomies = get_taxonomies( [ 'public' => true, '_builtin' => false, ], 'objects' );
 
 		$taxs = [
-			'category'		=> esc_html__( 'Categories', 'geot' ),
-			'product_cat'	=> esc_html__( 'Product Categories', 'geot' ),
+			'category'	=> esc_html__( 'Post categories', 'geot' ),
+			'post_tag'	=> esc_html__( 'Post tags', 'geot' ),
 		];
 
 		foreach( $taxonomies as $taxonomy ) {
