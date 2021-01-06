@@ -235,7 +235,7 @@ class GeotWP_R_ules {
 				'query_string' => __( "Query String", 'geot' ),
 				'mobiles'      => __( "Mobile Phone", 'geot' ),
 				'tablets'      => __( "Tablet", 'geot' ),
-				'desktop'      => __( "Dekstop", 'geot' ),
+				'desktop'      => __( "Desktop", 'geot' ),
 				'crawlers'     => __( "Bots/Crawlers", 'geot' ),
 				'browser_language'     => __( "Browser Language", 'geot' ),
 			],

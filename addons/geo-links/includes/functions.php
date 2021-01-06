@@ -62,7 +62,7 @@ function geotWPL_devices() {
 	return apply_filters( 'geol/devices/defaults', [
 		'mobiles' => __( "Mobile Phone", 'geol' ),
 		'tablets' => __( "Tablet", 'geol' ),
-		'desktop' => __( "Dekstop", 'geol' ),
+		'desktop' => __( "Desktop", 'geol' ),
 	] );
 }
 
