@@ -48,7 +48,7 @@ class GeotWP_Taxonomies {
 			add_action( 'edited_'.$tax_slug, [ $this, 'save_tax_fields' ], 10, 2 );
 		}
 
-		add_action( 'pre_get_posts', [ $this, 'pre_get_posts' ], 10, 1 );
+		add_filter( 'posts_where', [ $this, 'posts_where_posts' ], PHP_INT_MAX, 2 );
 		add_action( 'pre_get_posts', [ $this, 'pre_get_categories' ], 10, 1 );
 		add_action( 'get_terms', [ $this, 'get_terms' ], 10, 4 );
 
@@ -101,19 +101,19 @@ class GeotWP_Taxonomies {
 		}
 	}
 
-
 	/**
-	 * Modify query to single post
-	 * @since    1.0.0
-	 * @param OBJECT $q
+	 * [posts_where_posts description]
+	 * @param  string $where
+	 * @param  WP_Query  $q
+	 * @return string
 	 */
-	public function pre_get_posts( $q ) {
+	public function posts_where_posts( $where = '', $q ) {
 
-		if ( is_admin() || ! $q->is_main_query() || ! $q->is_single || empty( $q->query['name'] ) )
-			return;
+		if( is_admin() || ! $q->is_main_query() || ! $q->is_single || empty( $q->query['name'] ) )
+			return $where;
 
 		if( empty( $this->geot_opts['enable_taxonomies'] ) )
-			return;
+			return $where;
 
 		$object	= isset( $q->query['post_type'] ) ? $q->query['post_type'] : 'post';
 
@@ -121,16 +121,15 @@ class GeotWP_Taxonomies {
 		$post = get_page_by_path( $q->query['name'], OBJECT, $object );
 		$post_exclude = $q->get( 'post__not_in' );
 
-		if( ! $post || in_array( $post->ID, $post_exclude ) ) {
-			return;
-		}
+		if( ! $post || in_array( $post->ID, $post_exclude ) )
+			return $where;
 
 		// Get Taxonomies
 		$a_taxs = get_object_taxonomies( $object, 'names' );
 		$taxonomies = array_intersect( $a_taxs, $this->geot_opts['enable_taxonomies'] );
 
 		if( empty( $taxonomies ) )
-			return;
+			return $where;
 
 		foreach( $taxonomies as $tax_slug ) {
 	
@@ -154,11 +153,19 @@ class GeotWP_Taxonomies {
 			}
 		}
 
-		
 		// Verify if there is posts exclude
-		if ( count( $post_exclude ) > 0 ) {
-			$q->set( 'post__not_in', $post_exclude );
-		}
+		if ( count( $post_exclude ) == 0 )
+			return $where;
+
+		global $wpdb;
+			
+		$where .= sprintf(
+			' AND %s.ID NOT IN ("%s")',
+			$wpdb->posts,
+			implode( '","', $post_exclude )
+		);
+
+		return $where;
 	}
 
 
