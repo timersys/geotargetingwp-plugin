@@ -30,6 +30,7 @@ define( 'GEOTWP_L_VERSION', '1.0.4' );
 define( 'GEOTWP_L_DB_VERSION', '1.2' );
 define( 'GEOTWP_L_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GEOTWP_L_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'GEOTWP_L_PLUGIN_BASE' , plugin_basename( __FILE__ ) );
 define( 'GEOTWP_L_PLUGIN_HOOK', basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ) );
 
 /**

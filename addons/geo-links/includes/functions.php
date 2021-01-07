@@ -49,7 +49,10 @@ function geotWPL_options( $id ) {
 		]
 	);
 
-	$opts = wp_parse_args( get_post_meta( $id, 'geol_options', true ), $defaults );
+	$geol = get_post_meta( $id, 'geol_options', true );
+	$geol = empty( $geol ) ? [] : $geol;
+
+	$opts = geotWPL_wp_parse_args( $geol, $defaults );
 
 	return apply_filters( 'geol/metaboxes/get_options', $opts, $id );
 }
@@ -89,4 +92,19 @@ function geotWPL_format_selectize( $data, $format = 'countries' ) {
 	}
 
 	return $output;
+}
+
+
+function geotWPL_wp_parse_args( &$a, $b ) {
+	$a = (array) $a;
+	$b = (array) $b;
+	$result = $b;
+	foreach ( $a as $k => &$v ) {
+		if ( is_array( $v ) && isset( $result[ $k ] ) ) {
+			$result[ $k ] = geotWPL_wp_parse_args( $v, $result[ $k ] );
+		} else {
+			$result[ $k ] = $v;
+		}
+	}
+	return $result;
 }

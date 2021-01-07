@@ -24,19 +24,19 @@ class Geolinks_Cpt {
 
 		$labels = [
 			'name'               => 'Geo Links v' . GEOTWP_L_VERSION,
-			'singular_name'      => _x( 'Geo Links', 'post type singular name', 'popups' ),
-			'menu_name'          => _x( 'Geo Links', 'admin menu', 'popups' ),
-			'name_admin_bar'     => _x( 'Geo Links', 'add new on admin bar', 'popups' ),
-			'add_new'            => _x( 'Add New', 'Geo Links', 'popups' ),
-			'add_new_item'       => __( 'Add New Geo Links', 'popups' ),
-			'new_item'           => __( 'New Geo Links', 'popups' ),
-			'edit_item'          => __( 'Edit Geo Links', 'popups' ),
-			'view_item'          => __( 'View Geo Links', 'popups' ),
-			'all_items'          => __( 'Geo Links', 'popups' ),
-			'search_items'       => __( 'Search Geo Links', 'popups' ),
-			'parent_item_colon'  => __( 'Parent Geo Links:', 'popups' ),
-			'not_found'          => __( 'No Geo Links found.', 'popups' ),
-			'not_found_in_trash' => __( 'No Geo Links found in Trash.', 'popups' ),
+			'singular_name'      => _x( 'Geo Links', 'post type singular name', 'geol' ),
+			'menu_name'          => _x( 'Geo Links', 'admin menu', 'geol' ),
+			'name_admin_bar'     => _x( 'Geo Links', 'add new on admin bar', 'geol' ),
+			'add_new'            => _x( 'Add New', 'Geo Links', 'geol' ),
+			'add_new_item'       => __( 'Add New Geo Links', 'geol' ),
+			'new_item'           => __( 'New Geo Links', 'geol' ),
+			'edit_item'          => __( 'Edit Geo Links', 'geol' ),
+			'view_item'          => __( 'View Geo Links', 'geol' ),
+			'all_items'          => __( 'Geo Links', 'geol' ),
+			'search_items'       => __( 'Search Geo Links', 'geol' ),
+			'parent_item_colon'  => __( 'Parent Geo Links:', 'geol' ),
+			'not_found'          => __( 'No Geo Links found.', 'geol' ),
+			'not_found_in_trash' => __( 'No Geo Links found in Trash.', 'geol' ),
 		];
 
 		$args = [

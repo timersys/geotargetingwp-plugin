@@ -256,3 +256,5 @@ class Geol_Redirects {
 		return $return;
 	}
 }
+
+new Geol_Redirects();

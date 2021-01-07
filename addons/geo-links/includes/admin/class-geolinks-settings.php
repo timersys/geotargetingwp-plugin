@@ -38,3 +38,5 @@ class GeotWP_Links_Settings {
 		GeotWP_Links_Permalinks::set_flush_needed();
 	}
 }
+
+new GeotWP_Links_Settings();
