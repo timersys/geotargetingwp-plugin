@@ -141,30 +141,40 @@ class GeotWP_Links_Importer {
 	 */
 	public function importer() {
 
-		if( isset( $_GET['step'] ) && $_GET['step'] == 'mapping' ) {
+		if( isset( $_GET['step'] ) ) {
 
-			$transient_name = sprintf( 'geolinks_import_%s', get_current_user_id() );
-			$content = get_transient( $transient_name );
+			if( $_GET['step'] == 'mapping' ) {
 
-			$content_header = $content[0];
-			$content_example = $content[1];
+				$transient_name = sprintf( 'geolinks_import_%s', get_current_user_id() );
+				$content = get_transient( $transient_name );
 
-			$fields = $this->main;
+				$content_header = $content[0];
+				$content_example = $content[1];
 
-			$select_key = 0;
+				$fields = $this->main;
 
-			for( $i=0; $i<16; $i++ ) {
-				foreach( $this->dest as $dest_key => $dest_value ) {
-					$new_key = str_replace('dest_', 'dest_' . $i . '_', $dest_key );
-					$fields[ $new_key ] = $dest_value . ' ' . $i;
+				$select_key = 0;
+
+				for( $i=0; $i<16; $i++ ) {
+					foreach( $this->dest as $dest_key => $dest_value ) {
+						$new_key = str_replace('dest_', 'dest_' . $i . '_', $dest_key );
+						$fields[ $new_key ] = $dest_value . ' ' . $i;
+					}
 				}
+
+				$fields['no_import'] = esc_html__( 'Do not Import', 'geol' );
+
+				include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/section_importer_mapping.php';
+			
+			} else {
+
+				$transient_name = sprintf( 'geolinks_imported_%s', get_current_user_id() );
+				$counter = get_transient( $transient_name );
+
+				include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/section_importer_done.php';
 			}
-
-			$fields['no_import'] = esc_html__( 'Do not Import', 'geol' );
-
-			include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/section_importer_2.php';
 		} else
-			include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/section_importer.php';
+			include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/section_importer_file.php';
 	}
 
 	/**
@@ -242,16 +252,22 @@ class GeotWP_Links_Importer {
 				}
 			}
 
-			update_option('luko_55', print_r($to_save,true));
-
-			$this->error->add( 'success', esc_html__( 'Successful import', 'geol' ) );
-
-			foreach( $to_save as $fields_save )
-				$this->import_items( $fields_save );
+			$counter = 0;
+			foreach( $to_save as $fields_save ) {
+				if( $this->import_items( $fields_save ) )
+					$counter++;
+			}
 
 			delete_transient( $transient_name );
+
+			// Imported counter
+			$transient_name = sprintf( 'geolinks_imported_%s', get_current_user_id() );
+			set_transient( $transient_name, $counter, 5 * MINUTE_IN_SECONDS );
+
 			
-			wp_redirect( remove_query_arg( 'step' ) );
+			wp_redirect( add_query_arg( [
+				'step' => 'done',
+			] ) );
 
 		} else {
 
@@ -438,17 +454,20 @@ class GeotWP_Links_Importer {
 	}
 
 
-
+	/**
+	 * Import save meta
+	 * @param  array  $fields
+	 * @return mixed
+	 */
 	public function import_items( $fields = [] ) {
 
-		update_option('luko_51', print_r($fields,true));
-
 		// Post Title
-		if( ! isset( $fields['post_title'] ) || empty( $fields['post_title'] ) )
-			$post_title = 'GeoLinks Title Default';
-		else
-			$post_title = sanitize_text_field( $fields['post_title'] );
+		if( isset( $fields['post_title'] ) ) {
+			$post_title = ! empty( $fields['post_title'] ) ? sanitize_text_field( $fields['post_title'] ) : 'GeoLinks Title Default';
 
+			unset( $fields['post_title'] );
+		} else
+			$post_title = 'GeoLinks Title Default';
 
 		// Create Posts
 		if( ( ! isset( $fields['post_id'] ) || empty( $fields['post_id'] ) ) ||
@@ -476,13 +495,15 @@ class GeotWP_Links_Importer {
 				$post_id = absint( $fields['post_id'] );
 		}
 
-		update_option('luko_52', print_r($post_id,true));
+		// remove post ID
+		if( isset( $fields['post_id'] ) )
+			unset( $fields['post_id'] );
+
 
 		$post 		= get_post( $post_id );
 		$input		= geotWPL_options( $post_id );
 		$settings 	= geotWPL_settings();
 
-		update_option('luko_53', print_r($input,true));
 
 		// Post Name
 		if( isset( $fields['source_slug'] ) ) {
@@ -496,14 +517,13 @@ class GeotWP_Links_Importer {
 		}
 
 		// Status Code
-		if( isset( $fields['status_code'] ) && is_numeric( $fields['status_code'] ) ) {
-			$input['status_code'] = sanitize_title( $fields['status_code'] );
+		if( isset( $fields['status_code'] ) ) {
+			$input['status_code'] = is_numeric( $fields['status_code'] ) ? sanitize_title( $fields['status_code'] ) : 302;
 			unset( $fields['status_code'] );
 		}
 
-
 		// Dest Default
-		if( isset( $fields['dest_default'] ) && ! empty( $fields['dest_default'] ) ) {
+		if( isset( $fields['dest_default'] ) ) {
 			$input['dest_default'] = esc_url_raw( $input['dest_default'] );
 			unset( $fields['dest_default'] );
 		}
@@ -523,21 +543,37 @@ class GeotWP_Links_Importer {
 		// Destinations
 		if( isset( $fields ) && ! empty( $fields ) ) {
 			foreach( $fields as $dest_key => $dest_value ) {
-				if( strpos('dest_', $dest_key) == FALSE )
+				
+				if( strpos( $dest_key, 'dest_' ) === FALSE )
 					continue;
 
 				$akey = explode( '_', $dest_key );
-				$key = absint( $akey[1] );
+
+				if( count( $akey ) != 3 )
+					continue;
+
+				$key = 'dest_' . absint( $akey[1] );
 				$field = sanitize_key( $akey[2] );
 
-				if( in_array( $field, [ 'country', 'regions' ] ) )
-					$input['dest'][ $key ][ $field ] = explode( ',', $dest_value );
+				if( in_array( $field, [ 'countries', 'regions' ] ) )
+					$input['dest'][ $key ][ $field ] = ! empty( trim( $dest_value ) ) ? explode( ',', $dest_value ) : [];
 				else
 					$input['dest'][ $key ][ $field ] = $dest_value;
 			}
-		}
 
-		update_option('luko_54', print_r($input,true));
+			// Verify
+			foreach( $input['dest'] as $ikey => $idata ) {
+
+				$delete  = true;
+				foreach( $idata as $value ) {
+					if( ! empty( $value ) )
+						$delete = false;
+				}
+
+				if( $delete )
+					unset( $input['dest'][$ikey] );
+			}
+		}
 
 		$input = apply_filters( 'geol/import/options', $input, $post_id );
 

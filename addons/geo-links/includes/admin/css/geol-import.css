@@ -66,3 +66,20 @@
 	display: block;
 	margin: 10px;
 }
+
+
+.geol_import .success-icon {
+	color: green;
+	display: block;
+	text-align: center;
+}
+
+.geol_import .success-icon .dashicons {
+	font-size: 120px;
+	display: contents;
+}
+
+.geol_import .success-msg {
+	font-size: 30px;
+	text-align: center;
+}
