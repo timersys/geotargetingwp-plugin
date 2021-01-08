@@ -197,6 +197,9 @@
                             if( geot.remove_class.length ) {
                                 remove_class = remove_class + ',' + geot.remove_class.replace('%id', id);
                             }
+                            if( geot.remove_override_class.length ) {
+                                remove_class =  geot.remove_override_class.replace('%id', id);;
+                            }
                             $(remove_class).remove();
                         }
                     }
@@ -210,6 +213,9 @@
                                 '.post-' + id + ' .woocommerce-product-details__short-description';
                             if( geot.hide_class.length ) {
                                 hide_class = hide_class + ',' + geot.hide_class.replace('%id', id);;
+                            }
+                            if( geot.hide_override_class.length ) {
+                                hide_class =  geot.hide_override_class.replace('%id', id);;
                             }
                             $( hide_class ).html('<p>' + hide[i].msg + '</p>');
                         }

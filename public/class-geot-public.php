@@ -108,8 +108,10 @@ class GeotWP_Public {
 			'dropdown_search'   => apply_filters( 'geot/dropdown_widget/disable_search', false ),
 			'dropdown_redirect' => apply_filters( 'geot/dropdown_widget/redirect_url', '' ),
 			'elementor_popup'	=> apply_filters( 'geot/elementor/popup', true ),
-			'hide_class'	    => apply_filters( 'geot/ajax_mode/hide_class', '' ),
+			'hide_class'	     => apply_filters( 'geot/ajax_mode/hide_class', '' ),
+			'hide_override_class'	    => apply_filters( 'geot/ajax_mode/hide_override_class', '' ),
 			'remove_class'	    => apply_filters( 'geot/ajax_mode/remove_class', '' ),
+			'remove_override_class'	    => apply_filters( 'geot/ajax_mode/remove_override_class', '' ),
 
 			'geoloc_enable'		=> isset($this->opts['geolocation']) ? $this->opts['geolocation'] : 0,
 			'geoloc_force'		=> isset($this->opts['force_geot']) ? $this->opts['force_geot'] : '',
