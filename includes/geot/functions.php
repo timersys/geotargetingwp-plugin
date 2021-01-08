@@ -74,7 +74,10 @@ function toPlural( $key ) {
  */
 function grab_post_id() {
 	global $post;
-
+	// only for singular pages
+	if(! is_singular() ) {
+		return false;
+	}
 	add_filter( 'geot/cancel_posts_where', '__return_true' );
 	$actual_url = get_current_url();
 	$id         = !empty( $post->ID ) ? $post->ID :  '';
