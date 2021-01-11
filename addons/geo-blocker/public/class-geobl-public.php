@@ -76,13 +76,8 @@ class GeotWP_Bl_Public {
 		MAX(CASE WHEN pm1.meta_key = 'geobl_options' then pm1.meta_value ELSE NULL END) as geobl_options
         FROM $wpdb->posts p LEFT JOIN $wpdb->postmeta pm1 ON ( pm1.post_id = p.ID)  WHERE post_type='geobl_cpt' AND post_status='publish' GROUP BY p.ID";
 
-		$blocks = wp_cache_get( md5( $sql ), 'geobl_posts' );
-		if ( $blocks === false ) {
-			$blocks = $wpdb->get_results( $sql, OBJECT );
-			wp_cache_add( md5( $sql ), $blocks, 'geobl_posts' );
-		}
+		return $wpdb->get_results( $sql, OBJECT );
 
-		return $blocks;
 	}
 
 	/**
