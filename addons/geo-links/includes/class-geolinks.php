@@ -38,18 +38,7 @@ class GeotWP_Links {
 	 * @var The Geot plugin instance
 	 */
 	protected static $_instance = null;
-	/**
-	 * @var GeotWP_Links_Redirect $redirect
-	 */
-	public $redirect;
-	/**
-	 * @var GeotWP_Links_Admin $admin
-	 */
-	public $admin;
-	/**
-	 * @var GeotWP_Links_Settings $settings
-	 */
-	public $settings;
+
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -63,8 +52,6 @@ class GeotWP_Links {
 	public function __construct() {
 
 		$this->load_dependencies();
-		$this->set_locale();
-		$this->set_objects();
 	}
 
 	/**
@@ -76,42 +63,20 @@ class GeotWP_Links {
 
 		require_once GEOTWP_L_PLUGIN_DIR . 'includes/functions.php';
 		require_once GEOTWP_L_PLUGIN_DIR . 'includes/class-geolinks-i18n.php';
-		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-cache.php';
 		require_once GEOTWP_L_PLUGIN_DIR . 'includes/global/class-geolinks-cpt.php';
-		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-permalinks.php';
-		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-settings.php';
-		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-notices.php';
-		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-admin.php';
-		require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-ajax.php';
 		require_once GEOTWP_L_PLUGIN_DIR . 'includes/public/class-geolinks-redirect.php';
+
+		if( is_admin() ) {
+			require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-cache.php';
+			require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-admin.php';
+			require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-import.php';
+			require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-permalinks.php';
+			require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-settings.php';
+			require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-notices.php';
+			require_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/class-geolinks-ajax.php';
+		}
 	}
 
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the GeotWP_Links_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_locale() {
-
-		$plugin_i18n = new GeotWP_Links_i18n();
-		$plugin_i18n->set_domain( 'geolinks' );
-
-		add_action( 'plugins_loaded', [ $plugin_i18n, 'load_plugin_textdomain' ] );
-
-	}
-
-	/**
-	 * Set all global objects
-	 */
-	private function set_objects() {
-		$this->admin    = new GeotWP_Links_Admin();
-		$this->settings = new GeotWP_Links_Settings();
-		$this->redirect = new Geol_Redirects();
-	}
 
 	/**
 	 * Main Geot Instance

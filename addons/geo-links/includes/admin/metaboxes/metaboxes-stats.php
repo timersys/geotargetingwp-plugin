@@ -32,7 +32,8 @@
 		<?php else : ?>
 			<tr>
 				<td class="geol_stats_url"><strong><?php _e( 'Default', 'geol' ); ?>
-						:</strong> <?php echo site_url(); ?></td>
+						:</strong></td>
+				<td class="geol_stats_url"><?php echo site_url(); ?></td>
 				<td class="geol_stats_count"><?php echo $opts['click_default']; ?></td>
 			</tr>
 		<?php endif; ?>

@@ -40,7 +40,7 @@ class GeotWP_Links_Admin {
 	public function enqueue_scripts() {
 		global $pagenow, $post;
 
-		if ( get_post_type() !== 'geol_cpt' || ! in_array( $pagenow, [ 'post-new.php', 'edit.php', 'post.php' ] ) ) {
+		if ( get_post_type() !== 'geol_cpt' || ! in_array( $pagenow, [ 'post-new.php', 'post.php' ] ) ) {
 			return;
 		}
 
@@ -157,3 +157,5 @@ class GeotWP_Links_Admin {
 		include GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/tinymce_popup.php';
 	}
 }
+
+new GeotWP_Links_Admin();

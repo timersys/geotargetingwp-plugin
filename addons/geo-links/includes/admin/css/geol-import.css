@@ -1,0 +1,85 @@
+.geotargetingwp_page_geol-importer #wpcontent {
+	padding-left: 0;
+}
+
+.geol_import {
+
+}
+
+.geol_import .header {
+	text-align: center;
+	margin: 0 0 1rem;
+	background: #fff;
+	border-bottom: 1px solid #e2e4e7;
+}
+
+.geol_import .header .title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	clear: both;
+}
+
+.geol_import .header .title h1 {
+	margin: 40px 0;
+}
+
+.geol_import .body {
+	max-width: 800px;
+    margin: 0 auto;
+}
+
+.geol_import .body .panel {
+	border: 1px solid #ccd0d4;
+	background-color: #FFFFFF;
+	padding: 50px 50px 30px 50px;
+}
+
+.geol_import .form-footer {
+	overflow: hidden;
+	border-top: 1px solid #eee;
+	margin: 0;
+	padding: 23px 24px 24px;
+	line-height: 3em;
+}
+
+.geol_import input.button-primary {
+	font-size: 1.25em;
+	padding: .5em 1em!important;
+	line-height: 1.5em!important;
+	margin-right: .5em;
+	margin-bottom: 2px;
+	height: auto!important;
+	border-radius: 4px;
+	margin: 0;
+	opacity: 1;
+	float:right;
+}
+
+.geol_import .help {
+	color: gray;
+    font-size: 12px;
+}
+
+.geol_import a.return_link {
+	text-decoration: none;
+	display: block;
+	margin: 10px;
+}
+
+
+.geol_import .success-icon {
+	color: green;
+	display: block;
+	text-align: center;
+}
+
+.geol_import .success-icon .dashicons {
+	font-size: 120px;
+	display: contents;
+}
+
+.geol_import .success-msg {
+	font-size: 30px;
+	text-align: center;
+}
