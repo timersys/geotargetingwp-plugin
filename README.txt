@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
 Tested up to: 5.6
-Stable tag: 3.3.2
+Stable tag: 3.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,12 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.3.3 - Jan 12 2021 =
+* Feature: Import/Export geo links for bulk edit
+* Fix: Issue with Gutemberg cities and zip blocks
+* Fix: Issue with taxonomy geotargeting with WPML active
+* Feature: Dev hooks for replace/hide custom html in AJAX mode
+
 = 3.3.2 - Dec 28 2020 =
 * Feature: Hooks to add custom classes for AJAX mode
 * Fix: Ajax mode not running when only geo posts are being used
