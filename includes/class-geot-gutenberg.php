@@ -114,8 +114,8 @@ class GeotWP_Gutenberg {
 	public function save_gutenberg_city( $atts, $content ) {
 		$in_regions_i = $ex_regions_i = '';
 
-		$in_cities = isset( $atts['in_cities'] ) ? trim( $atts['in_cities'] ) : '';
-		$ex_cities = isset( $atts['ex_cities'] ) ? trim( $atts['ex_cities'] ) : '';
+		$in_cities = isset( $atts['in_cities'] ) ? trim( rtrim( $atts['in_cities'], ',') ) : '';
+		$ex_cities = isset( $atts['ex_cities'] ) ? trim( rtrim( $atts['ex_cities'], ',') ) : '';
 
 		$in_regions = isset( $atts['in_regions'] ) && is_array( $atts['in_regions'] ) ? array_map( 'trim', $atts['in_regions'] ) : [];
 		$ex_regions = isset( $atts['ex_regions'] ) && is_array( $atts['ex_regions'] ) ? array_map( 'trim', $atts['ex_regions'] ) : [];
@@ -150,8 +150,8 @@ class GeotWP_Gutenberg {
 	public function save_gutenberg_state( $atts, $content ) {
 		$in_regions_i = $ex_regions_i = '';
 
-		$in_states = isset( $atts['in_states'] ) ? trim( $atts['in_states'] ) : '';
-		$ex_states = isset( $atts['ex_states'] ) ? trim( $atts['ex_states'] ) : '';
+		$in_states = isset( $atts['in_states'] ) ? trim( rtrim( $atts['in_states'] ),',') : '';
+		$ex_states = isset( $atts['ex_states'] ) ? trim( rtrim( $atts['ex_states'] ),',') : '';
 
 		$in_regions = isset( $atts['in_regions'] ) && is_array( $atts['in_regions'] ) ? array_map( 'trim', $atts['in_regions'] ) : [];
 		$ex_regions = isset( $atts['ex_regions'] ) && is_array( $atts['ex_regions'] ) ? array_map( 'trim', $atts['ex_regions'] ) : [];
@@ -183,11 +183,11 @@ class GeotWP_Gutenberg {
 	 * @var    string $attributes
 	 * @var    string $content
 	 */
-	public function save_gutenberg_zipcode( $attributes, $content ) {
+	public function save_gutenberg_zipcode( $atts, $content ) {
 		$in_regions_i = $ex_regions_i = '';
 
-		$in_zipcodes = isset( $atts['in_zipcodes'] ) ? trim( $atts['in_zipcodes'] ) : '';
-		$ex_zipcodes = isset( $atts['ex_zipcodes'] ) ? trim( $atts['ex_zipcodes'] ) : '';
+		$in_zipcodes = isset( $atts['in_zipcodes'] ) ? trim( rtrim(  $atts['in_zipcodes'] ), ',') : '';
+		$ex_zipcodes = isset( $atts['ex_zipcodes'] ) ? trim( rtrim(  $atts['ex_zipcodes'] ), ',') : '';
 
 		$in_regions = isset( $atts['in_regions'] ) && is_array( $atts['in_regions'] ) ? array_map( 'trim', $atts['in_regions'] ) : [];
 		$ex_regions = isset( $atts['ex_regions'] ) && is_array( $atts['ex_regions'] ) ? array_map( 'trim', $atts['ex_regions'] ) : [];
