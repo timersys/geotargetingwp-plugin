@@ -39,10 +39,8 @@ class GeotWP_R_Public {
 	public function __construct() {
 		add_action( 'plugins_loaded', [ $this, 'init_geotWP' ], - 2 );
 
-		$action_hook = defined( 'WP_CACHE' ) ? 'init' : 'wp';
-
 		if ( ! is_admin() && ! is_backend() && ! defined( 'DOING_AJAX' ) && ! defined( 'DOING_CRON' ) && ! is_builder() ) {
-			add_action( apply_filters( 'geotr/action_hook', $action_hook ), [ $this, 'handle_redirects' ] );
+			add_action( apply_filters( 'geotr/action_hook', 'wp' ), [ $this, 'handle_redirects' ] );
 		}
 	}
 
@@ -116,6 +114,7 @@ class GeotWP_R_Public {
 				if ( ! $this->pass_basic_rules( $r ) ) {
 					continue;
 				}
+
 				$rules       = ! empty( $r->geotr_rules ) ? unserialize( $r->geotr_rules ) : [];
 				$do_redirect = GeotWP_R_ules::is_ok( $rules );
 				if ( $do_redirect ) {

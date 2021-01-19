@@ -75,7 +75,7 @@ function toPlural( $key ) {
 function grab_post_id() {
 	global $post;
 	// only for singular pages
-	if(! is_singular() ) {
+	if( ! is_singular() ) {
 		return false;
 	}
 	add_filter( 'geot/cancel_posts_where', '__return_true' );

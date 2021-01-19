@@ -109,10 +109,10 @@ class GeotWP_R_ules {
 	* @since 1.0.0
 	*/
 	public static function is_ok( $rules = '' ) {
+
 		if ( empty( $rules ) ) {
 			return false;
 		}
-
 		$do_redirect = false;
 		foreach ( $rules as $group_id => $group ) {
 
@@ -120,6 +120,7 @@ class GeotWP_R_ules {
 			if ( is_array( $group ) ) {
 				foreach ( $group as $rule_id => $rule ) {
 					$match = apply_filters( 'geot/rules/rule_match/' . $rule['param'], $rule );
+
 					if ( ! $match ) {
 						$match_group = false;
 						// if one rule fails we don't need to check the rest of the rules in the group
@@ -888,33 +889,40 @@ class GeotWP_R_ules {
 		if ( ! self::$post_id ) {
 			return false;
 		}
-
-		// post type
-		$post_type = get_post_type( self::$post_id );
-		// vars
-		$taxonomies = get_object_taxonomies( $post_type );
-
-		$all_terms = get_the_terms( self::$post_id, 'category' );
-		if ( $all_terms ) {
-			foreach ( $all_terms as $all_term ) {
-				$terms[] = $all_term->term_id;
+		// are we in archive page or single post
+		if ( self::$is_archive ) {
+			if ( $rule['operator'] == "==" ) {
+				return ( self::$post_id == $rule['value'] );
 			}
-		}
+			return ( self::$post_id != $rule['value'] );
+		} else {
+			// post type
+			$post_type = get_post_type( self::$post_id );
+			// vars
+			$taxonomies = get_object_taxonomies( $post_type );
 
-		// no terms at all?
-		if ( empty( $terms ) ) {
-			// If no ters, this is a new post and should be treated as if it has the "Uncategorized" (1) category ticked
-			if ( is_array( $taxonomies ) && in_array( 'category', $taxonomies ) ) {
-				$terms[] = '1';
+			$all_terms = get_the_terms( self::$post_id, 'category' );
+			if ( $all_terms ) {
+				foreach ( $all_terms as $all_term ) {
+					$terms[] = $all_term->term_id;
+				}
 			}
+
+			// no terms at all?
+			if ( empty( $terms ) ) {
+				// If no ters, this is a new post and should be treated as if it has the "Uncategorized" (1) category ticked
+				if ( is_array( $taxonomies ) && in_array( 'category', $taxonomies ) ) {
+					$terms[] = '1';
+				}
+			}
+
+
+			if ( $rule['operator'] == "==" ) {
+				return ( is_array( $terms ) && in_array( $rule['value'], $terms ) );
+			}
+
+			return ! ( is_array( $terms ) && in_array( $rule['value'], $terms ) );
 		}
-
-
-		if ( $rule['operator'] == "==" ) {
-			return ( is_array( $terms ) && in_array( $rule['value'], $terms ) );
-		}
-
-		return ! ( is_array( $terms ) && in_array( $rule['value'], $terms ) );
 	}
 
 
@@ -1013,39 +1021,45 @@ class GeotWP_R_ules {
 		if ( ! self::$post_id ) {
 			return false;
 		}
+		// are we in archive page or single post
+		if ( self::$is_archive ) {
+			if ( $rule['operator'] == "==" ) {
+				return ( self::$post_id == $rule['value'] );
+			}
+			return ( self::$post_id != $rule['value'] );
+		} else {
+			// post type
+			$post_type = get_post_type( self::$post_id );
 
-		// post type
-		$post_type = get_post_type( self::$post_id );
+			// vars
+			$taxonomies = get_object_taxonomies( $post_type );
 
-		// vars
-		$taxonomies = get_object_taxonomies( $post_type );
-
-		if ( is_array( $taxonomies ) ) {
-			foreach ( $taxonomies as $tax ) {
-				$all_terms = get_the_terms( self::$post_id, $tax );
-				if ( $all_terms ) {
-					foreach ( $all_terms as $all_term ) {
-						$terms[] = $all_term->term_id;
+			if ( is_array( $taxonomies ) ) {
+				foreach ( $taxonomies as $tax ) {
+					$all_terms = get_the_terms( self::$post_id, $tax );
+					if ( $all_terms ) {
+						foreach ( $all_terms as $all_term ) {
+							$terms[] = $all_term->term_id;
+						}
 					}
 				}
 			}
-		}
 
-		// no terms at all?
-		if ( empty( $terms ) ) {
-			// If no ters, this is a new post and should be treated as if it has the "Uncategorized" (1) category ticked
-			if ( is_array( $taxonomies ) && in_array( 'category', $taxonomies ) ) {
-				$terms[] = '1';
+			// no terms at all?
+			if ( empty( $terms ) ) {
+				// If no ters, this is a new post and should be treated as if it has the "Uncategorized" (1) category ticked
+				if ( is_array( $taxonomies ) && in_array( 'category', $taxonomies ) ) {
+					$terms[] = '1';
+				}
+
 			}
 
+			if ( $rule['operator'] == "==" ) {
+				return ( is_array( $terms ) && in_array( $rule['value'], $terms ) );
+			}
+
+			return ! ( is_array( $terms ) && in_array( $rule['value'], $terms ) );
 		}
-
-		if ( $rule['operator'] == "==" ) {
-			return ( is_array( $terms ) && in_array( $rule['value'], $terms ) );
-		}
-
-		return ! ( is_array( $terms ) && in_array( $rule['value'], $terms ) );
-
 	}
 
 	/**
