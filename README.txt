@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
 Tested up to: 5.6
-Stable tag: 3.3.3
+Stable tag: 3.3.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,10 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.3.3.1 - Jan 19 2021 =
+* Fix: Issue with some redirects not working when used page rules
+* Fix: Taxonomy rules not working on archives pages
+
 = 3.3.3 - Jan 12 2021 =
 * Feature: Import/Export geo links for bulk edit
 * Fix: Issue with Gutemberg cities and zip blocks

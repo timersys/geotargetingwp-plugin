@@ -10,7 +10,7 @@
  * Plugin Name:       GeoTargetingWP
  * Plugin URI:        https://geotargetingwp.com/
  * Description:       Geo Targeting for WordPress will let you country-target your content based on users IP's and Geo country Ip database
- * Version:           3.3.3
+ * Version:           3.3.3.1
  * Author:            Timersys
  * Author URI:        https://geotargetingwp.com/
  * License:           GPL-2.0+
@@ -25,7 +25,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'GEOWP_PLUGIN_FILE', __FILE__ );
-define( 'GEOWP_VERSION', '3.3.3' );
+define( 'GEOWP_VERSION', '3.3.3.1' );
 define( 'GEOWP_DB_VERSION', '1.0' );
 define( 'GEOWP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GEOWP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
