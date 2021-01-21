@@ -96,7 +96,6 @@ class GeotWP_Activator {
 
 		update_option('geot_version', GEOWP_VERSION);
 
-		GeotCore\add_countries_to_db();
 		GeotCore\geot_activate();
 
 		delete_option( 'geotWP-deactivated' );
