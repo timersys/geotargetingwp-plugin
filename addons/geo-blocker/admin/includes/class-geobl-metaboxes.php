@@ -36,7 +36,7 @@ class GeotWP_Bl_Metaboxes {
 	public function add_meta_boxes() {
 		add_meta_box(
 			'geobl-rules',
-			__( 'Block Rules', 'geobl' ),
+			__( 'Block Rules', 'geot' ),
 			[ $this, 'geobl_rules' ],
 			'geobl_cpt',
 			'normal',
@@ -44,7 +44,7 @@ class GeotWP_Bl_Metaboxes {
 		);
 		add_meta_box(
 			'geobl-opts',
-			__( 'Block Options', 'geobl' ),
+			__( 'Block Options', 'geot' ),
 			[ $this, 'geobl_opts' ],
 			'geobl_cpt',
 			'normal',
@@ -125,8 +125,8 @@ class GeotWP_Bl_Metaboxes {
 	public function geobl_rules( $post, $metabox ) {
 
 		$args = [
-			'title' => __( "Block user if", 'geobl' ),
-			'desc'  => __( "Create a set of rules to determine if the user will be blocked", 'geobl' ),
+			'title' => __( "Block user if", 'geot' ),
+			'desc'  => __( "Create a set of rules to determine if the user will be blocked", 'geot' ),
 		];
 
 		GeotWP_Helper::html_rules( $post, 'geobl_rules', $args );

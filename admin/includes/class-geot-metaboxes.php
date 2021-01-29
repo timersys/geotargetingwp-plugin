@@ -178,7 +178,7 @@ class GeotWP_Metaboxes {
 	public function add_meta_boxes_geotr_cpt() {
 		add_meta_box(
 			'geotr-rules',
-			__( 'Redirection Rules', 'geotr' ),
+			__( 'Redirection Rules', 'geot' ),
 			[ $this, 'meta_boxes_rules_geotr_cpt' ],
 			'geotr_cpt',
 			'normal',
@@ -186,7 +186,7 @@ class GeotWP_Metaboxes {
 		);
 		add_meta_box(
 			'geotr-opts',
-			__( 'Redirection Options', 'geotr' ),
+			__( 'Redirection Options', 'geot' ),
 			[ $this, 'meta_boxes_opts_geotr_cpt' ],
 			'geotr_cpt',
 			'normal',
@@ -257,8 +257,8 @@ class GeotWP_Metaboxes {
 	public function meta_boxes_rules_geotr_cpt( $post, $metabox ) {
 
 		$args = [
-			'title' => __( "Perform redirect if", 'geotr' ),
-			'desc'  => __( "Create a set of rules to determine where the redirect will be performed", 'geotr' ),
+			'title' => __( "Perform redirect if", 'geot' ),
+			'desc'  => __( "Create a set of rules to determine where the redirect will be performed", 'geot' ),
 		];
 
 		GeotWP_Helper::html_rules( $post, 'geotr_rules', $args );
@@ -297,7 +297,7 @@ class GeotWP_Metaboxes {
 	public function add_meta_boxes_geobl_cpt() {
 		add_meta_box(
 			'geobl-rules',
-			__( 'Block Rules', 'geobl' ),
+			__( 'Block Rules', 'geot' ),
 			[ $this, 'meta_boxes_rules_geobl_cpt' ],
 			'geobl_cpt',
 			'normal',
@@ -305,7 +305,7 @@ class GeotWP_Metaboxes {
 		);
 		add_meta_box(
 			'geobl-opts',
-			__( 'Block Options', 'geobl' ),
+			__( 'Block Options', 'geot' ),
 			[ $this, 'meta_boxes_opts_geobl_cpt' ],
 			'geobl_cpt',
 			'normal',
@@ -374,8 +374,8 @@ class GeotWP_Metaboxes {
 	public function meta_boxes_rules_geobl_cpt( $post, $metabox ) {
 
 		$args = [
-			'title' => __( "Block user if", 'geobl' ),
-			'desc'  => __( "Create a set of rules to determine if the user will be blocked", 'geobl' ),
+			'title' => __( "Block user if", 'geot' ),
+			'desc'  => __( "Create a set of rules to determine if the user will be blocked", 'geot' ),
 		];
 
 		GeotWP_Helper::html_rules( $post, 'geobl_rules', $args );
@@ -425,11 +425,11 @@ class GeotWP_Metaboxes {
 			$new_column[ $key ] = $value;
 
 			if ( $key == 'title' ) {
-				$new_column['source_url'] = __( 'Destination URL', 'geol' );
-				$new_column['shortcode']  = __( 'Shortcode', 'geol' );
+				$new_column['source_url'] = __( 'Destination URL', 'geot' );
+				$new_column['shortcode']  = __( 'Shortcode', 'geot' );
 
 				if ( isset( $settings['opt_stats'] ) && $settings['opt_stats'] == 1 ) {
-					$new_column['count_click'] = __( 'Total Clicks', 'geol' );
+					$new_column['count_click'] = __( 'Total Clicks', 'geot' );
 				}
 			}
 		}
@@ -494,7 +494,7 @@ class GeotWP_Metaboxes {
 
 		add_meta_box(
 			'geol-opts',
-			__( 'Redirection Options', 'geol' ),
+			__( 'Redirection Options', 'geot' ),
 			[ $this, 'meta_box_opts_geol_cpt' ],
 			'geol_cpt',
 			'normal',
@@ -503,7 +503,7 @@ class GeotWP_Metaboxes {
 
 		add_meta_box(
 			'geol-urls',
-			__( 'Destinations', 'geol' ),
+			__( 'Destinations', 'geot' ),
 			[ $this, 'meta_box_urls_geol_cpt' ],
 			'geol_cpt',
 			'normal',
@@ -516,7 +516,7 @@ class GeotWP_Metaboxes {
 
 			add_meta_box(
 				'geol-stats',
-				__( 'Stats', 'geol' ),
+				__( 'Stats', 'geot' ),
 				[ $this, 'meta_box_stats_geol_cpt' ],
 				'geol_cpt',
 				'normal',

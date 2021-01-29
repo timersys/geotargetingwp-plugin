@@ -80,7 +80,6 @@ class GeotWP_R {
 	public function __construct() {
 
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->set_objects_admin();
 		$this->set_objects_public();
 	}
@@ -92,7 +91,6 @@ class GeotWP_R {
 	 */
 	private function load_dependencies() {
 		require_once GEOTWP_R_PLUGIN_DIR . 'includes/functions.php';
-		require_once GEOTWP_R_PLUGIN_DIR . 'includes/class-geotr-i18n.php';
 		require_once GEOTWP_R_PLUGIN_DIR . 'includes/class-geotr-cpt.php';
 		require_once GEOTWP_R_PLUGIN_DIR . 'includes/class-geotr-helper.php';
 		require_once GEOTWP_R_PLUGIN_DIR . 'public/class-geotr-public.php';
@@ -103,23 +101,6 @@ class GeotWP_R {
 		}
 	}
 
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the GeotWP_R_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_locale() {
-
-		$plugin_i18n = new GeotWP_R_i18n();
-		$plugin_i18n->set_domain( 'geotr' );
-
-		add_action( 'plugins_loaded', [ $plugin_i18n, 'load_plugin_textdomain' ] );
-
-	}
 
 	/**
 	 * Register all of the hooks related to the admin area functionality

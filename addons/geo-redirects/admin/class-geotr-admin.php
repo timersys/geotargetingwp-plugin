@@ -55,7 +55,7 @@ class GeotWP_R_Admin {
 
 		foreach ( $columns as $key => $value ) {
 			if ( $key == 'date' ) {
-				$new_column['url'] = __( 'Destination URL', 'geotr' );
+				$new_column['url'] = __( 'Destination URL', 'geot' );
 			}
 			$new_column[ $key ] = $value;
 		}

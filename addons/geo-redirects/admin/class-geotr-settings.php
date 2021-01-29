@@ -41,7 +41,7 @@ class GeotWP_R_Settings {
 	public static function default_message() {
 		ob_start();?>
 		<img class="aligncenter" src="<?php echo GEOTWP_R_PLUGIN_URL; ?>public/img/loading.svg" alt="loading"/>
-		<p style="text-align: center"><?php echo apply_filters( 'geotr/ajax_message', __( 'Please wait while you are redirected to the right page...', 'geotr' ) ); ?></p>
+		<p style="text-align: center"><?php echo apply_filters( 'geotr/ajax_message', __( 'Please wait while you are redirected to the right page...', 'geot' ) ); ?></p>
 		<?php
 		$html['redirect_message'] = stripslashes( html_entity_decode(ob_get_clean() ) );
 

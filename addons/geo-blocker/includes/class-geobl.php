@@ -76,7 +76,6 @@ class GeotWP_Bl {
 	 */
 	private function load_dependencies() {
 		require_once GEOTWP_BL_PLUGIN_DIR . 'includes/functions.php';
-		require_once GEOTWP_BL_PLUGIN_DIR . 'includes/class-geobl-i18n.php';
 		require_once GEOTWP_BL_PLUGIN_DIR . 'includes/class-geobl-cpt.php';
 		require_once GEOTWP_BL_PLUGIN_DIR . 'includes/class-geobl-helper.php';
 		require_once GEOTWP_BL_PLUGIN_DIR . 'public/class-geobl-public.php';
@@ -86,23 +85,6 @@ class GeotWP_Bl {
 			require_once GEOTWP_BL_PLUGIN_DIR . 'admin/class-geobl-admin.php';
 			require_once GEOTWP_BL_PLUGIN_DIR . 'admin/class-geobl-settings.php';
 		}
-	}
-
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the GeotWP_Bl_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_locale() {
-
-		$plugin_i18n = new GeotWP_Bl_i18n();
-		$plugin_i18n->set_domain( 'geobl' );
-
-		add_action( 'plugins_loaded', [ $plugin_i18n, 'load_plugin_textdomain' ] );
 	}
 
 	/**

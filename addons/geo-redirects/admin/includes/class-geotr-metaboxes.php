@@ -41,7 +41,7 @@ class GeotWP_R_Metaboxes {
 	public function add_meta_boxes() {
 		add_meta_box(
 			'geotr-rules',
-			__( 'Redirection Rules', 'geotr' ),
+			__( 'Redirection Rules', 'geot' ),
 			[ $this, 'geotr_rules' ],
 			'geotr_cpt',
 			'normal',
@@ -49,7 +49,7 @@ class GeotWP_R_Metaboxes {
 		);
 		add_meta_box(
 			'geotr-opts',
-			__( 'Redirection Options', 'geotr' ),
+			__( 'Redirection Options', 'geot' ),
 			[ $this, 'geotr_opts' ],
 			'geotr_cpt',
 			'normal',
@@ -133,8 +133,8 @@ class GeotWP_R_Metaboxes {
 	public function geotr_rules( $post, $metabox ) {
 
 		$args = [
-			'title' => __( "Perform redirect if", 'geotr' ),
-			'desc'  => __( "Create a set of rules to determine where the redirect will be performed", 'geotr' ),
+			'title' => __( "Perform redirect if", 'geot' ),
+			'desc'  => __( "Create a set of rules to determine where the redirect will be performed", 'geot' ),
 		];
 
 		GeotWP_Helper::html_rules( $post, 'geotr_rules', $args );

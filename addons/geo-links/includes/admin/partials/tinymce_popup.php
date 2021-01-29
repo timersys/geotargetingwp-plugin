@@ -8,15 +8,15 @@
 			<tr>
 				<td colspan="2">
 					<p>
-						<?php _e( 'Choose which Geol Link you want to insert. This will generate an href link that you can use with text or images', 'geol' ); ?>
+						<?php _e( 'Choose which Geol Link you want to insert. This will generate an href link that you can use with text or images', 'geot' ); ?>
 					</p>
 				</td>
 			</tr>
 			<tr>
-				<th><label for="geol_what"><?php _e( 'Choose:', 'geol' ); ?></label></th>
+				<th><label for="geol_what"><?php _e( 'Choose:', 'geot' ); ?></label></th>
 				<td>
 					<select name="geol-post" id="geol-posts">
-						<option value=""><?php _e( 'Choose one', 'geol' ); ?></option>
+						<option value=""><?php _e( 'Choose one', 'geot' ); ?></option>
 						<?php
 						// The Loop
 						if ( $geol_results ) {
@@ -35,24 +35,24 @@
 				</td>
 			</tr>
 			<tr>
-				<th><label for="geol_nofollow"><?php _e( 'NoFollow?:', 'geol' ); ?></label></th>
+				<th><label for="geol_nofollow"><?php _e( 'NoFollow?:', 'geot' ); ?></label></th>
 				<td>
 					<label>
-						<input type="radio" name="geol_nofollow" value="yes"/><?php _e( 'Yes', 'geol' ); ?>
+						<input type="radio" name="geol_nofollow" value="yes"/><?php _e( 'Yes', 'geot' ); ?>
 					</label>
 					<label>
-						<input type="radio" name="geol_nofollow" value="no"/><?php _e( 'No', 'geol' ); ?>
+						<input type="radio" name="geol_nofollow" value="no"/><?php _e( 'No', 'geot' ); ?>
 					</label>
 				</td>
 			</tr>
 			<tr>
-				<th><label for="geol_noreferrer "><?php _e( 'NoReferrer ?:', 'geol' ); ?></label></th>
+				<th><label for="geol_noreferrer "><?php _e( 'NoReferrer ?:', 'geot' ); ?></label></th>
 				<td>
 					<label>
-						<input type="radio" name="geol_noreferrer " value="yes"/><?php _e( 'Yes', 'geol' ); ?>
+						<input type="radio" name="geol_noreferrer " value="yes"/><?php _e( 'Yes', 'geot' ); ?>
 					</label>
 					<label>
-						<input type="radio" name="geol_noreferrer " value="no"/><?php _e( 'No', 'geol' ); ?>
+						<input type="radio" name="geol_noreferrer " value="no"/><?php _e( 'No', 'geot' ); ?>
 					</label>
 				</td>
 			</tr>

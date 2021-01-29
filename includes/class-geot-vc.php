@@ -106,7 +106,7 @@ class GeotWP_VC {
 						"class"       => "",
 						"heading"     => __( "Country", 'geot' ),
 						"param_name"  => "country",
-						"value"       => __( "", 'geot' ),
+						"value"       => "",
 						"description" => __( "Type country name or ISO code. Also you can write a comma separated list of countries", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
 					],[
@@ -123,7 +123,7 @@ class GeotWP_VC {
 						"class"       => "",
 						"heading"     => __( "Exclude Country", 'geot' ),
 						"param_name"  => "exclude_country",
-						"value"       => __( "", 'geot' ),
+						"value"       => "",
 						"description" => __( "Type country name or ISO code. Also you could write a comma separated list of countries", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
 					],[
@@ -156,7 +156,7 @@ class GeotWP_VC {
 						"class"       => "",
 						"heading"     => __( "City", 'geot' ),
 						"param_name"  => "city",
-						"value"       => __( "", 'geot' ),
+						"value"       => "",
 						"description" => __( "Type city name. Also you can write a comma separated list of cities", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
 					],[
@@ -172,7 +172,7 @@ class GeotWP_VC {
 						"class"       => "",
 						"heading"     => __( "Exclude City", 'geot' ),
 						"param_name"  => "exclude_city",
-						"value"       => __( "", 'geot' ),
+						"value"       => "",
 						"description" => __( "Type city name. Also you could write a comma separated list of cities", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
 					],[
@@ -205,7 +205,7 @@ class GeotWP_VC {
 						"class"       => "",
 						"heading"     => __( "State", 'geot' ),
 						"param_name"  => "state",
-						"value"       => __( "", 'geot' ),
+						"value"       => "",
 						"description" => __( "Type state name or ISO code. Also you can write a comma separated list of states", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
 					],[
@@ -221,7 +221,7 @@ class GeotWP_VC {
 						"class"       => "",
 						"heading"     => __( "Exclude State", 'geot' ),
 						"param_name"  => "exclude_state",
-						"value"       => __( "", 'geot' ),
+						"value"       => "",
 						"description" => __( "Type state name or ISO code. Also you can write a comma separated list of states", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
 					],[
@@ -254,7 +254,7 @@ class GeotWP_VC {
 						"class"       => "",
 						"heading"     => __( "Zip", 'geot' ),
 						"param_name"  => "zip",
-						"value"       => __( "", 'geot' ),
+						"value"       => "",
 						"description" => __( "Type zip code. Also you can write a comma separated list of zip codes", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
 					],[
@@ -270,7 +270,7 @@ class GeotWP_VC {
 						"class"       => "",
 						"heading"     => __( "Exclude zip", 'geot' ),
 						"param_name"  => "exclude_zip",
-						"value"       => __( "", 'geot' ),
+						"value"       => "",
 						"description" => __( "Type zip code. Also you can write a comma separated list of zip codes", 'geot' ),
 						'group'       => __( 'GeoTargeting', 'geot' ),
 					],[
@@ -304,7 +304,7 @@ class GeotWP_VC {
 						"class"			=> "",
 						"heading"		=> esc_html__( "Radius (km)", 'geot' ),
 						"param_name"	=> "radius_km",
-						"value"			=> esc_html__( "", 'geot' ),
+						"value"			=> "",
 						"description"	=> esc_html__( "Type the range in km", 'geot' ),
 						'group'			=> esc_html__( 'GeoTargeting', 'geot' ),
 					],[
@@ -312,7 +312,7 @@ class GeotWP_VC {
 						"class"       => "",
 						"heading"     => esc_html__( "Latitude", 'geot' ),
 						"param_name"  => "radius_lat",
-						"value"       => esc_html__( "", 'geot' ),
+						"value"       => "",
 						"description" => esc_html__( "Type the latitude", 'geot' ),
 						'group'       => esc_html__( 'GeoTargeting', 'geot' ),
 					],[
@@ -320,7 +320,7 @@ class GeotWP_VC {
 						"class"       => "",
 						"heading"     => esc_html__( "Longitude", 'geot' ),
 						"param_name"  => "radius_lng",
-						"value"       => esc_html__( "", 'geot' ),
+						"value"       => "",
 						"description" => esc_html__( "Type the longitude", 'geot' ),
 						'group'       => esc_html__( 'GeoTargeting', 'geot' ),
 					]

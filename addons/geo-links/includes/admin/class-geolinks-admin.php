@@ -61,8 +61,8 @@ class GeotWP_Links_Admin {
 				'post_id'   => $post->ID,
 				'countries' => $list_countries,
 				'regions'   => $list_regions,
-				'msg_fail'  => __( 'Failed', 'geol' ),
-				'msg_ok'    => __( 'Ok', 'geol' ),
+				'msg_fail'  => __( 'Failed', 'geot' ),
+				'msg_ok'    => __( 'Ok', 'geot' ),
 				'icon_load' => '<img src="' . admin_url( 'images/loading.gif' ) . '" />',
 			]
 		);

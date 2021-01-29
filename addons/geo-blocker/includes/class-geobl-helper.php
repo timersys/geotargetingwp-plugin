@@ -19,7 +19,7 @@ class GeotWP_Bl_Helper {
 	public static function get_options( $id ) {
 		$defaults = [
 
-			'block_message' => '<h3>' . __( 'Sorry but your access to this area is restricted', 'geobl' ) . '</h3>',
+			'block_message' => '<h3>' . __( 'Sorry but your access to this area is restricted', 'geot' ) . '</h3>',
 			'exclude_se'    => '1',
 			'remove_iso'    => '0',
 			'exclude_child' => '1',

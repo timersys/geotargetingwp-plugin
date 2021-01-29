@@ -3,9 +3,9 @@
 	<table class="wp-list-table widefat striped">
 		<thead>
 		<tr>
-			<th><?php _e( 'Label', 'geol' ); ?></th>
-			<th><?php _e( 'Destinations', 'geol' ); ?></th>
-			<th><?php _e( 'Clicks', 'geol' ); ?></th>
+			<th><?php _e( 'Label', 'geot' ); ?></th>
+			<th><?php _e( 'Destinations', 'geot' ); ?></th>
+			<th><?php _e( 'Clicks', 'geot' ); ?></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -25,13 +25,13 @@
 
 		<?php if ( ! empty( $opts['dest_default'] ) ) : ?>
 			<tr>
-				<td class="geol_stats_url"><strong><?php _e( 'Default', 'geol' ); ?>:</strong></td>
+				<td class="geol_stats_url"><strong><?php _e( 'Default', 'geot' ); ?>:</strong></td>
 				<td class="geol_stats_url"><?php echo $opts['dest_default']; ?></td>
 				<td class="geol_stats_count"><?php echo $opts['click_default']; ?></td>
 			</tr>
 		<?php else : ?>
 			<tr>
-				<td class="geol_stats_url"><strong><?php _e( 'Default', 'geol' ); ?>
+				<td class="geol_stats_url"><strong><?php _e( 'Default', 'geot' ); ?>
 						:</strong></td>
 				<td class="geol_stats_url"><?php echo site_url(); ?></td>
 				<td class="geol_stats_count"><?php echo $opts['click_default']; ?></td>
@@ -43,11 +43,11 @@
 	<br/>
 	<div style="text-align: right;">
 		<span class="geol_msg_reset"></span>
-		<button class="button-secondary geol_reset"><?php _e( 'Reset Stats', 'geol' ); ?></button>
+		<button class="button-secondary geol_reset"><?php _e( 'Reset Stats', 'geot' ); ?></button>
 	</div>
 
 <?php else : ?>
 
-	<h3><?php _e( 'Please, first save destinations to see the stats', 'geol' ); ?></h3>
+	<h3><?php _e( 'Please, first save destinations to see the stats', 'geot' ); ?></h3>
 
 <?php endif; ?>

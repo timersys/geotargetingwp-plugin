@@ -62,7 +62,6 @@ class GeotWP_Links {
 	private function load_dependencies() {
 
 		require_once GEOTWP_L_PLUGIN_DIR . 'includes/functions.php';
-		require_once GEOTWP_L_PLUGIN_DIR . 'includes/class-geolinks-i18n.php';
 		require_once GEOTWP_L_PLUGIN_DIR . 'includes/global/class-geolinks-cpt.php';
 		require_once GEOTWP_L_PLUGIN_DIR . 'includes/public/class-geolinks-redirect.php';
 

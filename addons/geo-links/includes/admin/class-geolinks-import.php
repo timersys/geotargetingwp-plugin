@@ -33,27 +33,27 @@ class GeotWP_Links_Importer {
 	public function set_fields() {
 		
 		$this->dest = [
-			'dest_label'		=> esc_html__( 'Destination Label', 'geol' ),
-			'dest_url'			=> esc_html__( 'Destination URL', 'geol' ),
-			'dest_countries'	=> esc_html__( 'Geot Countries', 'geol' ),
-			'dest_regions'		=> esc_html__( 'Geot Regions', 'geol' ),
-			'dest_cities'		=> esc_html__( 'Geot Cities', 'geol' ),
-			'dest_states'		=> esc_html__( 'Geot States', 'geol' ),
-			'dest_zipcodes'		=> esc_html__( 'Geot Zipcodes', 'geol' ),
-			'dest_radius'		=> esc_html__( 'Geot Radius', 'geol' ),
-			'dest_device'		=> esc_html__( 'Geot Device', 'geol' ),
-			'dest_ref'			=> esc_html__( 'Geot Referrer URL', 'geol' ),
-			'dest_count_dest'	=> esc_html__( 'Stats by Destination', 'geol' ),
+			'dest_label'		=> esc_html__( 'Destination Label', 'geot' ),
+			'dest_url'			=> esc_html__( 'Destination URL', 'geot' ),
+			'dest_countries'	=> esc_html__( 'Geot Countries', 'geot' ),
+			'dest_regions'		=> esc_html__( 'Geot Regions', 'geot' ),
+			'dest_cities'		=> esc_html__( 'Geot Cities', 'geot' ),
+			'dest_states'		=> esc_html__( 'Geot States', 'geot' ),
+			'dest_zipcodes'		=> esc_html__( 'Geot Zipcodes', 'geot' ),
+			'dest_radius'		=> esc_html__( 'Geot Radius', 'geot' ),
+			'dest_device'		=> esc_html__( 'Geot Device', 'geot' ),
+			'dest_ref'			=> esc_html__( 'Geot Referrer URL', 'geot' ),
+			'dest_count_dest'	=> esc_html__( 'Stats by Destination', 'geot' ),
 		];
 
 		$this->main = [
-			'post_id'			=> esc_html__( 'ID', 'geol' ),
-			'post_title'		=> esc_html__( 'Title', 'geol' ),
-			'source_slug'		=> esc_html__( 'Link Slug', 'geol' ),
-			'status_code'		=> esc_html__( 'Redirection code', 'geol' ),
-			'dest_default'		=> esc_html__( 'Default URL', 'geol' ),
-			'count_click'		=> esc_html__( 'Stats Total Clicks', 'geol' ),
-			'click_default'		=> esc_html__( 'Default Total Click', 'geol' ),
+			'post_id'			=> esc_html__( 'ID', 'geot' ),
+			'post_title'		=> esc_html__( 'Title', 'geot' ),
+			'source_slug'		=> esc_html__( 'Link Slug', 'geot' ),
+			'status_code'		=> esc_html__( 'Redirection code', 'geot' ),
+			'dest_default'		=> esc_html__( 'Default URL', 'geot' ),
+			'count_click'		=> esc_html__( 'Stats Total Clicks', 'geot' ),
+			'click_default'		=> esc_html__( 'Default Total Click', 'geot' ),
 		];
 
 		$this->fields = array_merge( $this->main, $this->dest );
@@ -75,10 +75,10 @@ class GeotWP_Links_Importer {
 
 			wp_localize_script( 'geol-import-js', 'geol_var', [
 				'import_id'		=> 'geol_import',
-				'import_text'	=> esc_html__( 'Import', 'geol' ),
+				'import_text'	=> esc_html__( 'Import', 'geot' ),
 				'import_link'	=> admin_url( 'admin.php?page=geol-importer' ),
 				'export_id'		=> 'geol_export',
-				'export_text'	=> esc_html__( 'Export', 'geol' ),
+				'export_text'	=> esc_html__( 'Export', 'geot' ),
 				'export_link'	=> admin_url( 'admin.php?page=geol-exporter' ),
 				'nonce'			=> wp_create_nonce( 'geol_nonce' ),
 			]);
@@ -102,8 +102,8 @@ class GeotWP_Links_Importer {
 
 		add_submenu_page(
 			'geot-settings',
-			esc_html__( 'Importer', 'geol' ),
-			esc_html__( 'Importer', 'geol' ),
+			esc_html__( 'Importer', 'geot' ),
+			esc_html__( 'Importer', 'geot' ),
 			'manage_options',
 			'geol-importer',
 			[ $this, 'importer' ]
@@ -111,8 +111,8 @@ class GeotWP_Links_Importer {
 
 		add_submenu_page(
 			'geot-settings',
-			esc_html__( 'Exporter', 'geol' ),
-			esc_html__( 'Exporter', 'geol' ),
+			esc_html__( 'Exporter', 'geot' ),
+			esc_html__( 'Exporter', 'geot' ),
 			'manage_options',
 			'geol-exporter',
 			[ $this, 'exporter' ]
@@ -162,7 +162,7 @@ class GeotWP_Links_Importer {
 					}
 				}
 
-				$fields['no_import'] = esc_html__( 'Do not Import', 'geol' );
+				$fields['no_import'] = esc_html__( 'Do not Import', 'geot' );
 
 				include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/section_importer_mapping.php';
 			
@@ -219,7 +219,7 @@ class GeotWP_Links_Importer {
 		// Nonce
 		if( ! isset( $_POST['wpnonce'] ) ||
 			! wp_verify_nonce( $_POST['wpnonce'], 'geol_wpnonce' ) ) {
-			$this->error->add( 'error', esc_html__( 'Busted!', 'geol' ) );
+			$this->error->add( 'error', esc_html__( 'Busted!', 'geot' ) );
 			return;
 		}
 
@@ -273,19 +273,19 @@ class GeotWP_Links_Importer {
 
 			// Check if exist $_FILE
 			if( ! isset( $_FILES['geol'] ) ) {
-				$this->error->add( 'error', esc_html__( 'Empty File', 'geol' ) );
+				$this->error->add( 'error', esc_html__( 'Empty File', 'geot' ) );
 				return;
 			}
 
 			// Check if it was uploaded using HTTP POST 
 			if( ! is_uploaded_file( $_FILES['geol']['tmp_name'] ) ) {
-				$this->error->add( 'error', esc_html__( 'File was not uploaded', 'geol' ) );
+				$this->error->add( 'error', esc_html__( 'File was not uploaded', 'geot' ) );
 				return;
 			}
 
 			// Check if it has errors
 			if( ! empty( $_FILES['geol']['error'] ) ) {
-				$this->error->add( 'error', esc_html__( 'Error in the file', 'geol' ) );
+				$this->error->add( 'error', esc_html__( 'Error in the file', 'geot' ) );
 				return;
 			}
 
@@ -293,7 +293,7 @@ class GeotWP_Links_Importer {
 			$mime_type = mime_content_type( $_FILES['geol']['tmp_name'] );
 
 			if( ! in_array( $mime_type, $mimes_allowed ) ) {
-				$this->error->add( 'error', esc_html__( 'Only is allowed the CSV files', 'geol' ) );
+				$this->error->add( 'error', esc_html__( 'Only is allowed the CSV files', 'geot' ) );
 				return;
 			}
 
@@ -339,7 +339,7 @@ class GeotWP_Links_Importer {
 		// Nonce
 		if( ! isset( $_POST['wpnonce'] ) ||
 			! wp_verify_nonce( $_POST['wpnonce'], 'geol_wpnonce' ) ) {
-			$this->error->add( 'error', esc_html__( 'Busted!', 'geol' ) );
+			$this->error->add( 'error', esc_html__( 'Busted!', 'geot' ) );
 			return;
 		}
 
@@ -349,7 +349,7 @@ class GeotWP_Links_Importer {
 			return;
 
 		if( ! isset( $post_data['posts'] ) || empty( $post_data['posts'] ) ) {
-			$this->error->add( 'error', esc_html__( 'GeoLinks empty', 'geol' ) );
+			$this->error->add( 'error', esc_html__( 'GeoLinks empty', 'geot' ) );
 			return;
 		}
 
@@ -378,7 +378,7 @@ class GeotWP_Links_Importer {
 
 		// Chekc if it is empty
 		if( empty( $fields_values ) ) {
-			$this->error->add( 'error', esc_html__( 'Export empty', 'geol' ) );
+			$this->error->add( 'error', esc_html__( 'Export empty', 'geot' ) );
 			return;
 		}
 
