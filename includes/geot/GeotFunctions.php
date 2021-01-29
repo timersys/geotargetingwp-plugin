@@ -749,14 +749,19 @@ class GeotCore {
 	 * @return StdClass
 	 */
 	private function getCountryByIsoCode( $iso_code ) {
-		global $wpdb;
-		$query          = "SELECT * FROM {$wpdb->base_prefix}geot_countries WHERE iso_code = %s";
-		$result         = $wpdb->get_row( $wpdb->prepare( $query, [ $iso_code ] ), ARRAY_A );
 		$country        = new \StdClass();
 		$country->names = new \StdClass();
 
-		$country->names->en = $result['country'];
-		$country->iso_code  = $result['iso_code'];
+		if( empty( $iso_code ) )
+			return $country;
+
+		foreach( geot_countries() as $data ) {
+			if( $data->iso_code == $iso_code ) {
+				$country->names->en = $data->country;
+				$country->iso_code = $data->iso_code;
+				break;
+			}
+		}
 
 		return $country;
 	}
