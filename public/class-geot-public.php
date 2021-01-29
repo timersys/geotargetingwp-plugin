@@ -59,7 +59,8 @@ class GeotWP_Public {
 			add_action( 'wp', [ $this, 'remove_woo_product' ] );
 			add_filter( 'wp', [ $this, 'disable_woo_product' ] );
 		}
-
+		// exclude js from autooptimize, too many problems
+		add_filter('autoptimize_filter_js_exclude', [ $this, 'exclude_from_ao_cache' ] );
 
 		// register dropdown widget
 		add_action( 'widgets_init', [ $this, 'register_widgets' ] );
@@ -352,5 +353,19 @@ class GeotWP_Public {
 	 */
 	public function register_widgets() {
 		register_widget( 'GeotWP_Widget' );
+	}
+
+	/**
+	 * Automatically exclude our file from autooptimize
+	 * @return mixed|void
+	 */
+	public function exclude_from_ao_cache( $js ) {
+		if( is_array( $js ) ) {
+			$js[] = '/wp-content/plugins/geotargetingwp/public/js/geotarget-public.js';
+		} else {
+			$js .= ',/wp-content/plugins/geotargetingwp/public/js/geotarget-public.js';
+		}
+
+		return $js;
 	}
 }

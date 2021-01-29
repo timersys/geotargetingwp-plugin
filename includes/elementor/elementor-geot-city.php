@@ -130,8 +130,8 @@ class Elementor_GeoCity {
 		$in_cities = isset( $settings['in_cities'] ) ? trim( $settings['in_cities'] ) : '';
 		$ex_cities = isset( $settings['ex_cities'] ) ? trim( $settings['ex_cities'] ) : '';
 
-		$in_regions_cities = is_array( $settings['in_regions_cities'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['in_regions_cities'] ), 'cities' ) : [];
-		$ex_regions_cities = is_array( $settings['ex_regions_cities'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['ex_regions_cities'] ), 'cities' ) : [];
+		$in_regions_cities = isset( $settings['in_regions_cities'] ) && is_array( $settings['in_regions_cities'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['in_regions_cities'] ), 'cities' ) : [];
+		$ex_regions_cities = isset( $settings['ex_regions_cities'] ) && is_array( $settings['ex_regions_cities'] ) ? GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['ex_regions_cities'] ), 'cities' ) : [];
 
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
@@ -158,8 +158,8 @@ class Elementor_GeoCity {
 		$in_cities = isset( $settings['in_cities'] ) ? trim( $settings['in_cities'] ) : '';
 		$ex_cities = isset( $settings['ex_cities'] ) ? trim( $settings['ex_cities'] ) : '';
 
-		$in_regions_cities = is_array( $settings['in_regions_cities'] ) ?  GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['in_regions_cities'] ), 'cities' ) : [];
-		$ex_regions_cities = is_array( $settings['ex_regions_cities'] ) ?  GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['ex_regions_cities'] ), 'cities' ) : [];
+		$in_regions_cities = isset( $settings['in_regions_cities'] ) && is_array( $settings['in_regions_cities'] ) ?  GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['in_regions_cities'] ), 'cities' ) : [];
+		$ex_regions_cities = isset( $settings['ex_regions_cities'] ) && is_array( $settings['ex_regions_cities'] ) ?  GeotWP_Elementor::filter_regions( array_map( 'trim', $settings['ex_regions_cities'] ), 'cities' ) : [];
 
 
 		if ( empty( $in_cities ) && empty( $ex_cities ) &&
