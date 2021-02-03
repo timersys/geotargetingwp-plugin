@@ -587,6 +587,10 @@ class GeotWP_R_ules {
 			return ! ( $rule['operator'] == "==" );
 		}
 
+		if( strpos( $current_url , '?' ) !== false ) {
+			$current_url = strtok( $current_url, '?' );
+		}
+
 		if ( $rule['operator'] == "==" ) {
 			return ( $current_url == $custom_url );
 		}
