@@ -64,7 +64,6 @@ class GeotWP_Bl {
 	public function __construct() {
 
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->set_objects_admin();
 		$this->set_objects_public();
 	}
