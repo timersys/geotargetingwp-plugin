@@ -185,7 +185,7 @@ class GeotWP_Links_Importer {
 
 		$args = [
 			'post_type'		=> 'geol_cpt',
-			'limit'			=> -1,
+			'numberposts'	=> -1,
 			'post_status'	=> 'publish',
 		];
 
@@ -303,7 +303,7 @@ class GeotWP_Links_Importer {
 			
 			$handle = fopen( $file_path, 'r');
 
-			while( ( $line = fgetcsv( $handle, 1000, ',' ) ) !== FALSE ) {
+			while( ( $line = fgetcsv( $handle, 10000, ',' ) ) !== FALSE ) {
 				$content[] = $line;
 			}
 
