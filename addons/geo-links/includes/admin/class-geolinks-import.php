@@ -153,15 +153,24 @@ class GeotWP_Links_Importer {
 
 				$fields = $this->main;
 
+				// The last
+				end( $content_header );
+				$counter_header = 15;
+				if( strpos( current( $content_header ), 'dest_' ) !== FALSE ) {
+					$a_header = explode( '_', current( $content_header ) );
+					$counter_header = absint( $a_header[1] );
+				}
+
 				$select_key = 0;
 
-				for( $i=0; $i<16; $i++ ) {
+				for( $i = 0; $i <= $counter_header; $i++ ) {
 					foreach( $this->dest as $dest_key => $dest_value ) {
 						$new_key = str_replace('dest_', 'dest_' . $i . '_', $dest_key );
 						$fields[ $new_key ] = $dest_value . ' ' . $i;
 					}
 				}
 
+				reset( $content_header );
 				$fields['no_import'] = esc_html__( 'Do not Import', 'geot' );
 
 				include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/section_importer_mapping.php';
@@ -382,6 +391,18 @@ class GeotWP_Links_Importer {
 			return;
 		}
 
+		// Check the header
+		$aux_counter = 0;
+		$header = [];
+		foreach( $fields_values as $field ) {
+
+			if( count( $field ) > $aux_counter ) {
+				$aux_counter = count( $field );
+				$header = array_keys( $field );
+			}
+
+		}
+
 		ob_start();
 
 		$filename = 'GEOLINKS_' . time() . '.CSV';
@@ -395,10 +416,10 @@ class GeotWP_Links_Importer {
 		header( 'Expires: 0' );
 		header( 'Pragma: public' );
 		
-		fputcsv( $fh, array_keys( $fields_values[0] ) );
+		fputcsv( $fh, $header );
 		
-		foreach( $fields_values as $field_value )
-			fputcsv( $fh, $field_value );
+		foreach( $fields_values as $field )
+			fputcsv( $fh, $field );
 
 		fclose( $fh );
 

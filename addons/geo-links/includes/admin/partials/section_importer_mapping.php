@@ -18,10 +18,13 @@
 						</thead>
 						<tbody>
 							<?php foreach( $content_header as $key => $header ) : ?>
+								<?php
+									$example = isset( $content_example[ $key ] ) ? $content_example[ $key ] : '';
+								?>
 							<tr>
 								<td>
 									<?php echo $header; ?><br />
-									<span class="help"><?php printf( esc_html__( 'Sample : %s', 'geot' ), '<code>' . $content_example[ $key ] . '</code>' ); ?></span>
+									<span class="help"><?php printf( esc_html__( 'Sample : %s', 'geot' ), '<code>' . $example . '</code>' ); ?></span>
 								</td>
 								<td>
 									<?php $a = 0; ?>
