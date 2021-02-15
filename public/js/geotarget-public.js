@@ -378,6 +378,7 @@
                 GeotWP.createCookie('geotRefresh', 'yes');
                 window.location.reload();
             }
+            GeotWP.executeAjax();
         },
         /**
          * Put Shadow Overlay
