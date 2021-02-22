@@ -33,17 +33,18 @@ class GeotWP_Links_Importer {
 	public function set_fields() {
 		
 		$this->dest = [
-			'dest_label'		=> esc_html__( 'Destination Label', 'geot' ),
-			'dest_url'			=> esc_html__( 'Destination URL', 'geot' ),
-			'dest_countries'	=> esc_html__( 'Geot Countries', 'geot' ),
-			'dest_regions'		=> esc_html__( 'Geot Regions', 'geot' ),
-			'dest_cities'		=> esc_html__( 'Geot Cities', 'geot' ),
-			'dest_states'		=> esc_html__( 'Geot States', 'geot' ),
-			'dest_zipcodes'		=> esc_html__( 'Geot Zipcodes', 'geot' ),
-			'dest_radius'		=> esc_html__( 'Geot Radius', 'geot' ),
-			'dest_device'		=> esc_html__( 'Geot Device', 'geot' ),
-			'dest_ref'			=> esc_html__( 'Geot Referrer URL', 'geot' ),
-			'dest_count_dest'	=> esc_html__( 'Stats by Destination', 'geot' ),
+			'key'			=> esc_html__( 'Dest Key', 'geot' ),
+			'label'			=> esc_html__( 'Dest Label', 'geot' ),
+			'url'			=> esc_html__( 'Dest URL', 'geot' ),
+			'countries'		=> esc_html__( 'Geot Countries', 'geot' ),
+			'regions'		=> esc_html__( 'Geot Regions', 'geot' ),
+			'cities'		=> esc_html__( 'Geot Cities', 'geot' ),
+			'states'		=> esc_html__( 'Geot States', 'geot' ),
+			'zipcodes'		=> esc_html__( 'Geot Zipcodes', 'geot' ),
+			'radius'		=> esc_html__( 'Geot Radius', 'geot' ),
+			'device'		=> esc_html__( 'Geot Device', 'geot' ),
+			'ref'			=> esc_html__( 'Geot Referrer URL', 'geot' ),
+			//'count_dest'	=> esc_html__( 'Stats by Destination', 'geot' ),
 		];
 
 		$this->main = [
@@ -52,8 +53,8 @@ class GeotWP_Links_Importer {
 			'source_slug'		=> esc_html__( 'Link Slug', 'geot' ),
 			'status_code'		=> esc_html__( 'Redirection code', 'geot' ),
 			'dest_default'		=> esc_html__( 'Default URL', 'geot' ),
-			'count_click'		=> esc_html__( 'Stats Total Clicks', 'geot' ),
-			'click_default'		=> esc_html__( 'Default Total Click', 'geot' ),
+			//'count_click'		=> esc_html__( 'Stats Total Clicks', 'geot' ),
+			//'click_default'		=> esc_html__( 'Default Total Click', 'geot' ),
 		];
 
 		$this->fields = array_merge( $this->main, $this->dest );
@@ -238,18 +239,47 @@ class GeotWP_Links_Importer {
 		fclose( $handle );
 
 
+		// Delete the first element
+		if( isset( $post_data['ignore'] ) && $post_data['ignore'] == 'yes' )
+			array_shift( $content );
+
 		$to_save = [];
-		$headers = $content[0];
 
-		foreach( $content as $line_key => $line_data ) {
+		foreach( $content as $line_data ) {
 
-			// Ignore header
-			if( $line_key == 0 )
+			$to_line = array_combine( array_keys( $this->fields ), $line_data );
+
+			// If redirect key not exists, continue
+			if( ! isset( $to_line[ 'key' ] ) || empty( $to_line[ 'key' ] ) )
 				continue;
 
-			foreach( $line_data as $field_key => $field_value )
-				$to_save[ $line_key ][ $headers[ $field_key ] ] = $field_value;
+			// If the first line is empty
+			if( empty( $to_line[ 'post_id' ] ) && ! isset( $post_id ) )
+				continue;
+
+			// Set post ID to a temporary aux variable
+			if( ! empty( $to_line[ 'post_id' ] ) )
+				$post_id = $to_line[ 'post_id' ];
+
+			// Save to output array
+			if( ! isset( $to_save[ $post_id ] ) ) {
+
+				// Principal fields
+				foreach( array_keys( $this->main ) as $main_slug  )
+					$to_save[ $post_id ][ $main_slug ] = $to_line[ $main_slug ];
+			}
+
+			// Destinations fields
+			foreach( array_keys( $this->dest ) as $dest_slug ) {
+
+				// If it is countries or regions, it must be an array
+				if( in_array( $dest_slug, [ 'countries', 'regions' ] ) )
+					$to_save[ $post_id ][ 'dest' ][ $to_line[ 'key' ] ][ $dest_slug ] = explode( ',', $to_line[ $dest_slug ] );
+				else	
+					$to_save[ $post_id ][ 'dest' ][ $to_line[ 'key' ] ][ $dest_slug ] = $to_line[ $dest_slug ];
+			}
 		}
+
 
 		$counter = 0;
 		foreach( $to_save as $fields_save ) {
@@ -301,7 +331,8 @@ class GeotWP_Links_Importer {
 			return;
 		}
 
-		$fields_values = [];
+		// Initialize export content 
+		$export_content = [];
 		
 		// Get posts to export
 		$posts = get_posts( [ 'post_type' => 'geol_cpt', 'include' => $post_data['posts'] ] );
@@ -309,27 +340,70 @@ class GeotWP_Links_Importer {
 		// Loop
 		foreach( $posts as $post ) {
 
-			$fields_values[] = $this->fields_values(
-				$post, array_keys( $this->main ), array_keys( $this->dest )
-			);
+			$opts = get_post_meta( $post->ID, 'geol_options', true );
+
+			if( ! isset( $opts['dest'] ) )
+				continue;
+			
+			// initialize row
+			$export_main = [];
+
+			// Principal fields
+			foreach( array_keys( $this->main ) as $main_slug ) {
+
+				if( $main_slug == 'post_id' )
+					$export_main[ 'post_id' ] = $post->ID;
+				elseif( $main_slug == 'post_title' )
+					$export_main[ 'post_title' ] = $post->post_title;
+				elseif( isset( $opts[ $main_slug ] ) )
+					$export_main[ $main_slug ] = $opts[ $main_slug ];
+			}
+
+			$loop = 0;
+
+			// Destinations fields
+			foreach( $opts['dest'] as $dest_key => $dest_data ) {
+
+				// Generate Key
+				$export_key = $post->ID . '_' . $dest_key;
+
+				// Principal fields
+				if( $loop == 0 )
+					$export_content[ $export_key ] = $export_main;
+				else {
+					// from the 2nd line onwards the values must be empty
+					foreach( array_keys( $export_main ) as $key_main )
+						$export_content[ $export_key ][ $key_main ] = '';
+				}
+
+				// Destination
+				foreach( array_keys( $this->dest ) as $dest_slug ) {
+
+					// If the slug not exist
+					if( ! isset( $dest_data[ $dest_slug ] ) ) {
+						$export_content[ $export_key ][ $dest_slug ] = '';
+						continue;
+					}
+
+					// If it is an array
+					if( is_array( $dest_data[ $dest_slug ] ) ) {
+						$export_content[ $export_key ][ $dest_slug ] = implode( ',', $dest_data[ $dest_slug ] );
+						continue;
+					}
+					
+					$export_content[ $export_key ][ $dest_slug ] = $dest_data[ $dest_slug ];
+				}
+
+				$loop++;
+			}
 		}
 
 		// Chekc if it is empty
-		if( empty( $fields_values ) ) {
+		if( empty( $export_content ) ) {
 			$this->error->add( 'error', esc_html__( 'Export empty', 'geot' ) );
 			return;
 		}
 
-		// Check the header
-		$aux_counter = 0;
-		$header = [];
-		foreach( $fields_values as $field ) {
-
-			if( count( $field ) > $aux_counter ) {
-				$aux_counter = count( $field );
-				$header = array_keys( $field );
-			}
-		}
 
 		ob_start();
 
@@ -344,62 +418,16 @@ class GeotWP_Links_Importer {
 		header( 'Expires: 0' );
 		header( 'Pragma: public' );
 		
-		fputcsv( $fh, $header );
+		fputcsv( $fh, array_values( $this->fields ) );
 		
-		foreach( $fields_values as $field )
-			fputcsv( $fh, $field );
+		foreach( $export_content as $content )
+			fputcsv( $fh, array_values( $content ) );
 
 		fclose( $fh );
 
 		ob_end_flush();
 
 		die();
-	}
-
-
-	/**
-	 * Get Values from fields
-	 * @param  WP_POSTS $post
-	 * @param  array    $fields_main
-	 * @param  array    $fields_dest
-	 * @return mixed
-	 */
-	public function fields_values( $post = null, $fields_main = [], $fields_dest = [] ) {
-
-		$opts = get_post_meta( $post->ID, 'geol_options', true );
-
-		$output = [];
-
-		// Main fields
-		foreach( $fields_main as $field_main ) {
-
-			if( $field_main == 'post_id' )
-				$output[ 'post_id' ] = $post->ID;
-			elseif( $field_main == 'post_title' )
-				$output[ 'post_title' ] = $post->post_title;
-			elseif( isset( $opts[ $field_main ] ) )
-				$output[ $field_main ] = $opts[ $field_main ];
-		}
-
-		// Destinations
-		if( ! empty( $fields_dest ) && isset( $opts['dest'] ) && ! empty( $opts['dest'] ) ) {
-
-			foreach( $opts['dest'] as $dest_key => $dest_data ) {
-				foreach( $fields_dest as $field_dest ) {
-					$field_key = str_replace( 'dest_', '', $field_dest );
-					$new_key = $dest_key . '_' . $field_key;
-
-					if( ! isset( $dest_data[ $field_key ] ) )
-						$output[ $new_key ] = '';
-					elseif( is_array( $dest_data[ $field_key ] ) )
-						$output[ $new_key ] = implode( ',', $dest_data[ $field_key ] );
-					else
-						$output[ $new_key ] = $dest_data[ $field_key ];
-				}
-			}
-		}
-
-		return $output;
 	}
 
 
@@ -414,19 +442,18 @@ class GeotWP_Links_Importer {
 			return false;
 
 		// Post Title
-		if( isset( $fields['post_title'] ) ) {
-			$post_title = ! empty( $fields['post_title'] ) ? sanitize_text_field( $fields['post_title'] ) : 'GeoLinks Title Default';
+		$post_title = ! empty( $fields['post_title'] ) ? sanitize_text_field( $fields['post_title'] ) : esc_html__( 'GeoLinks Title Default', 'geot' );
 
-			unset( $fields['post_title'] );
-		} else
-			$post_title = 'GeoLinks Title Default';
+		$post_name = ! empty( $fields['post_slug'] ) ? sanitize_title( $fields['post_slug'] ) : sanitize_title( $post_title );
 
 		// Create Posts
-		if( ( ! isset( $fields['post_id'] ) || empty( $fields['post_id'] ) ) ||
-		  empty( get_post( absint( $fields['post_id'] ) ) ) ) {
+		if( empty( $fields['post_id'] ) || empty( get_post( absint( $fields['post_id'] ) ) ) ) {
+
+			$mode = 'insert';
 
 			$args = [
 				'post_title'	=> $post_title,
+				'post_name'		=> $post_name,
 				'post_type'		=> 'geol_cpt',
 				'post_status'	=> 'publish',
 			];
@@ -435,97 +462,69 @@ class GeotWP_Links_Importer {
 		
 		} else {
 
-			if( $post_title != 'GeoLinks Title Default' ) {
+			$mode = 'update';
 
-				$args = [
-					'ID'			=> absint( $fields['post_id'] ),
-					'post_title'	=> $post_title,
-				];
+			$args = [
+				'ID'			=> absint( $fields['post_id'] ),
+				'post_title'	=> $post_title,
+			];
 
-				$post_id = wp_update_post( $args );
-			} else
-				$post_id = absint( $fields['post_id'] );
+			$post_id = wp_update_post( $args );
 		}
-
-		// remove post ID
-		if( isset( $fields['post_id'] ) )
-			unset( $fields['post_id'] );
 
 
 		$post 		= get_post( $post_id );
 		$input		= geotWPL_options( $post_id );
-		$settings 	= geotWPL_settings();
+		//$settings 	= geotWPL_settings();
 
 
-		// Post Name
-		if( isset( $fields['source_slug'] ) ) {
+		update_option('loop_31', print_r($fields,true));
+		update_option('loop_32', print_r($input,true));
 
-			if( isset( $post->post_name ) )
-				$input['source_slug'] = $post->post_name == $fields['source_slug'] ? sanitize_title( $fields['source_slug'] ) : $post->post_name;
-			else
-				$input['source_slug'] = sanitize_title( $fields['source_slug'] );
-
-			unset( $fields['source_slug'] );
-		}
+		// Source Slug
+		$input['source_slug'] = $post->post_name == $fields['source_slug'] ? sanitize_title( $fields['source_slug'] ) : $post->post_name;
 
 		// Status Code
-		if( isset( $fields['status_code'] ) ) {
-			$input['status_code'] = is_numeric( $fields['status_code'] ) ? sanitize_title( $fields['status_code'] ) : 302;
-			unset( $fields['status_code'] );
-		}
+		$input['status_code'] = ! empty( $fields['status_code'] ) && is_numeric( $fields['status_code'] ) ? sanitize_title( $fields['status_code'] ) : 302;
 
 		// Dest Default
-		if( isset( $fields['dest_default'] ) ) {
-			$input['dest_default'] = esc_url_raw( $input['dest_default'] );
-			unset( $fields['dest_default'] );
+		$input['dest_default'] = ! empty( $input['dest_default'] ) ? esc_url_raw( $input['dest_default'] ) : '';
+
+		// If it is new, the counter clicks are 0
+		if( $mode == 'insert' ) {
+			$input['count_click'] = 0;
+			$input['click_default'] = 0;
 		}
 
-		// Count Click
-		if( isset( $fields['count_click'] ) ) {
-			$input['count_click'] = $fields['count_click'];
-			unset( $fields['count_click'] );
-		}
-
-		// Click Default
-		if( isset( $fields['click_default'] ) ) {
-			$input['click_default'] = $fields['click_default'];
-			unset( $fields['click_default'] );
-		}
 
 		// Destinations
-		if( isset( $fields ) && ! empty( $fields ) ) {
-			foreach( $fields as $dest_key => $dest_value ) {
-				
-				if( strpos( $dest_key, 'dest_' ) === FALSE )
+		if( ! empty( $fields['dest'] ) ) {
+
+			// Keys to delete
+			$delete = array_diff( array_keys( $input['dest'] ), array_keys( $fields['dest'] ) );
+
+			// Delete destinations keys
+			foreach( $delete as $delete_key )
+				unset( $input['dest'][ $delete_key ] );
+
+			// Loop destination to update
+			foreach( $fields['dest'] as $dest_key => $dest_data ) {
+
+				if( empty( $dest_key ) )
 					continue;
 
-				$akey = explode( '_', $dest_key );
+				// Counter click to 0 if it is a new destination
+				if( ! isset( $input['dest'][ $dest_key ] ) )
+					$input['dest'][ $dest_key ]['count_dest'] = 0;
 
-				if( count( $akey ) != 3 )
-					continue;
-
-				$key = 'dest_' . absint( $akey[1] );
-				$field = sanitize_key( $akey[2] );
-
-				if( in_array( $field, [ 'countries', 'regions' ] ) )
-					$input['dest'][ $key ][ $field ] = ! empty( trim( $dest_value ) ) ? explode( ',', $dest_value ) : [];
-				else
-					$input['dest'][ $key ][ $field ] = $dest_value;
-			}
-
-			// Verify
-			foreach( $input['dest'] as $ikey => $idata ) {
-
-				$delete  = true;
-				foreach( $idata as $value ) {
-					if( ! empty( $value ) )
-						$delete = false;
-				}
-
-				if( $delete )
-					unset( $input['dest'][$ikey] );
+				// Loop slug destination
+				foreach( $dest_data as $slug => $value )
+					$input['dest'][ $dest_key ][ $slug ] = $value;
 			}
 		}
+
+
+		update_option('loop_33', print_r($input,true));
 
 		$input = apply_filters( 'geol/import/options', $input, $post_id );
 
