@@ -41,7 +41,9 @@ class GeotWP_Links_Importer {
 			'cities'		=> esc_html__( 'Geot Cities', 'geot' ),
 			'states'		=> esc_html__( 'Geot States', 'geot' ),
 			'zipcodes'		=> esc_html__( 'Geot Zipcodes', 'geot' ),
-			'radius'		=> esc_html__( 'Geot Radius', 'geot' ),
+			'radius_km'		=> esc_html__( 'Geot Radius KM', 'geot' ),
+			'radius_lat'	=> esc_html__( 'Geot Radius Lat', 'geot' ),
+			'radius_lng'	=> esc_html__( 'Geot Radius Lng', 'geot' ),
 			'device'		=> esc_html__( 'Geot Device', 'geot' ),
 			'ref'			=> esc_html__( 'Geot Referrer URL', 'geot' ),
 			//'count_dest'	=> esc_html__( 'Stats by Destination', 'geot' ),
@@ -378,6 +380,12 @@ class GeotWP_Links_Importer {
 
 				// Destination
 				foreach( array_keys( $this->dest ) as $dest_slug ) {
+
+					// If it is key and it is no set
+					if( $dest_slug == 'key' && ! isset( $dest_data[ 'key' ] ) ) {
+						$export_content[ $export_key ][ 'key' ] = $dest_key;
+						continue;
+					}
 
 					// If the slug not exist
 					if( ! isset( $dest_data[ $dest_slug ] ) ) {
