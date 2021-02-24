@@ -70,7 +70,10 @@ class Geol_Redirects {
 			foreach ( $opts['dest'] as $key => $redirect ) {
 
 				$redirect = apply_filters( 'geol/redirect_params', $redirect, $post_id );
-
+				// if not url in the redirect continue to next rule
+				if( empty( $redirect['url'] ) ) {
+					continue;
+				}
 				// validate redirect
 				if ( $this->validate_redirection( $redirect ) ) {
 
