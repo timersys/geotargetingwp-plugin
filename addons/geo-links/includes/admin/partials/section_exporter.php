@@ -29,19 +29,6 @@
 									</select>
 								</td>
 							</tr>
-							<tr>
-								<th>
-									<?php esc_html_e( 'Which fields should be exported?*', 'geot' ); ?>
-								</th>
-								<td>
-									<select multiple="multiple" class="geot-chosen-select-multiple" name="geol[fields][]" data-placeholder="<?php esc_html_e( 'Type the fields', 'geot' ); ?>">
-										<?php foreach( $geol_fields as $field_key => $field_label ) : ?>
-											<option value="<?php echo $field_key; ?>"><?php echo $field_label; ?></option>
-										<?php endforeach; ?>
-									</select>
-									<p class="help">*&nbsp;<?php esc_html_e('If you leave empty, it will export all the fields.', 'geot') ?></p>
-								</td>
-							</tr>
 						</tbody>
 					</table>
 				</div>

@@ -141,47 +141,10 @@ class GeotWP_Links_Importer {
 	 */
 	public function importer() {
 
-		if( isset( $_GET['step'] ) ) {
-
-			if( $_GET['step'] == 'mapping' ) {
-
-				$transient_name = sprintf( 'geolinks_import_%s', get_current_user_id() );
-				$content = get_transient( $transient_name );
-
-				$content_header = $content[0];
-				$content_example = $content[1];
-
-				$fields = $this->main;
-
-				// The last
-				end( $content_header );
-				$counter_header = 15;
-				if( strpos( current( $content_header ), 'dest_' ) !== FALSE ) {
-					$a_header = explode( '_', current( $content_header ) );
-					$counter_header = absint( $a_header[1] );
-				}
-
-				$select_key = 0;
-
-				for( $i = 0; $i <= $counter_header; $i++ ) {
-					foreach( $this->dest as $dest_key => $dest_value ) {
-						$new_key = str_replace('dest_', 'dest_' . $i . '_', $dest_key );
-						$fields[ $new_key ] = $dest_value . ' ' . $i;
-					}
-				}
-
-				reset( $content_header );
-				$fields['no_import'] = esc_html__( 'Do not Import', 'geot' );
-
-				include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/section_importer_mapping.php';
-			
-			} else {
-
-				$transient_name = sprintf( 'geolinks_imported_%s', get_current_user_id() );
-				$counter = get_transient( $transient_name );
-
-				include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/section_importer_done.php';
-			}
+		if( isset( $_GET['step'] ) && $_GET['step'] == 'done' ) {
+			$counter = isset( $_GET['counter'] ) ? absint( $_GET['counter'] ) : 0;
+			include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/section_importer_done.php';
+		
 		} else
 			include_once GEOTWP_L_PLUGIN_DIR . 'includes/admin/partials/section_importer_file.php';
 	}
@@ -199,7 +162,6 @@ class GeotWP_Links_Importer {
 		];
 
 		$geol_list = get_posts( $args );
-		$geol_fields = $this->fields;
 		$errors = '';
 
 		if( isset( $this->error ) )
@@ -235,95 +197,72 @@ class GeotWP_Links_Importer {
 		$post_data = $_POST['geol'];
 
 		if( $post_data['section'] != 'import' )
+			return;			
+		
+		// Check if exist $_FILE
+		if( ! isset( $_FILES['geol'] ) ) {
+			$this->error->add( 'error', esc_html__( 'Empty File', 'geot' ) );
 			return;
-
-		// Name Transient
-		$transient_name = sprintf( 'geolinks_import_%s', get_current_user_id() );
-			
-		// If it is mapping step
-		if( isset( $_GET['step'] ) && $_GET['step'] == 'mapping' ) {
-
-			$to_save = [];
-			$fields_keys = array_map( 'esc_html', $post_data['fields'] );
-			$content = get_transient( $transient_name );
-
-			foreach( $content as $line_key => $line_data ) {
-
-				// Ignore header
-				if( $line_key == 0 )
-					continue;
-
-				foreach( $fields_keys as $key => $field ) {
-					if( $line_data[ $key ] == 'no_import' )
-						continue;
-
-					$to_save[$line_key][ $field ] = $line_data[ $key ];
-				}
-			}
-
-			$counter = 0;
-			foreach( $to_save as $fields_save ) {
-				if( $this->import_items( $fields_save ) )
-					$counter++;
-			}
-
-			delete_transient( $transient_name );
-
-			// Imported counter
-			$transient_name = sprintf( 'geolinks_imported_%s', get_current_user_id() );
-			set_transient( $transient_name, $counter, 5 * MINUTE_IN_SECONDS );
-
-			
-			wp_redirect( add_query_arg( [
-				'step' => 'done',
-			] ) );
-
-		} else {
-
-			// Check if exist $_FILE
-			if( ! isset( $_FILES['geol'] ) ) {
-				$this->error->add( 'error', esc_html__( 'Empty File', 'geot' ) );
-				return;
-			}
-
-			// Check if it was uploaded using HTTP POST 
-			if( ! is_uploaded_file( $_FILES['geol']['tmp_name'] ) ) {
-				$this->error->add( 'error', esc_html__( 'File was not uploaded', 'geot' ) );
-				return;
-			}
-
-			// Check if it has errors
-			if( ! empty( $_FILES['geol']['error'] ) ) {
-				$this->error->add( 'error', esc_html__( 'Error in the file', 'geot' ) );
-				return;
-			}
-
-			$mimes_allowed = [ 'application/vnd.ms-excel','text/plain','text/csv','text/tsv' ];
-			$mime_type = mime_content_type( $_FILES['geol']['tmp_name'] );
-
-			if( ! in_array( $mime_type, $mimes_allowed ) ) {
-				$this->error->add( 'error', esc_html__( 'Only is allowed the CSV files', 'geot' ) );
-				return;
-			}
-
-			// file path
-			$file_path = $_FILES['geol']['tmp_name'];
-			$content = [];
-			
-			$handle = fopen( $file_path, 'r');
-
-			while( ( $line = fgetcsv( $handle, 10000, ',' ) ) !== FALSE ) {
-				$content[] = $line;
-			}
-
-			fclose( $handle );
-
-			set_transient( $transient_name, $content, HOUR_IN_SECONDS );
-
-			wp_redirect( add_query_arg( [
-				'step' => 'mapping',
-			] ) );
 		}
+
+		// Check if it was uploaded using HTTP POST 
+		if( ! is_uploaded_file( $_FILES['geol']['tmp_name'] ) ) {
+			$this->error->add( 'error', esc_html__( 'File was not uploaded', 'geot' ) );
+			return;
+		}
+
+		// Check if it has errors
+		if( ! empty( $_FILES['geol']['error'] ) ) {
+			$this->error->add( 'error', esc_html__( 'Error in the file', 'geot' ) );
+			return;
+		}
+
+		$mimes_allowed = [ 'application/vnd.ms-excel','text/plain','text/csv','text/tsv' ];
+		$mime_type = mime_content_type( $_FILES['geol']['tmp_name'] );
+
+		if( ! in_array( $mime_type, $mimes_allowed ) ) {
+			$this->error->add( 'error', esc_html__( 'Only is allowed the CSV files', 'geot' ) );
+			return;
+		}
+
+		// file path
+		$file_path = $_FILES['geol']['tmp_name'];
+		$content = [];
+		
+		$handle = fopen( $file_path, 'r');
+
+		while( ( $line = fgetcsv( $handle, 10000, ',' ) ) !== FALSE ) {
+			$content[] = $line;
+		}
+
+		fclose( $handle );
+
+
+		$to_save = [];
+		$headers = $content[0];
+
+		foreach( $content as $line_key => $line_data ) {
+
+			// Ignore header
+			if( $line_key == 0 )
+				continue;
+
+			foreach( $line_data as $field_key => $field_value )
+				$to_save[ $line_key ][ $headers[ $field_key ] ] = $field_value;
+		}
+
+		$counter = 0;
+		foreach( $to_save as $fields_save ) {
+			if( $this->import_items( $fields_save ) )
+				$counter++;
+		}
+
+
+		wp_redirect( add_query_arg( [
+			'step' 		=> 'done',
+			'counter'	=> $counter,
+		] ) );
+
 
 		return true;
 	}
@@ -370,19 +309,9 @@ class GeotWP_Links_Importer {
 		// Loop
 		foreach( $posts as $post ) {
 
-			if( ! empty( $post_data['fields'] ) ) {
-
-				// Match fields
-				$imain = array_intersect( $post_data['fields'], array_keys( $this->main ) );
-				$idests = array_intersect( $post_data['fields'], array_keys( $this->dest ) );
-
-				$fields_values[] = $this->fields_values( $post, $imain, $idests );
-			} else {
-
-				$fields_values[] = $this->fields_values(
-					$post, array_keys( $this->main ), array_keys( $this->dest )
-				);
-			}
+			$fields_values[] = $this->fields_values(
+				$post, array_keys( $this->main ), array_keys( $this->dest )
+			);
 		}
 
 		// Chekc if it is empty
@@ -400,7 +329,6 @@ class GeotWP_Links_Importer {
 				$aux_counter = count( $field );
 				$header = array_keys( $field );
 			}
-
 		}
 
 		ob_start();
@@ -481,6 +409,9 @@ class GeotWP_Links_Importer {
 	 * @return mixed
 	 */
 	public function import_items( $fields = [] ) {
+
+		if( empty( $fields ) )
+			return false;
 
 		// Post Title
 		if( isset( $fields['post_title'] ) ) {

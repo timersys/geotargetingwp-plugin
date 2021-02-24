@@ -3,8 +3,8 @@ Contributors: timersys
 Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
-Tested up to: 5.6
-Stable tag: 3.3.3.1
+Tested up to: 5.6.1
+Stable tag: 3.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,12 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.3.4 - Feb 15 2021 =
+* Fix geolinks Importer
+* Fix gps on mobile not falling back to ip geolocation
+* Automatically remove our script from autooptimize due to high wrong results
+* Update translations files and added countries from dropdown
+
 = 3.3.3.1 - Jan 19 2021 =
 * Fix: Issue with some redirects not working when used page rules
 * Fix: Taxonomy rules not working on archives pages
