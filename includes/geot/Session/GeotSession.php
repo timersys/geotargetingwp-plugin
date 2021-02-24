@@ -148,7 +148,9 @@ class GeotSession {
 		}
 		$opts = geot_settings();
 		// if we have cache mode, load geotarget now to set session before content
-		if ( ! $this->sessionRedirects() && ( ! isset( $opts['cache_mode'] ) || ! $opts['cache_mode'] ) ) {
+		// If we have sessions redirects check if ajax mode it's enabled.
+		if ( ( ! $this->sessionRedirects() || ( isset( $opts['ajax_mode'] ) && '1' == $opts['ajax_mode'] ) )
+		     && ( ! isset( $opts['cache_mode'] ) || ! $opts['cache_mode'] ) ) {
 			$start_session = false;
 		}
 		return apply_filters( 'geot/sessions/start_session', $start_session );
