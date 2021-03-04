@@ -563,7 +563,7 @@ class GeotWP_Metaboxes {
 	 * Saves the post meta of redirections
 	 * @since 1.0.0
 	 */
-	function save_meta_options_geol_cpt( $post_id ) {
+	public function save_meta_options_geol_cpt( $post_id ) {
 
 		// Verify that the nonce is set and valid.
 		if ( ! isset( $_POST['geol_options_nonce'] ) || ! wp_verify_nonce( $_POST['geol_options_nonce'], 'geol_options' ) ) {
@@ -620,7 +620,8 @@ class GeotWP_Metaboxes {
 			$i = 0;
 			foreach ( $opts['dest'] as $data ) {
 				$key                                = 'dest_' . $i;
-				$input['dest'][ $key ]['label']    = esc_attr( $data['label'] );
+				$input['dest'][ $key ]['key']		= $key;
+				$input['dest'][ $key ]['label']    	= esc_attr( $data['label'] );
 				$input['dest'][ $key ]['url']       = esc_url_raw( $data['url'] );
 				$input['dest'][ $key ]['countries'] = isset( $data['countries'] ) ? array_map( 'esc_attr', $data['countries'] ) : [];
 				$input['dest'][ $key ]['regions']   = isset( $data['regions'] ) ? array_map( 'esc_attr', $data['regions'] ) : [];
@@ -636,7 +637,7 @@ class GeotWP_Metaboxes {
 				if ( isset( $settings['opt_stats'] ) && $settings['opt_stats'] == 1 ) {
 					$input['dest'][ $key ]['count_dest'] = isset( $outs['dest'][ $key ]['count_dest'] ) ? $outs['dest'][ $key ]['count_dest'] : 0;
 				}
-				$i ++;
+				$i++;
 			}
 		}
 

@@ -39,5 +39,6 @@
 				</div>
 			</form>
 		</div>
+		<a class="return_link" href="<?php echo esc_url( add_query_arg( [ 'page' => 'geol-importer' ] ) ); ?>"><span class="dashicons dashicons-arrow-left-alt2"></span>&nbsp;<?php esc_html_e( 'Import Geolinks', 'geot' ); ?></a>
 	</div>
 </div>

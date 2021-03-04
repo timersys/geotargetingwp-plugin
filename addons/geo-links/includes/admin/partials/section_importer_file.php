@@ -21,6 +21,15 @@
 									<input type="file" name="geol" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 								</td>
 							</tr>
+							<tr>
+								<th>
+									<?php esc_html_e( 'Ignore first row:', 'geot' ); ?>
+								</th>
+								<td>
+									<input type="checkbox" name="geol[ignore]" value="yes" />
+									<?php esc_html_e( 'Checked if the first row are the headers.', 'geot' ); ?>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -31,5 +40,6 @@
 				</div>
 			</form>
 		</div>
+		<a class="return_link" href="<?php echo esc_url( add_query_arg( [ 'page' => 'geol-exporter' ] ) ); ?>"><span class="dashicons dashicons-arrow-left-alt2"></span>&nbsp;<?php esc_html_e( 'Export Geolinks', 'geot' ); ?></a>
 	</div>
 </div>
