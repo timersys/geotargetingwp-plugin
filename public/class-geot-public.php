@@ -55,9 +55,11 @@ class GeotWP_Public {
 			add_filter( 'woocommerce_short_description', [ $this, 'check_if_geotargeted_content' ], 99 );
 			//woocommerce
 			add_filter( 'woocommerce_product_related_posts_query', [ $this, 'woocommerce_related_products' ], 99 );
-
-			add_action( 'wp', [ $this, 'remove_woo_product' ] );
-			add_filter( 'wp', [ $this, 'disable_woo_product' ] );
+			// if no ajax also filter purchase capabilities. If ajax, let's js handle it
+			if ( ! isset( $this->opts['ajax_mode'] ) || $this->opts['ajax_mode'] != '1' ) {
+				add_action( 'wp', [ $this, 'remove_woo_product' ] );
+				add_filter( 'wp', [ $this, 'disable_woo_product' ] );
+			}
 		}
 		// exclude js from autooptimize, too many problems
 		add_filter('autoptimize_filter_js_exclude', [ $this, 'exclude_from_ao_cache' ] );
