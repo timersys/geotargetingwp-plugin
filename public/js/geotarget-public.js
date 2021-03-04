@@ -112,6 +112,7 @@
                             'ex_region': _this.data('ex_region') || '',
                             'default': _this.data('default') || '',
                             'locale': _this.data('locale') || 'en',
+                            'geo_mode': _this.data('geo_mode') || '',
                         }
                     }
                 });

@@ -472,11 +472,9 @@ class GeotWP_Ajax {
 	 */
 	public function radius_filter( $geot ) {
 
-		if ( geot_target_radius( $geot['region'], $geot['ex_filter'], $geot['filter'] ) ) {
-			return true;
-		}
+		$target = geot_target_radius( $geot['region'], $geot['ex_filter'], $geot['filter'] );
 
-		return false;
+		return $geot['geo_mode'] == 'include' ? $target : ! $target ;
 	}
 
 	/**

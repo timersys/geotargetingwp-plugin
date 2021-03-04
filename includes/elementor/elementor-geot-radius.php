@@ -50,6 +50,26 @@ class Elementor_GeoRadius {
 				'content_classes' => 'elementor-descriptor',
 			]
 		);*/
+		$control->add_control(
+			'radius_mode',
+			[
+				'label'			=> esc_html__( 'Geo Mode', 'geot' ),
+				'type'			=> \Elementor\Controls_Manager::CHOOSE,
+				'options' => [
+					'include' => [
+						'title' => esc_html__( 'Include', 'geot' ),
+						'icon' => 'fa fa-check',
+					],
+					'exclude' => [
+						'title' => esc_html__( 'Exclude', 'geot' ),
+						'icon' => 'fa fa-times',
+					],
+
+				],
+				'default' => 'include',
+				'toggle' => true,
+			]
+		);
 
 		$control->add_control(
 			'radius_km',
@@ -100,8 +120,8 @@ class Elementor_GeoRadius {
 		if ( empty( $radius_km ) || empty( $radius_lat ) || empty( $radius_lng ) ) {
 			return true;
 		}
-
-		return geot_target_radius( $radius_lat, $radius_lng, $radius_km );
+		$target = geot_target_radius( $radius_lat, $radius_lng, $radius_km );
+		return $settings['radius_mode'] == 'include'  ? $target : ! $target;
 	}
 
 
@@ -117,13 +137,14 @@ class Elementor_GeoRadius {
 		$radius_km	= isset( $settings['radius_km'] ) ? trim( $settings['radius_km'] ) : '';
 		$radius_lat = isset( $settings['radius_lat'] ) ? trim( $settings['radius_lat'] ) : '';
 		$radius_lng = isset( $settings['radius_lng'] ) ? trim( $settings['radius_lng'] ) : '';
+		$radius_mode = isset( $settings['radius_mode'] ) ? trim( $settings['radius_mode'] ) : 'include';
 
 
 		if ( empty( $radius_km ) || empty( $radius_lat ) || empty( $radius_lng ) ) {
 			return;
 		}
 
-		echo '<div class="geot-ajax geot-filter" data-action="radius_filter" data-filter="' . $radius_km . '" data-region="' . $radius_lat . '" data-ex_filter="' . $radius_lng . '">';
+		echo '<div class="geot-ajax geot-filter" data-geo_mode="'. $radius_mode .'" data-action="radius_filter" data-filter="' . $radius_km . '" data-region="' . $radius_lat . '" data-ex_filter="' . $radius_lng . '">';
 	}
 
 
