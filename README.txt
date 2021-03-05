@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
 Tested up to: 5.6.1
-Stable tag: 3.3.4
+Stable tag: 3.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,12 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.3.5 - March 5 2021 =
+* Fix: Woocommerce buy button issue with cache and ajax mode
+* Feature: Radius geo mode to select include or exclude
+* Fix: Session starting when it shouldn't with session redirects
+* Fix: Changed geolinks export structure
+
 = 3.3.4 - Feb 15 2021 =
 * Fix geolinks Importer
 * Fix gps on mobile not falling back to ip geolocation
