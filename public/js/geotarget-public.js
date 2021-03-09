@@ -196,10 +196,10 @@
                             let id = remove[i];
                             let remove_class = '#post-' + id + ', .post-' + id;
                             if( geot.remove_class.length ) {
-                                remove_class = remove_class + ',' + geot.remove_class.replace('%id', id);
+                                remove_class = remove_class + ',' + GeotWP.replaceAll(geot.remove_class.replaceAll,'%id', id);
                             }
                             if( geot.remove_override_class.length ) {
-                                remove_class =  geot.remove_override_class.replace('%id', id);;
+                                remove_class = GeotWP.replaceAll(geot.remove_override_class,'%id', id);
                             }
                             $(remove_class).remove();
                         }
@@ -213,10 +213,10 @@
                                 '.post-' + id + ' .entry-content,' +
                                 '.post-' + id + ' .woocommerce-product-details__short-description';
                             if( geot.hide_class.length ) {
-                                hide_class = hide_class + ',' + geot.hide_class.replace('%id', id);;
+                                hide_class = hide_class + ',' + GeotWP.replaceAll(geot.hide_class.replaceAll,'%id', id);
                             }
                             if( geot.hide_override_class.length ) {
-                                hide_class =  geot.hide_override_class.replace('%id', id);;
+                                hide_class = GeotWP.replaceAll(geot.hide_override_class,'%id', id);
                             }
                             $( hide_class ).html('<p>' + hide[i].msg + '</p>');
                         }
@@ -234,6 +234,9 @@
             }
             if ( geot && geot.ajax )
                 GeotWP.request(data, onSuccess, error_cb);
+        },
+        replaceAll: function(str, find, replace) {
+            return str.replace(new RegExp(find, 'g'), replace);
         },
         /**
          * Start the geot dropdown widget
