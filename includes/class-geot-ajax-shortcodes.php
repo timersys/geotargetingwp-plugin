@@ -182,7 +182,7 @@ class GeotWP_Ajax_Shortcodes {
 			'lat'			    => '',
 			'lng'		        => '',
 			'html_tag'			=> 'div',
-			'geo_mode'          => 'include'
+			'geo_mode'          => 'show'
 		], $atts ) );
 
 		return '<' . $html_tag . ' class="geot-ajax geot-filter" data-geo_mode="'. $geo_mode .'" data-action="radius_filter" data-filter="' . $radius_km . '" data-region="' . $lat . '" data-ex_filter="' . $lng . '" >' . do_shortcode( $content ) . '</' . $html_tag . '>';

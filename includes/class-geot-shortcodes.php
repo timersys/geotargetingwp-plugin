@@ -182,7 +182,7 @@ class GeotWP_Shortcodes {
 	/**
 	 * Shows provided content only if the location
 	 * criteria are met.
-	 * [geot_filter_radius radius_km="100" lat="" lng="" geo_mode="include"]content[/geot_filter_radius]
+	 * [geot_filter_radius geo_mode="show" radius_km="100" lat="" lng="" ]content[/geot_filter_radius]
 	 *
 	 * @param $atts
 	 * @param $content
@@ -194,12 +194,12 @@ class GeotWP_Shortcodes {
 			'radius_km'   => '',
 			'lat'         => '',
 			'lng'         => '',
-			'geo_mode'    => 'include',
+			'geo_mode'    => 'show',
 		], $atts ) );
 
 
 		if ( geot_target_radius( $lat, $lng, $radius_km ) ) {
-			return $geo_mode == 'include' ? do_shortcode( $content ) : '';
+			return $geo_mode == 'include' || $geo_mode == 'show' ? do_shortcode( $content ) : '';
 		}
 
 		return '';

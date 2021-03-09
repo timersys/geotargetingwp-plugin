@@ -474,7 +474,7 @@ class GeotWP_Ajax {
 
 		$target = geot_target_radius( $geot['region'], $geot['ex_filter'], $geot['filter'] );
 
-		return $geot['geo_mode'] == 'include' ? $target : ! $target ;
+		return $geot['geo_mode'] == 'include' ||  $geot['geo_mode'] == 'show' ? $target : ! $target ;
 	}
 
 	/**
