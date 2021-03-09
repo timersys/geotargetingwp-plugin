@@ -243,7 +243,7 @@ class GeotWP_R_Public {
 		if( ! empty( $opts['wpml'] ) ) {
 			// only run for WPML, polylang wpml api is not working
 			if( ! function_exists('PLL') ) {
-				$final_url = apply_filters( 'wpml_permalink', rtrim( $final_url, '/' ) . '/', $opts['wpml'], 1 );
+				$final_url = apply_filters( 'wpml_permalink', rtrim( $final_url, '/' ) . '/', $opts['wpml'], apply_filters( 'geot/wpml_permalink/full_resolution_mode', 0 ) );
 			} else {
 				$links =  PLL()->links_model;
 				$path = $links->remove_language_from_link( parse_url( $final_url, PHP_URL_PATH ) );
