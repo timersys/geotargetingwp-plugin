@@ -8,6 +8,11 @@
     "geolocation",
     "plugin"
   ],
+  "config": {
+    "platform": {
+      "php": "5.6.1"
+    }
+  },
   "license": "GPL-2.0+",
   "authors": [
     {
