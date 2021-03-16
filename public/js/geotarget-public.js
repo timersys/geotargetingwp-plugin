@@ -250,6 +250,7 @@
                     if (!country_code.length)
                         return;
                     GeotWP.createCookie('geot_country', country_code, 999);
+                    GeotWP.createCookie('geot_rocket_country', country_code, 999);
                     if (geot.dropdown_redirect && geot.dropdown_redirect.length) {
                         window.location.replace(geot.dropdown_redirect);
                     } else {
