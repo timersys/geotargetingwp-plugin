@@ -215,7 +215,10 @@ class GeotCore {
 		}
 
 		// if two ips provided, on use the first
-		return strstr( $ip, ',' ) === false ? $ip : strstr( $ip, ',', true );
+		$ip = strstr( $ip, ',' ) === false ? $ip : strstr( $ip, ',', true );
+
+		// strip port
+		return	strstr( $ip, ':') === false ? $ip : strstr( $ip, ':', true);
 	}
 
 	/**
