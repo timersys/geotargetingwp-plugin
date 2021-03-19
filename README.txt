@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
 Tested up to: 5.6.1
-Stable tag: 3.3.5
+Stable tag: 3.3.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,15 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.3.5 - March 19 2021 =
+* Fix: Ajax mode replace %id script for multiple classes in remove_class hook
+* Fix: WPML changed to full resolution mode for slug translation in categories
+* Feature: Added geo mode to geot radius shortcodes and elementor radius feature
+* Fix: Country dropdown also update wprocket cookie now
+* Fix: Limit composer php version
+* Fix: Some server where returning port on IP address making it fail
+* Fix: Missing regions in php ajax functions
+
 = 3.3.5 - March 5 2021 =
 * Fix: Woocommerce buy button issue with cache and ajax mode
 * Feature: Radius geo mode to select include or exclude
