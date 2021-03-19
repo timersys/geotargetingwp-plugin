@@ -58,11 +58,13 @@ function ajax_geotwp_filter_city( $args = [], $content = '' ) {
 function ajax_geotwp_filter_state( $args = [], $content = '' ) {
 	extract( wp_parse_args( $args, [
 		'state'         => '',
+		'region'         => '',
 		'exclude_state' => '',
+		'exclude_region' => '',
 		'html_tag'      => 'div',
 	] ) );
 
-	return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $state . '" data-ex_filter="' . $exclude_state . '" >' . do_shortcode( $content ) . '</' . $html_tag . '>';
+	return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="state_filter" data-filter="' . $state . '"  data-region="' . $region . '" data-ex_filter="' . $exclude_state . '" data-ex_region="' . $exclude_region . '" >' . do_shortcode( $content ) . '</' . $html_tag . '>';
 }
 
 /**
@@ -78,11 +80,13 @@ function ajax_geotwp_filter_state( $args = [], $content = '' ) {
 function ajax_geotwp_filter_zip( $args = [], $content = '' ) {
 	extract( wp_parse_args( $args, [
 		'zip'         => '',
+		'region'         => '',
 		'exclude_zip' => '',
+		'exclude_region' => '',
 		'html_tag'    => 'div',
 	] ) );
 
-	return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $zip . '" data-ex_filter="' . $exclude_zip . '" >' . do_shortcode( $content ) . '</' . $html_tag . '>';
+	return '<' . $html_tag . ' class="geot-ajax geot-filter" data-action="zip_filter" data-filter="' . $zip . '" data-ex_filter="' . $exclude_zip . '" data-region="' . $region . '" data-ex_region="' . $exclude_region . '">' . do_shortcode( $content ) . '</' . $html_tag . '>';
 }
 
 /**
