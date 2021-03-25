@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
 Tested up to: 5.6.1
-Stable tag: 3.3.5.1
+Stable tag: 3.3.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,7 +37,10 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
-= 3.3.5 - March 19 2021 =
+= 3.3.5.2 - March 20 2021 =
+* HOTFIX for bug with ipv6 addresses introduced on previous version
+
+= 3.3.5.1 - March 19 2021 =
 * Fix: Ajax mode replace %id script for multiple classes in remove_class hook
 * Fix: WPML changed to full resolution mode for slug translation in categories
 * Feature: Added geo mode to geot radius shortcodes and elementor radius feature
