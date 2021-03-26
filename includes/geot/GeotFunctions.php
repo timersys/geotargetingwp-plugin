@@ -219,7 +219,11 @@ class GeotCore {
 
 		// strip port IF NOT ipv6 2001:569:be89:6200:5da6:745a:84fe:d899
 		if ( strpos( $ip, ':') !== false ) {
-			$ip = parse_url('http://'.$ip, PHP_URL_HOST);
+			// ipv6
+			if( count( explode(':', $ip ) ) > 2 && strpos( $ip, '[') !== false )
+				$ip = parse_url('http://'.$ip, PHP_URL_HOST);
+			elseif( count( explode(':', $ip ) ) === 2 )
+				$ip = strstr( $ip, ':', true );
 		}
 
 		return $ip;
