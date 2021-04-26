@@ -24,7 +24,7 @@ class GeotEmails {
 	public static function AuthenticationException($msg = "") {
 		if ( false === get_transient( 'geot_AuthenticationException' ) ) {
 			$args = geot_settings();
-			$host = gethostname();
+			$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : gethostname();
 			set_transient( 'geot_AuthenticationException', true, 2 * 3600 );
 			$message = '<p>'. sprintf( __( 'Your <a href="%s">GeotargetingWP</a> license is wrong (%s). Please enter correct one to continue using the plugin on %s.', 'geot' ),
 				'https://geotargetingwp.com/dashboard/',
@@ -39,8 +39,13 @@ class GeotEmails {
 
 	public static function InvalidSubscriptionException( $getMessage ) {
 		if ( false === get_transient( 'geot_InvalidSubscriptionException' ) ) {
+			$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : gethostname();
 			set_transient( 'geot_InvalidSubscriptionException', true, 2 * 3600 );
-			$message = sprintf( __( 'Your <a href="%s">GeotargetingWP</a> subscription is not active. Api returned following error: %s.', 'geot' ), 'https://geotargetingwp.com/dashboard/', $getMessage );
+			$message = sprintf( __( 'Your <a href="%s">GeotargetingWP</a> subscription is not active in %s. Api returned following error: %s.', 'geot' ),
+				'https://geotargetingwp.com/dashboard/',
+				$host,
+				$getMessage
+			);
 			$subject = __( 'Geotargeting plugin Error!', 'geot' );
 			$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
 			wp_mail( get_bloginfo( 'admin_email' ), $subject, $message, $headers );
