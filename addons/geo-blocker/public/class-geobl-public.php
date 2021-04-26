@@ -37,14 +37,10 @@ class GeotWP_Bl_Public {
 	 * @return bool
 	 */
 	public function __construct() {
-		$action_hook = defined( 'WP_CACHE' ) ? 'init' : 'wp';
 
-		if ( ! is_admin() && ! is_backend() && ! is_builder() &&
-		     ! defined( 'DOING_AJAX' ) && ! defined( 'DOING_CRON' )
-		) {
-			add_action( $action_hook, [ $this, 'handle_blockers' ] );
+		if ( ! is_admin() && ! is_backend() && ! defined( 'DOING_AJAX' ) && ! defined( 'DOING_CRON' ) && ! is_builder() ) {
+			add_action( apply_filters( 'geotr/action_hook', 'wp' ), [ $this, 'handle_blockers' ] );
 		}
-
 		add_action( 'wp_ajax_geo_template', [ $this, 'view_template' ], 1 );
 	}
 
