@@ -1,0 +1,3887 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Geotargeting WP\n"
+"POT-Creation-Date: 2021-01-29 11:50-0300\n"
+"PO-Revision-Date: 2021-04-15 18:10+0200\n"
+"Last-Translator: \n"
+"Language-Team: Timersys WP LLC\n"
+"Language: en_EN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;esc_attr__;_x;_ex;"
+"esc_html_x;esc_attr_x;_n\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: addons/geo-blocker/admin/includes/class-geobl-metaboxes.php:39
+#: admin/includes/class-geot-metaboxes.php:300
+msgid "Block Rules"
+msgstr ""
+
+#: addons/geo-blocker/admin/includes/class-geobl-metaboxes.php:47
+#: admin/includes/class-geot-metaboxes.php:308
+msgid "Block Options"
+msgstr ""
+
+#: addons/geo-blocker/admin/includes/class-geobl-metaboxes.php:128
+#: admin/includes/class-geot-metaboxes.php:377
+msgid "Block user if"
+msgstr ""
+
+#: addons/geo-blocker/admin/includes/class-geobl-metaboxes.php:129
+#: admin/includes/class-geot-metaboxes.php:378
+msgid "Create a set of rules to determine if the user will be blocked"
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:12
+msgid "Template"
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:17
+#, php-format
+msgid "Currently you have a template in <b>%s</b>."
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:19
+#, php-format
+msgid "<a href=\"%s\" target=\"_blank\">View your template</a>"
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:22
+#, php-format
+msgid ""
+"If you want to build your own block template, you need to place a file "
+"called <b>%s</b> in your current theme for overriding this template or a "
+"global file called <b>%s</b> to override all templates."
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:24
+#, php-format
+msgid "<a href=\"%s\" target=\"_blank\">View the default template</a>"
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:32
+msgid "Message"
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:44
+msgid "Display a message to users being blocked."
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:48
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:73
+msgid "Exclude Search Engines ?"
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:51
+#: addons/geo-links/includes/admin/partials/tinymce_popup.php:44
+#: addons/geo-links/includes/admin/partials/tinymce_popup.php:55
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:46
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:55
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:66
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:76
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:87
+#: admin/includes/class-geot-dropdown-widget.php:148
+msgid "No"
+msgstr "Nein"
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:52
+#: addons/geo-links/includes/admin/partials/tinymce_popup.php:41
+#: addons/geo-links/includes/admin/partials/tinymce_popup.php:52
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:45
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:56
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:67
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:77
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:86
+#: admin/includes/class-geot-dropdown-widget.php:147
+msgid "Yes"
+msgstr "Ja"
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:54
+msgid "Exclude bots and crawlers from being blocked"
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:59
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:101
+msgid "IP Whitelist"
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/metaboxes/opts.php:62
+msgid "Exclude the following IPs from being blocked. Enter one per line"
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/settings-page.php:2
+msgid "Geo Blocker : "
+msgstr ""
+
+#: addons/geo-blocker/admin/partials/settings-page.php:7
+msgid "There isn't available options"
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl-cpt.php:37
+#: addons/geo-blocker/includes/class-geobl-cpt.php:38
+#: addons/geo-blocker/includes/class-geobl-cpt.php:39
+#: addons/geo-blocker/includes/class-geobl-cpt.php:45
+#: admin/partials/addons-page.php:35 admin/partials/setup-wizard-addons.php:32
+msgid "Geo Blocker"
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl-cpt.php:40
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:30
+#: addons/geo-redirects/includes/class-geotr-cpt.php:37
+msgid "Add New"
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl-cpt.php:41
+msgid "Add New Geo Block"
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl-cpt.php:42
+msgid "New Geo Block"
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl-cpt.php:43
+msgid "Edit Geo Block"
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl-cpt.php:44
+msgid "View Geo Block"
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl-cpt.php:46
+msgid "Search Geo Block"
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl-cpt.php:47
+msgid "Parent Geo Block:"
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl-cpt.php:48
+msgid "No Geo Blocks found."
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl-cpt.php:49
+msgid "No Geo Blocks found in Trash."
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl-helper.php:22
+msgid "Sorry but your access to this area is restricted"
+msgstr ""
+
+#: addons/geo-blocker/includes/class-geobl.php:143
+#: addons/geo-blocker/includes/class-geobl.php:151
+#: addons/geo-flags/lib/GeoFlags.php:133 addons/geo-flags/lib/GeoFlags.php:141
+#: addons/geo-links/includes/class-geolinks.php:103
+#: addons/geo-links/includes/class-geolinks.php:111
+#: addons/geo-redirects/includes/class-geotr.php:158
+#: addons/geo-redirects/includes/class-geotr.php:166
+#: includes/class-geot.php:305 includes/class-geot.php:313
+#: includes/geot/GeotFunctions.php:178 includes/geot/GeotFunctions.php:186
+#: includes/geot/Session/GeotSession.php:230
+#: includes/geot/Session/GeotSession.php:238
+#: includes/geot/Setting/GeotSettings.php:79
+#: includes/geot/Setting/GeotSettings.php:87
+#: includes/geot/Setting/GeotWizard.php:65
+#: includes/geot/Setting/GeotWizard.php:73
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: addons/geo-blocker/public/partials/geobl-template.php:7
+msgid "Access denied"
+msgstr "Zugriff verweigert"
+
+#: addons/geo-links/includes/admin/class-geolinks-admin.php:64
+msgid "Failed"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-admin.php:65
+msgid "Ok"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-ajax.php:31
+msgid "Source available."
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-ajax.php:62
+msgid "Source in use. Please choose other source"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:36
+msgid "Destination Label"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:37
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:30
+#: addons/geo-redirects/admin/class-geotr-admin.php:58
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:12
+#: admin/includes/class-geot-metaboxes.php:428
+msgid "Destination URL"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:38
+msgid "Geot Countries"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:39
+msgid "Geot Regions"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:40
+msgid "Geot Cities"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:41
+msgid "Geot States"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:42
+msgid "Geot Zipcodes"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:43
+msgid "Geot Radius"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:44
+msgid "Geot Device"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:45
+msgid "Geot Referrer URL"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:46
+msgid "Stats by Destination"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:50
+msgid "ID"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:51
+msgid "Title"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:52
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-opts.php:12
+msgid "Link Slug"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:53
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-opts.php:26
+msgid "Redirection code"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:54
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-opts.php:35
+msgid "Default URL"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:55
+msgid "Stats Total Clicks"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:56
+msgid "Default Total Click"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:78
+#: addons/geo-links/includes/admin/partials/section_importer_done.php:3
+#: addons/geo-links/includes/admin/partials/section_importer_file.php:3
+#: addons/geo-links/includes/admin/partials/section_importer_file.php:8
+#: addons/geo-links/includes/admin/partials/section_importer_mapping.php:3
+msgid "Import"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:81
+#: addons/geo-links/includes/admin/partials/section_exporter.php:3
+#: addons/geo-links/includes/admin/partials/section_exporter.php:12
+msgid "Export"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:105
+#: addons/geo-links/includes/admin/class-geolinks-import.php:106
+msgid "Importer"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:114
+#: addons/geo-links/includes/admin/class-geolinks-import.php:115
+msgid "Exporter"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:165
+msgid "Do not Import"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:222
+#: addons/geo-links/includes/admin/class-geolinks-import.php:342
+msgid "Busted!"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:276
+msgid "Empty File"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:282
+msgid "File was not uploaded"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:288
+msgid "Error in the file"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:296
+msgid "Only is allowed the CSV files"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:352
+msgid "GeoLinks empty"
+msgstr ""
+
+#: addons/geo-links/includes/admin/class-geolinks-import.php:381
+msgid "Export empty"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-opts.php:17
+msgid "Minimum length accepted: 3"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-opts.php:30
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:97
+msgid "Add redirection code. Default to 302"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-opts.php:39
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:34
+msgid "https://:"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-opts.php:40
+msgid "Default url will be used when none of the rules below match the user"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-stats.php:6
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:20
+msgid "Label"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-stats.php:7
+#: admin/includes/class-geot-metaboxes.php:506
+msgid "Destinations"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-stats.php:8
+msgid "Clicks"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-stats.php:28
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-stats.php:34
+msgid "Default"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-stats.php:46
+msgid "Reset Stats"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-stats.php:51
+msgid "Please, first save destinations to see the stats"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:25
+msgid "Enter a friendly name to identify your links"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:35
+msgid "Where the user is going to be redirected if rules below match"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:40
+msgid "Geo Options"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:44
+#: admin/includes/acf-geot-v4.php:90 admin/includes/acf-geot-v5.php:105
+#: includes/elementor/elementor-geot-country.php:59
+#: includes/elementor/elementor-geot-country.php:99
+msgid "Countries"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:48
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:55
+msgid "Choose one or more countries"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:59
+#: admin/includes/acf-geot-v4.php:86 admin/includes/acf-geot-v5.php:101
+#: includes/elementor/elementor-geot-city.php:70
+#: includes/elementor/elementor-geot-city.php:108
+#: includes/elementor/elementor-geot-country.php:70
+#: includes/elementor/elementor-geot-country.php:108
+#: includes/elementor/elementor-geot-state.php:69
+#: includes/elementor/elementor-geot-state.php:107
+#: includes/elementor/elementor-geot-zipcode.php:67
+#: includes/elementor/elementor-geot-zipcode.php:105
+#: includes/geot/Setting/GeotSettings.php:276
+#: includes/plugins/wppopups/field_region.php:5
+msgid "Regions"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:63
+msgid "Choose one or more regions"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:73
+#, php-format
+msgid "Choose one or more regions. Edit regions in <a href=\"%s\">here</a>"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:77
+#: includes/elementor/elementor-geot-city.php:59
+#: includes/elementor/elementor-geot-city.php:99
+msgid "Cities"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:82
+msgid "Cities / Regions"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:83
+msgid "Type city names or city regions, comma separated"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:87
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:92
+#: includes/elementor/elementor-geot-state.php:59
+#: includes/elementor/elementor-geot-state.php:98
+msgid "States"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:93
+msgid "Type state iso codes or state regions, comma separated"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:98
+#: includes/elementor/elementor-geot-zipcode.php:57
+#: includes/elementor/elementor-geot-zipcode.php:96
+msgid "ZipCodes"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:103
+msgid "Zipcodes"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:104
+msgid "Type zip codes or zip regions separated by commas."
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:110
+#: includes/class-geot-vc.php:291
+#: includes/elementor/elementor-geot-radius.php:38
+#: includes/gutenberg/gutenberg-geot-radius.js:16
+msgid "Radius"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:115
+#: admin/includes/class-geot-admin-menu-walker.php:240
+#: admin/includes/class-geot-menus.php:246
+#: admin/includes/class-geot-widgets.php:161
+#: admin/partials/metabox-category.php:226
+#: admin/partials/metabox-options.php:213
+#: admin/partials/metabox-woo-category.php:226
+msgid "100"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:120
+#: includes/class-geot-vc.php:313 includes/divi/divi-geot-radius.php:37
+#: includes/elementor/elementor-geot-radius.php:67
+#: includes/fusion/fusion-geot-radius.php:35
+#: includes/gutenberg/gutenberg-geot-radius.js:68
+#: includes/gutenberg/gutenberg-geot-radius.js:92
+#: includes/wpbeaver/wpbeaver-geot-radius.php:40
+msgid "Latitude"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:124
+#: includes/class-geot-vc.php:321 includes/divi/divi-geot-radius.php:46
+#: includes/elementor/elementor-geot-radius.php:76
+#: includes/fusion/fusion-geot-radius.php:42
+#: includes/gutenberg/gutenberg-geot-radius.js:72
+#: includes/gutenberg/gutenberg-geot-radius.js:100
+#: includes/wpbeaver/wpbeaver-geot-radius.php:46
+msgid "Longitude"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:130
+msgid "Device"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:135
+msgid "Enter a device"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:136
+msgid "All Devices"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:141
+msgid "Only redirect if using this device"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:146
+msgid "Referrer URL"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:150
+msgid "Only redirect if user coming from this url"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:160
+msgid "Add"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:161
+msgid "+ ADD"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:165
+#: admin/includes/class-geot-admin-menu-walker.php:283
+msgid "Remove"
+msgstr ""
+
+#: addons/geo-links/includes/admin/metaboxes/metaboxes-urls.php:166
+msgid "- REMOVE"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/notice_cache.php:3
+msgid "We detected that your have a cache plugin active."
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/notice_cache.php:4
+msgid ""
+"Please be sure to whitelist the geol_cpt custom post type in your cache "
+"plugin."
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_exporter.php:13
+msgid ""
+"This tool allows you to generate and download a CSV file containing a list "
+"of all GeoLinks."
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_exporter.php:22
+msgid "Which Geolink should be exported?"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_exporter.php:25
+msgid "Type the Geolinks"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_exporter.php:34
+msgid "Which fields should be exported?*"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_exporter.php:37
+msgid "Type the fields"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_exporter.php:42
+msgid "If you leave empty, it will export all the fields."
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_exporter.php:51
+msgid "Export CSV"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_importer_done.php:17
+#, php-format
+msgid "Import complete! %d Geolink(s) updated"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_importer_done.php:24
+msgid "View Geolinks"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_importer_done.php:27
+#: addons/geo-links/includes/admin/partials/section_importer_mapping.php:46
+msgid "Import other file"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_importer_file.php:9
+msgid ""
+"This tool allows you to import (or merge) Geolinks data to your store from a "
+"CSV or TXT file."
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_importer_file.php:18
+msgid "Choose a CSV file from your computer:"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_importer_file.php:30
+#: addons/geo-links/includes/admin/partials/section_importer_mapping.php:42
+msgid "Import CSV"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_importer_mapping.php:8
+msgid "Map CSV fields to Geolinks"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_importer_mapping.php:9
+msgid ""
+"Select fields from your CSV file to map against Geolinks fields, or to "
+"ignore during import."
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_importer_mapping.php:16
+msgid "Column Name"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_importer_mapping.php:17
+msgid "Map to field"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/section_importer_mapping.php:24
+#, php-format
+msgid "Sample : %s"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/tinymce_popup.php:11
+msgid ""
+"Choose which Geol Link you want to insert. This will generate an href link "
+"that you can use with text or images"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/tinymce_popup.php:16
+#: admin/includes/class-geot-admin-menu-walker.php:188
+#: admin/includes/class-geot-menus.php:194
+#: admin/includes/class-geot-widgets.php:87
+#: admin/partials/metabox-options.php:21 admin/partials/tinymce-editor.php:16
+msgid "Choose:"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/tinymce_popup.php:19
+#: includes/class-geot-vc.php:43 includes/class-geot-vc.php:54
+#: includes/class-geot-vc.php:65 includes/class-geot-vc.php:76
+msgid "Choose one"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/tinymce_popup.php:38
+msgid "NoFollow?:"
+msgstr ""
+
+#: addons/geo-links/includes/admin/partials/tinymce_popup.php:49
+msgid "NoReferrer ?:"
+msgstr ""
+
+#: addons/geo-links/includes/admin/settings/settings-page.php:2
+msgid "Geo Links : "
+msgstr ""
+
+#: addons/geo-links/includes/admin/settings/settings-page.php:6
+msgid "Redirection slug"
+msgstr ""
+
+#: addons/geo-links/includes/admin/settings/settings-page.php:10
+#, php-format
+msgid "The slug that will proceed your geolinks: %s"
+msgstr ""
+
+#: addons/geo-links/includes/admin/settings/settings-page.php:14
+msgid "Enable Stats"
+msgstr ""
+
+#: addons/geo-links/includes/functions.php:66 includes/class-geot-rules.php:237
+msgid "Mobile Phone"
+msgstr ""
+
+#: addons/geo-links/includes/functions.php:67 includes/class-geot-rules.php:238
+msgid "Tablet"
+msgstr ""
+
+#: addons/geo-links/includes/functions.php:68 includes/class-geot-rules.php:239
+msgid "Desktop"
+msgstr ""
+
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:27
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:28
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:29
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:35
+#: admin/partials/addons-page.php:19 admin/partials/setup-wizard-addons.php:23
+msgid "Geo Links"
+msgstr ""
+
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:31
+msgid "Add New Geo Links"
+msgstr ""
+
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:32
+msgid "New Geo Links"
+msgstr ""
+
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:33
+msgid "Edit Geo Links"
+msgstr ""
+
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:34
+msgid "View Geo Links"
+msgstr ""
+
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:36
+msgid "Search Geo Links"
+msgstr ""
+
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:37
+msgid "Parent Geo Links:"
+msgstr ""
+
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:38
+msgid "No Geo Links found."
+msgstr ""
+
+#: addons/geo-links/includes/global/class-geolinks-cpt.php:39
+msgid "No Geo Links found in Trash."
+msgstr ""
+
+#: addons/geo-redirects/admin/class-geotr-settings.php:44
+msgid "Please wait while you are redirected to the right page..."
+msgstr ""
+
+#: addons/geo-redirects/admin/includes/class-geotr-metaboxes.php:44
+#: admin/includes/class-geot-metaboxes.php:181
+msgid "Redirection Rules"
+msgstr ""
+
+#: addons/geo-redirects/admin/includes/class-geotr-metaboxes.php:52
+#: admin/includes/class-geot-metaboxes.php:189
+#: admin/includes/class-geot-metaboxes.php:497
+msgid "Redirection Options"
+msgstr ""
+
+#: addons/geo-redirects/admin/includes/class-geotr-metaboxes.php:136
+#: admin/includes/class-geot-metaboxes.php:260
+msgid "Perform redirect if"
+msgstr ""
+
+#: addons/geo-redirects/admin/includes/class-geotr-metaboxes.php:137
+#: admin/includes/class-geot-metaboxes.php:261
+msgid "Create a set of rules to determine where the redirect will be performed"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:16
+msgid ""
+"Enter redirection url. You can create dynamic urls by using placeholders "
+"like :"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:18
+msgid "Two letter iso code"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:19
+msgid "Two letter state code"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:20
+msgid "Zip code"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:22
+msgid "Original requested url. Eg: http://geotargetingwp.com/geo-redirects"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:23
+msgid "Original requested path. Eg: geo-redirects"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:24
+msgid ""
+"Last path in url. Eg: http://geotargetingwp.com/geo-redirects/redirect1 => "
+"redirect1"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:32
+msgid "WPML/Polylang Language code"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:36
+msgid ""
+"Enter 2 letter language code to automatically translate destination slug to "
+"that language if available."
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:42
+msgid "Exclude child pages from redirect ?"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:48
+msgid ""
+"If your final destination it's /es/ for spanish users, this option will "
+"prevent /es/page-slug to be redirected"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:52
+msgid "One time redirect ?"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:57
+msgid "Yes, one per user session"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:59
+msgid ""
+"Select if user will be redirected every time, once per browser session or "
+"only once in total"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:63
+msgid "Remove two letter codes from this redirect ?"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:69
+msgid ""
+"Enable if you are using two letter codes in your redirects to remove them "
+"from request path"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:79
+msgid "Exclude bots and crawlers from being redirected"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:83
+msgid "Pass query string ?"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:89
+msgid ""
+"Original url may contain a query string such as ?utm_source=adwords. By "
+"default they are passed to new url"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:93
+msgid "Redirection code?"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/metaboxes/opts.php:104
+msgid "Exclude the following IPs from being redirected. Enter one per line"
+msgstr ""
+
+#: addons/geo-redirects/admin/partials/settings-page.php:2
+msgid "Geo Redirect : "
+msgstr ""
+
+#: addons/geo-redirects/includes/class-geotr-cpt.php:34
+#: addons/geo-redirects/includes/class-geotr-cpt.php:35
+#: addons/geo-redirects/includes/class-geotr-cpt.php:36
+#: addons/geo-redirects/includes/class-geotr-cpt.php:42
+#: admin/partials/addons-page.php:27 admin/partials/setup-wizard-addons.php:14
+msgid "Geo Redirects"
+msgstr ""
+
+#: addons/geo-redirects/includes/class-geotr-cpt.php:38
+msgid "Add New Geo Redirection"
+msgstr ""
+
+#: addons/geo-redirects/includes/class-geotr-cpt.php:39
+msgid "New Geo Redirection"
+msgstr ""
+
+#: addons/geo-redirects/includes/class-geotr-cpt.php:40
+msgid "Edit Geo Redirection"
+msgstr ""
+
+#: addons/geo-redirects/includes/class-geotr-cpt.php:41
+msgid "View Geo Redirection"
+msgstr ""
+
+#: addons/geo-redirects/includes/class-geotr-cpt.php:43
+msgid "Search Geo Redirection"
+msgstr ""
+
+#: addons/geo-redirects/includes/class-geotr-cpt.php:44
+msgid "Parent Geo Redirection:"
+msgstr ""
+
+#: addons/geo-redirects/includes/class-geotr-cpt.php:45
+msgid "No Geo Redirection found."
+msgstr ""
+
+#: addons/geo-redirects/includes/class-geotr-cpt.php:46
+msgid "No Geo Redirection found in Trash."
+msgstr ""
+
+#: admin/class-geot-admin.php:89 admin/partials/metaboxes/rules.php:36
+#: admin/partials/metaboxes/rules.php:100
+msgid "OR"
+msgstr ""
+
+#: admin/class-geot-settings.php:49 admin/class-geot-settings.php:141
+msgid "Addons"
+msgstr ""
+
+#: admin/class-geot-settings.php:50
+msgid "Addons Settings"
+msgstr ""
+
+#: admin/class-geot-settings.php:71
+msgid "Post categories"
+msgstr ""
+
+#: admin/class-geot-settings.php:72
+msgid "Post tags"
+msgstr ""
+
+#: admin/class-geot-settings.php:147
+msgid "Others"
+msgstr ""
+
+#: admin/includes/acf-geot-v4.php:22 admin/includes/acf-geot-v5.php:32
+msgid "GeoTargetting"
+msgstr ""
+
+#: admin/includes/acf-geot-v4.php:23 includes/geot/Setting/GeotWizard.php:110
+msgid "Basic"
+msgstr ""
+
+#: admin/includes/acf-geot-v4.php:75 admin/includes/acf-geot-v5.php:96
+msgid "Show Regions or Countries"
+msgstr ""
+
+#: admin/includes/acf-geot-v4.php:87 admin/includes/acf-geot-v5.php:102
+#: includes/elementor/conditions/elementor-geot-conditions-region-city.php:25
+msgid "City Regions"
+msgstr ""
+
+#: admin/includes/acf-geot-v4.php:88 admin/includes/acf-geot-v5.php:103
+#: includes/elementor/conditions/elementor-geot-conditions-region-zip.php:25
+msgid "Zip Regions"
+msgstr ""
+
+#: admin/includes/acf-geot-v4.php:89 admin/includes/acf-geot-v5.php:104
+#: includes/elementor/conditions/elementor-geot-conditions-region-state.php:25
+msgid "State Regions"
+msgstr ""
+
+#: admin/includes/acf-geot-v4.php:129 admin/includes/acf-geot-v5.php:139
+msgid "Exclude to"
+msgstr ""
+
+#: admin/includes/acf-geot-v4.php:130 admin/includes/acf-geot-v5.php:140
+msgid "Show to"
+msgstr ""
+
+#: admin/includes/acf-geot-v5.php:60
+msgid "Error! Please enter a value"
+msgstr ""
+
+#: admin/includes/acf-geot-v5.php:97
+msgid "Check what to show on front end"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:52
+#, php-format
+msgid "%s (Invalid)"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:56
+#, php-format
+msgid "%s (Pending)"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:72
+msgid "sub item"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:104
+msgid "Edit"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:113
+msgid "URL"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:122
+msgid "Navigation Label"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:130
+msgid "Title Attribute"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:141
+msgid "Open link in a new tab"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:146
+msgid "CSS Classes (optional)"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:155
+msgid "Link Relationship (XFN)"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:163
+msgid "Description"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:168
+msgid ""
+"The description will be displayed in the menu if the current theme supports "
+"it."
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:174
+#: admin/includes/class-geot-menus.php:187 includes/class-geot-divi.php:144
+#: includes/class-geot-elementor.php:99 includes/class-geot-gutenberg.php:36
+#: includes/class-geot-rules.php:198 includes/class-geot-vc.php:99
+#: includes/class-geot-vc.php:149 includes/class-geot-vc.php:198
+#: includes/class-geot-vc.php:247 includes/class-geot-vc.php:297
+#: includes/elementor/conditions/elementor-geot-conditions-base.php:19
+msgid "Geotargeting"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:200
+#: admin/includes/class-geot-menus.php:206
+msgid "Type regions (comma separated):"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:207
+#: admin/includes/class-geot-menus.php:213
+msgid "Or type countries or country codes (comma separated):"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:214
+#: admin/includes/class-geot-menus.php:220
+#: admin/includes/class-geot-widgets.php:141
+msgid "Or type cities or city regions (comma separated):"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:221
+#: admin/includes/class-geot-menus.php:227
+#: admin/includes/class-geot-widgets.php:146
+msgid "Or type states or state regions (comma separated):"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:229
+#: admin/includes/class-geot-menus.php:234
+#: admin/includes/class-geot-widgets.php:152
+msgid "Or type zipcodes or zip regions (comma separated):"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:236
+#: admin/includes/class-geot-menus.php:242
+#: admin/includes/class-geot-widgets.php:157
+#: admin/partials/metabox-category.php:221
+#: admin/partials/metabox-options.php:208
+#: admin/partials/metabox-woo-category.php:222
+msgid "Given Radius:"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:244
+#: admin/includes/class-geot-menus.php:250
+#: admin/includes/class-geot-widgets.php:164
+#: admin/partials/metabox-category.php:229
+#: admin/partials/metabox-options.php:216
+#: admin/partials/metabox-woo-category.php:229
+msgid "Enter latitude"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:248
+#: admin/includes/class-geot-menus.php:254
+#: admin/includes/class-geot-widgets.php:167
+#: admin/partials/metabox-category.php:232
+#: admin/partials/metabox-options.php:219
+#: admin/partials/metabox-woo-category.php:232
+msgid "Enter longitude"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:258
+msgid "Move"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:259
+msgid "Up one"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:260
+msgid "Down one"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:263
+msgid "To the top"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:270
+#, php-format
+msgid "Original: %s"
+msgstr ""
+
+#: admin/includes/class-geot-admin-menu-walker.php:289
+msgid "Cancel"
+msgstr ""
+
+#: admin/includes/class-geot-dropdown-widget.php:15
+msgid "Geotarget Dropdown"
+msgstr ""
+
+#: admin/includes/class-geot-dropdown-widget.php:16
+msgid "Display a dropdown to let users change country"
+msgstr ""
+
+#: admin/includes/class-geot-dropdown-widget.php:72
+msgid "Change your location"
+msgstr ""
+
+#: admin/includes/class-geot-dropdown-widget.php:127
+msgid "Choose regions to display in widget:"
+msgstr ""
+
+#: admin/includes/class-geot-dropdown-widget.php:140
+msgid "Select none to show all countries (not recommended)"
+msgstr ""
+
+#: admin/includes/class-geot-dropdown-widget.php:144
+msgid "Display flags ?"
+msgstr ""
+
+#: admin/includes/class-geot-metaboxes.php:65
+msgid "GeoTargeting page settings"
+msgstr ""
+
+#: admin/includes/class-geot-metaboxes.php:88
+msgid "This content is restricted in your region"
+msgstr ""
+
+#: admin/includes/class-geot-metaboxes.php:429
+msgid "Shortcode"
+msgstr ""
+
+#: admin/includes/class-geot-metaboxes.php:432
+msgid "Total Clicks"
+msgstr ""
+
+#: admin/includes/class-geot-metaboxes.php:519
+msgid "Stats"
+msgstr ""
+
+#: admin/includes/class-geot-widgets.php:98
+msgid "Choose regions( country regions ):"
+msgstr ""
+
+#: admin/includes/class-geot-widgets.php:103
+#: admin/partials/tinymce-editor.php:30
+msgid "Choose region name..."
+msgstr ""
+
+#: admin/includes/class-geot-widgets.php:124
+#: admin/partials/tinymce-editor.php:52
+msgid "Or choose countries:"
+msgstr ""
+
+#: admin/includes/class-geot-widgets.php:128
+#: admin/partials/metabox-options.php:73 admin/partials/tinymce-editor.php:55
+msgid "Choose country name..."
+msgstr ""
+
+#: admin/partials/addons-page.php:5
+msgid "Geotargeting Pro AddOns:"
+msgstr ""
+
+#: admin/partials/addons-page.php:11 admin/partials/setup-wizard-addons.php:40
+msgid "Geo Flags"
+msgstr ""
+
+#: admin/partials/addons-page.php:15
+msgid "Country Flags based on user location"
+msgstr ""
+
+#: admin/partials/addons-page.php:23
+msgid "Geo Links for WordPress will let you geo-target your affiliate links"
+msgstr ""
+
+#: admin/partials/addons-page.php:31
+msgid ""
+"Create redirects based on Countries, Cities or States. Add multiple rules"
+msgstr ""
+
+#: admin/partials/addons-page.php:39
+msgid "Geo Blocker let you block access to your site based on geolocation"
+msgstr ""
+
+#: admin/partials/addons-page.php:47 admin/partials/settings-page.php:51
+#: includes/geot/Setting/partials/regions-page.php:272
+#: includes/geot/Setting/partials/settings-page.php:280
+msgid "Save settings"
+msgstr ""
+
+#: admin/partials/metabox-category.php:2
+#: admin/partials/metabox-woo-category.php:2
+msgid "Geotargeting Country"
+msgstr ""
+
+#: admin/partials/metabox-category.php:6
+#: admin/partials/metabox-woo-category.php:6
+#: includes/divi/divi-geot-country.php:26
+#: includes/fusion/fusion-geot-country.php:28
+#: includes/gutenberg/gutenberg-geot-country.js:72
+#: includes/gutenberg/gutenberg-geot-country.js:96
+#: includes/wpbeaver/wpbeaver-geot-country.php:32
+msgid "Include Countries"
+msgstr ""
+
+#: admin/partials/metabox-category.php:12
+#: admin/partials/metabox-category.php:37
+#: admin/partials/metabox-woo-category.php:12
+#: admin/partials/metabox-woo-category.php:37
+#: includes/elementor/elementor-geot-country.php:50
+#: includes/elementor/elementor-geot-country.php:91
+msgid "Type country names or ISO codes separated by commas."
+msgstr ""
+
+#: admin/partials/metabox-category.php:18
+#: admin/partials/metabox-woo-category.php:18
+#: includes/gutenberg/gutenberg-geot-city.js:80
+#: includes/gutenberg/gutenberg-geot-country.js:80
+#: includes/gutenberg/gutenberg-geot-country.js:104
+#: includes/gutenberg/gutenberg-geot-state.js:80
+#: includes/gutenberg/gutenberg-geot-zipcode.js:80
+msgid "Include Regions"
+msgstr ""
+
+#: admin/partials/metabox-category.php:32
+#: admin/partials/metabox-woo-category.php:32
+#: includes/divi/divi-geot-country.php:44
+#: includes/fusion/fusion-geot-country.php:45
+#: includes/gutenberg/gutenberg-geot-country.js:76
+#: includes/gutenberg/gutenberg-geot-country.js:115
+#: includes/wpbeaver/wpbeaver-geot-country.php:44
+msgid "Exclude Countries"
+msgstr ""
+
+#: admin/partials/metabox-category.php:43
+#: admin/partials/metabox-woo-category.php:43
+#: includes/gutenberg/gutenberg-geot-city.js:84
+#: includes/gutenberg/gutenberg-geot-city.js:122
+#: includes/gutenberg/gutenberg-geot-country.js:84
+#: includes/gutenberg/gutenberg-geot-country.js:123
+#: includes/gutenberg/gutenberg-geot-state.js:84
+#: includes/gutenberg/gutenberg-geot-zipcode.js:84
+msgid "Exclude Regions"
+msgstr ""
+
+#: admin/partials/metabox-category.php:57
+#: admin/partials/metabox-woo-category.php:57
+msgid "Geotargeting City"
+msgstr ""
+
+#: admin/partials/metabox-category.php:63
+#: admin/partials/metabox-woo-category.php:63
+#: includes/divi/divi-geot-city.php:26 includes/fusion/fusion-geot-city.php:28
+#: includes/gutenberg/gutenberg-geot-city.js:72
+#: includes/gutenberg/gutenberg-geot-city.js:96
+#: includes/wpbeaver/wpbeaver-geot-city.php:32
+msgid "Include Cities"
+msgstr ""
+
+#: admin/partials/metabox-category.php:68
+#: admin/partials/metabox-category.php:93
+#: admin/partials/metabox-woo-category.php:68
+#: admin/partials/metabox-woo-category.php:93
+#: includes/elementor/elementor-geot-city.php:50
+#: includes/elementor/elementor-geot-city.php:91
+#: includes/fusion/fusion-geot-city.php:29
+#: includes/fusion/fusion-geot-city.php:46
+#: includes/fusion/fusion-geot-state.php:46
+msgid "Type city names separated by commas."
+msgstr ""
+
+#: admin/partials/metabox-category.php:74
+#: admin/partials/metabox-woo-category.php:74
+msgid "Include Cities Regions"
+msgstr ""
+
+#: admin/partials/metabox-category.php:88
+#: admin/partials/metabox-woo-category.php:88
+#: includes/divi/divi-geot-city.php:43 includes/fusion/fusion-geot-city.php:45
+#: includes/gutenberg/gutenberg-geot-city.js:76
+#: includes/gutenberg/gutenberg-geot-city.js:114
+#: includes/wpbeaver/wpbeaver-geot-city.php:44
+msgid "Exclude Cities"
+msgstr ""
+
+#: admin/partials/metabox-category.php:99
+#: admin/partials/metabox-woo-category.php:99
+msgid "Exclude Cities Regions"
+msgstr ""
+
+#: admin/partials/metabox-category.php:113
+#: admin/partials/metabox-woo-category.php:113
+msgid "Geotargeting State"
+msgstr ""
+
+#: admin/partials/metabox-category.php:118
+#: admin/partials/metabox-woo-category.php:118
+#: includes/divi/divi-geot-state.php:26
+#: includes/fusion/fusion-geot-state.php:28
+#: includes/gutenberg/gutenberg-geot-state.js:72
+#: includes/gutenberg/gutenberg-geot-state.js:97
+#: includes/wpbeaver/wpbeaver-geot-state.php:32
+msgid "Include States"
+msgstr ""
+
+#: admin/partials/metabox-category.php:123
+#: admin/partials/metabox-category.php:146
+#: admin/partials/metabox-woo-category.php:123
+#: admin/partials/metabox-woo-category.php:146
+#: includes/elementor/elementor-geot-state.php:51
+#: includes/elementor/elementor-geot-state.php:90
+msgid "Type state names or ISO codes separated by commas."
+msgstr ""
+
+#: admin/partials/metabox-category.php:128
+msgid "Include States Regions"
+msgstr ""
+
+#: admin/partials/metabox-category.php:141
+#: admin/partials/metabox-woo-category.php:141
+#: includes/divi/divi-geot-state.php:43
+#: includes/fusion/fusion-geot-state.php:45
+#: includes/gutenberg/gutenberg-geot-state.js:76
+#: includes/gutenberg/gutenberg-geot-state.js:116
+#: includes/wpbeaver/wpbeaver-geot-state.php:44
+msgid "Exclude States"
+msgstr ""
+
+#: admin/partials/metabox-category.php:151
+msgid "Exclude States Regions"
+msgstr ""
+
+#: admin/partials/metabox-category.php:165
+#: admin/partials/metabox-woo-category.php:165
+msgid "Geotargeting Zipcode"
+msgstr ""
+
+#: admin/partials/metabox-category.php:170
+#: admin/partials/metabox-woo-category.php:170
+#: includes/gutenberg/gutenberg-geot-zipcode.js:72
+#: includes/gutenberg/gutenberg-geot-zipcode.js:96
+msgid "Include Zipcodes"
+msgstr ""
+
+#: admin/partials/metabox-category.php:175
+#: admin/partials/metabox-category.php:200
+#: admin/partials/metabox-woo-category.php:175
+#: admin/partials/metabox-woo-category.php:200
+#: includes/divi/divi-geot-zipcode.php:29
+#: includes/elementor/elementor-geot-zipcode.php:49
+#: includes/elementor/elementor-geot-zipcode.php:88
+#: includes/gutenberg/gutenberg-geot-zipcode.js:99
+#: includes/gutenberg/gutenberg-geot-zipcode.js:118
+#: includes/wpbeaver/wpbeaver-geot-zipcode.php:33
+#: includes/wpbeaver/wpbeaver-geot-zipcode.php:45
+msgid "Type zip codes separated by commas."
+msgstr ""
+
+#: admin/partials/metabox-category.php:181
+msgid "Include Zips Regions"
+msgstr ""
+
+#: admin/partials/metabox-category.php:195
+#: admin/partials/metabox-woo-category.php:195
+#: includes/gutenberg/gutenberg-geot-zipcode.js:76
+#: includes/gutenberg/gutenberg-geot-zipcode.js:115
+msgid "Exclude Zipcodes"
+msgstr ""
+
+#: admin/partials/metabox-category.php:206
+msgid "Exclude Zips Regions"
+msgstr ""
+
+#: admin/partials/metabox-category.php:218
+#: admin/partials/metabox-woo-category.php:219
+msgid "Geotargeting by Radius"
+msgstr ""
+
+#: admin/partials/metabox-options.php:36
+msgid "Country Regions:"
+msgstr ""
+
+#: admin/partials/metabox-options.php:41
+msgid "Choose country region name..."
+msgstr ""
+
+#: admin/partials/metabox-options.php:70
+#: includes/geot/Setting/partials/regions-page.php:63
+msgid "Countries:"
+msgstr ""
+
+#: admin/partials/metabox-options.php:95
+msgid "City Regions:"
+msgstr ""
+
+#: admin/partials/metabox-options.php:100
+msgid "Choose city region name..."
+msgstr ""
+
+#: admin/partials/metabox-options.php:129
+#: includes/geot/Setting/partials/regions-page.php:102
+msgid "Cities:"
+msgstr ""
+
+#: admin/partials/metabox-options.php:134
+msgid "Type cities (comma separated):"
+msgstr ""
+
+#: admin/partials/metabox-options.php:140
+msgid "State Regions:"
+msgstr ""
+
+#: admin/partials/metabox-options.php:143
+msgid "Choose state region name..."
+msgstr ""
+
+#: admin/partials/metabox-options.php:157
+#: admin/partials/metabox-options.php:191
+msgid "Add some regions first."
+msgstr ""
+
+#: admin/partials/metabox-options.php:163
+#: includes/geot/Setting/partials/regions-page.php:217
+msgid "States:"
+msgstr ""
+
+#: admin/partials/metabox-options.php:168
+msgid "Type states (comma separated):"
+msgstr ""
+
+#: admin/partials/metabox-options.php:174
+msgid "Zip Regions:"
+msgstr ""
+
+#: admin/partials/metabox-options.php:177
+msgid "Choose zip region name..."
+msgstr ""
+
+#: admin/partials/metabox-options.php:197
+msgid "Zipcodes:"
+msgstr ""
+
+#: admin/partials/metabox-options.php:202
+msgid "Type Zipcodes (comma separated):"
+msgstr ""
+
+#: admin/partials/metabox-options.php:225
+msgid "Remove post from loop:"
+msgstr ""
+
+#: admin/partials/metabox-options.php:229
+msgid "If checked post will be removed from loop otherwise show message below"
+msgstr ""
+
+#: admin/partials/metabox-options.php:236
+msgid "Show if user is not allowed to see content:"
+msgstr ""
+
+#: admin/partials/metabox-options.php:240
+msgid "Type the text that user will see if not allowed to view content"
+msgstr ""
+
+#: admin/partials/metabox-woo-category.php:128
+#: includes/divi/divi-geot-state.php:34
+#: includes/fusion/fusion-geot-state.php:36
+#: includes/gutenberg/gutenberg-geot-state.js:105
+#: includes/wpbeaver/wpbeaver-geot-state.php:38
+msgid "Include State Regions"
+msgstr ""
+
+#: admin/partials/metabox-woo-category.php:151
+#: includes/divi/divi-geot-state.php:51
+#: includes/fusion/fusion-geot-state.php:53
+#: includes/gutenberg/gutenberg-geot-state.js:124
+#: includes/wpbeaver/wpbeaver-geot-state.php:50
+msgid "Exclude State Regions"
+msgstr ""
+
+#: admin/partials/metabox-woo-category.php:181
+#: includes/divi/divi-geot-zipcode.php:34
+#: includes/fusion/fusion-geot-zip.php:36
+#: includes/wpbeaver/wpbeaver-geot-zipcode.php:38
+msgid "Include Zip Regions"
+msgstr ""
+
+#: admin/partials/metabox-woo-category.php:206
+#: includes/divi/divi-geot-zipcode.php:51
+#: includes/fusion/fusion-geot-zip.php:53
+#: includes/wpbeaver/wpbeaver-geot-zipcode.php:50
+msgid "Exclude Zip Regions"
+msgstr ""
+
+#: admin/partials/metaboxes/rules.php:22
+msgid "Rules"
+msgstr ""
+
+#: admin/partials/metaboxes/rules.php:87
+msgid "+ AND"
+msgstr ""
+
+#: admin/partials/metaboxes/rules.php:102
+msgid "Add rule group (+ OR)"
+msgstr ""
+
+#: admin/partials/metaboxes/rules.php:105
+#, php-format
+msgid ""
+"Learn more about Geo Blocker and compatible cache plugins <a href=\"%s\" "
+"target=\"_blank\">here</a>"
+msgstr ""
+
+#: admin/partials/settings-page.php:8
+msgid "GeotargetingWP : "
+msgstr ""
+
+#: admin/partials/settings-page.php:12
+msgid "Disable Menu integration"
+msgstr ""
+
+#: admin/partials/settings-page.php:16
+msgid "Check this to remove geotargeting options from menus"
+msgstr ""
+
+#: admin/partials/settings-page.php:20
+msgid "Disable Widget Integration"
+msgstr ""
+
+#: admin/partials/settings-page.php:24
+msgid "Check this to remove geotargeting options from widgets"
+msgstr ""
+
+#: admin/partials/settings-page.php:29
+msgid "Enable on taxonomies"
+msgstr ""
+
+#: admin/partials/setup-wizard-addons.php:7
+msgid ""
+"Choose which addons you want to enable. You can change all settings later "
+"anyway."
+msgstr ""
+
+#: admin/partials/setup-wizard-addons.php:16
+#, php-format
+msgid ""
+"<a href=\"%s\" target=\"_blank\">Redirect users</a> based on location and "
+"many other options."
+msgstr ""
+
+#: admin/partials/setup-wizard-addons.php:25
+#, php-format
+msgid ""
+"<a href=\"%s\" target=\"_blank\">Geo Links</a> for WordPress will let you "
+"geo-target your affiliate links."
+msgstr ""
+
+#: admin/partials/setup-wizard-addons.php:34
+#, php-format
+msgid ""
+"<a href=\"%s\" target=\"_blank\">Geo Blocker</a> let you block access to "
+"your site based on geolocation."
+msgstr ""
+
+#: admin/partials/setup-wizard-addons.php:42
+#, php-format
+msgid ""
+"Display <a href=\"%s\" target=\"_blank\">country flags</a> based on user "
+"location."
+msgstr ""
+
+#: admin/partials/setup-wizard-addons.php:49
+#: admin/partials/setup-wizard-others.php:23
+#: includes/geot/Setting/partials/setup-wizard-basic.php:75
+msgid "Next"
+msgstr ""
+
+#: admin/partials/setup-wizard-others.php:7
+msgid ""
+"By enabling the <b>Send anonymous usage data</b> you can help us to "
+"understand what kind of program features matters most to you, in order to "
+"make them even better."
+msgstr ""
+
+#: admin/partials/setup-wizard-others.php:13
+msgid "Send anonymous usage data"
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:25
+msgid "Choose regions:"
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:70
+msgid "Or type cities:"
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:73
+msgid "Type cities separated by comma"
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:78
+msgid "Or choose city Regions:"
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:82
+msgid "Choose cities region name..."
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:97
+msgid "Or type states:"
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:100
+msgid "Type states separated by comma"
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:105
+msgid "Or choose State Regions:"
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:109
+msgid "Choose states region name..."
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:125
+msgid "Or type zips:"
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:128
+msgid "Type zips separated by comma"
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:133
+msgid "Or choose zip Regions:"
+msgstr ""
+
+#: admin/partials/tinymce-editor.php:137
+msgid "Choose zips region name..."
+msgstr ""
+
+#: admin/partials/tinymce-popup.php:5
+msgid "Geotargeting Pro Shortcodes"
+msgstr ""
+
+#: includes/class-geot-activator.php:38
+msgid ""
+"Hey, we've noticed that you're running an outdated version of PHP. PHP is "
+"the programming language that WordPress and this plugin are built on. The "
+"version that is currently used for your site is no longer supported. Newer "
+"versions of PHP are both faster and more secure. In fact, your version of "
+"PHP no longer receives security updates."
+msgstr ""
+
+#: includes/class-geot-activator.php:39
+msgid "Geotargeting PRO requires at least PHP 5.6 and you are running PHP "
+msgstr ""
+
+#: includes/class-geot-helper.php:319
+msgid "is equal to"
+msgstr ""
+
+#: includes/class-geot-helper.php:320
+msgid "is not equal to"
+msgstr ""
+
+#: includes/class-geot-helper.php:325
+msgid "less than"
+msgstr ""
+
+#: includes/class-geot-helper.php:326
+msgid "greater than"
+msgstr ""
+
+#: includes/class-geot-helper.php:332
+msgid "Inside"
+msgstr ""
+
+#: includes/class-geot-helper.php:333
+msgid "Outside"
+msgstr ""
+
+#: includes/class-geot-helper.php:539
+msgid "All Pages"
+msgstr ""
+
+#: includes/class-geot-helper.php:540
+msgid "Front Page"
+msgstr ""
+
+#: includes/class-geot-helper.php:541
+msgid "Posts Page"
+msgstr ""
+
+#: includes/class-geot-helper.php:542
+msgid "Category Page"
+msgstr ""
+
+#: includes/class-geot-helper.php:543
+msgid "Search Page"
+msgstr ""
+
+#: includes/class-geot-helper.php:544
+msgid "Archives Page"
+msgstr ""
+
+#: includes/class-geot-helper.php:545
+msgid "Top Level Page (parent of 0)"
+msgstr ""
+
+#: includes/class-geot-helper.php:546
+msgid "Parent Page (has children)"
+msgstr ""
+
+#: includes/class-geot-helper.php:547
+msgid "Child Page (has parent)"
+msgstr ""
+
+#: includes/class-geot-helper.php:554
+msgid "Default Template"
+msgstr ""
+
+#: includes/class-geot-helper.php:631
+msgid "Super Admin"
+msgstr ""
+
+#: includes/class-geot-helper.php:648
+msgid "True"
+msgstr ""
+
+#: includes/class-geot-helper.php:784
+msgid "Show if"
+msgstr ""
+
+#: includes/class-geot-helper.php:785
+msgid "Create a set of rules"
+msgstr ""
+
+#: includes/class-geot-rules.php:199 includes/class-geot-vc.php:107
+#: includes/elementor/conditions/elementor-geot-conditions-country.php:25
+msgid "Country"
+msgstr ""
+
+#: includes/class-geot-rules.php:200
+msgid "Country Region"
+msgstr ""
+
+#: includes/class-geot-rules.php:201 includes/class-geot-vc.php:157
+#: includes/elementor/conditions/elementor-geot-conditions-city.php:25
+msgid "City"
+msgstr ""
+
+#: includes/class-geot-rules.php:202 includes/class-geot-vc.php:165
+msgid "City Region"
+msgstr ""
+
+#: includes/class-geot-rules.php:203 includes/class-geot-vc.php:206
+#: includes/elementor/conditions/elementor-geot-conditions-state.php:25
+msgid "State"
+msgstr ""
+
+#: includes/class-geot-rules.php:204 includes/class-geot-vc.php:214
+msgid "State Region"
+msgstr ""
+
+#: includes/class-geot-rules.php:205
+msgid "Zip Code"
+msgstr ""
+
+#: includes/class-geot-rules.php:206 includes/class-geot-vc.php:263
+msgid "Zip Region"
+msgstr ""
+
+#: includes/class-geot-rules.php:207
+msgid "Lat|Lng|Radius(km)"
+msgstr ""
+
+#: includes/class-geot-rules.php:208
+msgid "IP"
+msgstr ""
+
+#: includes/class-geot-rules.php:210
+msgid "User"
+msgstr ""
+
+#: includes/class-geot-rules.php:211
+msgid "User role"
+msgstr ""
+
+#: includes/class-geot-rules.php:212
+msgid "User is logged"
+msgstr ""
+
+#: includes/class-geot-rules.php:213
+msgid "User never left a comment"
+msgstr ""
+
+#: includes/class-geot-rules.php:214
+msgid "User came via a search engine"
+msgstr ""
+
+#: includes/class-geot-rules.php:215
+msgid "User did not arrive via another page on your site"
+msgstr ""
+
+#: includes/class-geot-rules.php:217 includes/class-geot-rules.php:218
+msgid "Post"
+msgstr ""
+
+#: includes/class-geot-rules.php:219
+msgid "Post ID"
+msgstr ""
+
+#: includes/class-geot-rules.php:220
+msgid "Post Type"
+msgstr ""
+
+#: includes/class-geot-rules.php:221
+msgid "Post Category"
+msgstr ""
+
+#: includes/class-geot-rules.php:222
+msgid "Post Format"
+msgstr ""
+
+#: includes/class-geot-rules.php:223
+msgid "Post Status"
+msgstr ""
+
+#: includes/class-geot-rules.php:224
+msgid "Post Taxonomy"
+msgstr ""
+
+#: includes/class-geot-rules.php:226 includes/class-geot-rules.php:227
+msgid "Page"
+msgstr ""
+
+#: includes/class-geot-rules.php:228
+msgid "Page Type"
+msgstr ""
+
+#: includes/class-geot-rules.php:229
+msgid "Page Parent"
+msgstr ""
+
+#: includes/class-geot-rules.php:230
+msgid "Page Template"
+msgstr ""
+
+#: includes/class-geot-rules.php:232 includes/class-geot-rules.php:246
+msgid "Other"
+msgstr ""
+
+#: includes/class-geot-rules.php:233
+msgid "Custom Url"
+msgstr ""
+
+#: includes/class-geot-rules.php:234
+msgid "Cookie exists"
+msgstr ""
+
+#: includes/class-geot-rules.php:235
+msgid "Referrer"
+msgstr ""
+
+#: includes/class-geot-rules.php:236
+msgid "Query String"
+msgstr ""
+
+#: includes/class-geot-rules.php:240
+msgid "Bots/Crawlers"
+msgstr ""
+
+#: includes/class-geot-rules.php:241
+msgid "Browser Language"
+msgstr ""
+
+#: includes/class-geot-rules.php:246
+msgid "Language"
+msgstr ""
+
+#: includes/class-geot-stats.php:50
+msgid "Weekly"
+msgstr ""
+
+#: includes/class-geot-stats.php:112
+#, php-format
+msgid "Error: Delivery URL cannot be reached: %s"
+msgstr ""
+
+#: includes/class-geot-stats.php:117
+#, php-format
+msgid "Error: Delivery URL returned response code: %s"
+msgstr ""
+
+#: includes/class-geot-vc.php:93
+#: includes/gutenberg/gutenberg-geot-country.js:16
+msgid "Target Countries"
+msgstr ""
+
+#: includes/class-geot-vc.php:100 includes/class-geot-vc.php:150
+#: includes/class-geot-vc.php:199 includes/class-geot-vc.php:248
+#: includes/class-geot-vc.php:298
+msgid "Place elements inside this geot container"
+msgstr ""
+
+#: includes/class-geot-vc.php:110
+msgid ""
+"Type country name or ISO code. Also you can write a comma separated list of "
+"countries"
+msgstr ""
+
+#: includes/class-geot-vc.php:111 includes/class-geot-vc.php:120
+#: includes/class-geot-vc.php:128 includes/class-geot-vc.php:136
+#: includes/class-geot-vc.php:161 includes/class-geot-vc.php:169
+#: includes/class-geot-vc.php:177 includes/class-geot-vc.php:185
+#: includes/class-geot-vc.php:210 includes/class-geot-vc.php:218
+#: includes/class-geot-vc.php:226 includes/class-geot-vc.php:234
+#: includes/class-geot-vc.php:259 includes/class-geot-vc.php:267
+#: includes/class-geot-vc.php:275 includes/class-geot-vc.php:283
+#: includes/class-geot-vc.php:309 includes/class-geot-vc.php:317
+#: includes/class-geot-vc.php:325 includes/fusion/fusion-geot-city.php:32
+#: includes/fusion/fusion-geot-city.php:41
+#: includes/fusion/fusion-geot-city.php:49
+#: includes/fusion/fusion-geot-city.php:58
+#: includes/fusion/fusion-geot-country.php:32
+#: includes/fusion/fusion-geot-country.php:41
+#: includes/fusion/fusion-geot-country.php:49
+#: includes/fusion/fusion-geot-country.php:58
+#: includes/fusion/fusion-geot-radius.php:32
+#: includes/fusion/fusion-geot-radius.php:39
+#: includes/fusion/fusion-geot-radius.php:46
+#: includes/fusion/fusion-geot-state.php:32
+#: includes/fusion/fusion-geot-state.php:41
+#: includes/fusion/fusion-geot-state.php:49
+#: includes/fusion/fusion-geot-state.php:58
+#: includes/fusion/fusion-geot-zip.php:32
+#: includes/fusion/fusion-geot-zip.php:41
+#: includes/fusion/fusion-geot-zip.php:49
+#: includes/fusion/fusion-geot-zip.php:58
+msgid "GeoTargeting"
+msgstr ""
+
+#: includes/class-geot-vc.php:115
+msgid "Region"
+msgstr ""
+
+#: includes/class-geot-vc.php:119 includes/class-geot-vc.php:168
+#: includes/class-geot-vc.php:217 includes/class-geot-vc.php:266
+#: includes/gutenberg/gutenberg-geot-city.js:108
+#: includes/gutenberg/gutenberg-geot-country.js:109
+#: includes/gutenberg/gutenberg-geot-state.js:110
+#: includes/gutenberg/gutenberg-geot-zipcode.js:109
+msgid "Choose region name to show content to"
+msgstr ""
+
+#: includes/class-geot-vc.php:124
+msgid "Exclude Country"
+msgstr ""
+
+#: includes/class-geot-vc.php:127
+msgid ""
+"Type country name or ISO code. Also you could write a comma separated list "
+"of countries"
+msgstr ""
+
+#: includes/class-geot-vc.php:132
+msgid "Exclude Region"
+msgstr ""
+
+#: includes/class-geot-vc.php:135 includes/class-geot-vc.php:184
+#: includes/class-geot-vc.php:233 includes/class-geot-vc.php:282
+#: includes/gutenberg/gutenberg-geot-city.js:126
+msgid "Choose region name to exclude content."
+msgstr ""
+
+#: includes/class-geot-vc.php:143 includes/gutenberg/gutenberg-geot-city.js:16
+msgid "Target Cities"
+msgstr ""
+
+#: includes/class-geot-vc.php:160
+msgid "Type city name. Also you can write a comma separated list of cities"
+msgstr ""
+
+#: includes/class-geot-vc.php:173
+msgid "Exclude City"
+msgstr ""
+
+#: includes/class-geot-vc.php:176
+msgid "Type city name. Also you could write a comma separated list of cities"
+msgstr ""
+
+#: includes/class-geot-vc.php:181
+msgid "Exclude City Region"
+msgstr ""
+
+#: includes/class-geot-vc.php:192 includes/gutenberg/gutenberg-geot-state.js:16
+msgid "Target States"
+msgstr ""
+
+#: includes/class-geot-vc.php:209 includes/class-geot-vc.php:225
+msgid ""
+"Type state name or ISO code. Also you can write a comma separated list of "
+"states"
+msgstr ""
+
+#: includes/class-geot-vc.php:222
+msgid "Exclude State"
+msgstr ""
+
+#: includes/class-geot-vc.php:230
+msgid "Exclude State Region"
+msgstr ""
+
+#: includes/class-geot-vc.php:241
+msgid "Target Zip"
+msgstr ""
+
+#: includes/class-geot-vc.php:255
+#: includes/elementor/conditions/elementor-geot-conditions-zip.php:25
+msgid "Zip"
+msgstr ""
+
+#: includes/class-geot-vc.php:258 includes/class-geot-vc.php:274
+msgid "Type zip code. Also you can write a comma separated list of zip codes"
+msgstr ""
+
+#: includes/class-geot-vc.php:271
+msgid "Exclude zip"
+msgstr ""
+
+#: includes/class-geot-vc.php:279
+msgid "Exclude Zip Region"
+msgstr ""
+
+#: includes/class-geot-vc.php:305
+#: includes/elementor/elementor-geot-radius.php:57
+#: includes/fusion/fusion-geot-radius.php:28
+#: includes/gutenberg/gutenberg-geot-radius.js:64
+#: includes/gutenberg/gutenberg-geot-radius.js:84
+#: includes/wpbeaver/wpbeaver-geot-radius.php:34
+msgid "Radius (km)"
+msgstr ""
+
+#: includes/class-geot-vc.php:308
+msgid "Type the range in km"
+msgstr ""
+
+#: includes/class-geot-vc.php:316
+msgid "Type the latitude"
+msgstr ""
+
+#: includes/class-geot-vc.php:324
+msgid "Type the longitude"
+msgstr ""
+
+#: includes/class-geot-vc.php:389
+msgid "GeotargetingWP"
+msgstr ""
+
+#: includes/class-geot-vc.php:392
+#, php-format
+msgid ""
+"We need to update your database, please make a backup and <a href=\"%s"
+"\">click here to start</a>"
+msgstr ""
+
+#: includes/class-geot-wc.php:35
+msgid "Enable GeotargetingWP"
+msgstr ""
+
+#: includes/class-geot-wc.php:36
+msgid "Use GeotargetingWP for geolocation"
+msgstr ""
+
+#: includes/class-geot-wc.php:40
+msgid "If you check this option, GeotargetingWP will be used for geolocation."
+msgstr ""
+
+#: includes/class-geot-wpbeaver.php:73
+msgid "Geo Targeting"
+msgstr ""
+
+#: includes/divi/divi-geot-city.php:29 includes/divi/divi-geot-city.php:46
+#: includes/gutenberg/gutenberg-geot-city.js:99
+#: includes/gutenberg/gutenberg-geot-city.js:117
+#: includes/wpbeaver/wpbeaver-geot-city.php:33
+#: includes/wpbeaver/wpbeaver-geot-city.php:45
+msgid "Type city names separated by comma."
+msgstr ""
+
+#: includes/divi/divi-geot-city.php:34 includes/fusion/fusion-geot-city.php:36
+#: includes/gutenberg/gutenberg-geot-city.js:104
+#: includes/wpbeaver/wpbeaver-geot-city.php:38
+msgid "Include City Regions"
+msgstr ""
+
+#: includes/divi/divi-geot-city.php:37 includes/divi/divi-geot-city.php:54
+#: includes/divi/divi-geot-country.php:37
+#: includes/divi/divi-geot-country.php:55 includes/divi/divi-geot-state.php:37
+#: includes/divi/divi-geot-state.php:54 includes/divi/divi-geot-zipcode.php:37
+#: includes/divi/divi-geot-zipcode.php:54
+#: includes/fusion/fusion-geot-city.php:37
+#: includes/fusion/fusion-geot-city.php:54
+#: includes/fusion/fusion-geot-country.php:37
+#: includes/fusion/fusion-geot-country.php:54
+#: includes/fusion/fusion-geot-state.php:37
+#: includes/fusion/fusion-geot-state.php:54
+#: includes/fusion/fusion-geot-zip.php:37
+#: includes/fusion/fusion-geot-zip.php:54
+#: includes/wpbeaver/wpbeaver-geot-city.php:40
+#: includes/wpbeaver/wpbeaver-geot-city.php:52
+#: includes/wpbeaver/wpbeaver-geot-country.php:40
+#: includes/wpbeaver/wpbeaver-geot-country.php:52
+#: includes/wpbeaver/wpbeaver-geot-state.php:40
+#: includes/wpbeaver/wpbeaver-geot-state.php:52
+#: includes/wpbeaver/wpbeaver-geot-zipcode.php:40
+#: includes/wpbeaver/wpbeaver-geot-zipcode.php:52
+msgid "Choose region name to show content to."
+msgstr ""
+
+#: includes/divi/divi-geot-city.php:51 includes/fusion/fusion-geot-city.php:53
+#: includes/wpbeaver/wpbeaver-geot-city.php:50
+msgid "Exclude City Regions"
+msgstr ""
+
+#: includes/divi/divi-geot-country.php:29
+#: includes/divi/divi-geot-country.php:47
+#: includes/gutenberg/gutenberg-geot-country.js:99
+#: includes/gutenberg/gutenberg-geot-country.js:118
+#: includes/wpbeaver/wpbeaver-geot-country.php:33
+#: includes/wpbeaver/wpbeaver-geot-country.php:45
+msgid "Type country names or ISO codes separated by comma."
+msgstr ""
+
+#: includes/divi/divi-geot-country.php:34
+#: includes/fusion/fusion-geot-country.php:36
+msgid "Include Country Regions"
+msgstr ""
+
+#: includes/divi/divi-geot-country.php:52
+#: includes/fusion/fusion-geot-country.php:53
+msgid "Exclude Country Regions"
+msgstr ""
+
+#: includes/divi/divi-geot-radius.php:26
+msgid "Radius (Km)"
+msgstr ""
+
+#: includes/divi/divi-geot-state.php:29 includes/divi/divi-geot-state.php:46
+#: includes/gutenberg/gutenberg-geot-state.js:100
+#: includes/gutenberg/gutenberg-geot-state.js:119
+#: includes/wpbeaver/wpbeaver-geot-state.php:33
+#: includes/wpbeaver/wpbeaver-geot-state.php:45
+msgid "Type state names or ISO codes separated by comma."
+msgstr ""
+
+#: includes/divi/divi-geot-zipcode.php:26
+#: includes/wpbeaver/wpbeaver-geot-zipcode.php:32
+msgid "Include ZipCodes"
+msgstr ""
+
+#: includes/divi/divi-geot-zipcode.php:43
+#: includes/wpbeaver/wpbeaver-geot-zipcode.php:44
+msgid "Exclude ZipCodes"
+msgstr ""
+
+#: includes/divi/divi-geot-zipcode.php:46
+msgid "Type zip codes separated by comma."
+msgstr ""
+
+#: includes/elementor/conditions/elementor-geot-conditions-base.php:23
+msgid "Entire Site"
+msgstr ""
+
+#: includes/elementor/conditions/elementor-geot-conditions-city.php:29
+msgid "All Cities"
+msgstr ""
+
+#: includes/elementor/conditions/elementor-geot-conditions-country.php:29
+msgid "All Countries"
+msgstr ""
+
+#: includes/elementor/conditions/elementor-geot-conditions-region-city.php:29
+#: includes/elementor/conditions/elementor-geot-conditions-region-country.php:29
+#: includes/elementor/conditions/elementor-geot-conditions-region-state.php:29
+#: includes/elementor/conditions/elementor-geot-conditions-region-zip.php:29
+msgid "All Regions"
+msgstr ""
+
+#: includes/elementor/conditions/elementor-geot-conditions-region-country.php:25
+msgid "Country Regions"
+msgstr ""
+
+#: includes/elementor/conditions/elementor-geot-conditions-state.php:29
+msgid "All States"
+msgstr ""
+
+#: includes/elementor/conditions/elementor-geot-conditions-zip.php:29
+msgid "All Zips"
+msgstr ""
+
+#: includes/elementor/elementor-geot-city.php:30
+msgid "Cities Settings"
+msgstr ""
+
+#: includes/elementor/elementor-geot-city.php:39
+#: includes/elementor/elementor-geot-country.php:39
+#: includes/elementor/elementor-geot-state.php:40
+#: includes/elementor/elementor-geot-zipcode.php:38
+msgid "Include"
+msgstr ""
+
+#: includes/elementor/elementor-geot-city.php:81
+#: includes/elementor/elementor-geot-country.php:81
+#: includes/elementor/elementor-geot-state.php:80
+#: includes/elementor/elementor-geot-zipcode.php:78
+msgid "Exclude"
+msgstr ""
+
+#: includes/elementor/elementor-geot-country.php:30
+msgid "Countries Settings"
+msgstr ""
+
+#: includes/elementor/elementor-geot-radius.php:29
+#: includes/gutenberg/gutenberg-geot-radius.js:81
+msgid "Radius Settings"
+msgstr ""
+
+#: includes/elementor/elementor-geot-state.php:31
+msgid "States Settings"
+msgstr ""
+
+#: includes/elementor/elementor-geot-zipcode.php:29
+msgid "ZipCodes Settings"
+msgstr ""
+
+#: includes/fusion/fusion-geot-country.php:29
+#: includes/fusion/fusion-geot-country.php:46
+msgid ""
+"Type country name or ISO code. Also you can write a comma separated list of "
+"countries."
+msgstr ""
+
+#: includes/fusion/fusion-geot-radius.php:29
+#: includes/gutenberg/gutenberg-geot-radius.js:87
+#: includes/wpbeaver/wpbeaver-geot-radius.php:35
+msgid "Type the range."
+msgstr ""
+
+#: includes/fusion/fusion-geot-radius.php:36
+#: includes/gutenberg/gutenberg-geot-radius.js:95
+#: includes/wpbeaver/wpbeaver-geot-radius.php:41
+msgid "Type the latitude."
+msgstr ""
+
+#: includes/fusion/fusion-geot-radius.php:43
+#: includes/wpbeaver/wpbeaver-geot-radius.php:47
+msgid "Type the longitude."
+msgstr ""
+
+#: includes/fusion/fusion-geot-state.php:29
+msgid "Type states names separated by commas."
+msgstr ""
+
+#: includes/fusion/fusion-geot-zip.php:28
+msgid "Include Zips"
+msgstr ""
+
+#: includes/fusion/fusion-geot-zip.php:29
+#: includes/fusion/fusion-geot-zip.php:46
+msgid "Type Zip codes separated by commas."
+msgstr ""
+
+#: includes/fusion/fusion-geot-zip.php:45
+msgid "Exclude Zips"
+msgstr ""
+
+#: includes/geot/Email/GeotEmails.php:17
+#, php-format
+msgid ""
+"Your <a href=\"%s\">GeotargetingWP account</a> have run out of requests. "
+"Please <a href=\"%s\">renew your billing cycle</a> to continue using this "
+"plugin."
+msgstr ""
+
+#: includes/geot/Email/GeotEmails.php:18 includes/geot/Email/GeotEmails.php:34
+#: includes/geot/Email/GeotEmails.php:44
+msgid "Geotargeting plugin Error!"
+msgstr ""
+
+#: includes/geot/Email/GeotEmails.php:29
+#, php-format
+msgid ""
+"Your <a href=\"%s\">GeotargetingWP</a> license is wrong (%s). Please enter "
+"correct one to continue using the plugin on %s."
+msgstr ""
+
+#: includes/geot/Email/GeotEmails.php:43
+#, php-format
+msgid ""
+"Your <a href=\"%s\">GeotargetingWP</a> subscription is not active. Api "
+"returned following error: %s."
+msgstr ""
+
+#: includes/geot/Notice/GeotNotices.php:35
+msgid "Dismiss"
+msgstr ""
+
+#: includes/geot/Setting/GeotSettings.php:273
+msgid "General"
+msgstr ""
+
+#: includes/geot/Setting/GeotSettings.php:282
+msgid "Debug Data"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:36
+msgid "Regions:"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:41
+#: includes/geot/Setting/partials/regions-page.php:45
+msgid "Continents:"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:47
+msgid "We have created some predefined regions in case you need them:"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:49
+msgid "<b>north-america</b> (North America)"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:50
+msgid "<b>south-america</b> (South America)"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:51
+msgid "<b>europe</b> (Europe)"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:52
+msgid "<b>asia</b> (Asia)"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:53
+msgid "<b>africa</b> (Africa)"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:54
+msgid "<b>oceania</b> (Oceania)"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:55
+msgid "<b>antarctica</b> (Antarctica)"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:66
+#: includes/geot/Setting/partials/regions-page.php:105
+#: includes/geot/Setting/partials/regions-page.php:221
+#: includes/geot/Setting/partials/regions-page.php:247
+msgid "Create new region"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:80
+#: includes/geot/Setting/partials/regions-page.php:120
+#: includes/plugins/wppopups/field_region.php:15
+msgid "Remove Region"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:83
+#: includes/geot/Setting/partials/regions-page.php:123
+#: includes/geot/Setting/partials/settings-page.php:182
+#: includes/geot/Setting/partials/settings-page.php:209
+#: includes/geot/Setting/partials/setup-wizard-basic.php:27
+#: includes/geot/Setting/partials/setup-wizard-basic.php:41
+msgid "Type country name..."
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:97
+msgid "Add as many countries you need for each region"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:124
+msgid "Choose a Country"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:136
+msgid "First choose a country"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:212
+msgid "Add as many cities you need for each region"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:230
+msgid "Remove States"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:231
+msgid "Type State iso codes separated with commas..."
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:238
+msgid "Add State Regions"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:239
+msgid "Add as many states you need for each region"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:243
+msgid "Zip Codes:"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:256
+msgid "Remove Zip"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:257
+msgid "Type Zip Code separate with commas..."
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:258
+msgid ""
+"Write the zip codes separate by commas. You can use * to wide mach zips. For "
+"example 546* will match all zips codes starting with 546."
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:264
+msgid "Add Zip Regions"
+msgstr ""
+
+#: includes/geot/Setting/partials/regions-page.php:265
+msgid "Add as many zips you need for each region"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:40
+msgid "Main settings:"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:43
+#: includes/geot/Setting/partials/setup-wizard-basic.php:10
+msgid "Enter your API key"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:49
+#: includes/geot/Setting/partials/setup-wizard-basic.php:14
+msgid ""
+"Enter your api key in order to connect with the API and also get automatic "
+"updates"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:56
+#: includes/geot/Setting/partials/setup-wizard-basic.php:18
+msgid "Enter your API secret"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:60
+#: includes/geot/Setting/partials/setup-wizard-basic.php:21
+msgid "Enter your api secret"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:65
+msgid "Enable Maxmind Database"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:69
+#: includes/geot/Setting/partials/settings-page.php:81
+msgid "Check this if you want to use the database located on:"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:77
+msgid "Enable IP2Location Database"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:89
+msgid "Enable Hosting Database"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:106
+msgid "Check this if you want to use your hosting database"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:112
+msgid "Cache Mode"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:116
+#, php-format
+msgid ""
+"Check this if you want to save the user location into PHP Sessions. More "
+"info <a href=\"%s\">here</a>"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:120
+msgid "Geolocation"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:124
+msgid "IP Geolocation"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:127
+msgid ""
+"GPS HTML5 Geolocation for Mobile + Ip Geolocation for desktop (ajax mode "
+"only)"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:130
+msgid "GPS HTML5 Geolocation for Mobile and Desktop (ajax mode only)"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:133
+msgid ""
+"If you choose HTML5 Geolocation and the user doesn't give consent, it will "
+"fallback to IP geolocation."
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:137
+msgid "Ajax Mode"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:141
+msgid ""
+"In Ajax mode, after page load an extra request is made to get all data and "
+"everything is updated with javascript. That makes the plugin compatible with "
+"any cache plugin. More info on: "
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:149
+msgid "Force GPS Geolocation"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:153
+msgid ""
+"If checked, it will force the users to accept consent to provide their "
+"location."
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:158
+msgid "IP Settings"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:161
+msgid "No IP detected, please contact support."
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:163
+#, php-format
+msgid "IP detected: <b>%s</b>"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:167
+msgid "Choose your real IP"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:173
+#, php-format
+msgid ""
+"You can check your real IP in  <a href=\"%s\">%s</a>. That IP should match "
+"with the one you see in here."
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:178
+#: includes/geot/Setting/partials/setup-wizard-basic.php:25
+msgid "Fallback Country"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:183
+#: includes/geot/Setting/partials/settings-page.php:210
+#: includes/geot/Setting/partials/setup-wizard-basic.php:28
+#: includes/geot/Setting/partials/setup-wizard-basic.php:42
+msgid "Choose One"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:193
+msgid ""
+"If the user IP is not detected, the plugin will fallback to this country"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:197
+msgid "Fallback Country Whitelisted IPs"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:201
+msgid ""
+"Enter Ip addresses one by line and they will be resolved to the fallback "
+"country you choose and won't spend requests. You current Ip is: "
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:206
+#: includes/geot/Setting/partials/setup-wizard-basic.php:39
+msgid "Bots Country"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:220
+msgid "All bots/crawlers will be treated as they were from this country. "
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:224
+msgid "Bots Country IPs"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:228
+#, php-format
+msgid ""
+"Enter Ip addresses one by line and they will be resolved to the bots country "
+"you choose and won't spend requests. Check <a href=\"%s\">most queried ips</"
+"a> in order to identify bots."
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:233
+msgid "Misc:"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:236
+msgid "Uninstall:"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:238
+msgid ""
+"Check this if you want to <strong>delete all plugin data</strong> on "
+"uninstall"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:243
+msgid "Uninstall"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:247
+msgid ""
+"Will delete all database records and plugin settings when you delete the "
+"plugin"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:252
+msgid "Export/import:"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:254
+msgid "Export your setting or import them with a few clicks"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:258
+msgid "Export settings"
+msgstr ""
+
+#: includes/geot/Setting/partials/settings-page.php:271
+msgid "Import settings"
+msgstr ""
+
+#: includes/geot/Setting/partials/setup-wizard-basic.php:7
+msgid ""
+"Thanks for installing GeotargetingWP!! The wizard below will help you "
+"configure the plugin correctly."
+msgstr ""
+
+#: includes/geot/Setting/partials/setup-wizard-basic.php:34
+msgid ""
+"If the user IP is not detected, the plugin will fallback to this country. "
+"Simply choose the country which most of your content belongs to."
+msgstr ""
+
+#: includes/geot/Setting/partials/setup-wizard-basic.php:48
+msgid ""
+"Bots and crawlers will be treated as they were from this country. Usually "
+"the same country as above"
+msgstr ""
+
+#: includes/geot/Setting/partials/setup-wizard-basic.php:53
+msgid "We could not detect any IP address, please contact support"
+msgstr ""
+
+#: includes/geot/Setting/partials/setup-wizard-basic.php:55
+#, php-format
+msgid "We detected the following IP : <b>%s</b>"
+msgstr ""
+
+#: includes/geot/Setting/partials/setup-wizard-basic.php:56
+#, php-format
+msgid "It should match the IP on <a href=\"%s\">here</a>."
+msgstr ""
+
+#: includes/geot/Setting/partials/setup-wizard-basic.php:59
+msgid "Which is your correct ip?"
+msgstr ""
+
+#: includes/geot/Setting/partials/setup-wizard-basic.php:61
+msgid "Choose your IP..."
+msgstr ""
+
+#: includes/geot/Setting/partials/setup-wizard-basic.php:66
+#, php-format
+msgid ""
+"You can check your real ip on <a href=\"%s\">%s</a>, then choose the one "
+"with the same value."
+msgstr ""
+
+#: includes/geot/Setting/partials/setup-wizard-footer.php:4
+msgid "Cancel wizard"
+msgstr ""
+
+#: includes/geot/Setting/partials/setup-wizard-header.php:6
+msgid "Geotargeting &rsaquo; Setup Wizard"
+msgstr ""
+
+#: includes/geot/filters.php:37
+msgid "Andorra"
+msgstr "Andorra"
+
+#: includes/geot/filters.php:38
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+#: includes/geot/filters.php:39
+msgid "Åland Islands"
+msgstr ""
+
+#: includes/geot/filters.php:40
+msgid "Albania"
+msgstr "Albanien"
+
+#: includes/geot/filters.php:41
+msgid "Algeria"
+msgstr "Algerien"
+
+#: includes/geot/filters.php:42
+msgid "American Samoa"
+msgstr ""
+
+#: includes/geot/filters.php:43
+msgid "Angola"
+msgstr ""
+
+#: includes/geot/filters.php:44
+msgid "Anguilla"
+msgstr ""
+
+#: includes/geot/filters.php:45
+msgid "Antarctica"
+msgstr ""
+
+#: includes/geot/filters.php:46
+msgid "Antigua and Barbuda"
+msgstr ""
+
+#: includes/geot/filters.php:47
+msgid "Argentina"
+msgstr "Argentinien"
+
+#: includes/geot/filters.php:48
+msgid "Armenia"
+msgstr "Armenien"
+
+#: includes/geot/filters.php:49
+msgid "Aruba"
+msgstr ""
+
+#: includes/geot/filters.php:50
+msgid "Australia"
+msgstr "Australien"
+
+#: includes/geot/filters.php:51
+msgid "Austria"
+msgstr "Österreich"
+
+#: includes/geot/filters.php:52
+msgid "Azerbaijan"
+msgstr ""
+
+#: includes/geot/filters.php:53
+msgid "Bahamas"
+msgstr ""
+
+#: includes/geot/filters.php:54
+msgid "Bahrain"
+msgstr ""
+
+#: includes/geot/filters.php:55
+msgid "Bangladesh"
+msgstr ""
+
+#: includes/geot/filters.php:56
+msgid "Barbados"
+msgstr ""
+
+#: includes/geot/filters.php:57
+msgid "Belarus"
+msgstr ""
+
+#: includes/geot/filters.php:58
+msgid "Belgium"
+msgstr "Belgien"
+
+#: includes/geot/filters.php:59
+msgid "Belize"
+msgstr ""
+
+#: includes/geot/filters.php:60
+msgid "Benin"
+msgstr ""
+
+#: includes/geot/filters.php:61
+msgid "Bermuda"
+msgstr ""
+
+#: includes/geot/filters.php:62
+msgid "Bhutan"
+msgstr ""
+
+#: includes/geot/filters.php:63
+msgid "Bolivia (Plurinational State of)"
+msgstr ""
+
+#: includes/geot/filters.php:64
+msgid "Bonaire, Sint Eustatius and Saba"
+msgstr ""
+
+#: includes/geot/filters.php:65
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnien Herzigovina"
+
+#: includes/geot/filters.php:66
+msgid "Botswana"
+msgstr ""
+
+#: includes/geot/filters.php:67
+msgid "Bouvet Island"
+msgstr ""
+
+#: includes/geot/filters.php:68
+msgid "Brazil"
+msgstr "Brasilien"
+
+#: includes/geot/filters.php:69
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: includes/geot/filters.php:70
+msgid "Brunei Darussalam"
+msgstr ""
+
+#: includes/geot/filters.php:71
+msgid "Bulgaria"
+msgstr "Bulgarien"
+
+#: includes/geot/filters.php:72
+msgid "Burkina Faso"
+msgstr ""
+
+#: includes/geot/filters.php:73
+msgid "Burundi"
+msgstr ""
+
+#: includes/geot/filters.php:74
+msgid "Cabo Verde"
+msgstr ""
+
+#: includes/geot/filters.php:75
+msgid "Cambodia"
+msgstr ""
+
+#: includes/geot/filters.php:76
+msgid "Cameroon"
+msgstr ""
+
+#: includes/geot/filters.php:77
+msgid "Canada"
+msgstr "Kanada"
+
+#: includes/geot/filters.php:78
+msgid "Cayman Islands"
+msgstr ""
+
+#: includes/geot/filters.php:79
+msgid "Central African Republic"
+msgstr ""
+
+#: includes/geot/filters.php:80
+msgid "Chad"
+msgstr ""
+
+#: includes/geot/filters.php:81
+msgid "Chile"
+msgstr ""
+
+#: includes/geot/filters.php:82
+msgid "China"
+msgstr ""
+
+#: includes/geot/filters.php:83
+msgid "Christmas Island"
+msgstr ""
+
+#: includes/geot/filters.php:84
+msgid "Cocos (Keeling) Islands"
+msgstr ""
+
+#: includes/geot/filters.php:85
+msgid "Colombia"
+msgstr ""
+
+#: includes/geot/filters.php:86
+msgid "Comoros"
+msgstr ""
+
+#: includes/geot/filters.php:87
+msgid "Congo"
+msgstr ""
+
+#: includes/geot/filters.php:88
+msgid "Congo (Democratic Republic of the)"
+msgstr ""
+
+#: includes/geot/filters.php:89
+msgid "Cook Islands"
+msgstr ""
+
+#: includes/geot/filters.php:90
+msgid "Costa Rica"
+msgstr ""
+
+#: includes/geot/filters.php:91
+msgid "Côte d'Ivoire"
+msgstr ""
+
+#: includes/geot/filters.php:92
+msgid "Croatia"
+msgstr ""
+
+#: includes/geot/filters.php:93
+msgid "Cuba"
+msgstr ""
+
+#: includes/geot/filters.php:94
+msgid "Curaçao"
+msgstr ""
+
+#: includes/geot/filters.php:95
+msgid "Cyprus"
+msgstr ""
+
+#: includes/geot/filters.php:96
+msgid "Czech Republic"
+msgstr "Tschechien"
+
+#: includes/geot/filters.php:97
+msgid "Denmark"
+msgstr "Dänemark"
+
+#: includes/geot/filters.php:98
+msgid "Djibouti"
+msgstr ""
+
+#: includes/geot/filters.php:99
+msgid "Dominica"
+msgstr ""
+
+#: includes/geot/filters.php:100
+msgid "Dominican Republic"
+msgstr ""
+
+#: includes/geot/filters.php:101
+msgid "Ecuador"
+msgstr ""
+
+#: includes/geot/filters.php:102
+msgid "Egypt"
+msgstr ""
+
+#: includes/geot/filters.php:103
+msgid "El Salvador"
+msgstr ""
+
+#: includes/geot/filters.php:104
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: includes/geot/filters.php:105
+msgid "Eritrea"
+msgstr ""
+
+#: includes/geot/filters.php:106
+msgid "Estonia"
+msgstr "Estland"
+
+#: includes/geot/filters.php:107
+msgid "Ethiopia"
+msgstr ""
+
+#: includes/geot/filters.php:108
+msgid "Falkland Islands (Malvinas)"
+msgstr ""
+
+#: includes/geot/filters.php:109
+msgid "Faroe Islands"
+msgstr ""
+
+#: includes/geot/filters.php:110
+msgid "Fiji"
+msgstr ""
+
+#: includes/geot/filters.php:111
+msgid "Finland"
+msgstr "Finnland"
+
+#: includes/geot/filters.php:112
+msgid "France"
+msgstr "Frankreich"
+
+#: includes/geot/filters.php:113
+msgid "French Guiana"
+msgstr ""
+
+#: includes/geot/filters.php:114
+msgid "French Polynesia"
+msgstr ""
+
+#: includes/geot/filters.php:115
+msgid "French Southern Territories"
+msgstr ""
+
+#: includes/geot/filters.php:116
+msgid "Gabon"
+msgstr ""
+
+#: includes/geot/filters.php:117
+msgid "Gambia"
+msgstr ""
+
+#: includes/geot/filters.php:118
+msgid "Georgia"
+msgstr ""
+
+#: includes/geot/filters.php:119
+msgid "Germany"
+msgstr "Deutschland"
+
+#: includes/geot/filters.php:120
+msgid "Ghana"
+msgstr ""
+
+#: includes/geot/filters.php:121
+msgid "Gibraltar"
+msgstr ""
+
+#: includes/geot/filters.php:122
+msgid "Greece"
+msgstr "Griechenland"
+
+#: includes/geot/filters.php:123
+msgid "Greenland"
+msgstr ""
+
+#: includes/geot/filters.php:124
+msgid "Grenada"
+msgstr ""
+
+#: includes/geot/filters.php:125
+msgid "Guadeloupe"
+msgstr ""
+
+#: includes/geot/filters.php:126
+msgid "Guam"
+msgstr ""
+
+#: includes/geot/filters.php:127
+msgid "Guatemala"
+msgstr ""
+
+#: includes/geot/filters.php:128
+msgid "Guernsey"
+msgstr ""
+
+#: includes/geot/filters.php:129
+msgid "Guinea"
+msgstr ""
+
+#: includes/geot/filters.php:130
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: includes/geot/filters.php:131
+msgid "Guyana"
+msgstr ""
+
+#: includes/geot/filters.php:132
+msgid "Haiti"
+msgstr ""
+
+#: includes/geot/filters.php:133
+msgid "Heard Island and McDonald Islands"
+msgstr ""
+
+#: includes/geot/filters.php:134
+msgid "Holy See"
+msgstr ""
+
+#: includes/geot/filters.php:135
+msgid "Honduras"
+msgstr ""
+
+#: includes/geot/filters.php:136
+msgid "Hong Kong"
+msgstr ""
+
+#: includes/geot/filters.php:137
+msgid "Hungary"
+msgstr "Ungarn"
+
+#: includes/geot/filters.php:138
+msgid "Iceland"
+msgstr ""
+
+#: includes/geot/filters.php:139
+msgid "India"
+msgstr ""
+
+#: includes/geot/filters.php:140
+msgid "Indonesia"
+msgstr ""
+
+#: includes/geot/filters.php:141
+msgid "Iran (Islamic Republic of)"
+msgstr ""
+
+#: includes/geot/filters.php:142
+msgid "Iraq"
+msgstr ""
+
+#: includes/geot/filters.php:143
+msgid "Ireland"
+msgstr ""
+
+#: includes/geot/filters.php:144
+msgid "Isle of Man"
+msgstr ""
+
+#: includes/geot/filters.php:145
+msgid "Israel"
+msgstr ""
+
+#: includes/geot/filters.php:146
+msgid "Italy"
+msgstr "Italien"
+
+#: includes/geot/filters.php:147
+msgid "Jamaica"
+msgstr ""
+
+#: includes/geot/filters.php:148
+msgid "Japan"
+msgstr ""
+
+#: includes/geot/filters.php:149
+msgid "Jersey"
+msgstr ""
+
+#: includes/geot/filters.php:150
+msgid "Jordan"
+msgstr ""
+
+#: includes/geot/filters.php:151
+msgid "Kazakhstan"
+msgstr ""
+
+#: includes/geot/filters.php:152
+msgid "Kenya"
+msgstr ""
+
+#: includes/geot/filters.php:153
+msgid "Kiribati"
+msgstr ""
+
+#: includes/geot/filters.php:154
+msgid "Korea (Democratic People's Republic of)"
+msgstr ""
+
+#: includes/geot/filters.php:155
+msgid "Korea (Republic of)"
+msgstr ""
+
+#: includes/geot/filters.php:156
+msgid "Kuwait"
+msgstr ""
+
+#: includes/geot/filters.php:157
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: includes/geot/filters.php:158
+msgid "Kosovo"
+msgstr ""
+
+#: includes/geot/filters.php:159
+msgid "Lao People's Democratic Republic"
+msgstr ""
+
+#: includes/geot/filters.php:160
+msgid "Latvia"
+msgstr ""
+
+#: includes/geot/filters.php:161
+msgid "Lebanon"
+msgstr ""
+
+#: includes/geot/filters.php:162
+msgid "Lesotho"
+msgstr ""
+
+#: includes/geot/filters.php:163
+msgid "Liberia"
+msgstr ""
+
+#: includes/geot/filters.php:164
+msgid "Libya"
+msgstr ""
+
+#: includes/geot/filters.php:165
+msgid "Liechtenstein"
+msgstr ""
+
+#: includes/geot/filters.php:166
+msgid "Lithuania"
+msgstr ""
+
+#: includes/geot/filters.php:167
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+#: includes/geot/filters.php:168
+msgid "Macao"
+msgstr ""
+
+#: includes/geot/filters.php:169
+msgid "Macedonia (the former Yugoslav Republic of)"
+msgstr ""
+
+#: includes/geot/filters.php:170
+msgid "Madagascar"
+msgstr ""
+
+#: includes/geot/filters.php:171
+msgid "Malawi"
+msgstr ""
+
+#: includes/geot/filters.php:172
+msgid "Malaysia"
+msgstr ""
+
+#: includes/geot/filters.php:173
+msgid "Maldives"
+msgstr ""
+
+#: includes/geot/filters.php:174
+msgid "Mali"
+msgstr ""
+
+#: includes/geot/filters.php:175
+msgid "Malta"
+msgstr ""
+
+#: includes/geot/filters.php:176
+msgid "Marshall Islands"
+msgstr ""
+
+#: includes/geot/filters.php:177
+msgid "Martinique"
+msgstr ""
+
+#: includes/geot/filters.php:178
+msgid "Mauritania"
+msgstr ""
+
+#: includes/geot/filters.php:179
+msgid "Mauritius"
+msgstr ""
+
+#: includes/geot/filters.php:180
+msgid "Mayotte"
+msgstr ""
+
+#: includes/geot/filters.php:181
+msgid "Mexico"
+msgstr ""
+
+#: includes/geot/filters.php:182
+msgid "Micronesia (Federated States of)"
+msgstr ""
+
+#: includes/geot/filters.php:183
+msgid "Moldova (Republic of)"
+msgstr ""
+
+#: includes/geot/filters.php:184
+msgid "Monaco"
+msgstr ""
+
+#: includes/geot/filters.php:185
+msgid "Mongolia"
+msgstr ""
+
+#: includes/geot/filters.php:186
+msgid "Montenegro"
+msgstr ""
+
+#: includes/geot/filters.php:187
+msgid "Montserrat"
+msgstr ""
+
+#: includes/geot/filters.php:188
+msgid "Morocco"
+msgstr ""
+
+#: includes/geot/filters.php:189
+msgid "Mozambique"
+msgstr ""
+
+#: includes/geot/filters.php:190
+msgid "Myanmar"
+msgstr ""
+
+#: includes/geot/filters.php:191
+msgid "Namibia"
+msgstr ""
+
+#: includes/geot/filters.php:192
+msgid "Nauru"
+msgstr ""
+
+#: includes/geot/filters.php:193
+msgid "Nepal"
+msgstr ""
+
+#: includes/geot/filters.php:194
+msgid "Netherlands"
+msgstr "Niederlande"
+
+#: includes/geot/filters.php:195
+msgid "New Caledonia"
+msgstr ""
+
+#: includes/geot/filters.php:196
+msgid "New Zealand"
+msgstr ""
+
+#: includes/geot/filters.php:197
+msgid "Nicaragua"
+msgstr ""
+
+#: includes/geot/filters.php:198
+msgid "Niger"
+msgstr ""
+
+#: includes/geot/filters.php:199
+msgid "Nigeria"
+msgstr ""
+
+#: includes/geot/filters.php:200
+msgid "Niue"
+msgstr ""
+
+#: includes/geot/filters.php:201
+msgid "Norfolk Island"
+msgstr ""
+
+#: includes/geot/filters.php:202
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: includes/geot/filters.php:203
+msgid "Norway"
+msgstr ""
+
+#: includes/geot/filters.php:204
+msgid "Oman"
+msgstr ""
+
+#: includes/geot/filters.php:205
+msgid "Pakistan"
+msgstr ""
+
+#: includes/geot/filters.php:206
+msgid "Palau"
+msgstr ""
+
+#: includes/geot/filters.php:207
+msgid "Palestine, State of"
+msgstr ""
+
+#: includes/geot/filters.php:208
+msgid "Panama"
+msgstr ""
+
+#: includes/geot/filters.php:209
+msgid "Papua New Guinea"
+msgstr ""
+
+#: includes/geot/filters.php:210
+msgid "Paraguay"
+msgstr ""
+
+#: includes/geot/filters.php:211
+msgid "Peru"
+msgstr ""
+
+#: includes/geot/filters.php:212
+msgid "Philippines"
+msgstr ""
+
+#: includes/geot/filters.php:213
+msgid "Pitcairn"
+msgstr ""
+
+#: includes/geot/filters.php:214
+msgid "Poland"
+msgstr ""
+
+#: includes/geot/filters.php:215
+msgid "Portugal"
+msgstr ""
+
+#: includes/geot/filters.php:216
+msgid "Puerto Rico"
+msgstr ""
+
+#: includes/geot/filters.php:217
+msgid "Qatar"
+msgstr ""
+
+#: includes/geot/filters.php:218
+msgid "Réunion"
+msgstr ""
+
+#: includes/geot/filters.php:219
+msgid "Romania"
+msgstr ""
+
+#: includes/geot/filters.php:220
+msgid "Russian Federation"
+msgstr ""
+
+#: includes/geot/filters.php:221
+msgid "Rwanda"
+msgstr ""
+
+#: includes/geot/filters.php:222
+msgid "Saint Barthélemy"
+msgstr ""
+
+#: includes/geot/filters.php:223
+msgid "Saint Helena, Ascension and Tristan da Cunha"
+msgstr ""
+
+#: includes/geot/filters.php:224
+msgid "Saint Kitts and Nevis"
+msgstr ""
+
+#: includes/geot/filters.php:225
+msgid "Saint Lucia"
+msgstr ""
+
+#: includes/geot/filters.php:226
+msgid "Saint Martin (French part)"
+msgstr ""
+
+#: includes/geot/filters.php:227
+msgid "Saint Pierre and Miquelon"
+msgstr ""
+
+#: includes/geot/filters.php:228
+msgid "Saint Vincent and the Grenadines"
+msgstr ""
+
+#: includes/geot/filters.php:229
+msgid "Samoa"
+msgstr ""
+
+#: includes/geot/filters.php:230
+msgid "San Marino"
+msgstr ""
+
+#: includes/geot/filters.php:231
+msgid "Sao Tome and Principe"
+msgstr ""
+
+#: includes/geot/filters.php:232
+msgid "Saudi Arabia"
+msgstr ""
+
+#: includes/geot/filters.php:233
+msgid "Senegal"
+msgstr ""
+
+#: includes/geot/filters.php:234
+msgid "Serbia"
+msgstr ""
+
+#: includes/geot/filters.php:235
+msgid "Seychelles"
+msgstr ""
+
+#: includes/geot/filters.php:236
+msgid "Sierra Leone"
+msgstr ""
+
+#: includes/geot/filters.php:237
+msgid "Singapore"
+msgstr ""
+
+#: includes/geot/filters.php:238
+msgid "Sint Maarten (Dutch part)"
+msgstr ""
+
+#: includes/geot/filters.php:239
+msgid "Slovakia"
+msgstr "Slowakei"
+
+#: includes/geot/filters.php:240
+msgid "Slovenia"
+msgstr "Slowenien"
+
+#: includes/geot/filters.php:241
+msgid "Solomon Islands"
+msgstr ""
+
+#: includes/geot/filters.php:242
+msgid "Somalia"
+msgstr ""
+
+#: includes/geot/filters.php:243
+msgid "South Africa"
+msgstr ""
+
+#: includes/geot/filters.php:244
+msgid "South Georgia and the South Sandwich Islands"
+msgstr ""
+
+#: includes/geot/filters.php:245
+msgid "South Sudan"
+msgstr ""
+
+#: includes/geot/filters.php:246
+msgid "Spain"
+msgstr "Spanien"
+
+#: includes/geot/filters.php:247
+msgid "Sri Lanka"
+msgstr ""
+
+#: includes/geot/filters.php:248
+msgid "Sudan"
+msgstr ""
+
+#: includes/geot/filters.php:249
+msgid "Suriname"
+msgstr ""
+
+#: includes/geot/filters.php:250
+msgid "Svalbard and Jan Mayen"
+msgstr ""
+
+#: includes/geot/filters.php:251
+msgid "Swaziland"
+msgstr ""
+
+#: includes/geot/filters.php:252
+msgid "Sweden"
+msgstr "Schweden"
+
+#: includes/geot/filters.php:253
+msgid "Switzerland"
+msgstr "Schweiz"
+
+#: includes/geot/filters.php:254
+msgid "Syrian Arab Republic"
+msgstr ""
+
+#: includes/geot/filters.php:255
+msgid "Taiwan, Province of China"
+msgstr ""
+
+#: includes/geot/filters.php:256
+msgid "Tajikistan"
+msgstr ""
+
+#: includes/geot/filters.php:257
+msgid "Tanzania, United Republic of"
+msgstr ""
+
+#: includes/geot/filters.php:258
+msgid "Thailand"
+msgstr ""
+
+#: includes/geot/filters.php:259
+msgid "Timor-Leste"
+msgstr ""
+
+#: includes/geot/filters.php:260
+msgid "Togo"
+msgstr ""
+
+#: includes/geot/filters.php:261
+msgid "Tokelau"
+msgstr ""
+
+#: includes/geot/filters.php:262
+msgid "Tonga"
+msgstr ""
+
+#: includes/geot/filters.php:263
+msgid "Trinidad and Tobago"
+msgstr ""
+
+#: includes/geot/filters.php:264
+msgid "Tunisia"
+msgstr ""
+
+#: includes/geot/filters.php:265
+msgid "Turkey"
+msgstr ""
+
+#: includes/geot/filters.php:266
+msgid "Turkmenistan"
+msgstr ""
+
+#: includes/geot/filters.php:267
+msgid "Turks and Caicos Islands"
+msgstr ""
+
+#: includes/geot/filters.php:268
+msgid "Tuvalu"
+msgstr ""
+
+#: includes/geot/filters.php:269
+msgid "Uganda"
+msgstr ""
+
+#: includes/geot/filters.php:270
+msgid "Ukraine"
+msgstr ""
+
+#: includes/geot/filters.php:271
+msgid "United Arab Emirates"
+msgstr ""
+
+#: includes/geot/filters.php:272
+msgid "United Kingdom of Great Britain and Northern Ireland"
+msgstr ""
+
+#: includes/geot/filters.php:273
+msgid "United States Minor Outlying Islands"
+msgstr ""
+
+#: includes/geot/filters.php:274
+msgid "United States of America"
+msgstr "Vereinigte Staaten von Amerika"
+
+#: includes/geot/filters.php:275
+msgid "Uruguay"
+msgstr ""
+
+#: includes/geot/filters.php:276
+msgid "Uzbekistan"
+msgstr ""
+
+#: includes/geot/filters.php:277
+msgid "Vanuatu"
+msgstr ""
+
+#: includes/geot/filters.php:278
+msgid "Venezuela (Bolivarian Republic of)"
+msgstr ""
+
+#: includes/geot/filters.php:279
+msgid "Viet Nam"
+msgstr ""
+
+#: includes/geot/filters.php:280
+msgid "Virgin Islands (British)"
+msgstr ""
+
+#: includes/geot/filters.php:281
+msgid "Virgin Islands (U.S.)"
+msgstr ""
+
+#: includes/geot/filters.php:282
+msgid "Wallis and Futuna"
+msgstr ""
+
+#: includes/geot/filters.php:283
+msgid "Western Sahara"
+msgstr ""
+
+#: includes/geot/filters.php:284
+msgid "Yemen"
+msgstr ""
+
+#: includes/geot/filters.php:285
+msgid "Zambia"
+msgstr ""
+
+#: includes/geot/filters.php:286
+msgid "Zimbabwe"
+msgstr ""
+
+#: includes/geot/functions.php:248
+#, php-format
+msgid "REMOTE_ADDR : %s"
+msgstr ""
+
+#: includes/geot/functions.php:254
+#, php-format
+msgid "HTTP_CLIENT_IP : %s"
+msgstr ""
+
+#: includes/geot/functions.php:260 includes/geot/functions.php:278
+#, php-format
+msgid "HTTP_X_REAL_IP : %s"
+msgstr ""
+
+#: includes/geot/functions.php:266
+#, php-format
+msgid "HTTP_CF_CONNECTING_IP : %s"
+msgstr ""
+
+#: includes/geot/functions.php:272
+#, php-format
+msgid "X-Real-IP : %s"
+msgstr ""
+
+#: includes/geot/functions.php:285
+#, php-format
+msgid "HTTP_X_SUCURI_CLIENTIP : %s"
+msgstr ""
+
+#: includes/geot/functions.php:291
+#, php-format
+msgid "X-FORWARDED-FOR : %s"
+msgstr ""
+
+#: includes/geot/functions.php:297
+#, php-format
+msgid "True-Client-IP : %s"
+msgstr ""
+
+#: includes/geot/functions.php:303
+#, php-format
+msgid "HTTP_X_FORWARDED_FOR : %s"
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-city.js:17
+#: includes/gutenberg/gutenberg-geot-country.js:17
+#: includes/gutenberg/gutenberg-geot-radius.js:17
+#: includes/gutenberg/gutenberg-geot-state.js:17
+#: includes/gutenberg/gutenberg-geot-zipcode.js:17
+msgid "You can place other blocks inside this container"
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-city.js:20
+#: includes/gutenberg/gutenberg-geot-country.js:20
+#: includes/gutenberg/gutenberg-geot-radius.js:20
+#: includes/gutenberg/gutenberg-geot-state.js:20
+#: includes/gutenberg/gutenberg-geot-zipcode.js:20
+msgid "inner-blocks"
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-city.js:52
+#: includes/gutenberg/gutenberg-geot-country.js:52
+#: includes/gutenberg/gutenberg-geot-radius.js:48
+#: includes/gutenberg/gutenberg-geot-state.js:52
+#: includes/gutenberg/gutenberg-geot-zipcode.js:52
+msgid "You can modify the settings of the block in the sidebar."
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-city.js:93
+msgid "Target Cities Settings"
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-country.js:93
+msgid "Target Countries Settings"
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-country.js:128
+#: includes/gutenberg/gutenberg-geot-state.js:129
+#: includes/gutenberg/gutenberg-geot-zipcode.js:128
+msgid "Choose region name to exclude content"
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-radius.js:103
+msgid "Type the Longitude."
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-state.js:94
+msgid "Target States Settings"
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-zipcode.js:16
+msgid "Target Zipcodes"
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-zipcode.js:93
+msgid "Target Zipcodes Settings"
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-zipcode.js:104
+msgid "Include Zipcode Regions"
+msgstr ""
+
+#: includes/gutenberg/gutenberg-geot-zipcode.js:123
+msgid "Exclude Zipcode Regions"
+msgstr ""
+
+#: includes/plugins/wppopups/field_region.php:14
+msgid "Region Name"
+msgstr ""
+
+#: includes/plugins/wppopups/field_region.php:18
+msgid "Select Countries"
+msgstr ""
+
+#: includes/plugins/wppopups/field_region.php:31
+msgid "Add Region"
+msgstr ""
+
+#: includes/wpbeaver/wpbeaver-geot-city.php:27
+msgid "Geo Cities"
+msgstr ""
+
+#: includes/wpbeaver/wpbeaver-geot-country.php:27
+msgid "Geo Countries"
+msgstr ""
+
+#: includes/wpbeaver/wpbeaver-geot-country.php:38
+msgid "Include Region Countries"
+msgstr ""
+
+#: includes/wpbeaver/wpbeaver-geot-country.php:50
+msgid "Exclude Region Countries"
+msgstr ""
+
+#: includes/wpbeaver/wpbeaver-geot-radius.php:27
+msgid "Geo Radius"
+msgstr ""
+
+#: includes/wpbeaver/wpbeaver-geot-state.php:27
+msgid "Geo States"
+msgstr ""
+
+#: includes/wpbeaver/wpbeaver-geot-zipcode.php:27
+msgid "Geo ZipCodes"
+msgstr ""
+
+#: public/class-geot-public.php:119
+msgid "Geolocation is not supported by this browser"
+msgstr "Standortdienste werden von diesem Browser nicht unterstützt"
+
+#: public/class-geot-public.php:325
+msgid "Please share your location to continue"
+msgstr "Bitte teile deinen Standort um fortzufahren"
+
