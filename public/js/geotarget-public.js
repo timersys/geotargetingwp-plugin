@@ -370,7 +370,6 @@
             const $overlay = $('div.geotloc_overlay_box');
 
             if( geot.geoloc_force ) {
-                $overlay.find('.geotloc_overlay_content').append(GeotWP.img_consent);
 
                 if( ! $overlay.is(':visible') )
                     GeotWP.show_overlay();
@@ -395,7 +394,6 @@
 
             if( GeotWP.readCookie('geot-gps') == null ) {
 
-                $overlay.find('div.geotloc_overlay_content').append(GeotWP.img_geoloc);
                 GeotWP.show_overlay();
             }
 

@@ -11,6 +11,7 @@
  */
 
 use GeotCore\Session\GeotSession;
+use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use function GeotCore\is_builder;
 
 /**
@@ -119,17 +120,6 @@ class GeotWP_Public {
 			'geoloc_enable'		=> isset($this->opts['geolocation']) ? $this->opts['geolocation'] : 0,
 			'geoloc_force'		=> isset($this->opts['force_geot']) ? $this->opts['force_geot'] : '',
 			'geoloc_fail'		=> esc_html__( 'Geolocation is not supported by this browser', 'geot' ),
-			'geoloc_img_opera'		=> '<img src="' . GEOWP_PLUGIN_URL . 'public/images/geolocation_opera.gif" alt="Geolocation Opera" />',
-			'geoloc_img_safari'		=> '<img src="' . GEOWP_PLUGIN_URL . 'public/images/geolocation_safari.gif" alt="Geolocation Safari" />',
-			'geoloc_img_chrome'		=> '<img src="' . GEOWP_PLUGIN_URL . 'public/images/geolocation_chrome.gif" alt="Geolocation Chrome" />',
-			'geoloc_img_firefox'	=> '<img src="' . GEOWP_PLUGIN_URL . 'public/images/geolocation_firefox.gif" alt="Geolocation Firefox" />',
-			'geoloc_img_edge'	=> '<img src="' . GEOWP_PLUGIN_URL . 'public/images/geolocation_edge.gif" alt="Geolocation Edge" />',
-			
-			'geoloc_consent_opera'		=> '<img src="' . GEOWP_PLUGIN_URL . 'public/images/give_consent_opera.gif" alt="Consent Opera" />',
-			'geoloc_consent_safari'		=> '<img src="' . GEOWP_PLUGIN_URL . 'public/images/give_consent_chrome.gif" alt="Consent Safari" />',
-			'geoloc_consent_chrome'		=> '<img src="' . GEOWP_PLUGIN_URL . 'public/images/give_consent_chrome.gif" alt="Consent Chrome" />',
-			'geoloc_consent_firefox'	=> '<img src="' . GEOWP_PLUGIN_URL . 'public/images/give_consent_firefox.gif" alt="Consent Firefox" />',
-			'geoloc_consent_edge'	=> '<img src="' . GEOWP_PLUGIN_URL . 'public/images/give_consent_edge.gif" alt="Consent Edge" />',
 		] );
 	}
 
@@ -320,14 +310,21 @@ class GeotWP_Public {
 
 
 	public function print_overlay() {
+
 		echo '<!-- Geotargeting GeoLocation START -->
 		<div class="geotloc_overlay_box" style="display: none;">
-			<div class="geotloc_overlay_remove"></div>
-			<div class="geotloc_overlay_content">
-			<h3>'. __('Please share your location to continue', 'geot') . '</h3>
+			<div class="geotloc_overlay_container">
+				<div class="geotloc_overlay_remove"></div>
+				<div class="geotloc_overlay_text">
+					<p>' . __( 'Please share your location to continue', 'geot' ) . '</p>
+				</div>
+				<div class="geotloc_overlay_img">
+					<img src="'. GEOWP_PLUGIN_URL . 'public/images/give_consent.png" alt="share your location"/>
+				</div>
 			</div>
 		</div>
 		<!-- Geotargeting GeoLocation END -->';
+
 	}
 
 
