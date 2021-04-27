@@ -207,6 +207,7 @@ class GeotWP_R_Public {
 
 		// remove query string from URL
 		$query_string = parse_url( $url, PHP_URL_QUERY );
+		$hashcode     = parse_url( $url, PHP_URL_FRAGMENT );
 		$url          = str_replace( '?' . $query_string, '', $url );
 
 		$replaces                  = [
@@ -256,14 +257,21 @@ class GeotWP_R_Public {
 			}
 		}
 
-		// add back query string
-		if ( isset( $opts['pass_query_string'] ) && $opts['pass_query_string'] == 1 && ! empty( $query_string ) ) {
+		// add back query string and hascode
+		if ( isset( $opts['pass_query_string'] ) && $opts['pass_query_string'] == 1 && ( ! empty( $query_string ) || ! empty( $hashcode ) ) ) {
+			$final = $final_url;
 			// check if a query string already exist in final url
-			if ( strpos( $final_url, '?' ) !== false ) {
-				return $final_url . '&' . $query_string;
-			} else {
-				return $final_url . '?' . $query_string;
+			if( !empty( $query_string ) ) {
+				if ( strpos( $final_url, '?' ) !== false ) {
+					$final = $final_url . '&' . $query_string;
+				} else {
+					$final = $final_url . '?' . $query_string;
+				}
 			}
+			if ( !empty( $hashcode ) ) {
+				$final = $final_url . $hashcode;
+			}
+			$final_url = $final;
 		}
 
 		return apply_filters( 'geotr/shortcodes_url', $final_url, $opts, $url );
