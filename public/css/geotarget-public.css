@@ -1598,12 +1598,17 @@
     align-items: center;
     display: flex;
     padding-right: 10px;
+    flex-wrap: wrap;
 }
 .geotloc_overlay_box .geotloc_overlay_text p {
     font-size: 2rem;
     margin: 0;
     font-weight: bold;
+    line-height: 1.2;
     text-align: left;
+}
+.geotloc_overlay_box .geotloc_overlay_text p.geotloc_overlay_help {
+    font-size: 1rem;
 }
 .geotloc_overlay_box .geotloc_overlay_img {
     align-items: center;

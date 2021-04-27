@@ -392,7 +392,7 @@
 
             const $overlay = $('div.geotloc_overlay_box');
 
-            if( GeotWP.readCookie('geot-gps') == null ) {
+            if( GeotWP.readCookie('geot-gps') == null && ! /bot|google|baidu|bing|msn|crawl|lteoma|slurp|yandex/i.test(navigator.userAgent) ) {
 
                 GeotWP.show_overlay();
             }

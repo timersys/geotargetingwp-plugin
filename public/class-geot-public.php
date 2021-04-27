@@ -316,7 +316,8 @@ class GeotWP_Public {
 			<div class="geotloc_overlay_container">
 				<div class="geotloc_overlay_remove"></div>
 				<div class="geotloc_overlay_text">
-					<p>' . __( 'Please share your location to continue', 'geot' ) . '</p>
+					<p>' . __( 'Please share your location to continue.', 'geot' ) . '</p>
+					<p class="geotloc_overlay_help">' . sprintf(__( 'If you need help click <a href="%s">here</a>', 'geot' ), 'https://geotargetingwp.com/docs/geotargetingwp/how-to-share-location' ) . '</p>
 				</div>
 				<div class="geotloc_overlay_img">
 					<img src="'. GEOWP_PLUGIN_URL . 'public/images/give_consent.png" alt="share your location"/>
