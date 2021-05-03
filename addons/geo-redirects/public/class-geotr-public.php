@@ -240,6 +240,10 @@ class GeotWP_R_Public {
 
 		$final_url = str_replace( array_keys( $replaces ), array_values( $replaces ), $opts['url'] );
 
+		// if we are in root we have empty or / , so use original url again for WPML to work
+		if( empty($final_url)|| '/' == $final_url){
+			$final_url = $url;
+		}
 		// if wpml active and language code
 		if( ! empty( $opts['wpml'] ) ) {
 			// only run for WPML, polylang wpml api is not working
