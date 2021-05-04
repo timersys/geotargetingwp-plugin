@@ -237,7 +237,7 @@ if ( class_exists( 'Walker_Nav_Menu_Edit' ) ) {
 						<span class="radius_km">
 							<input type="text" id="radius_km" class="geot_text widefat" name="menu-item-geot[<?php echo $item_id; ?>][radius_km]"
 									       value="<?php echo esc_attr( $item->geot['radius_km'] ); ?>"
-									       placeholder="<?php _e( '100', 'geot' ); ?>"/> Km within
+									       placeholder="<?php _e( '100', 'geot' ); ?>"/> <?php echo \GeotCore\radius_unit();?> within
 							
 							<input type="text" id="radius_lat" class="geot_text widefat" name="menu-item-geot[<?php echo $item_id; ?>][radius_lat]"
 							       value="<?php echo esc_attr( $item->geot['radius_lat'] ); ?>"

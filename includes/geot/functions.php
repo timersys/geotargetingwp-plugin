@@ -426,7 +426,7 @@ function array_map_recursive($callback, $array) {
 }
 
 function radius_unit() {
-	$opts = geot_settings();
+	$opts = geotwp_settings();
 	if( ! isset( $opts['radius_unit'] ) || 'km' == $opts['radius_unit'] ) {
 		return 'km';
 	}
