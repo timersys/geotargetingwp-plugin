@@ -3,8 +3,8 @@ Contributors: timersys
 Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
-Tested up to: 5.6.1
-Stable tag: 3.3.5.3
+Tested up to: 5.7.1
+Stable tag: 3.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,14 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.3.6 - May 4 2021 =
+* Feature: Added miles or km for radius
+* Feature: Changed geolocation overlay popup and made it translatable
+* Feature: Hashcode now passed with redirections along with query string
+* Fix: WPML automatic translation on root pages
+* Fix: Geoblocker not working on some enviroments
+
+
 = 3.3.5.3 - March 20 2021 =
 * HOTFIX for bug with ipv6 addresses, some address are still failing in 3.3.5.2
 
