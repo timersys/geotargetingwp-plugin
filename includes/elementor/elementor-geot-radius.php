@@ -74,7 +74,7 @@ class Elementor_GeoRadius {
 		$control->add_control(
 			'radius_km',
 			[
-				'label'			=> esc_html__( 'Radius (km)', 'geot' ),
+				'label'			=> esc_html__( 'Radius', 'geot' ),
 				'type'			=> \Elementor\Controls_Manager::NUMBER,
 				'step'			=> '1',
 				'placeholder'	=> '100',

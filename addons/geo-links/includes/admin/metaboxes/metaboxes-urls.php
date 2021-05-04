@@ -112,7 +112,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<input type="number" class="widefat" step="1"
 									       name="geol[dest][<?php echo $key; ?>][radius_km]"
 									       value="<?php echo isset( $data['radius_km'] ) ? esc_attr( $data['radius_km'] ) : ''; ?>"
-									       placeholder="<?php _e( '100', 'geot' ); ?>" style="width: 60px;"/> km within
+									       placeholder="<?php _e( '100', 'geot' ); ?>" style="width: 60px;"/> <?php echo \GeotCore\radius_unit()?> within
 									<br />
 									<input type="number" class="widefat" step="0.000001"
 									       name="geol[dest][<?php echo $key; ?>][radius_lat]"

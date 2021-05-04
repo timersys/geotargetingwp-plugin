@@ -61,7 +61,7 @@ registerBlockType('geotargeting-pro/gutenberg-radius', {
         }
 
         if (radius_km) {
-            block_sign_msg.push(__('Radius (km)', 'geot') + ' : ' + radius_km);
+            block_sign_msg.push(__('Radius', 'geot') + ' : ' + radius_km);
         }
 
         if (radius_lat) {

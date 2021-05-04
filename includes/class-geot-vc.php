@@ -302,10 +302,10 @@ class GeotWP_VC {
 					[
 						"type"			=> "textfield",
 						"class"			=> "",
-						"heading"		=> esc_html__( "Radius (km)", 'geot' ),
+						"heading"		=> esc_html__( "Radius", 'geot' ),
 						"param_name"	=> "radius_km",
 						"value"			=> "",
-						"description"	=> esc_html__( "Type the range in km", 'geot' ),
+						"description"	=> esc_html__( "Type the range in km or miles", 'geot' ),
 						'group'			=> esc_html__( 'GeoTargeting', 'geot' ),
 					],[
 						"type"        => "textfield",

@@ -223,7 +223,7 @@
 	<td>
 		<input type="text" id="geot-radius_km" class="selectize-input" name="geot[radius_km]"
 		       value="<?php echo ! empty( $geot['radius_km'] ) ? $geot['radius_km'] : ''; ?>"
-		       placeholder="<?php _e( '100', 'geot' ); ?>" style="width: 60px;" /> km within
+		       placeholder="<?php _e( '100', 'geot' ); ?>" style="width: 60px;" /> <?php echo \GeotCore\radius_unit()?> within
 		<input type="text" id="geot-radius_lat" class="selectize-input" name="geot[radius_lat]"
 		       value="<?php echo ! empty( $geot['radius_lat'] ) ? $geot['radius_lat'] : ''; ?>"
 		       placeholder="<?php _e( 'Enter latitude', 'geot' ); ?>" style="width: 160px;" />

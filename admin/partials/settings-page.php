@@ -44,6 +44,16 @@
 				</td>
 			</tr>
 
+			<tr valign="top" class="">
+				<th><label for="widget_integration"><?php _e( 'Radius in miles or km?', 'geot' ); ?></label></th>
+				<td colspan="3">
+					<select name="geot_settings[radius_unit]">
+						<option value="km" <?php selected( $opts['radius_unit'], 'km' ); ?>>km</option>
+						<option value="miles" <?php selected( $opts['radius_unit'], 'miles' ); ?>>miles</option>
+					</select>
+					<p class="help"><?php _e( 'Choose the unit to apply when using radius functionality', 'geot' ); ?></p>
+				</td>
+			</tr>
 			<?php do_action( 'geot/settings_partial/after', $opts ); ?>
 
 			<tr>

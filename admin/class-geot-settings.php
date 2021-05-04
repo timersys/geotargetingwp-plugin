@@ -60,6 +60,7 @@ class GeotWP_Settings {
 			'ajax_mode'						=> '0',
 			'disable_menu_integration'		=> '0',
 			'disable_widget_integration'	=> '0',
+			'radius_unit'	                => 'km',
 			'enable_taxonomies'				=> [ 'category', 'product_cat'],
 		];
 		$opts     = geotwp_settings();

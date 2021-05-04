@@ -210,7 +210,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<input type="text" id="radius_km" class="geot_text" name="geot[radius_km]"
 			       value="<?php echo ! empty( $opts['radius_km'] ) ? $opts['radius_km'] : ''; ?>"
-			       placeholder="<?php _e( '100', 'geot' ); ?>"/> km within
+			       placeholder="<?php _e( '100', 'geot' ); ?>"/> <?php echo \GeotCore\radius_unit()?> within
 			<input type="text" id="radius_lat" class="geot_text" name="geot[radius_lat]"
 			       value="<?php echo ! empty( $opts['radius_lat'] ) ? $opts['radius_lat'] : ''; ?>"
 			       placeholder="<?php _e( 'Enter latitude', 'geot' ); ?>"/>

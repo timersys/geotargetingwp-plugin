@@ -424,3 +424,11 @@ function array_map_recursive($callback, $array) {
 
 	return array_map($func, $array);
 }
+
+function radius_unit() {
+	$opts = geot_settings();
+	if( ! isset( $opts['radius_unit'] ) || 'km' == $opts['radius_unit'] ) {
+		return 'km';
+	}
+	return 'miles';
+}

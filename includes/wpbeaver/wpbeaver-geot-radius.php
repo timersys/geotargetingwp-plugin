@@ -31,7 +31,7 @@ class WPBeaver_GeoRadius {
 					'type'			=> 'unit',
 					'class'			=> 'geot_radius_km_input',
 					'placeholder'	=> '100',
-					'label'			=> esc_html__( 'Radius (km)', 'Geot' ),
+					'label'			=> esc_html__( 'Radius', 'Geot' ),
 					'help'			=> esc_html__( 'Type the range.', 'geot' ),
 				],
 				'radius_lat' => [

@@ -25,7 +25,7 @@ class Fusion_GeoRadius {
 		$fields = [
 			[
 				'type'			=> 'textfield',
-				'heading'		=> esc_attr__( 'Radius (km)', 'geot' ),
+				'heading'		=> esc_attr__( 'Radius', 'geot' ),
 				'description'	=> esc_attr__( 'Type the range.', 'geot' ),
 				'param_name'	=> 'geot_radius_km',
 				'default'		=> '',

@@ -204,7 +204,7 @@ class GeotWP_R_ules {
 				'state_region'		=> __( 'State Region', 'geot' ),
 				'zip'				=> __( 'Zip Code', 'geot' ),
 				'zip_region'		=> __( 'Zip Region', 'geot' ),
-				'radius'			=> __( 'Lat|Lng|Radius(km)', 'geot' ),
+				'radius'			=> __( 'Lat|Lng|Radius', 'geot' ),
 				'ip'				=> __( 'IP', 'geot' ),
 			],
 			__( "User", 'geot' )         => [
