@@ -320,11 +320,9 @@ class GeotWP_Helper {
 			'!=' => __( "is not equal to", 'geot' ),
 		];
 
-		if ( $options['param'] == 'local_time' ) {
-			$choices = [
-				'<' => __( "less than", 'geot' ),
-				'>' => __( "greater than", 'geot' ),
-			];
+		if ( $options['param'] == 'local_time' || $options['param'] == 'date' ) {
+			$choices['<'] = __( "less than", 'geot' );
+			$choices['>'] = __( "greater than", 'geot' );
 		}
 
 		if ( $options['param'] == 'radius' ) {
@@ -635,6 +633,27 @@ class GeotWP_Helper {
 
 			case "taxonomy" :
 				$choices = apply_filters( 'geot/get_taxonomies', self::get_taxonomies() );
+				break;
+
+			case "local_time" :
+				$choices = [];
+				for ( $h = 0; $h < 24; $h ++ ) {
+					for ( $m = 0; $m < 60; $m += 5 ) {
+						$time           = sprintf( '%02d:%02d', $h, $m );
+						$choices["$time"] = "$time";
+					}
+				}
+				break;
+			case "day":
+				$choices = [
+					__( 'Sunday' ),
+					__( 'Monday' ),
+					__( 'Tuesday' ),
+					__( 'Wednesday' ),
+					__( 'Thursday' ),
+					__( 'Friday' ),
+					__( 'Saturday' ),
+				];
 				break;
 
 			case "logged_user" :

@@ -101,6 +101,11 @@ class GeotWP_R_ules {
 		add_filter( 'geot/rules/rule_match/query_string', [ self::class, 'rule_match_query_string' ] );
 		add_filter( 'geot/rules/rule_match/language', [ self::class, 'rule_match_language' ] );
 		add_filter( 'geot/rules/rule_match/browser_language', [ self::class, 'rule_match_browser_language' ] );
+
+		// Time and date
+		add_filter( 'geot/rules/rule_match/local_time', [ self::class, 'rule_match_local_time' ], 10, 2 );
+		add_filter( 'geot/rules/rule_match/day', [ self::class, 'rule_match_day' ], 10, 2 );
+		add_filter( 'geot/rules/rule_match/date', [ self::class, 'rule_match_date' ], 10, 2 );
 	}
 
 	/*
@@ -187,6 +192,11 @@ class GeotWP_R_ules {
 		add_action( 'geot/rules/print_cookie_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 		add_action( 'geot/rules/print_language_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
 		add_action( 'geot/rules/print_browser_language_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 1 );
+
+		// Time and date
+		add_action( 'geot/rules/print_local_time_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_day_field', [ 'GeotWP_Helper', 'print_select' ], 10, 2 );
+		add_action( 'geot/rules/print_date_field', [ 'GeotWP_Helper', 'print_textfield' ], 10, 2 );
 	}
 
 	/**
@@ -228,6 +238,11 @@ class GeotWP_R_ules {
 				'page_type'     => __( "Page Type", 'geot' ),
 				'page_parent'   => __( "Page Parent", 'geot' ),
 				'page_template' => __( "Page Template", 'geot' ),
+			],
+			__( "Time/Date", 'geot' )         => [
+				'local_time'          => __( 'Local time is', 'geot' ),
+				'day'                 => __( 'Weekday is', 'geot' ),
+				'date'                => __( 'Date is (YYYY/MM/DD)', 'geot' ),
 			],
 			__( "Other", 'geot' )        => [
 				'custom_url'   => __( "Custom Url", 'geot' ),
@@ -1080,5 +1095,74 @@ class GeotWP_R_ules {
 		}
 
 		return ! isset( $_COOKIE[ $rule['value'] ] );
+	}
+
+	/**
+	 * Show popup if time matches
+	 *
+	 * @param $rule
+	 *
+	 * @return bool
+	 */
+	public static function rule_match_local_time( $rule ) {
+
+		$current_time = DateTime::createFromFormat( '!H:i', date( 'H:i', current_time( 'timestamp' ) ) );
+		$time         = DateTime::createFromFormat( '!H:i', $rule['value'] );
+
+		if ( $current_time <= $time && $rule['operator'] == "<" ) {
+			return true;
+		}
+
+		if ( $current_time >= $time && $rule['operator'] == ">" ) {
+			return true;
+		}
+		if ( $current_time == $time && $rule['operator'] == "==" ) {
+			return true;
+		}
+		if ( $current_time != $time && $rule['operator'] == "!=" ) {
+			return true;
+		}
+
+		return false;
+
+	}
+
+	/**
+	 * Show popup if date matches
+	 *
+	 * @param $rule
+	 *
+	 * @return bool
+	 */
+	public static function rule_match_day( $rule ) {
+
+		if ( date( 'w', current_time( 'timestamp' ) ) == $rule['value'] ) {
+			return $rule['operator'] == "==";
+		}
+
+	}
+
+	/**
+	 * Show popup on certain date
+	 *
+	 * @param $rule
+	 *
+	 * @return bool
+	 */
+	public static function rule_match_date( $rule ) {
+
+		$today = date( 'Y/m/d' );
+
+		switch ( $rule['operator'] ) {
+			case '==':
+				return ( $today == $rule['value'] );
+			case '!=':
+				return ! ( $today == $rule['value'] );
+			case '<':
+				return ( $today < $rule['value'] );
+			case '>':
+				return ( $today > $rule['value'] );
+		}
+
 	}
 }
