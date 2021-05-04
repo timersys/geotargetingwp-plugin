@@ -41,9 +41,9 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 * Feature: Added miles or km for radius
 * Feature: Changed geolocation overlay popup and made it translatable
 * Feature: Hashcode now passed with redirections along with query string
+* Feature: Added new time/date rules
 * Fix: WPML automatic translation on root pages
 * Fix: Geoblocker not working on some enviroments
-
 
 = 3.3.5.3 - March 20 2021 =
 * HOTFIX for bug with ipv6 addresses, some address are still failing in 3.3.5.2
