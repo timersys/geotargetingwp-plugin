@@ -22,6 +22,15 @@ class Divi_GeoRadius {
 	 */
 	static function get_fields() {
 
+
+		$fields['radius_mode'] = [
+			'label'				=> esc_html__( 'Geo Mode', 'geot' ),
+			'type'				=> 'select',
+			'options'           => [ 'show' => esc_html__( 'Show', 'geot' ), 'hide' => esc_html__( 'Hide', 'geot' )],
+			'option_category'	=> 'configuration',
+			'tab_slug'			=> 'geot',
+		];
+
 		$fields['radius_km'] = [
 			'label'				=> esc_html__( 'Radius (Km)', 'geot' ),
 			'type'				=> 'number',
@@ -64,13 +73,14 @@ class Divi_GeoRadius {
 		$radius_km	= isset( $settings['radius_km'] ) ? trim( $settings['radius_km'] ) : '';
 		$radius_lat = isset( $settings['radius_lat'] ) ? trim( $settings['radius_lat'] ) : '';
 		$radius_lng = isset( $settings['radius_lng'] ) ? trim( $settings['radius_lng'] ) : '';
+		$radius_mode = !empty( $settings['radius_mode'] ) ? trim( $settings['radius_mode'] ) : 'show';
 
 		if ( empty( $radius_km ) || empty( $radius_lat ) || empty( $radius_lng ) ) {
 			return true;
 		}
 
-		return geot_target_radius( $radius_lat, $radius_lng, $radius_km );
-
+		$target = geot_target_radius( $radius_lat, $radius_lng, $radius_km );
+		return $radius_mode == 'include' ? $target : ! $target;
 	}
 
 
@@ -84,12 +94,13 @@ class Divi_GeoRadius {
 		$radius_km	= isset( $settings['radius_km'] ) ? $settings['radius_km'] : '';
 		$radius_lat = isset( $settings['radius_lat'] ) ? $settings['radius_lat'] : '';
 		$radius_lng = isset( $settings['radius_lng'] ) ? $settings['radius_lng'] : '';
+		$radius_mode = !empty( $settings['radius_mode'] ) ? trim( $settings['radius_mode'] ) : 'show';
 
 		if ( empty( $radius_km ) || empty( $radius_lat ) || empty( $radius_lng ) ) {
 			return $output;
 		}
 
-		return '<div class="geot-ajax geot-filter" data-action="radius_filter" data-filter="' . $radius_km . '" data-region="' . $radius_lat . '" data-ex_filter="' . $radius_lng . '">' . do_shortcode( $output ) . '</div>';
+		return '<div class="geot-ajax geot-filter" data-geo_mode="'. $radius_mode .'" data-action="radius_filter" data-filter="' . $radius_km . '" data-region="' . $radius_lat . '" data-ex_filter="' . $radius_lng . '">' . do_shortcode( $output ) . '</div>';
 	}
 
 }
