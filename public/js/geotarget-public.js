@@ -163,6 +163,7 @@
                         $('html').html(blocker);
                     }
                     console.log(response);
+                    let has_media = false;
                     if ( results && results.length ) {
                         for ( i = 0; i < results.length; ++i ) {
                             if ( results[i].action == 'menu_filter' ) {
@@ -181,7 +182,14 @@
                                 $('.' + results[i].id).remove();
                             } else if ( results[i].action.indexOf('filter' ) > -1) {
                                 if ( results[i].value == true ) {
-                                    var html = $('.' + results[i].id).html();
+
+                                    let audio_video = $('.' + results[i].id).find('audio.wp-audio-shortcode,video.wp-video-shortcode');
+
+                                    if(  audio_video.length ) {
+                                        $('.' + results[i].id).find('.mejs-container').replaceWith(audio_video);
+                                        has_media = true;
+                                    }
+                                    const html = $('.' + results[i].id).html();
                                     $('.' + results[i].id).replaceWith(html);
                                 }
                                 $('.' + results[i].id).remove();
@@ -189,6 +197,9 @@
                                 $('.' + results[i].id).replaceWith(results[i].value);
                             }
                         }
+                    }
+                    if( has_media ) {
+                        window.wp.mediaelement.initialize();
                     }
                     if (remove && remove.length) {
 
