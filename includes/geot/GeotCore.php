@@ -1047,6 +1047,8 @@ class GeotCore {
 		$c = 2 * asin( sqrt( $a ) );
 		$d = $earth_radius * $c;
 
+		$this->user_data[ $this->cache_key ]->distance = $d;
+
 		return $d;
 	}
 
