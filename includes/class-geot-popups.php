@@ -43,6 +43,7 @@ class Geot_Popups {
 		add_filter( 'wppopups_rules_rule_match_geot_state_region', [ self::class, 'rule_match_state_region' ] );
 		add_filter( 'wppopups_rules_rule_match_geot_zip_region', [ self::class, 'rule_match_zip_region' ] );
 		add_filter( 'wppopups_rules_rule_match_geot_city_region', [ self::class, 'rule_match_city_region' ] );
+		add_filter( 'wppopups_rules_rule_match_geot_radius', [ self::class, 'rule_match_radius' ] );
 
 		add_filter( 'wppopups_rules/rule_values/geot_country_region', [ self::class, 'rule_values_region' ]);
 		add_filter( 'wppopups_rules/rule_values/geot_city_region', [ self::class, 'rule_values_city_region' ]);
@@ -77,6 +78,7 @@ class Geot_Popups {
 			'geot_state'          => 'State',
 			'geot_city'           => 'City',
 			'geot_zip'            => 'Zip',
+			'geot_radius'         => 'Lat|Lng|Radius',
 		];
 
 		return $choices;
@@ -334,6 +336,27 @@ class Geot_Popups {
 
 		return ! in_array( strtolower( $country_code ), array_map( 'strtolower', toArray( $regions[$name] ) ) );
 	}
+
+	/**
+	 * rule_match_radius
+	 * @param $rule
+	 *
+	 * @return bool
+	 */
+	public static function rule_match_radius( $rule ) {
+		$array_value = array_map( 'trim', explode( '|', $rule['value'] ) );
+
+		// Lat|Lng|Radius(km)
+		if( count( $array_value ) != 3 )
+			return false;
+
+		if ( $rule['operator'] == '==' ) {
+			return ( geot_target_radius( $array_value[0], $array_value[1], $array_value[2] ) );
+		}
+
+		return ( ! geot_target_radius( $array_value[0], $array_value[1], $array_value[2] ) );
+	}
+
 	/**
 	 * rule_match_region
 	 * @param  ARRAY $rule
