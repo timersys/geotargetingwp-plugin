@@ -533,19 +533,25 @@ class GeotCore {
 				( ! isset( $this->opts['hosting_db'] ) && isset( $this->opts['kinsta'] ) && $this->opts['kinsta'] ) ||
 				isset( $this->opts['hosting_db'] ) && $this->opts['hosting_db']
 			) {
-				return $this->hosting_db();
+				if( ! apply_filters('geot/cancel_hosting_database_lookup', false ) ) {
+					return $this->hosting_db();
+				}
 			}
 
 			// maxmind ?
 			if ( isset( $this->opts['maxmind'] ) && $this->opts['maxmind'] ) {
-				$record = $this->maxmind();
-				$this->checkLocale();
+				if( ! apply_filters('geot/cancel_maxmind_database_lookup', false ) ) {
+					$record = $this->maxmind();
+					$this->checkLocale();
 
-				return $record;
+					return $record;
+				}
 			}
 			// ip2location ?
 			if ( isset( $this->opts['ip2location'] ) && $this->opts['ip2location'] ) {
-				return $this->ip2location();
+				if( ! apply_filters('geot/cancel_ip2location_database_lookup', false ) ) {
+					return $this->ip2location();
+				}
 			}
 			//last chance filter to cancel query and pass custom data
 			if ( ( $custom_data = apply_filters( 'geot/cancel_query', false ) ) ) {
