@@ -69,9 +69,9 @@ class GeotWP_Menus {
 		if ( isset( $_REQUEST['menu-item-geot'] ) && is_array( $_REQUEST['menu-item-geot'] ) ) {
 			$geot_value = $_REQUEST['menu-item-geot'][ $menu_item_db_id ];
 
-			$geot_value['city_region'] = $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['cities'];
-			$geot_value['state_region'] = $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['state_region'];
-			$geot_value['zip_region'] = $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['zipcodes'];
+			$geot_value['city_region'] = isset( $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['cities'] ) ? $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['cities'] : '';
+			$geot_value['state_region'] = isset( $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['state_region'] ) ? $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['state_region'] : '';
+			$geot_value['zip_region'] = isset( $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['zipcodes'] ) ? $_REQUEST['menu-item-geot'][ $menu_item_db_id ]['zipcodes'] : '';
 
 			update_post_meta( $menu_item_db_id, '_menu_item_geot', $geot_value );
 		}
