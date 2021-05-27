@@ -1151,17 +1151,18 @@ class GeotWP_R_ules {
 	 */
 	public static function rule_match_date( $rule ) {
 
-		$today = date( 'Y/m/d' );
+		$today = strtotime(date( 'Y/m/d' ));
+		$rule_value = strtotime($rule['value']);
 
 		switch ( $rule['operator'] ) {
 			case '==':
-				return ( $today == $rule['value'] );
+				return ( $today == $rule_value );
 			case '!=':
-				return ! ( $today == $rule['value'] );
+				return ! ( $today == $rule_value );
 			case '<':
-				return ( $today < $rule['value'] );
+				return ( $today < $rule_value );
 			case '>':
-				return ( $today > $rule['value'] );
+				return ( $today > $rule_value );
 		}
 
 	}
