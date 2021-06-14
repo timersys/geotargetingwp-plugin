@@ -102,7 +102,7 @@ class GeotWP_Divi {
 	 *
 	 * @return array
 	 */
-	static function format_regions( $check_multi, $separator = '|', $regions ) {
+	static function format_regions( $check_multi, $separator = '|', $regions = [] ) {
 
 		if ( empty( $check_multi ) || empty( $regions ) || strpos( $check_multi, $separator ) === false ) {
 			return [];

@@ -102,7 +102,11 @@ function get_current_url() {
 	}
 	
 	if( class_exists( 'Context_Weglot' ) ) {
-		return \Context_Weglot::weglot_get_context()->get_service('Request_Url_Service_Weglot')->get_weglot_url()->getForLanguage(weglot_get_current_language());
+		$url = \Context_Weglot::weglot_get_context()->get_service('Request_Url_Service_Weglot')->get_weglot_url()->getForLanguage(weglot_get_current_language());
+
+		if( !empty( $url ) ) {
+			return $url;
+		}
 	}
 	return ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' ? "https" : "http" ) . "://". ( isset( $_SERVER['HTTP_HOST'] ) ?  $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'] ) . $_SERVER['REQUEST_URI'];
 }
