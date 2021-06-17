@@ -3,8 +3,8 @@ Contributors: timersys
 Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
-Tested up to: 5.7.1
-Stable tag: 3.3.6
+Tested up to: 5.7.2
+Stable tag: 3.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,13 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.3.7 - June 17 2021 =
+* Fix: Geoblocker not excluding search engines
+* Fix: Media block elements not loading in ajax mode
+* Fix: Date time rules not working on some hosting enviroments
+* Fix: PHP 8 compatibility errors
+* Feature: Pantheon hosting cache by country support (beta)
+
 = 3.3.6 - May 4 2021 =
 * Feature: Added miles or km for radius
 * Feature: Changed geolocation overlay popup and made it translatable
