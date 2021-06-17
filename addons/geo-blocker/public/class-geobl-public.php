@@ -10,6 +10,7 @@
  * @subpackage Geobl/public
  */
 
+use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use function GeotCore\is_backend;
 use function GeotCore\is_builder;
 use function GeotCore\is_rest_request;
@@ -116,7 +117,13 @@ class GeotWP_Bl_Public {
 		if ( ! empty( $opts['whitelist'] ) && $this->user_is_whitelisted( $opts['whitelist'] ) ) {
 			return false;
 		}
-
+		// check for crawlers
+		if ( isset( $opts['exclude_se'] ) && 1 === absint( $opts['exclude_se'] ) ) {
+			$detect = new CrawlerDetect();
+			if ( $detect->isCrawler() ) {
+				return false;
+			}
+		}
 		// dont block on rest
 		if( is_rest_request() ) {
 			return false;
