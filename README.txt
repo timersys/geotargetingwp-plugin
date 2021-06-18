@@ -40,7 +40,7 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 = 3.3.7 - June 17 2021 =
 * Fix: Geoblocker not excluding search engines
 * Fix: Media block elements not loading in ajax mode
-* Fix: Date time rules not working on some hosting enviroments
+* Fix: Date time rules not working on some hosting environments
 * Fix: PHP 8 compatibility errors
 * Feature: Pantheon hosting cache by country support (beta)
 
