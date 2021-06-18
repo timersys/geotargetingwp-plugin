@@ -45,7 +45,9 @@ class GeotWP_Widgets {
 	}
 
 	public function add_geot_to_widgets( $t, $return, $instance ) {
-
+		if( isset( $_POST['action'] ) && 'so_panels_widget_form' == $_POST['action'] ) {
+			return;
+		}
 		$countries = geot_countries();
 		$regions   = geot_country_regions();
 
