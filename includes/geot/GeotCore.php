@@ -111,6 +111,16 @@ class GeotCore {
 		if ( empty( $this->opts['cache_mode'] ) ) {
 			add_filter('rocket_geotargetingwp_enabled_cookies', function(){ return [];});
 		}
+		// pantheon hosting
+		if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
+
+			add_filter('geot/settings_page/opts', function($settings) {
+
+				$settings['cookie_name'] = 'STYXKEY_geot_country';
+
+				return $settings;
+			});
+		}
 
 		if ( is_admin() ) {
 			new GeotNotices();
