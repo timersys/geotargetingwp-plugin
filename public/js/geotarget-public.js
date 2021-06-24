@@ -99,7 +99,7 @@
                 $('.geot-ajax').each(function () {
                     let _this = $(this);
                     if (_this.hasClass('geot_menu_item'))
-                        _this = $(this).find('a').first();
+                        _this = $(this).children().first();
 
                     if( _this.data('action') && _this.data('action').length ) {
                         const uniqid = GeotWP.getUniqueName('geot');
