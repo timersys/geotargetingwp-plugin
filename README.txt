@@ -4,7 +4,7 @@ Donate link: https://geotargetingwp.com/
 Tags: geotargeting, wordpress geotargeting, geolocation, geo target, geo targeting, ip geo detect, geo links, geo redirects
 Requires at least: 4.4
 Tested up to: 5.7.2
-Stable tag: 3.3.7
+Stable tag: 3.3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,12 @@ More info and docs on ([https://geotargetingwp.com/docs/](https://geotargetingwp
 
 
 == Changelog ==
+= 3.3.7.1=
+* Added Gtranslate ips to automatic exclusion list
+* Added megamenu fix where parent items where not being hide in AJAX mode
+* Added automatic detection of pantheon host
+
+
 = 3.3.7 - June 17 2021 =
 * Fix: Geoblocker not excluding search engines
 * Fix: Media block elements not loading in ajax mode
