@@ -397,7 +397,9 @@ class GeotCore {
 		}
 		// set locale on all records
 		foreach ( get_object_vars( $this->user_data[ $this->cache_key ] ) as $o ) {
-			$o->setDefaultLocale( $wp_locale );
+			if( method_exists( $o, 'setDefaultLocale') ) {
+				$o->setDefaultLocale( $wp_locale );
+			}
 		}
 	}
 
@@ -621,14 +623,7 @@ class GeotCore {
 	 */
 	private function check_active_user() {
 
-		if (
-			( ! isset( $this->opts['wpengine'] ) || $this->opts['wpengine'] != '1' )
-			&& ( ! isset( $this->opts['maxmind'] ) || $this->opts['maxmind'] != '1' )
-			&& ( ! isset( $this->opts['ip2location'] ) || $this->opts['ip2location'] != '1' )
-			&& ( ! isset( $this->opts['kinsta'] ) || $this->opts['kinsta'] != '1' )
-			&& ( ! isset( $this->opts['litespeed'] ) || $this->opts['litespeed'] != '1' )
-			&& ( ! isset( $this->opts['hosting_db'] ) || $this->opts['hosting_db'] != '1' )
-		) {
+		if ( ! geot_is_local() ) {
 			return true;
 		}
 

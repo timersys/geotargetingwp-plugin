@@ -220,3 +220,21 @@ if( ! function_exists('geot_dropdown') ) {
 		return $output;
 	}
 }
+
+/**
+ * @return bool
+ */
+function geot_is_local() {
+	$opts = geot_settings();
+	if (
+		( isset( $opts['wpengine'] ) && $opts['wpengine'] == '1' )
+		|| ( isset( $opts['maxmind'] ) && $opts['maxmind'] == '1' )
+		|| ( isset( $opts['ip2location'] ) && $opts['ip2location'] == '1' )
+		|| ( isset( $opts['kinsta'] ) && $opts['kinsta'] == '1' )
+		|| ( isset( $opts['litespeed'] ) && $opts['litespeed'] == '1' )
+		|| ( isset( $opts['hosting_db'] ) && $opts['hosting_db'] == '1' )
+	) {
+		return true;
+	}
+	return false;
+}
