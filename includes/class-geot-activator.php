@@ -31,12 +31,12 @@ class GeotWP_Activator {
 	 */
 	public static function activate() {
 
-		if ( version_compare( PHP_VERSION, '5.6' ) < 0 ) {
+		if ( version_compare( PHP_VERSION, '7.2.5' ) < 0 ) {
 
 			deactivate_plugins( GEOWP_PLUGIN_FILE );
 			wp_die(
-				'<p>' . __( 'Hey, we\'ve noticed that you\'re running an outdated version of PHP. PHP is the programming language that WordPress and this plugin are built on. The version that is currently used for your site is no longer supported. Newer versions of PHP are both faster and more secure. In fact, your version of PHP no longer receives security updates.' ) . '</p>' .
-				'<p>' . __( 'Geotargeting PRO requires at least PHP 5.6 and you are running PHP ' ) . PHP_VERSION . '</p>'
+				'<p>' . __( 'Hey, we\'ve noticed that you\'re running an outdated version of PHP. PHP is the programming language that WordPress and this plugin are built on. The version that is currently used for your site is no longer supported. Newer versions of PHP are both faster and more secure..' ) . '</p>' .
+				'<p>' . __( 'Geotargeting PRO requires at least PHP 7.2.5 and you are running PHP ' ) . PHP_VERSION . '</p>'
 			);
 		}
 		// deactivate lite

@@ -13,7 +13,7 @@ class GeotEmails {
 	 */
 	public static function OutOfQueriesException() {
 		if ( false === get_transient( 'geot_OutOfQueriesException' ) ) {
-			set_transient( 'geot_OutOfQueriesException', true, 2 * 3600 );
+			set_transient( 'geot_OutOfQueriesException', true, 4 * 3600 );
 			$message = sprintf( __( 'Your <a href="%s">GeotargetingWP account</a> have run out of requests. Please <a href="%s">renew your billing cycle</a> to continue using this plugin.', 'geot' ), 'https://geotargetingwp.com/dashboard/stats', 'https://geotargetingwp.com/dashboard/stats' );
 			$subject = __( 'Geotargeting plugin Error!', 'geot' );
 			$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
@@ -25,7 +25,7 @@ class GeotEmails {
 		if ( false === get_transient( 'geot_AuthenticationException' ) ) {
 			$args = geot_settings();
 			$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : gethostname();
-			set_transient( 'geot_AuthenticationException', true, 2 * 3600 );
+			set_transient( 'geot_AuthenticationException', true, DAY_IN_SECONDS );
 			$message = '<p>'. sprintf( __( 'Your <a href="%s">GeotargetingWP</a> license is wrong (%s). Please enter correct one to continue using the plugin on %s.', 'geot' ),
 				'https://geotargetingwp.com/dashboard/',
 				$args['license'],
@@ -40,7 +40,7 @@ class GeotEmails {
 	public static function InvalidSubscriptionException( $getMessage ) {
 		if ( false === get_transient( 'geot_InvalidSubscriptionException' ) ) {
 			$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : gethostname();
-			set_transient( 'geot_InvalidSubscriptionException', true, 2 * 3600 );
+			set_transient( 'geot_InvalidSubscriptionException', true, DAY_IN_SECONDS );
 			$message = sprintf( __( 'Your <a href="%s">GeotargetingWP</a> subscription is not active in %s. Api returned following error: %s.', 'geot' ),
 				'https://geotargetingwp.com/dashboard/',
 				$host,
