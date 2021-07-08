@@ -1,7 +1,10 @@
+<?php
+$settings = geotWPL_settings();
+?>
 <div class="geot-notice notice notice-error is-dismissible" data-notice-id="geolinks-cache">
 	<h3><i class=" dashicons-before dashicons-admin-site"></i> GeotWP_Links</h3>
 	<p><?php _e( 'We detected that your have a cache plugin active.', 'geot' ); ?></p>
-	<p><?php _e( 'Please be sure to whitelist the geol_cpt custom post type in your cache plugin.', 'geot' ); ?></p>
+	<p><?php echo sprintf( __( 'Please be sure to whitelist the Geolinks root url %s in your cache plugin.', 'geot' ), $settings['goto_page'] .'/' ); ?></p>
 </div>
 <script>
     jQuery(document).on('click', '.geot-notice .notice-dismiss', function () {
