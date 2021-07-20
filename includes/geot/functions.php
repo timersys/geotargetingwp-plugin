@@ -127,7 +127,10 @@ function is_rest_request() {
 
 	// (#4)
 	$rest_url = wp_parse_url( trailingslashit( rest_url( ) ) );
-	$current_url = wp_parse_url( add_query_arg( array( ) ) );
+	$current_url = wp_parse_url( get_current_url() );
+	if( ! is_array($rest_url) || ! is_array( $current_url) ) {
+		return false;
+	}
 	return strpos( rtrim($current_url['path'],'/'), rtrim($rest_url['path'],'/'), 0 ) === 0;
 }
 /**
