@@ -51,6 +51,7 @@ class GeotWP_Admin {
 
 		$post_types[] = 'geotr_cpt';
 		$post_types[] = 'geobl_cpt';
+		$post_types[] = 'wcgeoldelivery';
 
 		return $post_types;
 	}
