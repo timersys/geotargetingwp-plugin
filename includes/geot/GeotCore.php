@@ -518,7 +518,7 @@ class GeotCore {
 
 			// If user set cookie and not in debug mode. If we pass ip we are forcing to use ip instead of cookies. Eg in dropdown widget
 			if ( ! empty( $_COOKIE[ $this->opts['cookie_name'] ] ) && ! $force ) {
-				return $this->setData( $_COOKIE[ $this->opts['cookie_name'] ] );
+				return $this->setData( $_COOKIE[ $this->opts['cookie_name'] ], 'cookie' );
 			}
 
 			// If we already calculated on session return (if we are not calling by IP & if cache mode (sessions) is turned on)
@@ -709,7 +709,7 @@ class GeotCore {
 	 *
 	 * @return mixed
 	 */
-	public function setData( $iso_code ) {
+	public function setData( $iso_code, $scope = "bots" ) {
 
 		$record          = (object) [
 			'continent'   => new \StdClass(),
@@ -720,7 +720,7 @@ class GeotCore {
 		];
 		$record->country = $this->getCountryByIsoCode( $iso_code );
 
-		$this->user_data[ $this->cache_key ] = new GeotRecord( $record );
+		$this->user_data[ $this->cache_key ] = new GeotRecord( apply_filters('geot/set_data', $record, $scope ) );
 
 		return $this->user_data[ $this->cache_key ];
 	}
@@ -762,7 +762,7 @@ class GeotCore {
 			return new GeotRecord( $record );
 		}
 
-		return $this->setData( $this->opts['fallback_country'] );
+		return $this->setData( $this->opts['fallback_country'], 'fallback' );
 
 
 	}
