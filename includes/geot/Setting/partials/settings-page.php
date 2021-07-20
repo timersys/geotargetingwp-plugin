@@ -14,11 +14,19 @@ $defaults = [
 	'debug_mode'           => '0',
 	'var_ip'               => 'REMOTE_ADDR',
 	'geolocation'          => 'by_ip',
-	'force_geot'		   => '0',
+	'force_geot'           => '0',
 	'maxmind'              => '0',
 	'ip2location'          => '0',
 	'geot_uninstall'       => '',
 	'fallback_country_ips' => '',
+	'fallback_state'       => '',
+	'fallback_state_iso'   => '',
+	'fallback_city'        => '',
+	'fallback_zip'         => '',
+	'bots_state'           => '',
+	'bots_state_iso'       => '',
+	'bots_city'            => '',
+	'bots_zip'             => '',
 	'bots_country_ips'     => '',
 ];
 $opts     = wp_parse_args( $opts, apply_filters( 'geot/default_settings', $defaults ) );
@@ -91,13 +99,13 @@ use function GeotCore\hosting_has_db; ?>
 						<?php
 						// we use to have wpengine,litespeed and kinsta, but because they keep changing variables we are going to check everything
 						// in a whole and rename it to hosting_db . But we need to keep it working for old install
-						if(! isset($opts['hosting_db']) && isset($opts['wpengine']) && '1' == $opts['wpengine'] ) {
+						if ( ! isset( $opts['hosting_db'] ) && isset( $opts['wpengine'] ) && '1' == $opts['wpengine'] ) {
 							$opts['hosting_db'] = 1;
 						}
-						if( ! isset($opts['hosting_db']) && isset($opts['kinsta']) && '1' == $opts['kinsta'] ) {
+						if ( ! isset( $opts['hosting_db'] ) && isset( $opts['kinsta'] ) && '1' == $opts['kinsta'] ) {
 							$opts['hosting_db'] = 1;
 						}
-						if( ! isset($opts['hosting_db']) && isset($opts['litespeed']) && '1' == $opts['litespeed'] ) {
+						if ( ! isset( $opts['hosting_db'] ) && isset( $opts['litespeed'] ) && '1' == $opts['litespeed'] ) {
 							$opts['hosting_db'] = 1;
 						}
 						?>
@@ -121,13 +129,13 @@ use function GeotCore\hosting_has_db; ?>
 				<td colspan="3">
 					<select name="geot_settings[geolocation]" id="geolocation">
 						<option value="by_ip" <?php selected( $opts['geolocation'], 'by_ip' ); ?>>
-							<?php esc_html_e('IP Geolocation','geot'); ?>
+							<?php esc_html_e( 'IP Geolocation', 'geot' ); ?>
 						</option>
 						<option value="by_html5_mobile" <?php selected( $opts['geolocation'], 'by_html5_mobile' ); ?>>
-							<?php esc_html_e('GPS HTML5 Geolocation for Mobile + Ip Geolocation for desktop (ajax mode only)','geot'); ?>
+							<?php esc_html_e( 'GPS HTML5 Geolocation for Mobile + Ip Geolocation for desktop (ajax mode only)', 'geot' ); ?>
 						</option>
 						<option value="by_html5" <?php selected( $opts['geolocation'], 'by_html5' ); ?>>
-							<?php esc_html_e('GPS HTML5 Geolocation for Mobile and Desktop (ajax mode only)','geot'); ?>
+							<?php esc_html_e( 'GPS HTML5 Geolocation for Mobile and Desktop (ajax mode only)', 'geot' ); ?>
 						</option>
 					</select>
 					<p class="help"><?php esc_html_e( 'If you choose HTML5 Geolocation and the user doesn\'t give consent, it will fallback to IP geolocation.', 'geot' ); ?></p>
@@ -144,8 +152,8 @@ use function GeotCore\hosting_has_db; ?>
 			</tr>
 
 
-
-			<tr valign="top" class="force_geot_field" style="<?php echo ! isset( $opts['geolocation'] ) || ( $opts['geolocation'] != 'by_html5_mobile' && $opts['geolocation'] != 'by_html5') ? 'display:none;' : ''; ?>">
+			<tr valign="top" class="force_geot_field"
+			    style="<?php echo ! isset( $opts['geolocation'] ) || ( $opts['geolocation'] != 'by_html5_mobile' && $opts['geolocation'] != 'by_html5' ) ? 'display:none;' : ''; ?>">
 				<th><label for="force_geot"><?php _e( 'Force GPS Geolocation', 'geot' ); ?></label></th>
 				<td colspan="3">
 					<input type="checkbox" id="force_geot" name="geot_settings[force_geot]"
@@ -173,7 +181,11 @@ use function GeotCore\hosting_has_db; ?>
 					<p class="help"><?php printf( __( 'You can check your real IP in  <a href="%s">%s</a>. That IP should match with the one you see in here.', 'geot' ), 'https://geotargetingwp.com/ip', 'https://geotargetingwp.com/ip' ); ?></p>
 				</td>
 			</tr>
-
+			<tr valign="top" class="geot-settings-title">
+				<th colspan="2"><h3><?php _e( 'Fallback settings:', 'geot' ); ?></h3>
+					<p class="help"><?php _e( 'If the user IP is not detected, or the user IP is in the box below it will resolve to the following location ', 'geot' ); ?></p>
+				</th>
+			</tr>
 			<tr valign="top" class="">
 				<th><label for="region"><?php _e( 'Fallback Country', 'geot' ); ?></label></th>
 				<td colspan="3">
@@ -190,7 +202,35 @@ use function GeotCore\hosting_has_db; ?>
 						?>
 					</select>
 
-					<p class="help"><?php _e( 'If the user IP is not detected, the plugin will fallback to this country', 'geot' ); ?></p>
+
+				</td>
+			</tr>
+			<tr valign="top" class="">
+				<th><label for="license"><?php _e( 'State', 'geot' ); ?></label></th>
+
+				<td colspan="3" class="geot_flex">
+					<div>
+						<div>Name</div>
+						<input type="text" id="license" name="geot_settings[fallback_state]"
+						       value="<?php echo $opts['fallback_state']; ?>"/></div>
+					<div>
+						<div>Code</div>
+						<input type="text" id="license" name="geot_settings[fallback_state_iso]"
+						       value="<?php echo $opts['fallback_state_iso']; ?>"/></div>
+				</td>
+			</tr>
+			<tr valign="top" class="">
+				<th><label for="license"><?php _e( 'City', 'geot' ); ?></label></th>
+
+				<td colspan="3" class="geot_flex">
+					<div>
+						<div>Name</div>
+						<input type="text" id="license" name="geot_settings[fallback_city]"
+						       value="<?php echo $opts['fallback_city']; ?>"/></div>
+					<div>
+						<div>Zip Code</div>
+						<input type="text" id="license" name="geot_settings[fallback_zip]"
+						       value="<?php echo $opts['fallback_zip']; ?>"/></div>
 				</td>
 			</tr>
 			<tr valign="top" class="">
@@ -201,6 +241,11 @@ use function GeotCore\hosting_has_db; ?>
 					<p class="help"><?php _e( 'Enter Ip addresses one by line and they will be resolved to the fallback country you choose and won\'t spend requests. You current Ip is: ', 'geot' );
 						echo \GeotWP\getUserIP(); ?></p>
 				</td>
+			</tr>
+			<tr valign="top" class="geot-settings-title">
+				<th colspan="2"><h3><?php _e( 'Crawler settings:', 'geot' ); ?></h3>
+					<p class="help"><?php _e( 'If a crawler is detected, or the IP exist in the box below we will assign the following location', 'geot' ); ?></p>
+				</th>
 			</tr>
 			<tr valign="top" class="">
 				<th><label for="bots"><?php _e( 'Bots Country', 'geot' ); ?></label></th>
@@ -217,7 +262,34 @@ use function GeotCore\hosting_has_db; ?>
 						?>
 					</select>
 
-					<p class="help"><?php _e( 'All bots/crawlers will be treated as they were from this country. ', 'geot' ); ?></p>
+				</td>
+			</tr>
+			<tr valign="top" class="">
+				<th><label for="license"><?php _e( 'State', 'geot' ); ?></label></th>
+
+				<td colspan="3" class="geot_flex">
+					<div>
+						<div>Name</div>
+						<input type="text" id="license" name="geot_settings[bots_state]"
+						       value="<?php echo $opts['bots_state']; ?>"/></div>
+					<div>
+						<div>Code</div>
+						<input type="text" id="license" name="geot_settings[bots_state_iso]"
+						       value="<?php echo $opts['bots_state_iso']; ?>"/></div>
+				</td>
+			</tr>
+			<tr valign="top" class="">
+				<th><label for="license"><?php _e( 'City', 'geot' ); ?></label></th>
+
+				<td colspan="3" class="geot_flex">
+					<div>
+						<div>Name</div>
+						<input type="text" id="license" name="geot_settings[bots_city]"
+						       value="<?php echo $opts['bots_city']; ?>"/></div>
+					<div>
+						<div>Zip Code</div>
+						<input type="text" id="license" name="geot_settings[bots_zip]"
+						       value="<?php echo $opts['bots_zip']; ?>"/></div>
 				</td>
 			</tr>
 			<tr valign="top" class="">

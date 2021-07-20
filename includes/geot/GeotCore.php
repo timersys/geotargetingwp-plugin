@@ -711,16 +711,32 @@ class GeotCore {
 	 */
 	public function setData( $iso_code, $scope = "bots" ) {
 
-		$record          = (object) [
-			'continent'   => new \StdClass(),
-			'country'     => new \StdClass(),
-			'state'       => new \StdClass(),
-			'city'        => new \StdClass(),
-			'geolocation' => new \StdClass(),
-		];
-		$record->country = $this->getCountryByIsoCode( $iso_code );
+		$state = ! empty( $this->opts['fallback_state'] ) ?  $this->opts['fallback_state'] : '';
+		$state_code = ! empty( $this->opts['fallback_state_iso'] ) ?  $this->opts['fallback_state_iso'] : '';
+		$city = ! empty( $this->opts['fallback_city'] ) ?  $this->opts['fallback_city'] : '';
+		$zip = ! empty( $this->opts['fallback_zip'] ) ?  $this->opts['fallback_zip'] : '';
 
-		$this->user_data[ $this->cache_key ] = new GeotRecord( apply_filters('geot/set_data', $record, $scope ) );
+		if( 'bots' == $scope ) {
+			$state = ! empty( $this->opts['bots_state'] ) ?  $this->opts['bots_state'] : '';
+			$state_code = ! empty( $this->opts['bots_state_iso'] ) ?  $this->opts['bots_state_iso'] : '';
+			$city = ! empty( $this->opts['bots_city'] ) ?  $this->opts['bots_city'] : '';
+			$zip = ! empty( $this->opts['bots_zip'] ) ?  $this->opts['bots_zip'] : '';
+		}
+
+		$data = [];
+		$data['city']['names']                 = [ 'en' => $city];
+		$data['city']['zip']                   = $zip;
+		$data['continent']['names']            = '';
+		$data['continent']['iso_code']         = '';
+		$data['country']                       = $this->getCountryByIsoCode( $iso_code );
+		$data['state']['iso_code']             = $state_code;
+		$data['state']['names']                = [ 'en' => $state];
+		$data['geolocation']['latitude']       = '11.11';
+		$data['geolocation']['longitude']      = '11.11';
+		$data['geolocation']['accuracy_radius']= '100';
+		$data['geolocation']['time_zone']      = 'UTC';
+
+		$this->user_data[ $this->cache_key ] = new GeotRecord( apply_filters('geot/set_data',  json_decode( json_encode( $data ) ), $scope ) );
 
 		return $this->user_data[ $this->cache_key ];
 	}

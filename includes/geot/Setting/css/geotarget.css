@@ -194,9 +194,27 @@ tr.geot-settings-title th {
 
 .geot-settings .selectize-control,
 .geot-settings textarea {
-    width: 42%;
+    width: 100%;
+    max-width: 800px;
 }
-
+.geot_flex{
+    display: flex;
+    align-items: center;
+    max-width: 800px;
+    width: 100%;
+    justify-content: space-between;
+}
+.geot_flex div{
+    width: 45%;
+    display: flex;
+    align-items: center;
+}
+.geot_flex div div{
+    width: 20%;
+}
+.geot_flex div input{
+    width: 80%;
+}
 .selectize-control {
     margin: 20px 0;
 }
