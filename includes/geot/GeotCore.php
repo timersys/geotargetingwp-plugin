@@ -632,6 +632,10 @@ class GeotCore {
 		}
 
 		if ( false === ( $active_user = get_site_transient( 'geot_active_user' ) ) ) {
+			// use a lottery to send request to avoid multiple requests on heavy traffic sites:
+			if( random_int( 1, 5 ) <= 1) {
+				return true;
+			}
 			// It wasn't there, so regenerate the data and save the transient
 			$active_user = GeotargetingWP::checkSubscription( $this->opts['license'] );
 			$result      = json_decode( $active_user );
